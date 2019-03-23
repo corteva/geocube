@@ -1,0 +1,15 @@
+# Configuration file for creating a Conda Environment with dependencies needed for geocube.
+# Create the environment by running the following command (after installing Miniconda):
+#   $ conda env create -f environment.yml
+
+name: geocube
+channels:
+- conda-forge
+dependencies:
+- datacube=1.6.*
+- gdal=2.4.*
+- geopandas
+- libgdal=2.4.*
+- rasterio=1.0.*
+- scipy
+- xarray
