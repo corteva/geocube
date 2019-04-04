@@ -1,0 +1,171 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>geocube.api.core &#8212; geocube 0.0.2 documentation</title>
+    <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">geocube 0.0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for geocube.api.core</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -- coding: utf-8 --</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">GeoCube client core functionality</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">geocube.geo_utils.geobox</span> <span class="k">import</span> <span class="n">GeoBoxMaker</span>
+<span class="kn">from</span> <span class="nn">geocube.vector_to_cube</span> <span class="k">import</span> <span class="n">VectorToCube</span>
+
+
+<div class="viewcode-block" id="make_geocube"><a class="viewcode-back" href="../../../geocube.api.html#geocube.api.core.make_geocube">[docs]</a><span class="k">def</span> <span class="nf">make_geocube</span><span class="p">(</span>
+    <span class="n">vector_data</span><span class="p">,</span>  <span class="c1"># pylint: disable=too-many-arguments</span>
+    <span class="n">measurements</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">datetime_measurements</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">output_crs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">align</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">geom</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">like</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">group_by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">interpolate_na_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">categorical_enums</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>  <span class="c1"># NOSONAR</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rasterize vector data into an ``xarray`` object.  Each attribute will be a data</span>
+<span class="sd">    variable in the :class:`xarray.Dataset`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vector_data: str or :obj:`geopandas.GeoDataFrame`</span>
+<span class="sd">        A file path to an OGR supported source or GeoDataFrame containing</span>
+<span class="sd">        the vector data.</span>
+<span class="sd">    measurements: list(str), optional</span>
+<span class="sd">        Attributes name or list of names to be included. If a list is specified,</span>
+<span class="sd">        the attributes will be returned in the order requested.</span>
+<span class="sd">        By default all available attributes are included.</span>
+<span class="sd">    datetime_measurements: list(str), optional</span>
+<span class="sd">        Attributes that are temporal in nature and should be converted to the datetime</span>
+<span class="sd">        format. These are only included if listed in &#39;measurements&#39;.</span>
+<span class="sd">    output_crs: str, optional</span>
+<span class="sd">        The CRS of the returned data.  If no CRS is supplied, the CRS of the</span>
+<span class="sd">        stored data is used.</span>
+<span class="sd">    resolution: (float,float), optional</span>
+<span class="sd">        A tuple of the spatial resolution of the returned data.</span>
+<span class="sd">        This includes the direction (as indicated by a positive or negative number).</span>
+<span class="sd">        Typically when using most CRSs, the first number would be negative.</span>
+<span class="sd">    align: (float,float), optional</span>
+<span class="sd">        Load data such that point &#39;align&#39; lies on the pixel boundary.</span>
+<span class="sd">        Units are in the co-ordinate space of the output CRS.</span>
+<span class="sd">        Default is (0,0)</span>
+<span class="sd">    geom: str, optional</span>
+<span class="sd">        A GeoJSON string for the bounding box of the data used to construct the</span>
+<span class="sd">        grid.</span>
+<span class="sd">    like: :obj:`xarray.Dataset`, optional</span>
+<span class="sd">        Uses the output of a previous ``load()`` to form the basis of a request</span>
+<span class="sd">        for another product.</span>
+<span class="sd">        E.g.::</span>
+
+<span class="sd">            gcds = make_geocube(vector_data=&#39;my_vector.geopackage&#39;, like=other_gcds)</span>
+
+<span class="sd">    fill: float, optional</span>
+<span class="sd">        The value to fill in the grid with for nodata. Default is -9999.0.</span>
+<span class="sd">    group_by: str, optional</span>
+<span class="sd">        When specified, perform basic combining/reducing of the data on this column.</span>
+<span class="sd">    interpolate_na_method:  {‘linear’, ‘nearest’, ‘cubic’}, optional</span>
+<span class="sd">        This is the method for interpolation to use to fill in the nodata with</span>
+<span class="sd">        :meth:`scipy.interpolate.griddata`.</span>
+<span class="sd">    categorical_enums: dict, optional</span>
+<span class="sd">        A dictionary of all categories for the table columns containing categorical</span>
+<span class="sd">        data.</span>
+<span class="sd">        E.g. {&#39;column_name&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;other_column&#39;: [&#39;c&#39;, &#39;d&#39;]}</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    --------</span>
+<span class="sd">    :obj:`xarray.Dataset`:</span>
+<span class="sd">        Requested data in a :obj:`xarray.Dataset`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">geobox_maker</span> <span class="o">=</span> <span class="n">GeoBoxMaker</span><span class="p">(</span><span class="n">output_crs</span><span class="p">,</span> <span class="n">resolution</span><span class="p">,</span> <span class="n">align</span><span class="p">,</span> <span class="n">geom</span><span class="p">,</span> <span class="n">like</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">VectorToCube</span><span class="p">(</span>
+        <span class="n">vector_data</span><span class="o">=</span><span class="n">vector_data</span><span class="p">,</span>
+        <span class="n">geobox_maker</span><span class="o">=</span><span class="n">geobox_maker</span><span class="p">,</span>
+        <span class="n">fill</span><span class="o">=</span><span class="n">fill</span><span class="p">,</span>
+        <span class="n">categorical_enums</span><span class="o">=</span><span class="n">categorical_enums</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">make_geocube</span><span class="p">(</span>
+        <span class="n">measurements</span><span class="o">=</span><span class="n">measurements</span><span class="p">,</span>
+        <span class="n">datetime_measurements</span><span class="o">=</span><span class="n">datetime_measurements</span><span class="p">,</span>
+        <span class="n">group_by</span><span class="o">=</span><span class="n">group_by</span><span class="p">,</span>
+        <span class="n">interpolate_na_method</span><span class="o">=</span><span class="n">interpolate_na_method</span><span class="p">,</span>
+    <span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">geocube 0.0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Geocube Contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>

@@ -1,5 +1,4 @@
 import os
-from glob import glob
 
 import numpy
 import pytest
@@ -123,7 +122,7 @@ def _assert_xarrays_equal(input_xarray, compare_xarray, precision=7):
                 try:
                     assert input_xr.attrs[attr] == compare_xr.attrs[attr]
                 except ValueError:
-                    assert_array_equal(input_xr.attrs[attr], compare_xr.attrs[attr])
+                    assert_almost_equal(input_xr.attrs[attr], compare_xr.attrs[attr])
 
     assert_attrs_equal(input_xarray, compare_xarray)
     if hasattr(input_xarray, "variables"):
@@ -302,7 +301,7 @@ def test_transform_bounds():
             " +datum=WGS84 +units=m +no_defs",
             densify_pts=100,
         )
-        assert_array_equal(
+        assert_almost_equal(
             bounds,
             (
                 -10374232.525903117,

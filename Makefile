@@ -50,7 +50,7 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 lint: ## check style with flake8
-	flake8 geocube test
+	flake8 geocube test --max-line-length 88
 	black --check .
 
 check:

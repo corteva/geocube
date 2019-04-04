@@ -1,0 +1,321 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>geocube package &#8212; geocube 0.0.2 documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="geocube.api package" href="geocube.api.html" />
+    <link rel="prev" title="API Documentation" href="modules.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="geocube.api.html" title="geocube.api package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="API Documentation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">geocube 0.0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">API Documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="geocube-package">
+<h1>geocube package<a class="headerlink" href="#geocube-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-geocube.exceptions">
+<span id="geocube-exceptions-module"></span><h2>geocube.exceptions module<a class="headerlink" href="#module-geocube.exceptions" title="Permalink to this headline">¶</a></h2>
+<p>This contains exceptions for GeoCube.</p>
+<dl class="exception">
+<dt id="geocube.exceptions.GeoCubeError">
+<em class="property">exception </em><code class="descclassname">geocube.exceptions.</code><code class="descname">GeoCubeError</code><a class="reference internal" href="_modules/geocube/exceptions.html#GeoCubeError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.exceptions.GeoCubeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+<p>Base GeoCube exception class.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="geocube.exceptions.NoDataInBounds">
+<em class="property">exception </em><code class="descclassname">geocube.exceptions.</code><code class="descname">NoDataInBounds</code><a class="reference internal" href="_modules/geocube/exceptions.html#NoDataInBounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.exceptions.NoDataInBounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#geocube.exceptions.RioXarrayError" title="geocube.exceptions.RioXarrayError"><code class="xref py py-class docutils literal notranslate"><span class="pre">geocube.exceptions.RioXarrayError</span></code></a></p>
+<p>This is for when there are no data in the bounds for clipping a raster.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="geocube.exceptions.OneDimensionalRaster">
+<em class="property">exception </em><code class="descclassname">geocube.exceptions.</code><code class="descname">OneDimensionalRaster</code><a class="reference internal" href="_modules/geocube/exceptions.html#OneDimensionalRaster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.exceptions.OneDimensionalRaster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#geocube.exceptions.RioXarrayError" title="geocube.exceptions.RioXarrayError"><code class="xref py py-class docutils literal notranslate"><span class="pre">geocube.exceptions.RioXarrayError</span></code></a></p>
+<p>This is an error when you have a 1 dimensional raster.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="geocube.exceptions.RioXarrayError">
+<em class="property">exception </em><code class="descclassname">geocube.exceptions.</code><code class="descname">RioXarrayError</code><a class="reference internal" href="_modules/geocube/exceptions.html#RioXarrayError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.exceptions.RioXarrayError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+<p>This is the base exception for errors in the rioxarray extension.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="geocube.exceptions.SingleVariableDataset">
+<em class="property">exception </em><code class="descclassname">geocube.exceptions.</code><code class="descname">SingleVariableDataset</code><a class="reference internal" href="_modules/geocube/exceptions.html#SingleVariableDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.exceptions.SingleVariableDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#geocube.exceptions.RioXarrayError" title="geocube.exceptions.RioXarrayError"><code class="xref py py-class docutils literal notranslate"><span class="pre">geocube.exceptions.RioXarrayError</span></code></a></p>
+<p>This is for when you have a dataset with a single variable.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="geocube.exceptions.VectorDataError">
+<em class="property">exception </em><code class="descclassname">geocube.exceptions.</code><code class="descname">VectorDataError</code><a class="reference internal" href="_modules/geocube/exceptions.html#VectorDataError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.exceptions.VectorDataError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#geocube.exceptions.GeoCubeError" title="geocube.exceptions.GeoCubeError"><code class="xref py py-class docutils literal notranslate"><span class="pre">geocube.exceptions.GeoCubeError</span></code></a></p>
+<p>This is for errors in the vector data passed into GeoCube.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-geocube.logger">
+<span id="geocube-logger-module"></span><h2>geocube.logger module<a class="headerlink" href="#module-geocube.logger" title="Permalink to this headline">¶</a></h2>
+<p>This contains methods for logging for GeoCube</p>
+<p>Credits: Adopted from quest python library</p>
+<dl class="function">
+<dt id="geocube.logger.get_logger">
+<code class="descclassname">geocube.logger.</code><code class="descname">get_logger</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/logger.html#get_logger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.logger.get_logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the logger for GeoCube</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Logger</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="geocube.logger.log_to_console">
+<code class="descclassname">geocube.logger.</code><code class="descname">log_to_console</code><span class="sig-paren">(</span><em>status=True</em>, <em>level=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/logger.html#log_to_console"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.logger.log_to_console" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log events to the console.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>status</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=True</em>) – Whether logging to console should be turned on(True) or off(False)</li>
+<li><strong>level</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Level of logging; whichever level is chosen all higher levels
+will be logged. See: <a class="reference external" href="https://docs.python.org/2/library/logging.html#levels">https://docs.python.org/2/library/logging.html#levels</a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="geocube.logger.log_to_file">
+<code class="descclassname">geocube.logger.</code><code class="descname">log_to_file</code><span class="sig-paren">(</span><em>status=True</em>, <em>filename=None</em>, <em>level=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/logger.html#log_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.logger.log_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log events to a file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>status</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=True</em>) – Whether logging to console should be turned on(True) or off(False)</li>
+<li><strong>filename</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – path of file to log to</li>
+<li><strong>level</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Level of logging; whichever level is chosen all higher levels
+will be logged. See: <a class="reference external" href="https://docs.python.org/2/library/logging.html#levels">https://docs.python.org/2/library/logging.html#levels</a></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="geocube.logger.set_log_level">
+<code class="descclassname">geocube.logger.</code><code class="descname">set_log_level</code><span class="sig-paren">(</span><em>level=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/logger.html#set_log_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.logger.set_log_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the log level of the logger.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>level</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Level of logging; whichever level is chosen all higher levels
+will be logged. See: <a class="reference external" href="https://docs.python.org/2/library/logging.html#levels">https://docs.python.org/2/library/logging.html#levels</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-geocube.rasterize">
+<span id="geocube-rasterize-module"></span><h2>geocube.rasterize module<a class="headerlink" href="#module-geocube.rasterize" title="Permalink to this headline">¶</a></h2>
+<p>This module contains tools for rasterizing vector data.</p>
+<dl class="function">
+<dt id="geocube.rasterize.rasterize_image">
+<code class="descclassname">geocube.rasterize.</code><code class="descname">rasterize_image</code><span class="sig-paren">(</span><em>geojson_shapes</em>, <em>data_values</em>, <em>geobox</em>, <em>fill=-9999.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/rasterize.html#rasterize_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.rasterize.rasterize_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rasterize a list of shapes+values for a given GeoBox.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>geojson_shapes</strong> (<em>list</em>) – List of geojson shapes to rasterize.</li>
+<li><strong>data_values</strong> (<em>list</em>) – Data values associated with the list of geojson shapes</li>
+<li><strong>geobox</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">datacube.utils.geometry.GeoBox</span></code>) – Transform of the resulting image.</li>
+<li><strong>fill</strong> (<em>float</em><em>, </em><em>optional</em>) – The value to fill in the grid with for nodata. Default is -9999.0.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The vector data in the rasterized format.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> or None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-geocube.vector_to_cube">
+<span id="geocube-vector-to-cube-module"></span><h2>geocube.vector_to_cube module<a class="headerlink" href="#module-geocube.vector_to_cube" title="Permalink to this headline">¶</a></h2>
+<p>geocube core conversion functionality</p>
+<dl class="class">
+<dt id="geocube.vector_to_cube.VectorToCube">
+<em class="property">class </em><code class="descclassname">geocube.vector_to_cube.</code><code class="descname">VectorToCube</code><span class="sig-paren">(</span><em>vector_data</em>, <em>geobox_maker</em>, <em>fill=None</em>, <em>categorical_enums=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/vector_to_cube.html#VectorToCube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.vector_to_cube.VectorToCube" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Tool that facilitates converting vector data to raster data into
+an <code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.DataFrame</span></code>.</p>
+<dl class="method">
+<dt id="geocube.vector_to_cube.VectorToCube.make_geocube">
+<code class="descname">make_geocube</code><span class="sig-paren">(</span><em>measurements=None</em>, <em>datetime_measurements=None</em>, <em>group_by=None</em>, <em>interpolate_na_method=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/vector_to_cube.html#VectorToCube.make_geocube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.vector_to_cube.VectorToCube.make_geocube" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rasterize vector data into an <code class="docutils literal notranslate"><span class="pre">xarray</span></code> object.  Each measurement will be a
+data variable in the <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>.</p>
+<p>See the <a class="reference external" href="http://xarray.pydata.org">xarray documentation</a>
+for usage of the <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> objects.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>measurements</strong> (<em>list</em><em>(</em><em>str</em><em>)</em><em>, </em><em>optional</em>) – Attributes name or list of names to be included. If a list is specified,
+the measurements will be returned in the order requested.
+By default all available measurements are included.</li>
+<li><strong>datetime_measurements</strong> (<em>list</em><em>(</em><em>str</em><em>)</em><em>, </em><em>optional</em>) – Attributes that are temporal in nature and should be converted to the
+datetime format. These are only included if listed in ‘measurements’.</li>
+<li><strong>group_by</strong> (<em>str</em><em>, </em><em>optional</em>) – When specified, perform basic combining/reducing of the data on this column.</li>
+<li><strong>interpolate_na_method</strong> (<em>{‘linear’</em><em>, </em><em>‘nearest’</em><em>, </em><em>‘cubic’}</em><em>, </em><em>optional</em>) – This is the method for interpolation to use to fill in the nodata with
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">scipy.interpolate.griddata()</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Requested data in a <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">geocube package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-geocube.exceptions">geocube.exceptions module</a></li>
+<li><a class="reference internal" href="#module-geocube.logger">geocube.logger module</a></li>
+<li><a class="reference internal" href="#module-geocube.rasterize">geocube.rasterize module</a></li>
+<li><a class="reference internal" href="#module-geocube.vector_to_cube">geocube.vector_to_cube module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="previous chapter">API Documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="geocube.api.html"
+                        title="next chapter">geocube.api package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/geocube.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="geocube.api.html" title="geocube.api package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="API Documentation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">geocube 0.0.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >API Documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Geocube Contributors.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>

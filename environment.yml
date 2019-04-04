@@ -5,7 +5,9 @@
 name: geocube
 channels:
 - conda-forge
+- defaults
 dependencies:
+- python=3.6
 - datacube=1.6.*
 - gdal=2.4.*
 - geopandas

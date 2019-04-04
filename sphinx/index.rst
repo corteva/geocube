@@ -1,6 +1,8 @@
 Welcome to geocube's documentation!
 ======================================
 
+GitHub: http://github.com/corteva/geocube
+
 .. toctree::
    :maxdepth: 1
    :caption: Contents:

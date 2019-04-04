@@ -113,3 +113,6 @@ test-reports/
 
 # vscode
 .vscode/
+
+# docs
+docs/doctrees/

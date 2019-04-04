@@ -20,7 +20,7 @@ requirements = [
     "xarray",
 ]
 
-test_requirements = ["pytest", "mock"]
+test_requirements = ["pytest>=3.6", "pytest-cov", "mock"]
 
 extras_require = {
     "dev": test_requirements
