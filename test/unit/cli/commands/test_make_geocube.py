@@ -70,7 +70,7 @@ LIKE_PATH = os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc")
         ),
     ],
 )
-@patch("geocube.cli.commands.make_geocube.make_geocube")
+@patch("geocube.cli.commands.make_geocube.core.make_geocube")
 def test_make_geocube_params(make_geocube_mock, params, called_with):
     with patch("geocube.cli.commands.make_geocube.click.Path"):
         cmd_out = CliRunner().invoke(

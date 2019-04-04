@@ -6,7 +6,7 @@ The CLI interface to the load module for GeoCube
 import click
 import xarray
 
-from geocube.api.core import make_geocube
+from geocube.api import core
 
 
 @click.command(name="make-geocube")
@@ -107,7 +107,7 @@ def make_geocube(
     if like is not None:
         like = xarray.open_dataset(like, autoclose=True)
     try:
-        gcds = make_geocube(
+        gcds = core.make_geocube(
             vector_data=vector_data,
             measurements=measurements,
             output_crs=output_crs,
