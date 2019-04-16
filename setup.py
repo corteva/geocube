@@ -16,7 +16,7 @@ requirements = [
     "datacube~=1.6.2",
     "geopandas",
     "rasterio",
-    "scipy",
+    "rioxarray",
     "xarray",
 ]
 

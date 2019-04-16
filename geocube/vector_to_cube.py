@@ -10,7 +10,7 @@ from shapely.geometry import mapping
 from geocube.geo_utils.geobox import load_vector_data
 from geocube.logger import get_logger
 from geocube.rasterize import rasterize_image
-from geocube.xarray_extensions.rioxarray import (
+from rioxarray.rioxarray import (
     DEFAULT_GRID_MAP,
     add_spatial_ref,
     add_xy_grid_meta,

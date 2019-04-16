@@ -6,11 +6,11 @@ import json
 
 import geopandas as gpd
 import numpy
+import rioxarray  # noqa
 from datacube.utils import geometry
 from rasterio.crs import CRS
 from shapely.geometry import box, mapping
 
-import geocube.xarray_extensions  # noqa
 from geocube.exceptions import VectorDataError
 from geocube.geo_utils.crs import crs_to_wkt
 from geocube.logger import get_logger
