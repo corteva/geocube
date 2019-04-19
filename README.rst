@@ -6,6 +6,11 @@ Tool to convert geopandas vector data into rasterized xarray data.
 
 Documentation: https://corteva.github.io/geocube
 
+
+.. image:: https://badges.gitter.im/corteva--geocube/community.svg
+   :alt: Join the chat at https://gitter.im/corteva--geocube/community
+   :target: https://gitter.im/corteva--geocube/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+
 .. image:: https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg
     :target: https://github.com/corteva/geocube/blob/master/LICENSE
 
