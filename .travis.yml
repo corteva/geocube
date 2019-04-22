@@ -42,6 +42,7 @@ install:
 script:
 - py.test --cov-report term-missing --cov=geocube
 - make check
+- geocube --version
 
 after_success:
   # Coveralls stats for code coverage

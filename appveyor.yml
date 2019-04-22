@@ -23,7 +23,7 @@ install:
 #-------------------------------------------------------------------------------
 # Install geocube
 #-------------------------------------------------------------------------------
-  - pip install -e .[all]
+  - pip install .[all]
 
 build: false
 
@@ -32,3 +32,4 @@ test_script:
   - flake8 --ignore=E731,W503,W504 --exclude --max-complexity 10 --max-line-length 88 geocube/
   - flake8 --max-line-length 88 tests/unit/ tests/functional/ tests/integration
   - black --check .
+  - geocube --version
