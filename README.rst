@@ -17,6 +17,9 @@ Documentation: https://corteva.github.io/geocube
 .. image:: https://img.shields.io/pypi/v/geocube.svg
     :target: https://pypi.python.org/pypi/geocube
 
+.. image:: https://img.shields.io/conda/vn/conda-forge/geocube.svg
+    :target: https://anaconda.org/conda-forge/geocube
+
 .. image:: https://travis-ci.com/corteva/geocube.svg?branch=master
     :target: https://travis-ci.com/corteva/geocube
 
