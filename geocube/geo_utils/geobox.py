@@ -155,10 +155,16 @@ class GeoBoxMaker(object):
         else:
             crs = geometry.CRS(crs_to_wkt(CRS.from_user_input(vector_data.crs)))
 
-        if self.geom is None:
+        if self.geom is None and self.output_crs:
             geopoly = geometry.Geometry(
-                mapping(box(*vector_data.total_bounds)),
-                crs=geometry.CRS(crs_to_wkt(CRS.from_user_input(vector_data.crs))),
+                mapping(
+                    box(*vector_data.to_crs(crs._crs.ExportToProj4()).total_bounds)
+                ),
+                crs=crs,
+            )
+        elif self.geom is None:
+            geopoly = geometry.Geometry(
+                mapping(box(*vector_data.total_bounds)), crs=crs
             )
 
         else:
@@ -170,7 +176,6 @@ class GeoBoxMaker(object):
                     else "epsg:4326"
                 )
             )
-
             geopoly = geometry.Geometry(geom_json, crs=geom_crs)
 
         return geometry.GeoBox.from_geopolygon(
