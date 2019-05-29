@@ -5,6 +5,7 @@ import geopandas as gpd
 import pandas
 import pytest
 import xarray
+from numpy.testing import assert_almost_equal
 from shapely.geometry import mapping
 from shapely.wkt import loads
 
@@ -684,3 +685,14 @@ def test_make_geocube__group_by__no_resolution_error():
             geom=json.dumps(mapping(TEST_GARS_POLY)),
             group_by="hzdept_r",
         )
+
+
+def test_make_geocube__new_bounds_crs():
+    utm_cube = make_geocube(
+        vector_data=os.path.join(TEST_INPUT_DATA_DIR, "wgs84_geom.geojson"),
+        output_crs="epsg:32614",
+        resolution=(-1, 1),
+    )
+    assert_almost_equal(
+        utm_cube.id.rio.bounds(), (1665478.0, 7018306.0, 1665945.0, 7018509.0)
+    )
