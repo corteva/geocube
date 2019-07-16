@@ -5,7 +5,6 @@ geocube core conversion functionality
 import numpy
 import pandas
 import xarray
-from shapely.geometry import mapping
 
 from geocube.geo_utils.geobox import load_vector_data
 from geocube.logger import get_logger
@@ -72,6 +71,9 @@ class VectorToCube(object):
         """
         self.vector_data = load_vector_data(vector_data)
         self.geobox = geobox_maker.from_vector(self.vector_data)
+        self.grid_coords = affine_to_coords(
+            self.geobox.affine, self.geobox.width, self.geobox.height
+        )
         self.fill = fill if fill is not None else -9999.0
         if categorical_enums is not None:
             for column_name, categories in categorical_enums.items():
@@ -88,6 +90,7 @@ class VectorToCube(object):
         datetime_measurements=None,
         group_by=None,
         interpolate_na_method=None,
+        rasterize_function=None,
     ):  # NOSONAR
         """
         Rasterize vector data into an ``xarray`` object.  Each measurement will be a
@@ -110,6 +113,9 @@ class VectorToCube(object):
         interpolate_na_method:  {‘linear’, ‘nearest’, ‘cubic’}, optional
             This is the method for interpolation to use to fill in the nodata with
             :meth:`scipy.interpolate.griddata`.
+        rasterize_function: function, optional
+            Function to rasterize geometries. Other options are available in
+            `geocube.rasterize`. Default is `geocube.rasterize.rasterize_image`.
 
         Returns
         --------
@@ -117,6 +123,9 @@ class VectorToCube(object):
             Requested data in a :class:`xarray.Dataset`.
 
         """
+        self.rasterize_function = (
+            rasterize_image if rasterize_function is None else rasterize_function
+        )
         if measurements is None:
             measurements = self.vector_data.columns.tolist()
             measurements.remove("geometry")
@@ -231,14 +240,10 @@ class VectorToCube(object):
             if grid_array is not None:
                 data_vars[measurement] = grid_array
 
-        coords = affine_to_coords(
-            self.geobox.affine, self.geobox.width, self.geobox.height
-        )
-
         if group_by:
-            coords[group_by] = list(vector_data.groups.keys())
+            self.grid_coords[group_by] = list(vector_data.groups.keys())
 
-        out_xds = xarray.Dataset(data_vars=data_vars, coords=coords)
+        out_xds = xarray.Dataset(data_vars=data_vars, coords=self.grid_coords)
 
         for categorical_measurement, categoral_enums in self._categorical_enums.items():
             enum_var_name = "{}_categories".format(categorical_measurement)
@@ -285,11 +290,12 @@ class VectorToCube(object):
             fill_value = (
                 self.fill if str(df_group[measurement_name].dtype) != "category" else -1
             )
-            image = rasterize_image(
-                df_group.geometry.apply(mapping).values,
-                _format_series_data(df_group[measurement_name]).values,
-                self.geobox,
-                fill_value,
+            image = self.rasterize_function(
+                geometry_array=df_group.geometry,
+                data_values=_format_series_data(df_group[measurement_name]).values,
+                geobox=self.geobox,
+                grid_coords=self.grid_coords,
+                fill=fill_value,
             )
             if image is None:
                 logger.warning(
@@ -331,11 +337,12 @@ class VectorToCube(object):
         fill_value = (
             self.fill if str(dataframe[measurement_name].dtype) != "category" else -1
         )
-        image_data = rasterize_image(
-            dataframe.geometry.apply(mapping).values,
-            _format_series_data(dataframe[measurement_name]).values,
-            self.geobox,
-            fill_value,
+        image_data = self.rasterize_function(
+            geometry_array=dataframe.geometry,
+            data_values=_format_series_data(dataframe[measurement_name]).values,
+            geobox=self.geobox,
+            grid_coords=self.grid_coords,
+            fill=fill_value,
         )
         if image_data is None:
             logger.warning(

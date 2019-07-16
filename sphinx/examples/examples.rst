@@ -12,3 +12,4 @@ This page contains links to a collection of examples of how to use GeoCube.
    categorical.ipynb
    resample_point_data.ipynb
    grid_to_vector_map.ipynb
+   rasterize_point_data.ipynb
