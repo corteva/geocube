@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Example - Categorical Data &#8212; geocube 0.0.5 documentation</title>
+    <title>Example - Categorical Data &#8212; geocube 0.0.6 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -34,7 +34,7 @@
         <li class="right" >
           <a href="examples.html" title="Usage Examples"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">geocube 0.0.5 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">geocube 0.0.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Usage Examples</a> &#187;</li> 
       </ul>
     </div>  
@@ -251,12 +251,12 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">import</span> <span class="nn">pandas</span>
+<span></span>import geopandas as gpd
+import pandas
 
-<span class="kn">from</span> <span class="nn">geocube.api.core</span> <span class="k">import</span> <span class="n">make_geocube</span>
+from geocube.api.core import make_geocube
 
-<span class="o">%</span><span class="k">matplotlib</span> inline
+%matplotlib inline
 </pre></div>
 </div>
 </div>
@@ -267,7 +267,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ssurgo_data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;soil_data_group.geojson&quot;</span><span class="p">)</span>
+<span></span>ssurgo_data = gpd.read_file(&quot;soil_data_group.geojson&quot;)
 </pre></div>
 </div>
 </div>
@@ -276,8 +276,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># original data</span>
-<span class="n">ssurgo_data</span><span class="p">[</span><span class="n">ssurgo_data</span><span class="o">.</span><span class="n">hzdept_r</span><span class="o">==</span><span class="mi">15</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;sandtotal_r&#39;</span><span class="p">)</span>
+<span></span># original data
+ssurgo_data[ssurgo_data.hzdept_r==15].plot(column=&#39;sandtotal_r&#39;)
 </pre></div>
 </div>
 </div>
@@ -306,8 +306,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># this is only a subset of all of the classes</span>
-<span class="n">ssurgo_data</span><span class="o">.</span><span class="n">drclassdcd</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span></span># this is only a subset of all of the classes
+ssurgo_data.drclassdcd.drop_duplicates().values.tolist()
 </pre></div>
 </div>
 </div>
@@ -328,17 +328,17 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># complete list of categories</span>
-<span class="n">drclasses_complete</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;Poorly drained&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Somewhat poorly drained&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Excessively drained&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Subaqueous&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Well drained&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Somewhat excessively drained&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Very poorly drained&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Moderately well drained&#39;</span>
-<span class="p">]</span>
+<span></span># complete list of categories
+drclasses_complete = [
+    &#39;Poorly drained&#39;,
+    &#39;Somewhat poorly drained&#39;,
+    &#39;Excessively drained&#39;,
+    &#39;Subaqueous&#39;,
+    &#39;Well drained&#39;,
+    &#39;Somewhat excessively drained&#39;,
+    &#39;Very poorly drained&#39;,
+    &#39;Moderately well drained&#39;
+]
 </pre></div>
 </div>
 </div>
@@ -347,7 +347,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">categorical_enums</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">:</span> <span class="n">drclasses_complete</span><span class="p">}</span>
+<span></span>categorical_enums = {&#39;drclassdcd&#39;: drclasses_complete}
 </pre></div>
 </div>
 </div>
@@ -359,13 +359,13 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">out_grid</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span>
-    <span class="n">vector_data</span><span class="o">=</span><span class="n">ssurgo_data</span><span class="p">,</span>
-    <span class="n">output_crs</span><span class="o">=</span><span class="s2">&quot;+init=epsg:32615&quot;</span><span class="p">,</span>
-    <span class="n">group_by</span><span class="o">=</span><span class="s1">&#39;hzdept_r&#39;</span><span class="p">,</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
-    <span class="n">categorical_enums</span><span class="o">=</span><span class="n">categorical_enums</span>
-<span class="p">)</span>
+<span></span>out_grid = make_geocube(
+    vector_data=ssurgo_data,
+    output_crs=&quot;+init=epsg:32615&quot;,
+    group_by=&#39;hzdept_r&#39;,
+    resolution=(-100, 100),
+    categorical_enums=categorical_enums
+)
 </pre></div>
 </div>
 </div>
@@ -374,7 +374,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">out_grid</span>
+<span></span>out_grid
 </pre></div>
 </div>
 </div>
@@ -405,9 +405,9 @@ Data variables:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># mask nodata and plot</span>
-<span class="n">clay_slice</span> <span class="o">=</span> <span class="n">out_grid</span><span class="o">.</span><span class="n">claytotal_r</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">hzdept_r</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">clay_slice</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">clay_slice</span><span class="o">!=</span><span class="n">out_grid</span><span class="o">.</span><span class="n">claytotal_r</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;_FillValue&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span></span># mask nodata and plot
+clay_slice = out_grid.claytotal_r.sel(hzdept_r=15)
+clay_slice.where(clay_slice!=out_grid.claytotal_r.attrs[&#39;_FillValue&#39;]).plot()
 </pre></div>
 </div>
 </div>
@@ -436,8 +436,8 @@ Data variables:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">drclassdcd_slice</span> <span class="o">=</span> <span class="n">out_grid</span><span class="o">.</span><span class="n">drclassdcd</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">hzdept_r</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">drclassdcd_slice</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">drclassdcd_slice</span><span class="o">!=</span><span class="n">out_grid</span><span class="o">.</span><span class="n">drclassdcd</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;_FillValue&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span></span>drclassdcd_slice = out_grid.drclassdcd.sel(hzdept_r=15)
+drclassdcd_slice.where(drclassdcd_slice!=out_grid.drclassdcd.attrs[&#39;_FillValue&#39;]).plot()
 </pre></div>
 </div>
 </div>
@@ -462,8 +462,8 @@ Data variables:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">drclassdcd_string</span> <span class="o">=</span> <span class="n">out_grid</span><span class="p">[</span><span class="s1">&#39;drclassdcd_categories&#39;</span><span class="p">][</span><span class="n">out_grid</span><span class="p">[</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)]</span>\
-    <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;drclassdcd_categories&#39;</span><span class="p">)</span>
+<span></span>drclassdcd_string = out_grid[&#39;drclassdcd_categories&#39;][out_grid[&#39;drclassdcd&#39;].astype(int)]\
+    .drop(&#39;drclassdcd_categories&#39;)
 </pre></div>
 </div>
 </div>
@@ -472,8 +472,8 @@ Data variables:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">out_grid</span><span class="p">[</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">drclassdcd_string</span>
-<span class="n">out_grid</span>
+<span></span>out_grid[&#39;drclassdcd&#39;] = drclassdcd_string
+out_grid
 </pre></div>
 </div>
 </div>
@@ -504,8 +504,8 @@ Data variables:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pdf</span> <span class="o">=</span> <span class="n">out_grid</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;spatial_ref&#39;</span><span class="p">,</span> <span class="s1">&#39;drclassdcd_categories&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
-<span class="n">pdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span></span>pdf = out_grid.drop([&#39;spatial_ref&#39;, &#39;drclassdcd_categories&#39;]).to_dataframe()
+pdf.head()
 </pre></div>
 </div>
 </div>
@@ -606,8 +606,8 @@ Data variables:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">cat_dtype</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(</span><span class="n">out_grid</span><span class="o">.</span><span class="n">drclassdcd_categories</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-<span class="n">pdf</span><span class="p">[</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pdf</span><span class="p">[</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">cat_dtype</span><span class="p">)</span>
+<span></span>cat_dtype = pandas.api.types.CategoricalDtype(out_grid.drclassdcd_categories.values)
+pdf[&#39;drclassdcd&#39;] = pdf[&#39;drclassdcd&#39;].astype(cat_dtype)
 </pre></div>
 </div>
 </div>
@@ -616,8 +616,8 @@ Data variables:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">training_df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">])</span>
-<span class="n">training_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span></span>training_df = pandas.get_dummies(pdf, columns=[&#39;drclassdcd&#39;])
+training_df.head()
 </pre></div>
 </div>
 </div>
@@ -771,7 +771,7 @@ Data variables:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">training_df</span><span class="o">.</span><span class="n">columns</span>
+<span></span>training_df.columns
 </pre></div>
 </div>
 </div>
@@ -858,7 +858,7 @@ Data variables:
         <li class="right" >
           <a href="examples.html" title="Usage Examples"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">geocube 0.0.5 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">geocube 0.0.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Usage Examples</a> &#187;</li> 
       </ul>
     </div>

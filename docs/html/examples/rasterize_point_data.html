@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Example - Resampling Point Data &#8212; geocube 0.0.6 documentation</title>
+    <title>Example - Rasterizing Point Data &#8212; geocube 0.0.6 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -16,8 +16,8 @@
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Example - Mapping Grid Data to Vector Data" href="grid_to_vector_map.html" />
-    <link rel="prev" title="Example - Categorical Data" href="categorical.html" /> 
+    <link rel="next" title="API Documentation" href="../modules.html" />
+    <link rel="prev" title="Example - Mapping Grid Data to Vector Data" href="grid_to_vector_map.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -29,10 +29,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="grid_to_vector_map.html" title="Example - Mapping Grid Data to Vector Data"
+          <a href="../modules.html" title="API Documentation"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="categorical.html" title="Example - Categorical Data"
+          <a href="grid_to_vector_map.html" title="Example - Mapping Grid Data to Vector Data"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">geocube 0.0.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Usage Examples</a> &#187;</li> 
@@ -244,16 +244,21 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="Example---Resampling-Point-Data">
-<h1>Example - Resampling Point Data<a class="headerlink" href="#Example---Resampling-Point-Data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Example---Rasterizing-Point-Data">
+<h1>Example - Rasterizing Point Data<a class="headerlink" href="#Example---Rasterizing-Point-Data" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>import geopandas as gpd
+<span></span>import json
+from functools import partial
+
+import geopandas as gpd
+from shapely.geometry import box, mapping
 
 from geocube.api.core import make_geocube
+from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
 
 %matplotlib inline
 </pre></div>
@@ -262,17 +267,19 @@ from geocube.api.core import make_geocube
 <div class="section" id="Load-in-geopackage-data-and-add-CRS">
 <h2>Load in geopackage data and add CRS<a class="headerlink" href="#Load-in-geopackage-data-and-add-CRS" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>gdf = gpd.read_file(&quot;time_vector_data.geojson&quot;)
-gdf.crs = {&#39;init&#39;: &#39;epsg:4326&#39;}
+<span></span>gdf = gpd.read_file(
+    &quot;../../test/test_data/input/time_vector_data.geojson&quot;,
+    crs={&#39;init&#39;: &#39;epsg:4326&#39;}
+)
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -281,7 +288,7 @@ gdf.crs = {&#39;init&#39;: &#39;epsg:4326&#39;}
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -349,64 +356,28 @@ gdf.crs = {&#39;init&#39;: &#39;epsg:4326&#39;}
 </table>
 </div></div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>gdf.head().plot(column=&#39;test_attr&#39;)
-</pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
-</pre></div>
-</div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f2206b62630&gt;
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/examples_resample_point_data_5_1.png" src="../_images/examples_resample_point_data_5_1.png" />
-</div>
-</div>
 </div>
 <div class="section" id="Convert-to-raster-with-GeoCube">
 <h2>Convert to raster with GeoCube<a class="headerlink" href="#Convert-to-raster-with-GeoCube" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="Load-into-grid-basic">
-<h3>Load into grid basic<a class="headerlink" href="#Load-into-grid-basic" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</div>
+<div class="section" id="Load-into-grid-with-griddata-nearest-resampling">
+<h2>Load into grid with griddata nearest resampling<a class="headerlink" href="#Load-into-grid-with-griddata-nearest-resampling" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span>geo_grid = make_geocube(
     vector_data=gdf,
-    measurements=[&#39;test_attr&#39;, &quot;test_time_attr&quot;],
-    datetime_measurements=[&quot;test_time_attr&quot;],
+    measurements=[&#39;test_attr&#39;],
     resolution=(-0.1, 0.00001),
-    group_by=&quot;test_time_attr&quot;,
+    rasterize_function=rasterize_points_griddata,
 )
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/home/snowal/miniconda/envs/geocube/lib/python3.6/site-packages/xarray/core/variable.py:134: FutureWarning: Converting timezone-aware DatetimeArray to timezone-naive ndarray with &#39;datetime64[ns]&#39; dtype. In the future, this will return an ndarray with &#39;object&#39; dtype where each element is a &#39;pandas.Timestamp&#39; with the correct &#39;tz&#39;.
-        To accept the future behavior, pass &#39;dtype=object&#39;.
-        To keep the old behavior, pass &#39;dtype=&#34;datetime64[ns]&#34;&#39;.
-  return np.asarray(pd.Series(values.ravel())).reshape(values.shape)
-</pre></div></div>
-</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -415,19 +386,61 @@ gdf.crs = {&#39;init&#39;: &#39;epsg:4326&#39;}
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>&lt;xarray.Dataset&gt;
-Dimensions:         (test_time_attr: 2, x: 12, y: 11)
+Dimensions:      (x: 12, y: 11)
 Coordinates:
-  * y               (y) float64 45.25 45.15 45.05 44.95 ... 44.45 44.35 44.25
-  * x               (x) float64 -47.27 -47.27 -47.27 ... -47.27 -47.27 -47.27
-  * test_time_attr  (test_time_attr) datetime64[ns] 2016-05-21T15:09:21 2016-05-22T15:09:22
-    spatial_ref     int64 0
+  * y            (y) float64 45.25 45.15 45.05 44.95 ... 44.55 44.45 44.35 44.25
+  * x            (x) float64 -47.27 -47.27 -47.27 ... -47.27 -47.27 -47.27
+    spatial_ref  int64 0
 Data variables:
-    test_attr       (test_time_attr, y, x) float64 -9.999e+03 ... -9.999e+03
+    test_attr    (y, x) float64 1.3 1.3 1.3 1.2 1.3 1.3 ... 2.3 1.3 1.9 1.3 1.3
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span># mask nodata and plot
+geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.attrs[&#39;_FillValue&#39;]).plot()
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2cd9151cf8&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_rasterize_point_data_9_1.png" src="../_images/examples_rasterize_point_data_9_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Load-into-grid-with-griddata-cubic-resampling">
+<h2>Load into grid with griddata cubic resampling<a class="headerlink" href="#Load-into-grid-with-griddata-cubic-resampling" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>geo_grid = make_geocube(
+    vector_data=gdf,
+    measurements=[&#39;test_attr&#39;],
+    resolution=(-0.1, 0.00001),
+    rasterize_function=partial(rasterize_points_griddata, method=&quot;cubic&quot;),
+)
 </pre></div>
 </div>
 </div>
@@ -437,8 +450,7 @@ Data variables:
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span># mask nodata and plot
-grid_time_1 = geo_grid.isel(test_time_attr=0)
-grid_time_1.test_attr.where(grid_time_1.test_attr!=grid_time_1.test_attr.attrs[&#39;_FillValue&#39;]).plot()
+geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.attrs[&#39;_FillValue&#39;]).plot()
 </pre></div>
 </div>
 </div>
@@ -447,7 +459,7 @@ grid_time_1.test_attr.where(grid_time_1.test_attr!=grid_time_1.test_attr.attrs[&
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f22049e2588&gt;
+<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2cd9041b38&gt;
 </pre></div>
 </div>
 </div>
@@ -455,24 +467,70 @@ grid_time_1.test_attr.where(grid_time_1.test_attr!=grid_time_1.test_attr.attrs[&
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_resample_point_data_10_1.png" src="../_images/examples_resample_point_data_10_1.png" />
+<img alt="../_images/examples_rasterize_point_data_12_1.png" src="../_images/examples_rasterize_point_data_12_1.png" />
 </div>
 </div>
 </div>
-<div class="section" id="Load-into-UTM-grid-followed-by-interpolation-for-missing-values">
-<h3>Load into UTM grid followed by interpolation for missing values<a class="headerlink" href="#Load-into-UTM-grid-followed-by-interpolation-for-missing-values" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput docutils container">
+<div class="section" id="Load-into-user-defined-grid-with-radial-linear-resampling">
+<h2>Load into user-defined grid with radial linear resampling<a class="headerlink" href="#Load-into-user-defined-grid-with-radial-linear-resampling" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>geo_grid_interp = make_geocube(
+<span></span>geo_grid = make_geocube(
     vector_data=gdf,
-    measurements=[&#39;test_attr&#39;, &quot;test_time_attr&quot;],
-    datetime_measurements=[&quot;test_time_attr&quot;],
-    resolution=(-0.1, 0.00001),
-    group_by=&quot;test_time_attr&quot;,
-    interpolate_na_method=&#39;nearest&#39;
+    measurements=[&#39;test_attr&#39;],
+    geom=json.dumps(mapping(box(-48, 44, -47, 45))),
+    output_crs=&quot;+init=epsg:3857&quot;,
+    resolution=(-300, 300),
+    rasterize_function=rasterize_points_radial,
+)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span># mask nodata and plot
+geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.attrs[&#39;_FillValue&#39;]).plot()
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2cd6f6c8d0&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_rasterize_point_data_15_1.png" src="../_images/examples_rasterize_point_data_15_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Load-into-user-defined-grid-with-radial-cubic-resampling">
+<h2>Load into user-defined grid with radial cubic resampling<a class="headerlink" href="#Load-into-user-defined-grid-with-radial-cubic-resampling" title="Permalink to this headline">¶</a></h2>
+<p>Note: This example is simply to demonstrate the option and and would need to be adjusted for better results. As seen in the plot below, the values swelled quite a bit due to the input generating an ill-conditioned matrix.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>geo_grid = make_geocube(
+    vector_data=gdf,
+    measurements=[&#39;test_attr&#39;],
+    geom=json.dumps(mapping(box(-48, 44, -47, 45))),
+    output_crs=&quot;+init=epsg:3857&quot;,
+    resolution=(-300, 300),
+    rasterize_function=partial(rasterize_points_radial, method=&quot;cubic&quot;),
 )
 </pre></div>
 </div>
@@ -482,55 +540,26 @@ grid_time_1.test_attr.where(grid_time_1.test_attr!=grid_time_1.test_attr.attrs[&
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/home/snowal/miniconda/envs/geocube/lib/python3.6/site-packages/xarray/core/variable.py:134: FutureWarning: Converting timezone-aware DatetimeArray to timezone-naive ndarray with &#39;datetime64[ns]&#39; dtype. In the future, this will return an ndarray with &#39;object&#39; dtype where each element is a &#39;pandas.Timestamp&#39; with the correct &#39;tz&#39;.
-        To accept the future behavior, pass &#39;dtype=object&#39;.
-        To keep the old behavior, pass &#39;dtype=&#34;datetime64[ns]&#34;&#39;.
-  return np.asarray(pd.Series(values.ravel())).reshape(values.shape)
+/home/snowal/miniconda3/envs/goldfinger/lib/python3.6/site-packages/scipy/interpolate/rbf.py:241: LinAlgWarning: Ill-conditioned matrix (rcond=3.07097e-19): result may not be accurate.
+  self.nodes = linalg.solve(self.A, self.di)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>geo_grid_interp
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
-</pre></div>
-</div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;xarray.Dataset&gt;
-Dimensions:         (test_time_attr: 2, x: 12, y: 11)
-Coordinates:
-  * y               (y) float64 45.25 45.15 45.05 44.95 ... 44.45 44.35 44.25
-  * x               (x) float64 -47.27 -47.27 -47.27 ... -47.27 -47.27 -47.27
-  * test_time_attr  (test_time_attr) datetime64[ns] 2016-05-21T15:09:21 2016-05-22T15:09:22
-    spatial_ref     int64 0
-Data variables:
-    test_attr       (test_time_attr, y, x) float64 1.3 1.3 1.3 ... 1.3 1.3 1.3
-Attributes:
-    creation_date:  2019-03-26 15:59:24.643054
-</pre></div>
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>geo_grid_interp.test_attr.isel(test_time_attr=0).plot()
+<span></span># mask nodata and plot
+geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.attrs[&#39;_FillValue&#39;]).plot()
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2204920c88&gt;
+<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2cd6ea4898&gt;
 </pre></div>
 </div>
 </div>
@@ -538,17 +567,7 @@ Attributes:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_resample_point_data_14_1.png" src="../_images/examples_resample_point_data_14_1.png" />
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
+<img alt="../_images/examples_rasterize_point_data_18_1.png" src="../_images/examples_rasterize_point_data_18_1.png" />
 </div>
 </div>
 </div>
@@ -562,27 +581,27 @@ Attributes:
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Example - Resampling Point Data</a><ul>
+<li><a class="reference internal" href="#">Example - Rasterizing Point Data</a><ul>
 <li><a class="reference internal" href="#Load-in-geopackage-data-and-add-CRS">Load in geopackage data and add CRS</a></li>
-<li><a class="reference internal" href="#Convert-to-raster-with-GeoCube">Convert to raster with GeoCube</a><ul>
-<li><a class="reference internal" href="#Load-into-grid-basic">Load into grid basic</a></li>
-<li><a class="reference internal" href="#Load-into-UTM-grid-followed-by-interpolation-for-missing-values">Load into UTM grid followed by interpolation for missing values</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#Convert-to-raster-with-GeoCube">Convert to raster with GeoCube</a></li>
+<li><a class="reference internal" href="#Load-into-grid-with-griddata-nearest-resampling">Load into grid with griddata nearest resampling</a></li>
+<li><a class="reference internal" href="#Load-into-grid-with-griddata-cubic-resampling">Load into grid with griddata cubic resampling</a></li>
+<li><a class="reference internal" href="#Load-into-user-defined-grid-with-radial-linear-resampling">Load into user-defined grid with radial linear resampling</a></li>
+<li><a class="reference internal" href="#Load-into-user-defined-grid-with-radial-cubic-resampling">Load into user-defined grid with radial cubic resampling</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="categorical.html"
-                        title="previous chapter">Example - Categorical Data</a></p>
-  <h4>Next topic</h4>
   <p class="topless"><a href="grid_to_vector_map.html"
-                        title="next chapter">Example - Mapping Grid Data to Vector Data</a></p>
+                        title="previous chapter">Example - Mapping Grid Data to Vector Data</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../modules.html"
+                        title="next chapter">API Documentation</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/examples/resample_point_data.ipynb.txt"
+      <li><a href="../_sources/examples/rasterize_point_data.ipynb.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -612,10 +631,10 @@ Attributes:
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="grid_to_vector_map.html" title="Example - Mapping Grid Data to Vector Data"
+          <a href="../modules.html" title="API Documentation"
              >next</a> |</li>
         <li class="right" >
-          <a href="categorical.html" title="Example - Categorical Data"
+          <a href="grid_to_vector_map.html" title="Example - Mapping Grid Data to Vector Data"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">geocube 0.0.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Usage Examples</a> &#187;</li> 

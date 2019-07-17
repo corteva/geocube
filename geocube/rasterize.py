@@ -125,7 +125,7 @@ def rasterize_points_radial(
     method: str, optional
         The function to use for interpolation in `scipy.interpolate.Rbf`.
         {'multiquadric', 'inverse', 'gaussian', 'linear',
-         'cubic', 'quintic', 'thin_plate'}
+        'cubic', 'quintic', 'thin_plate'}
     **ignored_kwargs:
         These are there to be flexible with additional rasterization methods and
         will be ignored.

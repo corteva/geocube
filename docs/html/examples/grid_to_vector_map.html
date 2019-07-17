@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Example - Mapping Grid Data to Vector Data &#8212; geocube 0.0.5 documentation</title>
+    <title>Example - Mapping Grid Data to Vector Data &#8212; geocube 0.0.6 documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -16,7 +16,7 @@
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="API Documentation" href="../modules.html" />
+    <link rel="next" title="Example - Rasterizing Point Data" href="rasterize_point_data.html" />
     <link rel="prev" title="Example - Resampling Point Data" href="resample_point_data.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -29,12 +29,12 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../modules.html" title="API Documentation"
+          <a href="rasterize_point_data.html" title="Example - Rasterizing Point Data"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="resample_point_data.html" title="Example - Resampling Point Data"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">geocube 0.0.5 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">geocube 0.0.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Usage Examples</a> &#187;</li> 
       </ul>
     </div>  
@@ -251,7 +251,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">!</span>pip install regionmask
+<span></span>!pip install regionmask
 </pre></div>
 </div>
 </div>
@@ -260,14 +260,14 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span></span>import json
 
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">import</span> <span class="nn">regionmask</span>
+import geopandas as gpd
+import regionmask
 
-<span class="kn">from</span> <span class="nn">geocube.api.core</span> <span class="k">import</span> <span class="n">make_geocube</span>
+from geocube.api.core import make_geocube
 
-<span class="o">%</span><span class="k">matplotlib</span> inline
+%matplotlib inline
 </pre></div>
 </div>
 </div>
@@ -287,7 +287,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ssurgo_data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;soil_data_group.geojson&quot;</span><span class="p">)</span>
+<span></span>ssurgo_data = gpd.read_file(&quot;soil_data_group.geojson&quot;)
 </pre></div>
 </div>
 </div>
@@ -296,7 +296,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ssurgo_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span></span>ssurgo_data.head()
 </pre></div>
 </div>
 </div>
@@ -418,11 +418,11 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">out_grid</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span>
-    <span class="n">vector_data</span><span class="o">=</span><span class="n">ssurgo_data</span><span class="p">,</span>
-    <span class="n">group_by</span><span class="o">=</span><span class="s1">&#39;hzdept_r&#39;</span><span class="p">,</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">)</span>
-<span class="p">)</span>
+<span></span>out_grid = make_geocube(
+    vector_data=ssurgo_data,
+    group_by=&#39;hzdept_r&#39;,
+    resolution=(-0.0001, 0.0001)
+)
 </pre></div>
 </div>
 </div>
@@ -436,11 +436,11 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">numbers</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ssurgo_data</span><span class="p">[</span><span class="n">ssurgo_data</span><span class="o">.</span><span class="n">hzdept_r</span><span class="o">==</span><span class="mi">15</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
-<span class="n">names</span> <span class="o">=</span> <span class="n">ssurgo_data</span><span class="p">[</span><span class="n">ssurgo_data</span><span class="o">.</span><span class="n">hzdept_r</span><span class="o">==</span><span class="mi">15</span><span class="p">]</span><span class="o">.</span><span class="n">mukey</span><span class="o">.</span><span class="n">values</span>
-<span class="n">abbrevs</span> <span class="o">=</span> <span class="n">names</span>
-<span class="n">soil_region_geom</span> <span class="o">=</span> <span class="n">ssurgo_data</span><span class="p">[</span><span class="n">ssurgo_data</span><span class="o">.</span><span class="n">hzdept_r</span><span class="o">==</span><span class="mi">15</span><span class="p">]</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">values</span>
-<span class="n">soil_mask</span> <span class="o">=</span> <span class="n">regionmask</span><span class="o">.</span><span class="n">Regions_cls</span><span class="p">(</span><span class="s1">&#39;SoilMask&#39;</span><span class="p">,</span> <span class="n">numbers</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">abbrevs</span><span class="p">,</span> <span class="n">soil_region_geom</span><span class="p">)</span>
+<span></span>numbers = range(len(ssurgo_data[ssurgo_data.hzdept_r==15].index))
+names = ssurgo_data[ssurgo_data.hzdept_r==15].mukey.values
+abbrevs = names
+soil_region_geom = ssurgo_data[ssurgo_data.hzdept_r==15].geometry.values
+soil_mask = regionmask.Regions_cls(&#39;SoilMask&#39;, numbers, names, abbrevs, soil_region_geom)
 </pre></div>
 </div>
 </div>
@@ -449,7 +449,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">soil_mask</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span></span>soil_mask.plot()
 </pre></div>
 </div>
 </div>
@@ -477,8 +477,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">soil_grid_mask</span> <span class="o">=</span> <span class="n">soil_mask</span><span class="o">.</span><span class="n">mask</span><span class="p">(</span><span class="n">out_grid</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">hzdept_r</span><span class="o">=</span><span class="mi">15</span><span class="p">),</span> <span class="n">lat_name</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">lon_name</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
-<span class="n">soil_grid_mask</span>
+<span></span>soil_grid_mask = soil_mask.mask(out_grid.sel(hzdept_r=15), lat_name=&#39;y&#39;, lon_name=&#39;x&#39;)
+soil_grid_mask
 </pre></div>
 </div>
 </div>
@@ -506,7 +506,7 @@ Coordinates:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">soil_grid_mask</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span></span>soil_grid_mask.plot()
 </pre></div>
 </div>
 </div>
@@ -534,9 +534,9 @@ Coordinates:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">grid_mean</span> <span class="o">=</span> <span class="n">out_grid</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">hzdept_r</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">soil_grid_mask</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">grid_mean</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s1">&#39;mukey&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;region&#39;</span><span class="p">,</span> <span class="n">soil_mask</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
-<span class="n">grid_mean</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
+<span></span>grid_mean = out_grid.sel(hzdept_r=15).groupby(soil_grid_mask).mean()
+grid_mean.coords[&#39;mukey&#39;] = (&#39;region&#39;, soil_mask.names)
+grid_mean.to_dataframe()
 </pre></div>
 </div>
 </div>
@@ -671,9 +671,9 @@ Coordinates:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">grid_median</span> <span class="o">=</span> <span class="n">out_grid</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">hzdept_r</span><span class="o">=</span><span class="mi">75</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">soil_grid_mask</span><span class="p">)</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
-<span class="n">grid_median</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s1">&#39;mukey&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;region&#39;</span><span class="p">,</span> <span class="n">soil_mask</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
-<span class="n">grid_median</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
+<span></span>grid_median = out_grid.sel(hzdept_r=75).groupby(soil_grid_mask).median()
+grid_median.coords[&#39;mukey&#39;] = (&#39;region&#39;, soil_mask.names)
+grid_median.to_dataframe()
 </pre></div>
 </div>
 </div>
@@ -840,8 +840,8 @@ Coordinates:
   <p class="topless"><a href="resample_point_data.html"
                         title="previous chapter">Example - Resampling Point Data</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../modules.html"
-                        title="next chapter">API Documentation</a></p>
+  <p class="topless"><a href="rasterize_point_data.html"
+                        title="next chapter">Example - Rasterizing Point Data</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -875,12 +875,12 @@ Coordinates:
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../modules.html" title="API Documentation"
+          <a href="rasterize_point_data.html" title="Example - Rasterizing Point Data"
              >next</a> |</li>
         <li class="right" >
           <a href="resample_point_data.html" title="Example - Resampling Point Data"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">geocube 0.0.5 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">geocube 0.0.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Usage Examples</a> &#187;</li> 
       </ul>
     </div>

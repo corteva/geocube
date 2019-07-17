@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>geocube.api.core &#8212; geocube 0.0.5 documentation</title>
+    <title>geocube.api.core &#8212; geocube 0.0.6 documentation</title>
     <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
@@ -26,7 +26,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">geocube 0.0.5 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">geocube 0.0.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -58,6 +58,7 @@
     <span class="n">group_by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">interpolate_na_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">categorical_enums</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">rasterize_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>  <span class="c1"># NOSONAR</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Rasterize vector data into an ``xarray`` object.  Each attribute will be a data</span>
@@ -107,6 +108,9 @@
 <span class="sd">        A dictionary of all categories for the table columns containing categorical</span>
 <span class="sd">        data.</span>
 <span class="sd">        E.g. {&#39;column_name&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;other_column&#39;: [&#39;c&#39;, &#39;d&#39;]}</span>
+<span class="sd">    rasterize_function: function, optional</span>
+<span class="sd">        Function to rasterize geometries. Other options are available in</span>
+<span class="sd">        `geocube.rasterize`. Default is `geocube.rasterize.rasterize_image`.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    --------</span>
@@ -126,6 +130,7 @@
         <span class="n">datetime_measurements</span><span class="o">=</span><span class="n">datetime_measurements</span><span class="p">,</span>
         <span class="n">group_by</span><span class="o">=</span><span class="n">group_by</span><span class="p">,</span>
         <span class="n">interpolate_na_method</span><span class="o">=</span><span class="n">interpolate_na_method</span><span class="p">,</span>
+        <span class="n">rasterize_function</span><span class="o">=</span><span class="n">rasterize_function</span><span class="p">,</span>
     <span class="p">)</span></div>
 </pre></div>
 
@@ -159,7 +164,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">geocube 0.0.5 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">geocube 0.0.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
