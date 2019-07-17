@@ -1,5 +1,6 @@
 import json
 import os
+from functools import partial
 
 import geopandas as gpd
 import pandas
@@ -11,6 +12,7 @@ from shapely.wkt import loads
 
 from geocube.api.core import make_geocube
 from geocube.exceptions import VectorDataError
+from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
 from test.conftest import TEST_COMPARE_DATA_DIR, TEST_INPUT_DATA_DIR
 
 TEST_GARS_PROJ = "+init=epsg:32615"
@@ -696,3 +698,35 @@ def test_make_geocube__new_bounds_crs():
     assert_almost_equal(
         utm_cube.id.rio.bounds(), (1665478.0, 7018306.0, 1665945.0, 7018509.0)
     )
+
+
+@pytest.mark.parametrize(
+    "function,compare_name",
+    [
+        (rasterize_points_griddata, "rasterize_griddata_nearest.nc"),
+        (
+            partial(rasterize_points_griddata, method="cubic"),
+            "rasterize_griddata_cubic.nc",
+        ),
+        (rasterize_points_radial, "rasterize_radial_linear.nc"),
+    ],
+)
+def test_make_geocube__custom_rasterize_function(function, compare_name, tmpdir):
+    input_geodata = os.path.join(TEST_INPUT_DATA_DIR, "time_vector_data.geojson")
+    out_grid = make_geocube(
+        vector_data=input_geodata,
+        measurements=["test_attr", "test_time_attr", "test_str_attr"],
+        resolution=(-0.00001, 0.00001),
+        rasterize_function=function,
+    )
+
+    # test writing to netCDF
+    out_grid.to_netcdf(str(tmpdir.mkdir("geocube_custom").join(compare_name)))
+
+    # test output data
+    with xarray.open_dataset(
+        os.path.join(TEST_COMPARE_DATA_DIR, compare_name),
+        autoclose=True,
+        mask_and_scale=False,
+    ) as xdc:
+        xarray.testing.assert_allclose(out_grid, xdc, rtol=0.1, atol=0.1)

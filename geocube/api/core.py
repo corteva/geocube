@@ -19,6 +19,7 @@ def make_geocube(
     group_by=None,
     interpolate_na_method=None,
     categorical_enums=None,
+    rasterize_function=None,
 ):  # NOSONAR
     """
     Rasterize vector data into an ``xarray`` object.  Each attribute will be a data
@@ -68,6 +69,9 @@ def make_geocube(
         A dictionary of all categories for the table columns containing categorical
         data.
         E.g. {'column_name': ['a', 'b'], 'other_column': ['c', 'd']}
+    rasterize_function: function, optional
+        Function to rasterize geometries. Other options are available in
+        `geocube.rasterize`. Default is `geocube.rasterize.rasterize_image`.
 
     Returns
     --------
@@ -87,4 +91,5 @@ def make_geocube(
         datetime_measurements=datetime_measurements,
         group_by=group_by,
         interpolate_na_method=interpolate_na_method,
+        rasterize_function=rasterize_function,
     )
