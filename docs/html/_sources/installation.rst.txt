@@ -8,19 +8,18 @@ Installation
 Stable release
 --------------
 
-To install geocube, run this command in your terminal:
+. Use pip to install the binary wheels on `PyPI <https://pypi.org/project/geocube/>`__:
 
-.. code-block:: console
+  .. code-block:: bash
+    
+      pip install geocube
 
-    $ pip install geocube
 
-This is the preferred method to install geocube, as it will always install the most recent stable release.
+2. Use `conda <https://conda.io/en/latest/>`__ with the `conda-forge <https://conda-forge.org/>`__ channel:
 
-If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-you through the process.
+  .. code-block:: bash
 
-.. _pip: https://pip.pypa.io
-.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
+      conda install -c conda-forge geocube
 
 
 From source
