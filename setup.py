@@ -13,7 +13,7 @@ with open("README.rst") as readme_file:
 requirements = [
     "appdirs",
     "Click>=6.0",
-    "datacube~=1.6.2",
+    "datacube",
     "geopandas",
     "rasterio",
     "rioxarray",

@@ -8,10 +8,10 @@ channels:
 - defaults
 dependencies:
 - python=3.6
-- datacube=1.6.*
+- datacube
 - gdal=2.4.*
 - geopandas
 - libgdal=2.4.*
 - rasterio=1.0.*
 - scipy
-- xarray
+- rioxarray
