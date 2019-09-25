@@ -7,12 +7,17 @@ import pandas
 import pytest
 import xarray
 from numpy.testing import assert_almost_equal
+from rasterio.enums import MergeAlg
 from shapely.geometry import mapping
 from shapely.wkt import loads
 
 from geocube.api.core import make_geocube
 from geocube.exceptions import VectorDataError
-from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
+from geocube.rasterize import (
+    rasterize_image,
+    rasterize_points_griddata,
+    rasterize_points_radial,
+)
 from test.conftest import TEST_COMPARE_DATA_DIR, TEST_INPUT_DATA_DIR
 
 TEST_GARS_PROJ = "+init=epsg:32615"
@@ -709,6 +714,7 @@ def test_make_geocube__new_bounds_crs():
             "rasterize_griddata_cubic.nc",
         ),
         (rasterize_points_radial, "rasterize_radial_linear.nc"),
+        (partial(rasterize_image, merge_alg=MergeAlg.add), "rasterize_image_sum.nc"),
     ],
 )
 def test_make_geocube__custom_rasterize_function(function, compare_name, tmpdir):

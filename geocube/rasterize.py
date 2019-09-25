@@ -6,14 +6,20 @@ import numpy
 import rasterio.features
 import rasterio.transform
 import rasterio.warp
-from scipy.interpolate import griddata, Rbf
+from rasterio.enums import MergeAlg
+from scipy.interpolate import Rbf, griddata
 from shapely.geometry import mapping
 
 from geocube.logger import get_logger
 
 
 def rasterize_image(
-    geometry_array, data_values, geobox, fill=-9999.0, **ignored_kwargs
+    geometry_array,
+    data_values,
+    geobox,
+    fill=-9999.0,
+    merge_alg=MergeAlg.replace,
+    **ignored_kwargs
 ):
     """
     Rasterize a list of shapes+values for a given GeoBox.
@@ -28,6 +34,8 @@ def rasterize_image(
         Transform of the resulting image.
     fill: float, optional
         The value to fill in the grid with for nodata. Default is -9999.0.
+    merge_alg: `rasterio.enums.MergeAlg`, optional
+        The algorithm for merging values into one cell. Default is `MergeAlg.replace`.
     **ignored_kwargs:
         These are there to be flexible with additional rasterization methods and
         will be ignored.
@@ -46,6 +54,7 @@ def rasterize_image(
             out_shape=(geobox.height, geobox.width),
             transform=geobox.affine,
             fill=fill,
+            merge_alg=merge_alg,
             dtype=numpy.float64,
         )
         return image
