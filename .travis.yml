@@ -28,7 +28,7 @@ before_install:
 - source $HOME/miniconda/etc/profile.d/conda.sh
 - conda activate
 - conda config --set always_yes True
-- conda update conda python
+- conda update conda
 - conda config --add channels conda-forge
 - conda config --add channels conda-forge
 - conda config --set channel_priority strict
