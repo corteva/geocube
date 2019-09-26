@@ -56,4 +56,5 @@ setup(
     url="https://github.com/corteva/geocube",
     version=__version__,
     zip_safe=False,
+    python_requires=">=3",
 )
