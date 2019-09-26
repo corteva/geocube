@@ -2,7 +2,7 @@ include AUTHORS.rst
 include CONTRIBUTING.rst
 include LICENSE
 
-recursive-include test *
+recursive-exclude test *
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
 
