@@ -11,6 +11,10 @@ Documentation: https://corteva.github.io/geocube
    :alt: Join the chat at https://gitter.im/corteva--geocube/community
    :target: https://gitter.im/corteva--geocube/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
 
+.. image:: https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square
+    :alt: All Contributors
+    :target: https://github.com/corteva/geocube/blob/master/AUTHORS.rst
+
 .. image:: https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg
     :target: https://github.com/corteva/geocube/blob/master/LICENSE
 
