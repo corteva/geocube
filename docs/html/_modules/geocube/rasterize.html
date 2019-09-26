@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>geocube.rasterize &#8212; geocube 0.0.7 documentation</title>
+    <title>geocube.rasterize &#8212; geocube 0.0.8 documentation</title>
     <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -26,7 +26,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">geocube 0.0.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">geocube 0.0.8 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -45,14 +45,20 @@
 <span class="kn">import</span> <span class="nn">rasterio.features</span>
 <span class="kn">import</span> <span class="nn">rasterio.transform</span>
 <span class="kn">import</span> <span class="nn">rasterio.warp</span>
-<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="k">import</span> <span class="n">griddata</span><span class="p">,</span> <span class="n">Rbf</span>
+<span class="kn">from</span> <span class="nn">rasterio.enums</span> <span class="k">import</span> <span class="n">MergeAlg</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="k">import</span> <span class="n">Rbf</span><span class="p">,</span> <span class="n">griddata</span>
 <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="k">import</span> <span class="n">mapping</span>
 
 <span class="kn">from</span> <span class="nn">geocube.logger</span> <span class="k">import</span> <span class="n">get_logger</span>
 
 
 <div class="viewcode-block" id="rasterize_image"><a class="viewcode-back" href="../../geocube.html#geocube.rasterize.rasterize_image">[docs]</a><span class="k">def</span> <span class="nf">rasterize_image</span><span class="p">(</span>
-    <span class="n">geometry_array</span><span class="p">,</span> <span class="n">data_values</span><span class="p">,</span> <span class="n">geobox</span><span class="p">,</span> <span class="n">fill</span><span class="o">=-</span><span class="mf">9999.0</span><span class="p">,</span> <span class="o">**</span><span class="n">ignored_kwargs</span>
+    <span class="n">geometry_array</span><span class="p">,</span>
+    <span class="n">data_values</span><span class="p">,</span>
+    <span class="n">geobox</span><span class="p">,</span>
+    <span class="n">fill</span><span class="o">=-</span><span class="mf">9999.0</span><span class="p">,</span>
+    <span class="n">merge_alg</span><span class="o">=</span><span class="n">MergeAlg</span><span class="o">.</span><span class="n">replace</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">ignored_kwargs</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Rasterize a list of shapes+values for a given GeoBox.</span>
@@ -67,6 +73,8 @@
 <span class="sd">        Transform of the resulting image.</span>
 <span class="sd">    fill: float, optional</span>
 <span class="sd">        The value to fill in the grid with for nodata. Default is -9999.0.</span>
+<span class="sd">    merge_alg: `rasterio.enums.MergeAlg`, optional</span>
+<span class="sd">        The algorithm for merging values into one cell. Default is `MergeAlg.replace`.</span>
 <span class="sd">    **ignored_kwargs:</span>
 <span class="sd">        These are there to be flexible with additional rasterization methods and</span>
 <span class="sd">        will be ignored.</span>
@@ -85,6 +93,7 @@
             <span class="n">out_shape</span><span class="o">=</span><span class="p">(</span><span class="n">geobox</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">geobox</span><span class="o">.</span><span class="n">width</span><span class="p">),</span>
             <span class="n">transform</span><span class="o">=</span><span class="n">geobox</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span>
             <span class="n">fill</span><span class="o">=</span><span class="n">fill</span><span class="p">,</span>
+            <span class="n">merge_alg</span><span class="o">=</span><span class="n">merge_alg</span><span class="p">,</span>
             <span class="n">dtype</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">image</span>
@@ -216,7 +225,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">geocube 0.0.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">geocube 0.0.8 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

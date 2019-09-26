@@ -8,7 +8,7 @@ Installation
 Stable release
 --------------
 
-. Use pip to install the binary wheels on `PyPI <https://pypi.org/project/geocube/>`__:
+. Use pip to install from `PyPI <https://pypi.org/project/geocube/>`__:
 
   .. code-block:: bash
     

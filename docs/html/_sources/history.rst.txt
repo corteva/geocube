@@ -1,6 +1,11 @@
 History
 =======
 
+0.0.8
+-----
+- Add merge algorithm option for rasterization (issue #5)
+- Drop Python 2 support (issue #6)
+
 0.0.7
 -----
 - Remove geocube pin (pull #4)
