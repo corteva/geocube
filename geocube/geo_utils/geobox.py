@@ -5,7 +5,6 @@ This module is for GIS related utility functions.
 import json
 
 import geopandas as gpd
-import numpy
 import rioxarray  # noqa
 from datacube.utils import geometry
 from rasterio.crs import CRS

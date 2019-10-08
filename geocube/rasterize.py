@@ -6,10 +6,11 @@ import numpy
 import rasterio.features
 import rasterio.transform
 import rasterio.warp
-from geocube.logger import get_logger
 from rasterio.enums import MergeAlg
 from scipy.interpolate import Rbf, griddata
 from shapely.geometry import mapping
+
+from geocube.logger import get_logger
 
 
 def rasterize_image(
