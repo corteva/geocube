@@ -51,14 +51,8 @@ LIKE_PATH = os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc")
         (["--align", "-10", "10"], _get_called_dict(align=(-10, 10))),
         (["-g", INPUT_GEOM], _get_called_dict(geom=INPUT_GEOM)),
         (["--geom", INPUT_GEOM], _get_called_dict(geom=INPUT_GEOM)),
-        (
-            ["-l", LIKE_PATH],
-            _get_called_dict(like=xarray.open_dataset(LIKE_PATH, autoclose=True)),
-        ),
-        (
-            ["--like", LIKE_PATH],
-            _get_called_dict(like=xarray.open_dataset(LIKE_PATH, autoclose=True)),
-        ),
+        (["-l", LIKE_PATH], _get_called_dict(like=xarray.open_dataset(LIKE_PATH))),
+        (["--like", LIKE_PATH], _get_called_dict(like=xarray.open_dataset(LIKE_PATH))),
         (["-f", "-10"], _get_called_dict(fill=-10)),
         (["--fill", "-10"], _get_called_dict(fill=-10)),
         (["-gb", "attr"], _get_called_dict(group_by="attr")),

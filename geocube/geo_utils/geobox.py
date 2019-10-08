@@ -5,7 +5,6 @@ This module is for GIS related utility functions.
 import json
 
 import geopandas as gpd
-import numpy
 import rioxarray  # noqa
 from datacube.utils import geometry
 from rasterio.crs import CRS
@@ -78,7 +77,7 @@ def load_vector_data(vector_data):
             "Projection not defined in `vector_data`."
             " Setting to geographic (EPSG:4326)."
         )
-    return vector_data.fillna(numpy.nan)
+    return vector_data
 
 
 class GeoBoxMaker(object):
