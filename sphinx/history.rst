@@ -3,9 +3,9 @@ History
 
 0.0.9
 -----
-- Added `rescale` kwarg to `geocube.rasterize.rasterize_points_griddata`.
+- Added `rescale` kwarg to `geocube.rasterize.rasterize_points_griddata`. (pull #8)
 - Removed `fillna(numpy.nan)` in `geocube.geo_utils.geobox.load_vector_data` as not necessary
-  and for compatibility with `geopandas==0.6.0`.
+  and for compatibility with `geopandas==0.6.0`. (pull #8)
 
 0.0.8
 -----
