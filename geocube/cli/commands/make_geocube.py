@@ -105,7 +105,7 @@ def make_geocube(
         measurements = None
 
     if like is not None:
-        like = xarray.open_dataset(like, autoclose=True)
+        like = xarray.open_dataset(like)
     try:
         gcds = core.make_geocube(
             vector_data=vector_data,

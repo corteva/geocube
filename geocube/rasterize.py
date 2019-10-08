@@ -6,11 +6,10 @@ import numpy
 import rasterio.features
 import rasterio.transform
 import rasterio.warp
+from geocube.logger import get_logger
 from rasterio.enums import MergeAlg
 from scipy.interpolate import Rbf, griddata
 from shapely.geometry import mapping
-
-from geocube.logger import get_logger
 
 
 def rasterize_image(
@@ -71,6 +70,7 @@ def rasterize_points_griddata(
     grid_coords,
     fill=-9999.0,
     method="nearest",
+    rescale=False,
     **ignored_kwargs
 ):
     """
@@ -89,6 +89,8 @@ def rasterize_points_griddata(
         The value to fill in the grid with for nodata. Default is -9999.0.
     method: {‘linear’, ‘nearest’, ‘cubic’}, optional
         The method to use for interpolation in `scipy.interpolate.griddata`.
+    rescale: bool, optional
+        Rescale points to unit cube before performing interpolation. Default is false.
     **ignored_kwargs:
         These are there to be flexible with additional rasterization methods and
         will be ignored.
@@ -107,6 +109,7 @@ def rasterize_points_griddata(
             xi=tuple(numpy.meshgrid(grid_coords["x"], grid_coords["y"])),
             method=method,
             fill_value=fill,
+            rescale=rescale,
         )
     except ValueError as ver:
         if "could not convert string to float" in str(ver):
@@ -118,7 +121,7 @@ def rasterize_points_radial(
     geometry_array, data_values, grid_coords, method="linear", **ignored_kwargs
 ):
     """
-    This method uses scipy.interpolate.griddata to interpolate point data
+    This method uses scipy.interpolate.Rbf to interpolate point data
     to a grid.
 
     Parameters
@@ -135,6 +138,7 @@ def rasterize_points_radial(
         The function to use for interpolation in `scipy.interpolate.Rbf`.
         {'multiquadric', 'inverse', 'gaussian', 'linear',
         'cubic', 'quintic', 'thin_plate'}
+
     **ignored_kwargs:
         These are there to be flexible with additional rasterization methods and
         will be ignored.

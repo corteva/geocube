@@ -78,7 +78,7 @@ def load_vector_data(vector_data):
             "Projection not defined in `vector_data`."
             " Setting to geographic (EPSG:4326)."
         )
-    return vector_data.fillna(numpy.nan)
+    return vector_data
 
 
 class GeoBoxMaker(object):

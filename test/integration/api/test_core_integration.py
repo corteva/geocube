@@ -67,9 +67,7 @@ def test_make_geocube(input_geodata, tmpdir):
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc"),
-        autoclose=True,
-        mask_and_scale=False,
+        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc"), mask_and_scale=False
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc)
 
@@ -103,7 +101,6 @@ def test_make_geocube__categorical(input_geodata, tmpdir):
     # test output data
     with xarray.open_dataset(
         os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat_categorical.nc"),
-        autoclose=True,
         mask_and_scale=False,
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc)
@@ -145,7 +142,6 @@ def test_make_geocube__interpolate_na(input_geodata, tmpdir):
     # test output data
     with xarray.open_dataset(
         os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat_interpolate_na.nc"),
-        autoclose=True,
         mask_and_scale=False,
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc)
@@ -171,9 +167,7 @@ def test_make_geocube__like(input_geodata, tmpdir):
     ]
 
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc"),
-        autoclose=True,
-        mask_and_scale=False,
+        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc"), mask_and_scale=False
     ) as xdc:
         out_grid = make_geocube(
             vector_data=input_geodata, measurements=soil_attribute_list, like=xdc
@@ -219,7 +213,6 @@ def test_make_geocube__only_resolution(input_geodata, tmpdir):
     # test output data
     with xarray.open_dataset(
         os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat_original_crs.nc"),
-        autoclose=True,
         mask_and_scale=False,
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc)
@@ -245,9 +238,7 @@ def test_make_geocube__convert_time(input_geodata, tmpdir):
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "time_vector_data.nc"),
-        autoclose=True,
-        mask_and_scale=False,
+        os.path.join(TEST_COMPARE_DATA_DIR, "time_vector_data.nc"), mask_and_scale=False
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc)
 
@@ -277,9 +268,7 @@ def test_make_geocube__like_error_invalid_args(load_extra_kwargs):
     ]
 
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc"),
-        autoclose=True,
-        mask_and_scale=False,
+        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc"), mask_and_scale=False
     ) as xdc:
         with pytest.raises(AssertionError):
             make_geocube(
@@ -310,9 +299,7 @@ def test_make_geocube__no_measurements(input_geodata, tmpdir):
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc"),
-        autoclose=True,
-        mask_and_scale=False,
+        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc"), mask_and_scale=False
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc)
 
@@ -334,7 +321,6 @@ def test_make_geocube__no_geom(tmpdir):
     # test output data
     with xarray.open_dataset(
         os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat_no_geom.nc"),
-        autoclose=True,
         mask_and_scale=False,
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc)
@@ -401,9 +387,7 @@ def test_make_geocube__group_by(input_geodata, tmpdir):
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_group.nc"),
-        autoclose=True,
-        mask_and_scale=False,
+        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_group.nc"), mask_and_scale=False
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc)
 
@@ -443,7 +427,6 @@ def test_make_geocube__group_by__categorical(input_geodata, tmpdir):
     # test output data
     with xarray.open_dataset(
         os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_group_categorical.nc"),
-        autoclose=True,
         mask_and_scale=False,
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc)
@@ -471,9 +454,7 @@ def test_make_geocube__group_by_like(input_geodata, tmpdir):
     ]
 
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_group.nc"),
-        autoclose=True,
-        mask_and_scale=False,
+        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_group.nc"), mask_and_scale=False
     ) as xdc:
         out_grid = make_geocube(
             vector_data=input_geodata,
@@ -517,7 +498,6 @@ def test_make_geocube__group_by_only_resolution(input_geodata, tmpdir):
     # test output data
     with xarray.open_dataset(
         os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_grouped_original_crs.nc"),
-        autoclose=True,
         mask_and_scale=False,
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc)
@@ -547,7 +527,6 @@ def test_make_geocube__group_by_time(input_geodata, tmpdir):
     # test output data
     with xarray.open_dataset(
         os.path.join(TEST_COMPARE_DATA_DIR, "vector_time_data_group.nc"),
-        autoclose=True,
         mask_and_scale=False,
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc)
@@ -578,7 +557,6 @@ def test_make_geocube__group_by_convert_with_time(input_geodata, tmpdir):
     # test output data
     with xarray.open_dataset(
         os.path.join(TEST_COMPARE_DATA_DIR, "vector_data_group.nc"),
-        autoclose=True,
         mask_and_scale=False,
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc)
@@ -611,9 +589,7 @@ def test_make_geocube__group_by_like_error_invalid_args(load_extra_kwargs):
     ]
 
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_group.nc"),
-        autoclose=True,
-        mask_and_scale=False,
+        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_group.nc"), mask_and_scale=False
     ) as xdc:
         with pytest.raises(AssertionError):
             make_geocube(
@@ -650,9 +626,7 @@ def test_make_geocube__group_by_no_measurements(input_geodata, tmpdir):
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_group.nc"),
-        autoclose=True,
-        mask_and_scale=False,
+        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_group.nc"), mask_and_scale=False
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc)
 
@@ -675,7 +649,6 @@ def test_make_geocube__group_by__no_geom(tmpdir):
     # test output data
     with xarray.open_dataset(
         os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_group_no_geom.nc"),
-        autoclose=True,
         mask_and_scale=False,
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc)
@@ -710,6 +683,10 @@ def test_make_geocube__new_bounds_crs():
     [
         (rasterize_points_griddata, "rasterize_griddata_nearest.nc"),
         (
+            partial(rasterize_points_griddata, rescale=True),
+            "rasterize_griddata_rescale.nc",
+        ),
+        (
             partial(rasterize_points_griddata, method="cubic"),
             "rasterize_griddata_cubic.nc",
         ),
@@ -731,8 +708,6 @@ def test_make_geocube__custom_rasterize_function(function, compare_name, tmpdir)
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, compare_name),
-        autoclose=True,
-        mask_and_scale=False,
+        os.path.join(TEST_COMPARE_DATA_DIR, compare_name), mask_and_scale=False
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc, rtol=0.1, atol=0.1)
