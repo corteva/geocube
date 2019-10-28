@@ -430,7 +430,8 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">elevation</span> <span class="o">=</span> <span class="n">rioxarray</span><span class="o">.</span><span class="n">open_rasterio</span><span class="p">(</span>
-    <span class="s2">&quot;zip://USGS_NED_13_n42w091_IMG.zip/USGS_NED_13_n42w091_IMG.img&quot;</span>
+    <span class="s2">&quot;zip://USGS_NED_13_n42w091_IMG.zip/USGS_NED_13_n42w091_IMG.img&quot;</span><span class="p">,</span>
+    <span class="n">masked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;band&quot;</span><span class="p">)</span>
 <span class="n">elevation</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;elevation&quot;</span>
 </pre></div>
@@ -492,7 +493,7 @@ Coordinates:
     spatial_ref  int64 0
 Data variables:
     mukey        (y, x) float64 nan nan nan nan nan nan ... nan nan nan nan nan
-    elevation    (y, x) float32 ...
+    elevation    (y, x) float64 ...
 Attributes:
     grid_mapping:  spatial_ref
 </pre></div>
@@ -562,52 +563,52 @@ Attributes:
   <tbody>
     <tr>
       <td>198692.0</td>
-      <td>173.130920</td>
+      <td>173.130925</td>
       <td>169.394562</td>
       <td>188.442505</td>
       <td>3.307044</td>
     </tr>
     <tr>
       <td>198714.0</td>
-      <td>175.061554</td>
+      <td>175.061542</td>
       <td>170.214157</td>
       <td>179.716675</td>
       <td>2.148920</td>
     </tr>
     <tr>
       <td>198724.0</td>
-      <td>179.933060</td>
+      <td>179.933075</td>
       <td>178.237244</td>
       <td>181.490387</td>
       <td>0.628017</td>
     </tr>
     <tr>
       <td>198750.0</td>
-      <td>176.188461</td>
+      <td>176.188453</td>
       <td>167.951233</td>
       <td>190.138763</td>
       <td>3.814724</td>
     </tr>
     <tr>
       <td>198754.0</td>
-      <td>171.632187</td>
+      <td>171.632181</td>
       <td>167.610321</td>
       <td>181.611298</td>
       <td>2.996241</td>
     </tr>
     <tr>
       <td>271425.0</td>
-      <td>167.973709</td>
+      <td>167.973730</td>
       <td>167.951233</td>
       <td>168.476776</td>
       <td>0.076759</td>
     </tr>
     <tr>
       <td>271431.0</td>
-      <td>176.718338</td>
+      <td>176.718330</td>
       <td>170.258133</td>
       <td>180.460220</td>
-      <td>2.732229</td>
+      <td>2.732228</td>
     </tr>
   </tbody>
 </table>
