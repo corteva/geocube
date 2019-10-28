@@ -9,7 +9,8 @@ This page contains links to a collection of examples of how to use GeoCube.
    :maxdepth: 1
    :caption: Contents:
 
-   categorical.ipynb
    resample_point_data.ipynb
+   categorical.ipynb
+   timestamp_missing_data.ipynb
    grid_to_vector_map.ipynb
-   rasterize_point_data.ipynb
+   zonal_statistics.ipynb

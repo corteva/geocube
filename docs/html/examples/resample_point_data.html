@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Example - Resampling Point Data &mdash; geocube 0.0.9 documentation</title>
+  <title>Example - Filling in missing data &amp; dealing with timestamps &mdash; geocube 0.0.9 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Example - Mapping Grid Data to Vector Data" href="grid_to_vector_map.html" />
-    <link rel="prev" title="Example - Categorical Data" href="categorical.html" /> 
+    <link rel="next" title="Example - Categorical Data" href="categorical.html" />
+    <link rel="prev" title="Usage Examples" href="examples.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -90,8 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../readme.html">geocube README</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="examples.html">Usage Examples</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="categorical.html">Example - Categorical Data</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Example - Resampling Point Data</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Example - Filling in missing data &amp; dealing with timestamps</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Load-in-geopackage-data-and-add-CRS">Load in geopackage data and add CRS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Convert-to-raster-with-GeoCube">Convert to raster with GeoCube</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Load-into-grid-basic">Load into grid basic</a></li>
@@ -100,8 +99,10 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="categorical.html">Example - Categorical Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="timestamp_missing_data.html">Example - Rasterizing Point Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="grid_to_vector_map.html">Example - Mapping Grid Data to Vector Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rasterize_point_data.html">Example - Rasterizing Point Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zonal_statistics.html">Example - Zonal Statistics</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">API Documentation</a></li>
@@ -155,7 +156,7 @@
         
           <li><a href="examples.html">Usage Examples</a> &raquo;</li>
         
-      <li>Example - Resampling Point Data</li>
+      <li>Example - Filling in missing data &amp; dealing with timestamps</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -396,8 +397,8 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="Example---Resampling-Point-Data">
-<h1>Example - Resampling Point Data<a class="headerlink" href="#Example---Resampling-Point-Data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Example---Filling-in-missing-data-&amp;-dealing-with-timestamps">
+<h1>Example - Filling in missing data &amp; dealing with timestamps<a class="headerlink" href="#Example---Filling-in-missing-data-&-dealing-with-timestamps" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -714,10 +715,10 @@ Attributes:
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="grid_to_vector_map.html" class="btn btn-neutral float-right" title="Example - Mapping Grid Data to Vector Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="categorical.html" class="btn btn-neutral float-right" title="Example - Categorical Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="categorical.html" class="btn btn-neutral float-left" title="Example - Categorical Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="examples.html" class="btn btn-neutral float-left" title="Usage Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
