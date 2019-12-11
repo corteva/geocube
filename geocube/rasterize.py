@@ -3,6 +3,7 @@
 This module contains tools for rasterizing vector data.
 """
 import numpy
+import pandas
 import rasterio.features
 import rasterio.transform
 import rasterio.warp
@@ -65,6 +66,19 @@ def rasterize_image(
         raise
 
 
+def _remove_missing_data(data_values, geometry_array):
+    """
+    Missing data causes issues with interpolation of point data
+    https://github.com/corteva/geocube/issues/9
+
+    This filters the data so those issues don't cause problems.
+    """
+    not_missing_data = ~pandas.isnull(data_values)
+    geometry_array = geometry_array[not_missing_data]
+    data_values = data_values[not_missing_data]
+    return data_values, geometry_array
+
+
 def rasterize_points_griddata(
     geometry_array,
     data_values,
@@ -104,6 +118,7 @@ def rasterize_points_griddata(
     if data_values.dtype == object:
         return None
     try:
+        data_values, geometry_array = _remove_missing_data(data_values, geometry_array)
         return griddata(
             points=(geometry_array.x, geometry_array.y),
             values=data_values,
@@ -152,6 +167,7 @@ def rasterize_points_radial(
     logger = get_logger()
 
     try:
+        data_values, geometry_array = _remove_missing_data(data_values, geometry_array)
         interp = Rbf(geometry_array.x, geometry_array.y, data_values, function=method)
         return interp(*numpy.meshgrid(grid_coords["x"], grid_coords["y"]))
     except ValueError as ter:

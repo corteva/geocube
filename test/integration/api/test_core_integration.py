@@ -711,3 +711,34 @@ def test_make_geocube__custom_rasterize_function(function, compare_name, tmpdir)
         os.path.join(TEST_COMPARE_DATA_DIR, compare_name), mask_and_scale=False
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc, rtol=0.1, atol=0.1)
+
+
+@pytest.mark.parametrize(
+    "function,compare_name",
+    [
+        (rasterize_points_griddata, "rasterize_griddata_nearest_nodata.nc"),
+        (
+            partial(rasterize_points_griddata, method="cubic"),
+            "rasterize_griddata_cubic_nodata.nc",
+        ),
+        (rasterize_points_radial, "rasterize_radial_linear_nodata.nc"),
+    ],
+)
+def test_make_geocube__custom_rasterize_function__filter_null(
+    function, compare_name, tmpdir
+):
+    input_geodata = os.path.join(TEST_INPUT_DATA_DIR, "point_with_null.geojson")
+    out_grid = make_geocube(
+        vector_data=input_geodata,
+        resolution=(-0.00001, 0.00001),
+        rasterize_function=function,
+    )
+
+    # test writing to netCDF
+    out_grid.to_netcdf(str(tmpdir.mkdir("geocube_custom").join(compare_name)))
+
+    # test output data
+    with xarray.open_dataset(
+        os.path.join(TEST_COMPARE_DATA_DIR, compare_name), mask_and_scale=False
+    ) as xdc:
+        xarray.testing.assert_allclose(out_grid, xdc, rtol=0.1, atol=0.1)

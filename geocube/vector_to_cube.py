@@ -5,16 +5,16 @@ geocube core conversion functionality
 import numpy
 import pandas
 import xarray
-
-from geocube.geo_utils.geobox import load_vector_data
-from geocube.logger import get_logger
-from geocube.rasterize import rasterize_image
 from rioxarray.rioxarray import (
     DEFAULT_GRID_MAP,
     add_spatial_ref,
     add_xy_grid_meta,
     affine_to_coords,
 )
+
+from geocube.geo_utils.geobox import load_vector_data
+from geocube.logger import get_logger
+from geocube.rasterize import rasterize_image
 
 
 def _format_series_data(data_series):
