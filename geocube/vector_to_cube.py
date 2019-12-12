@@ -35,9 +35,9 @@ def _format_series_data(data_series):
     if "datetime" in str(data_series.dtype):
         data_series = pandas.to_numeric(data_series).astype(numpy.float64)
         get_logger().warning(
-            "The series '{}' was converted from a date to a number to "
+            f"The series '{data_series.name}' was converted from a date to a number to "
             "rasterize the data. To load the data back in as a date, "
-            "use 'pandas.to_datetime()'.".format(data_series.name)
+            "use 'pandas.to_datetime()'."
         )
     elif str(data_series.dtype) == "category":
         data_series = data_series.cat.codes
@@ -246,7 +246,7 @@ class VectorToCube(object):
         out_xds = xarray.Dataset(data_vars=data_vars, coords=self.grid_coords)
 
         for categorical_measurement, categoral_enums in self._categorical_enums.items():
-            enum_var_name = "{}_categories".format(categorical_measurement)
+            enum_var_name = f"{categorical_measurement}_categories"
             cat_attrs = dict(out_xds[categorical_measurement].attrs)
             cat_attrs["categorical_mapping"] = enum_var_name
             out_xds[categorical_measurement].attrs = cat_attrs
@@ -299,9 +299,7 @@ class VectorToCube(object):
             )
             if image is None:
                 logger.warning(
-                    "Skipping attribute {col} due to missing data...".format(
-                        col=measurement_name
-                    )
+                    f"Skipping attribute {measurement_name} due to missing data..."
                 )
                 return None
 
@@ -346,9 +344,7 @@ class VectorToCube(object):
         )
         if image_data is None:
             logger.warning(
-                "Skipping attribute {col} due to missing data...".format(
-                    col=measurement_name
-                )
+                f"Skipping attribute {measurement_name} due to missing data..."
             )
             return None
 

@@ -27,7 +27,7 @@ def check_version(ctx, _, value):
     if not value or ctx.resilient_parsing:
         return
 
-    click.echo("geocube v{}".format(__version__))
+    click.echo(f"geocube v{__version__}")
 
     ctx.exit()
 

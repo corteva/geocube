@@ -55,9 +55,9 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u"geocube"
-copyright = u"2019, Geocube Contributors"
-author = u"Geocube Contributors"
+project = "geocube"
+copyright = "2019, Geocube Contributors"
+author = "Geocube Contributors"
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -136,8 +136,8 @@ latex_documents = [
     (
         master_doc,
         "geocube.tex",
-        u"geocube Documentation",
-        u"Geocube Contributors",
+        "geocube Documentation",
+        "Geocube Contributors",
         "manual",
     )
 ]
@@ -147,7 +147,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "geocube", u"geocube Documentation", [author], 1)]
+man_pages = [(master_doc, "geocube", "geocube Documentation", [author], 1)]
 
 
 # -- Options for Texinfo output ----------------------------------------
@@ -159,7 +159,7 @@ texinfo_documents = [
     (
         master_doc,
         "geocube",
-        u"geocube Documentation",
+        "geocube Documentation",
         author,
         "geocube",
         "One line description of project.",

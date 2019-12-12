@@ -45,9 +45,9 @@ setup(
         "License :: OSI Approved :: BSD License",
         "Natural Language :: English",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
     description="Tool to convert geopandas vector data into rasterized xarray data.",
     entry_points={"console_scripts": ["geocube=geocube.cli.geocube:geocube"]},
@@ -64,5 +64,5 @@ setup(
     url="https://github.com/corteva/geocube",
     version=__version__,
     zip_safe=False,
-    python_requires=">=3",
+    python_requires=">=3.6",
 )
