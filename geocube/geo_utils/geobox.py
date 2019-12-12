@@ -65,9 +65,8 @@ def load_vector_data(vector_data):
         raise VectorDataError("Empty GeoDataFrame.")
     if "geometry" not in vector_data.columns:
         raise VectorDataError(
-            "'geometry' column missing. Columns in file: {}".format(
-                vector_data.columns.values.tolist()
-            )
+            "'geometry' column missing. Columns in file: "
+            f"{vector_data.columns.values.tolist()}"
         )
 
     # make sure projection is set

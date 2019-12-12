@@ -284,7 +284,7 @@ def test_make_geocube__like_error_invalid_args(load_extra_kwargs):
                 measurements=soil_attribute_list,
                 like=xdc,
                 fill=-9999.0,
-                **load_extra_kwargs
+                **load_extra_kwargs,
             )
 
 
@@ -618,7 +618,7 @@ def test_make_geocube__group_by_like_error_invalid_args(load_extra_kwargs):
                 like=xdc,
                 group_by="hzdept_r",
                 fill=-9999.0,
-                **load_extra_kwargs
+                **load_extra_kwargs,
             )
 
 

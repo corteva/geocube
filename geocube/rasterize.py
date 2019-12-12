@@ -34,7 +34,7 @@ def rasterize_image(
     fill,
     merge_alg=MergeAlg.replace,
     filter_nan=False,
-    **ignored_kwargs
+    **ignored_kwargs,
 ):
     """
     Rasterize a list of shapes+values for a given GeoBox.
@@ -82,7 +82,7 @@ def rasterize_image(
         return image
     except TypeError as ter:
         if "cannot perform reduce with flexible type" in str(ter):
-            logger.warning("{warning}".format(warning=ter))
+            logger.warning(f"{ter}")
             return None
         raise
 
@@ -95,7 +95,7 @@ def rasterize_points_griddata(
     method="nearest",
     rescale=False,
     filter_nan=False,
-    **ignored_kwargs
+    **ignored_kwargs,
 ):
     """
     This method uses scipy.interpolate.griddata to interpolate point data
@@ -154,7 +154,7 @@ def rasterize_points_radial(
     grid_coords,
     method="linear",
     filter_nan=False,
-    **ignored_kwargs
+    **ignored_kwargs,
 ):
     """
     This method uses scipy.interpolate.Rbf to interpolate point data
@@ -195,6 +195,6 @@ def rasterize_points_radial(
         return interp(*numpy.meshgrid(grid_coords["x"], grid_coords["y"]))
     except ValueError as ter:
         if "object arrays are not supported" in str(ter):
-            logger.warning("{warning}".format(warning=ter))
+            logger.warning(f"{ter}")
             return None
         raise
