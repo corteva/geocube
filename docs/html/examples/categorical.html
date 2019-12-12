@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Example - Categorical Data &mdash; geocube 0.0.9 documentation</title>
+  <title>Example - Categorical Data &mdash; geocube 0.0.10 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.0.9
+                0.0.10
               </div>
             
           
@@ -401,7 +401,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Example---Categorical-Data">
 <h1>Example - Categorical Data<a class="headerlink" href="#Example---Categorical-Data" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -417,16 +417,16 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Load-in-soil-data">
 <h2>Load in soil data<a class="headerlink" href="#Load-in-soil-data" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ssurgo_data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;soil_data_group.geojson&quot;</span><span class="p">)</span>
+<span></span><span class="n">ssurgo_data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;../../test/test_data/input/soil_data_group.geojson&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -436,11 +436,11 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f4225527978&gt;
+<span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f86445f1b70&gt;
 </pre></div>
 </div>
 </div>
@@ -456,7 +456,7 @@ div.rendered_html tbody tr:hover {
 <h2>Generate categories for categorical data<a class="headerlink" href="#Generate-categories-for-categorical-data" title="Permalink to this headline">¶</a></h2>
 <p>If your data is only a subset of all of the data, the list of categories you get will likely not be complete.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -466,7 +466,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -478,7 +478,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -497,7 +497,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -509,7 +509,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Convert-data-to-grid">
 <h2>Convert data to grid<a class="headerlink" href="#Convert-data-to-grid" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -524,7 +524,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -533,7 +533,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -547,30 +547,32 @@ Coordinates:
     spatial_ref            int64 0
 Data variables:
     drclassdcd             (hzdept_r, y, x) float64 -1.0 -1.0 -1.0 ... 7.0 7.0
-    hzdepb_r               (hzdept_r, y, x) float64 -9.999e+03 ... 180.0
-    claytotal_r            (hzdept_r, y, x) float64 -9.999e+03 ... 21.0
-    sandtotal_r            (hzdept_r, y, x) float64 -9.999e+03 ... 10.0
-    silttotal_r            (hzdept_r, y, x) float64 -9.999e+03 ... 69.0
+    hzdepb_r               (hzdept_r, y, x) float64 nan nan nan ... 180.0 180.0
+    claytotal_r            (hzdept_r, y, x) float64 nan nan nan ... 21.0 21.0
+    sandtotal_r            (hzdept_r, y, x) float64 nan nan nan ... 10.0 10.0
+    silttotal_r            (hzdept_r, y, x) float64 nan nan nan ... 69.0 69.0
+Attributes:
+    grid_mapping:  spatial_ref
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># mask nodata and plot</span>
 <span class="n">clay_slice</span> <span class="o">=</span> <span class="n">out_grid</span><span class="o">.</span><span class="n">claytotal_r</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">hzdept_r</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">clay_slice</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">clay_slice</span><span class="o">!=</span><span class="n">out_grid</span><span class="o">.</span><span class="n">claytotal_r</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;_FillValue&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">clay_slice</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">clay_slice</span><span class="o">!=</span><span class="n">out_grid</span><span class="o">.</span><span class="n">claytotal_r</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f422545d438&gt;
+<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f8640b754a8&gt;
 </pre></div>
 </div>
 </div>
@@ -586,21 +588,21 @@ Data variables:
 <h2>Dealing with categorical data<a class="headerlink" href="#Dealing-with-categorical-data" title="Permalink to this headline">¶</a></h2>
 <p>Because the data needs to be numerical for conversion from vector to raster, the code displays the categories as numbers. To convert back to strings, you will need to use the categories provided to convert back.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">drclassdcd_slice</span> <span class="o">=</span> <span class="n">out_grid</span><span class="o">.</span><span class="n">drclassdcd</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">hzdept_r</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">drclassdcd_slice</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">drclassdcd_slice</span><span class="o">!=</span><span class="n">out_grid</span><span class="o">.</span><span class="n">drclassdcd</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;_FillValue&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">drclassdcd_slice</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">drclassdcd_slice</span><span class="o">!=</span><span class="n">out_grid</span><span class="o">.</span><span class="n">drclassdcd</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f422538ecc0&gt;
+<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f8640ab7f28&gt;
 </pre></div>
 </div>
 </div>
@@ -612,7 +614,7 @@ Data variables:
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -622,7 +624,7 @@ Data variables:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -632,7 +634,7 @@ Data variables:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -646,15 +648,17 @@ Coordinates:
     spatial_ref            int64 0
 Data variables:
     drclassdcd             (hzdept_r, y, x) object &#39;nodata&#39; ... &#39;Well drained&#39;
-    hzdepb_r               (hzdept_r, y, x) float64 -9.999e+03 ... 180.0
-    claytotal_r            (hzdept_r, y, x) float64 -9.999e+03 ... 21.0
-    sandtotal_r            (hzdept_r, y, x) float64 -9.999e+03 ... 10.0
-    silttotal_r            (hzdept_r, y, x) float64 -9.999e+03 ... 69.0
+    hzdepb_r               (hzdept_r, y, x) float64 nan nan nan ... 180.0 180.0
+    claytotal_r            (hzdept_r, y, x) float64 nan nan nan ... 21.0 21.0
+    sandtotal_r            (hzdept_r, y, x) float64 nan nan nan ... 10.0 10.0
+    silttotal_r            (hzdept_r, y, x) float64 nan nan nan ... 69.0 69.0
+Attributes:
+    grid_mapping:  spatial_ref
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -664,7 +668,7 @@ Data variables:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -707,17 +711,17 @@ Data variables:
   </thead>
   <tbody>
     <tr>
-      <th rowspan="5" valign="top">0.0</th>
-      <th rowspan="5" valign="top">700350.0</th>
-      <th>4597050.0</th>
+      <td rowspan="5" valign="top">0.0</td>
+      <td rowspan="5" valign="top">700350.0</td>
+      <td>4597050.0</td>
       <td>nodata</td>
-      <td>-9999.0</td>
-      <td>-9999.0</td>
-      <td>-9999.0</td>
-      <td>-9999.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
-      <th>4596950.0</th>
+      <td>4596950.0</td>
       <td>Well drained</td>
       <td>5.0</td>
       <td>26.0</td>
@@ -725,7 +729,7 @@ Data variables:
       <td>36.0</td>
     </tr>
     <tr>
-      <th>4596850.0</th>
+      <td>4596850.0</td>
       <td>Well drained</td>
       <td>5.0</td>
       <td>26.0</td>
@@ -733,7 +737,7 @@ Data variables:
       <td>36.0</td>
     </tr>
     <tr>
-      <th>4596750.0</th>
+      <td>4596750.0</td>
       <td>Well drained</td>
       <td>5.0</td>
       <td>26.0</td>
@@ -741,7 +745,7 @@ Data variables:
       <td>36.0</td>
     </tr>
     <tr>
-      <th>4596650.0</th>
+      <td>4596650.0</td>
       <td>Well drained</td>
       <td>5.0</td>
       <td>26.0</td>
@@ -756,7 +760,7 @@ Data variables:
 <h3>Make sure all categories are represented<a class="headerlink" href="#Make-sure-all-categories-are-represented" title="Permalink to this headline">¶</a></h3>
 <p>To do this, convert the column type to categorical beforehand and make sure that you include all of the possible categories.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -766,7 +770,7 @@ Data variables:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -776,7 +780,7 @@ Data variables:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -835,13 +839,13 @@ Data variables:
   </thead>
   <tbody>
     <tr>
-      <th rowspan="5" valign="top">0.0</th>
-      <th rowspan="5" valign="top">700350.0</th>
-      <th>4597050.0</th>
-      <td>-9999.0</td>
-      <td>-9999.0</td>
-      <td>-9999.0</td>
-      <td>-9999.0</td>
+      <td rowspan="5" valign="top">0.0</td>
+      <td rowspan="5" valign="top">700350.0</td>
+      <td>4597050.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>0</td>
       <td>0</td>
       <td>0</td>
@@ -853,7 +857,7 @@ Data variables:
       <td>1</td>
     </tr>
     <tr>
-      <th>4596950.0</th>
+      <td>4596950.0</td>
       <td>5.0</td>
       <td>26.0</td>
       <td>38.0</td>
@@ -869,7 +873,7 @@ Data variables:
       <td>0</td>
     </tr>
     <tr>
-      <th>4596850.0</th>
+      <td>4596850.0</td>
       <td>5.0</td>
       <td>26.0</td>
       <td>38.0</td>
@@ -885,7 +889,7 @@ Data variables:
       <td>0</td>
     </tr>
     <tr>
-      <th>4596750.0</th>
+      <td>4596750.0</td>
       <td>5.0</td>
       <td>26.0</td>
       <td>38.0</td>
@@ -901,7 +905,7 @@ Data variables:
       <td>0</td>
     </tr>
     <tr>
-      <th>4596650.0</th>
+      <td>4596650.0</td>
       <td>5.0</td>
       <td>26.0</td>
       <td>38.0</td>
@@ -921,7 +925,7 @@ Data variables:
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -930,7 +934,7 @@ Data variables:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>

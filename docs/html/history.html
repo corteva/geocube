@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>History &mdash; geocube 0.0.9 documentation</title>
+  <title>History &mdash; geocube 0.0.10 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.0.9
+                0.0.10
               </div>
             
           
@@ -93,11 +93,12 @@
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authors.html">Contributors ✨</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">History</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">0.0.9</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">0.0.8</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">0.0.7</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">0.0.6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">0.0.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">0.0.10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">0.0.9</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">0.0.8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">0.0.7</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">0.0.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">0.0.5</a></li>
 </ul>
 </li>
 </ul>
@@ -191,34 +192,41 @@
 <div class="section" id="history">
 <h1>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>0.0.9<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>0.0.10<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Added filter_nan kwarg to filter out missing data when rasterizing (issue #9)</li>
+<li>Change default fill value to NaN when rasterizing (pull #11)</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>0.0.9<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Added <cite>rescale</cite> kwarg to <cite>geocube.rasterize.rasterize_points_griddata</cite>. (pull #8)</li>
 <li>Removed <cite>fillna(numpy.nan)</cite> in <cite>geocube.geo_utils.geobox.load_vector_data</cite> as not necessary
 and for compatibility with <cite>geopandas==0.6.0</cite>. (pull #8)</li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h2>0.0.8<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>0.0.8<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Add merge algorithm option for rasterization (issue #5)</li>
 <li>Drop Python 2 support (issue #6)</li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h2>0.0.7<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>0.0.7<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Remove geocube pin (pull #4)</li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h2>0.0.6<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>0.0.6<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Added additional methods for resampling points to a 2D grid (pull #3)</li>
 </ul>
 </div>
-<div class="section" id="id5">
-<h2>0.0.5<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>0.0.5<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Fix converting to another projection to ensure bounds are correctly accounted for (pull #2)</li>
 </ul>

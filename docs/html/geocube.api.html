@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>geocube.api package &mdash; geocube 0.0.9 documentation</title>
+  <title>geocube.api package &mdash; geocube 0.0.10 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.0.9
+                0.0.10
               </div>
             
           
@@ -205,7 +205,7 @@
 <p>GeoCube client core functionality</p>
 <dl class="function">
 <dt id="geocube.api.core.make_geocube">
-<code class="descclassname">geocube.api.core.</code><code class="descname">make_geocube</code><span class="sig-paren">(</span><em>vector_data</em>, <em>measurements=None</em>, <em>datetime_measurements=None</em>, <em>output_crs=None</em>, <em>resolution=None</em>, <em>align=None</em>, <em>geom=None</em>, <em>like=None</em>, <em>fill=None</em>, <em>group_by=None</em>, <em>interpolate_na_method=None</em>, <em>categorical_enums=None</em>, <em>rasterize_function=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/api/core.html#make_geocube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.api.core.make_geocube" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">geocube.api.core.</code><code class="descname">make_geocube</code><span class="sig-paren">(</span><em>vector_data</em>, <em>measurements=None</em>, <em>datetime_measurements=None</em>, <em>output_crs=None</em>, <em>resolution=None</em>, <em>align=None</em>, <em>geom=None</em>, <em>like=None</em>, <em>fill=nan</em>, <em>group_by=None</em>, <em>interpolate_na_method=None</em>, <em>categorical_enums=None</em>, <em>rasterize_function=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/api/core.html#make_geocube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.api.core.make_geocube" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rasterize vector data into an <code class="docutils literal notranslate"><span class="pre">xarray</span></code> object.  Each attribute will be a data
 variable in the <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -237,7 +237,7 @@ E.g.:</p>
 </pre></div>
 </div>
 </li>
-<li><strong>fill</strong> (<em>float</em><em>, </em><em>optional</em>) – The value to fill in the grid with for nodata. Default is -9999.0.</li>
+<li><strong>fill</strong> (<em>float</em><em>, </em><em>optional</em>) – The value to fill in the grid with for nodata. Default is NaN.</li>
 <li><strong>group_by</strong> (<em>str</em><em>, </em><em>optional</em>) – When specified, perform basic combining/reducing of the data on this column.</li>
 <li><strong>interpolate_na_method</strong> (<em>{‘linear’</em><em>, </em><em>‘nearest’</em><em>, </em><em>‘cubic’}</em><em>, </em><em>optional</em>) – This is the method for interpolation to use to fill in the nodata with
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">scipy.interpolate.griddata()</span></code>.</li>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Example - Rasterizing Point Data &mdash; geocube 0.0.9 documentation</title>
+  <title>Example - Rasterizing Point Data &mdash; geocube 0.0.10 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.0.9
+                0.0.10
               </div>
             
           
@@ -471,39 +471,39 @@ div.rendered_html tbody tr:hover {
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
+      <td>0</td>
       <td>1.3</td>
       <td>dcf86619</td>
       <td>5/21/2016 10:09:21 AM -05:00</td>
-      <td>POINT (-47.266811 44.219318)</td>
+      <td>POINT (-47.26681 44.21932)</td>
     </tr>
     <tr>
-      <th>1</th>
+      <td>1</td>
       <td>1.3</td>
       <td>dcf86619</td>
       <td>5/21/2016 10:09:21 AM -05:00</td>
-      <td>POINT (-47.266798 44.219318)</td>
+      <td>POINT (-47.26680 44.21932)</td>
     </tr>
     <tr>
-      <th>2</th>
+      <td>2</td>
       <td>1.9</td>
       <td>dcf86619</td>
       <td>5/21/2016 10:09:21 AM -05:00</td>
-      <td>POINT (-47.266807 44.219318)</td>
+      <td>POINT (-47.26681 44.21932)</td>
     </tr>
     <tr>
-      <th>3</th>
+      <td>3</td>
       <td>1.3</td>
       <td>dcf86619</td>
       <td>5/21/2016 10:09:21 AM -05:00</td>
-      <td>POINT (-47.266803 44.219318)</td>
+      <td>POINT (-47.26680 44.21932)</td>
     </tr>
     <tr>
-      <th>4</th>
+      <td>4</td>
       <td>1.3</td>
       <td>dcf86619</td>
       <td>5/21/2016 10:09:21 AM -05:00</td>
-      <td>POINT (-47.266794 44.219318)</td>
+      <td>POINT (-47.26679 44.21932)</td>
     </tr>
   </tbody>
 </table>
@@ -551,6 +551,8 @@ Coordinates:
     spatial_ref  int64 0
 Data variables:
     test_attr    (y, x) float64 1.3 1.3 1.3 1.2 1.3 1.3 ... 2.3 1.3 1.9 1.3 1.3
+Attributes:
+    grid_mapping:  spatial_ref
 </pre></div>
 </div>
 </div>
@@ -560,7 +562,7 @@ Data variables:
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># mask nodata and plot</span>
-<span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">!=</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;_FillValue&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">!=</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -569,7 +571,7 @@ Data variables:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2cd9151cf8&gt;
+<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f77ed4a2c88&gt;
 </pre></div>
 </div>
 </div>
@@ -603,7 +605,7 @@ Data variables:
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># mask nodata and plot</span>
-<span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">!=</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;_FillValue&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">!=</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -612,7 +614,7 @@ Data variables:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2cd9041b38&gt;
+<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f77ed3a2ac8&gt;
 </pre></div>
 </div>
 </div>
@@ -648,7 +650,7 @@ Data variables:
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># mask nodata and plot</span>
-<span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">!=</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;_FillValue&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">!=</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -657,7 +659,7 @@ Data variables:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2cd6f6c8d0&gt;
+<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f77eb2ce5c0&gt;
 </pre></div>
 </div>
 </div>
@@ -683,7 +685,7 @@ Data variables:
     <span class="n">geom</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">mapping</span><span class="p">(</span><span class="n">box</span><span class="p">(</span><span class="o">-</span><span class="mi">48</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="o">-</span><span class="mi">47</span><span class="p">,</span> <span class="mi">45</span><span class="p">))),</span>
     <span class="n">output_crs</span><span class="o">=</span><span class="s2">&quot;+init=epsg:3857&quot;</span><span class="p">,</span>
     <span class="n">resolution</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span>
-    <span class="n">rasterize_function</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">rasterize_points_radial</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;cubic&quot;</span><span class="p">),</span>
+    <span class="n">rasterize_function</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">rasterize_points_radial</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;cubic&quot;</span><span class="p">,</span> <span class="n">filter_nan</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -693,7 +695,7 @@ Data variables:
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/home/snowal/miniconda3/envs/goldfinger/lib/python3.6/site-packages/scipy/interpolate/rbf.py:241: LinAlgWarning: Ill-conditioned matrix (rcond=3.07097e-19): result may not be accurate.
+/home/snowal/miniconda/envs/geocube/lib/python3.6/site-packages/scipy/interpolate/rbf.py:241: LinAlgWarning: Ill-conditioned matrix (rcond=4.1481e-19): result may not be accurate.
   self.nodes = linalg.solve(self.A, self.di)
 </pre></div></div>
 </div>
@@ -703,7 +705,7 @@ Data variables:
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># mask nodata and plot</span>
-<span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">!=</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;_FillValue&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">!=</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -712,7 +714,7 @@ Data variables:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2cd6ea4898&gt;
+<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f77eb20e588&gt;
 </pre></div>
 </div>
 </div>

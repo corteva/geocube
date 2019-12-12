@@ -177,7 +177,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -197,7 +197,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
     {
@@ -220,7 +220,7 @@
        "    grid_mapping:  spatial_ref"
       ]
      },
-     "execution_count": 6,
+     "execution_count": 5,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -243,7 +243,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [
     {
@@ -374,7 +374,7 @@
        "271431.0    31.000000  "
       ]
      },
-     "execution_count": 14,
+     "execution_count": 6,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -386,7 +386,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 7,
    "metadata": {},
    "outputs": [
     {
@@ -517,7 +517,7 @@
        "271431.0    17.000000  "
       ]
      },
-     "execution_count": 16,
+     "execution_count": 7,
      "metadata": {},
      "output_type": "execute_result"
     }

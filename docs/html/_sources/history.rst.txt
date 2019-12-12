@@ -1,6 +1,11 @@
 History
 =======
 
+0.0.10
+------
+- Added filter_nan kwarg to filter out missing data when rasterizing (issue #9)
+- Change default fill value to NaN when rasterizing (pull #11)
+
 0.0.9
 -----
 - Added `rescale` kwarg to `geocube.rasterize.rasterize_points_griddata`. (pull #8)

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Example - Filling in missing data &amp; dealing with timestamps &mdash; geocube 0.0.9 documentation</title>
+  <title>Example - Filling in missing data &amp; dealing with timestamps &mdash; geocube 0.0.10 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.0.9
+                0.0.10
               </div>
             
           
@@ -400,7 +400,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Example---Filling-in-missing-data-&amp;-dealing-with-timestamps">
 <h1>Example - Filling in missing data &amp; dealing with timestamps<a class="headerlink" href="#Example---Filling-in-missing-data-&-dealing-with-timestamps" title="Permalink to this headline">¶</a></h1>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -415,17 +415,17 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Load-in-geopackage-data-and-add-CRS">
 <h2>Load in geopackage data and add CRS<a class="headerlink" href="#Load-in-geopackage-data-and-add-CRS" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;time_vector_data.geojson&quot;</span><span class="p">)</span>
+<span></span><span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;../../test/test_data/input/time_vector_data.geojson&quot;</span><span class="p">)</span>
 <span class="n">gdf</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;init&#39;</span><span class="p">:</span> <span class="s1">&#39;epsg:4326&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -434,7 +434,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -464,46 +464,46 @@ div.rendered_html tbody tr:hover {
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
+      <td>0</td>
       <td>1.3</td>
       <td>dcf86619</td>
       <td>5/21/2016 10:09:21 AM -05:00</td>
-      <td>POINT (-47.266811 44.219318)</td>
+      <td>POINT (-47.26681 44.21932)</td>
     </tr>
     <tr>
-      <th>1</th>
+      <td>1</td>
       <td>1.3</td>
       <td>dcf86619</td>
       <td>5/21/2016 10:09:21 AM -05:00</td>
-      <td>POINT (-47.266798 44.219318)</td>
+      <td>POINT (-47.26680 44.21932)</td>
     </tr>
     <tr>
-      <th>2</th>
+      <td>2</td>
       <td>1.9</td>
       <td>dcf86619</td>
       <td>5/21/2016 10:09:21 AM -05:00</td>
-      <td>POINT (-47.266807 44.219318)</td>
+      <td>POINT (-47.26681 44.21932)</td>
     </tr>
     <tr>
-      <th>3</th>
+      <td>3</td>
       <td>1.3</td>
       <td>dcf86619</td>
       <td>5/21/2016 10:09:21 AM -05:00</td>
-      <td>POINT (-47.266803 44.219318)</td>
+      <td>POINT (-47.26680 44.21932)</td>
     </tr>
     <tr>
-      <th>4</th>
+      <td>4</td>
       <td>1.3</td>
       <td>dcf86619</td>
       <td>5/21/2016 10:09:21 AM -05:00</td>
-      <td>POINT (-47.266794 44.219318)</td>
+      <td>POINT (-47.26679 44.21932)</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -512,11 +512,11 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f2206b62630&gt;
+<span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f2f1cd18240&gt;
 </pre></div>
 </div>
 </div>
@@ -533,7 +533,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Load-into-grid-basic">
 <h3>Load into grid basic<a class="headerlink" href="#Load-into-grid-basic" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -552,14 +552,14 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/home/snowal/miniconda/envs/geocube/lib/python3.6/site-packages/xarray/core/variable.py:134: FutureWarning: Converting timezone-aware DatetimeArray to timezone-naive ndarray with &#39;datetime64[ns]&#39; dtype. In the future, this will return an ndarray with &#39;object&#39; dtype where each element is a &#39;pandas.Timestamp&#39; with the correct &#39;tz&#39;.
+/home/snowal/miniconda/envs/geocube/lib/python3.6/site-packages/xarray/core/variable.py:151: FutureWarning: Converting timezone-aware DatetimeArray to timezone-naive ndarray with &#39;datetime64[ns]&#39; dtype. In the future, this will return an ndarray with &#39;object&#39; dtype where each element is a &#39;pandas.Timestamp&#39; with the correct &#39;tz&#39;.
         To accept the future behavior, pass &#39;dtype=object&#39;.
         To keep the old behavior, pass &#39;dtype=&#34;datetime64[ns]&#34;&#39;.
   return np.asarray(pd.Series(values.ravel())).reshape(values.shape)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -568,7 +568,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -580,27 +580,29 @@ Coordinates:
   * test_time_attr  (test_time_attr) datetime64[ns] 2016-05-21T15:09:21 2016-05-22T15:09:22
     spatial_ref     int64 0
 Data variables:
-    test_attr       (test_time_attr, y, x) float64 -9.999e+03 ... -9.999e+03
+    test_attr       (test_time_attr, y, x) float64 nan nan nan ... nan nan nan
+Attributes:
+    grid_mapping:  spatial_ref
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># mask nodata and plot</span>
 <span class="n">grid_time_1</span> <span class="o">=</span> <span class="n">geo_grid</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">test_time_attr</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">grid_time_1</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">grid_time_1</span><span class="o">.</span><span class="n">test_attr</span><span class="o">!=</span><span class="n">grid_time_1</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;_FillValue&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">grid_time_1</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">grid_time_1</span><span class="o">.</span><span class="n">test_attr</span><span class="o">!=</span><span class="n">grid_time_1</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f22049e2588&gt;
+<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2f19274128&gt;
 </pre></div>
 </div>
 </div>
@@ -615,7 +617,7 @@ Data variables:
 <div class="section" id="Load-into-UTM-grid-followed-by-interpolation-for-missing-values">
 <h3>Load into UTM grid followed by interpolation for missing values<a class="headerlink" href="#Load-into-UTM-grid-followed-by-interpolation-for-missing-values" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -635,14 +637,14 @@ Data variables:
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/home/snowal/miniconda/envs/geocube/lib/python3.6/site-packages/xarray/core/variable.py:134: FutureWarning: Converting timezone-aware DatetimeArray to timezone-naive ndarray with &#39;datetime64[ns]&#39; dtype. In the future, this will return an ndarray with &#39;object&#39; dtype where each element is a &#39;pandas.Timestamp&#39; with the correct &#39;tz&#39;.
+/home/snowal/miniconda/envs/geocube/lib/python3.6/site-packages/xarray/core/variable.py:151: FutureWarning: Converting timezone-aware DatetimeArray to timezone-naive ndarray with &#39;datetime64[ns]&#39; dtype. In the future, this will return an ndarray with &#39;object&#39; dtype where each element is a &#39;pandas.Timestamp&#39; with the correct &#39;tz&#39;.
         To accept the future behavior, pass &#39;dtype=object&#39;.
         To keep the old behavior, pass &#39;dtype=&#34;datetime64[ns]&#34;&#39;.
   return np.asarray(pd.Series(values.ravel())).reshape(values.shape)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -651,7 +653,7 @@ Data variables:
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
@@ -665,12 +667,13 @@ Coordinates:
 Data variables:
     test_attr       (test_time_attr, y, x) float64 1.3 1.3 1.3 ... 1.3 1.3 1.3
 Attributes:
-    creation_date:  2019-03-26 15:59:24.643054
+    grid_mapping:   spatial_ref
+    creation_date:  2019-12-12 19:57:17.046150
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -679,11 +682,11 @@ Attributes:
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2204920c88&gt;
+<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f2f191bc0f0&gt;
 </pre></div>
 </div>
 </div>
@@ -692,15 +695,6 @@ Attributes:
 </div>
 <div class="output_area docutils container">
 <img alt="../_images/examples_resample_point_data_14_1.png" src="../_images/examples_resample_point_data_14_1.png" />
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
 </div>
 </div>
 </div>

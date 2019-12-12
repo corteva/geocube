@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>geocube.vector_to_cube &mdash; geocube 0.0.9 documentation</title>
+  <title>geocube.vector_to_cube &mdash; geocube 0.0.10 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                0.0.9
+                0.0.10
               </div>
             
           
@@ -162,16 +162,16 @@
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">pandas</span>
 <span class="kn">import</span> <span class="nn">xarray</span>
-
-<span class="kn">from</span> <span class="nn">geocube.geo_utils.geobox</span> <span class="k">import</span> <span class="n">load_vector_data</span>
-<span class="kn">from</span> <span class="nn">geocube.logger</span> <span class="k">import</span> <span class="n">get_logger</span>
-<span class="kn">from</span> <span class="nn">geocube.rasterize</span> <span class="k">import</span> <span class="n">rasterize_image</span>
 <span class="kn">from</span> <span class="nn">rioxarray.rioxarray</span> <span class="k">import</span> <span class="p">(</span>
     <span class="n">DEFAULT_GRID_MAP</span><span class="p">,</span>
     <span class="n">add_spatial_ref</span><span class="p">,</span>
     <span class="n">add_xy_grid_meta</span><span class="p">,</span>
     <span class="n">affine_to_coords</span><span class="p">,</span>
 <span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">geocube.geo_utils.geobox</span> <span class="k">import</span> <span class="n">load_vector_data</span>
+<span class="kn">from</span> <span class="nn">geocube.logger</span> <span class="k">import</span> <span class="n">get_logger</span>
+<span class="kn">from</span> <span class="nn">geocube.rasterize</span> <span class="k">import</span> <span class="n">rasterize_image</span>
 
 
 <span class="k">def</span> <span class="nf">_format_series_data</span><span class="p">(</span><span class="n">data_series</span><span class="p">):</span>
@@ -219,7 +219,7 @@
 <span class="sd">        geobox_maker: :obj:`geocube.geo_utils.geobox.GeoBoxMaker`</span>
 <span class="sd">            The geobox for the grid to be generated from the vector data.</span>
 <span class="sd">        fill: float, optional</span>
-<span class="sd">            The value to fill in the grid with for nodata. Default is -9999.0.</span>
+<span class="sd">            The value to fill in the grid with for nodata. Default is NaN.</span>
 <span class="sd">        categorical_enums: dict, optional</span>
 <span class="sd">            A dictionary of all categories for the table columns containing</span>
 <span class="sd">            categorical data.</span>
@@ -231,7 +231,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_coords</span> <span class="o">=</span> <span class="n">affine_to_coords</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">geobox</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">geobox</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">geobox</span><span class="o">.</span><span class="n">height</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fill</span> <span class="o">=</span> <span class="n">fill</span> <span class="k">if</span> <span class="n">fill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="o">-</span><span class="mf">9999.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fill</span> <span class="o">=</span> <span class="n">fill</span> <span class="k">if</span> <span class="n">fill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">numpy</span><span class="o">.</span><span class="n">nan</span>
         <span class="k">if</span> <span class="n">categorical_enums</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">categories</span> <span class="ow">in</span> <span class="n">categorical_enums</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="n">category_type</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(</span>
