@@ -1,6 +1,10 @@
 History
 =======
 
+0.0.10
+------
+- Filter out missing data when interpolating from point data (issue #9)
+
 0.0.9
 -----
 - Added `rescale` kwarg to `geocube.rasterize.rasterize_points_griddata`. (pull #8)
