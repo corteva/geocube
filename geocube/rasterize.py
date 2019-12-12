@@ -48,7 +48,7 @@ def rasterize_image(
     geobox: :obj:`datacube.utils.geometry.GeoBox`
         Transform of the resulting image.
     fill: float, optional
-        The value to fill in the grid with for nodata. Default is -9999.0.
+        The value to fill in the grid with for nodata. Default is NaN.
     merge_alg: `rasterio.enums.MergeAlg`, optional
         The algorithm for merging values into one cell. Default is `MergeAlg.replace`.
     filter_nan: bool, optional
@@ -110,7 +110,7 @@ def rasterize_points_griddata(
     grid_coords: dict
         Output from `rioxarray.rioxarray.affine_to_coords`
     fill: float, optional
-        The value to fill in the grid with for nodata. Default is -9999.0.
+        The value to fill in the grid with for nodata. Default is NaN.
     method: {‘linear’, ‘nearest’, ‘cubic’}, optional
         The method to use for interpolation in `scipy.interpolate.griddata`.
     rescale: bool, optional
@@ -169,7 +169,7 @@ def rasterize_points_radial(
     grid_coords: dict
         Output from `rioxarray.rioxarray.affine_to_coords`
     fill: float, optional
-        The value to fill in the grid with for nodata. Default is -9999.0.
+        The value to fill in the grid with for nodata. Default is NaN.
     method: str, optional
         The function to use for interpolation in `scipy.interpolate.Rbf`.
         {'multiquadric', 'inverse', 'gaussian', 'linear',

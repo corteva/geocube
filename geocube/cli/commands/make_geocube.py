@@ -27,7 +27,7 @@ from geocube.api import core
     "-f",
     "--fill",
     type=float,
-    help="The value to fill in the grid with for nodata. Default is -9999.0.",
+    help="The value to fill in the grid with for nodata. Default is NaN.",
     required=False,
 )
 @click.option(

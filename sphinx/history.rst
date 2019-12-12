@@ -4,6 +4,7 @@ History
 0.0.10
 ------
 - Added filter_nan kwarg to filter out missing data when rasterizing (issue #9)
+- Change default fill value to 'nan' when rasterizing
 
 0.0.9
 -----

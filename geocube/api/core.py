@@ -59,7 +59,7 @@ def make_geocube(
             gcds = make_geocube(vector_data='my_vector.geopackage', like=other_gcds)
 
     fill: float, optional
-        The value to fill in the grid with for nodata. Default is -9999.0.
+        The value to fill in the grid with for nodata. Default is NaN.
     group_by: str, optional
         When specified, perform basic combining/reducing of the data on this column.
     interpolate_na_method:  {‘linear’, ‘nearest’, ‘cubic’}, optional
