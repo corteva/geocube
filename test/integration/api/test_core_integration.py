@@ -716,12 +716,22 @@ def test_make_geocube__custom_rasterize_function(function, compare_name, tmpdir)
 @pytest.mark.parametrize(
     "function,compare_name",
     [
-        (rasterize_points_griddata, "rasterize_griddata_nearest_nodata.nc"),
         (
-            partial(rasterize_points_griddata, method="cubic"),
+            partial(rasterize_points_griddata, filter_nan=True),
+            "rasterize_griddata_nearest_nodata.nc",
+        ),
+        (
+            partial(rasterize_points_griddata, method="cubic", filter_nan=True),
             "rasterize_griddata_cubic_nodata.nc",
         ),
-        (rasterize_points_radial, "rasterize_radial_linear_nodata.nc"),
+        (
+            partial(rasterize_points_radial, filter_nan=True),
+            "rasterize_radial_linear_nodata.nc",
+        ),
+        (
+            partial(rasterize_image, merge_alg=MergeAlg.add, filter_nan=True),
+            "rasterize_image_sum_nodata.nc",
+        ),
     ],
 )
 def test_make_geocube__custom_rasterize_function__filter_null(
