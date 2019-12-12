@@ -4,6 +4,7 @@ The CLI interface to the load module for GeoCube
 """
 
 import click
+import numpy
 import xarray
 
 from geocube.api import core
@@ -28,6 +29,7 @@ from geocube.api import core
     "--fill",
     type=float,
     help="The value to fill in the grid with for nodata. Default is NaN.",
+    default=numpy.nan,
     required=False,
 )
 @click.option(

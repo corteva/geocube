@@ -1,5 +1,6 @@
 import os
 
+import numpy
 import pytest
 import xarray
 from click.testing import CliRunner
@@ -12,7 +13,7 @@ from test.conftest import TEST_COMPARE_DATA_DIR, TEST_INPUT_DATA_DIR
 def _get_called_dict(**kwargs):
     default = dict(
         align=None,
-        fill=None,
+        fill=numpy.nan,
         geom=None,
         group_by=None,
         interpolate_na_method=None,

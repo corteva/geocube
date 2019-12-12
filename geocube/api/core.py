@@ -2,6 +2,8 @@
 """
 GeoCube client core functionality
 """
+import numpy
+
 from geocube.geo_utils.geobox import GeoBoxMaker
 from geocube.vector_to_cube import VectorToCube
 
@@ -15,7 +17,7 @@ def make_geocube(
     align=None,
     geom=None,
     like=None,
-    fill=None,
+    fill=numpy.nan,
     group_by=None,
     interpolate_na_method=None,
     categorical_enums=None,
