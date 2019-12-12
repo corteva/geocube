@@ -14,12 +14,26 @@ from shapely.geometry import mapping
 from geocube.logger import get_logger
 
 
+def _remove_missing_data(data_values, geometry_array):
+    """
+    Missing data causes issues with interpolation of point data
+    https://github.com/corteva/geocube/issues/9
+
+    This filters the data so those issues don't cause problems.
+    """
+    not_missing_data = ~pandas.isnull(data_values)
+    geometry_array = geometry_array[not_missing_data]
+    data_values = data_values[not_missing_data]
+    return data_values, geometry_array
+
+
 def rasterize_image(
     geometry_array,
     data_values,
     geobox,
-    fill=-9999.0,
+    fill,
     merge_alg=MergeAlg.replace,
+    filter_nan=False,
     **ignored_kwargs
 ):
     """
@@ -33,10 +47,13 @@ def rasterize_image(
         Data values associated with the list of geojson shapes
     geobox: :obj:`datacube.utils.geometry.GeoBox`
         Transform of the resulting image.
-    fill: float, optional
-        The value to fill in the grid with for nodata. Default is -9999.0.
+    fill: float
+        The value to fill in the grid with for nodata.
     merge_alg: `rasterio.enums.MergeAlg`, optional
         The algorithm for merging values into one cell. Default is `MergeAlg.replace`.
+    filter_nan: bool, optional
+        If True, will remove nodata values from the data before rasterization.
+        Default is False.
     **ignored_kwargs:
         These are there to be flexible with additional rasterization methods and
         will be ignored.
@@ -50,6 +67,10 @@ def rasterize_image(
     logger = get_logger()
 
     try:
+        if filter_nan:
+            data_values, geometry_array = _remove_missing_data(
+                data_values, geometry_array
+            )
         image = rasterio.features.rasterize(
             zip(geometry_array.apply(mapping).values, data_values),
             out_shape=(geobox.height, geobox.width),
@@ -66,26 +87,14 @@ def rasterize_image(
         raise
 
 
-def _remove_missing_data(data_values, geometry_array):
-    """
-    Missing data causes issues with interpolation of point data
-    https://github.com/corteva/geocube/issues/9
-
-    This filters the data so those issues don't cause problems.
-    """
-    not_missing_data = ~pandas.isnull(data_values)
-    geometry_array = geometry_array[not_missing_data]
-    data_values = data_values[not_missing_data]
-    return data_values, geometry_array
-
-
 def rasterize_points_griddata(
     geometry_array,
     data_values,
     grid_coords,
-    fill=-9999.0,
+    fill,
     method="nearest",
     rescale=False,
+    filter_nan=False,
     **ignored_kwargs
 ):
     """
@@ -100,12 +109,15 @@ def rasterize_points_griddata(
         Data values associated with the list of geojson shapes
     grid_coords: dict
         Output from `rioxarray.rioxarray.affine_to_coords`
-    fill: float, optional
-        The value to fill in the grid with for nodata. Default is -9999.0.
+    fill: float
+        The value to fill in the grid with for nodata.
     method: {‘linear’, ‘nearest’, ‘cubic’}, optional
         The method to use for interpolation in `scipy.interpolate.griddata`.
     rescale: bool, optional
         Rescale points to unit cube before performing interpolation. Default is false.
+    filter_nan: bool, optional
+        If True, will remove nodata values from the data before rasterization.
+        Default is False.
     **ignored_kwargs:
         These are there to be flexible with additional rasterization methods and
         will be ignored.
@@ -118,7 +130,10 @@ def rasterize_points_griddata(
     if data_values.dtype == object:
         return None
     try:
-        data_values, geometry_array = _remove_missing_data(data_values, geometry_array)
+        if filter_nan:
+            data_values, geometry_array = _remove_missing_data(
+                data_values, geometry_array
+            )
         return griddata(
             points=(geometry_array.x, geometry_array.y),
             values=data_values,
@@ -134,7 +149,12 @@ def rasterize_points_griddata(
 
 
 def rasterize_points_radial(
-    geometry_array, data_values, grid_coords, method="linear", **ignored_kwargs
+    geometry_array,
+    data_values,
+    grid_coords,
+    method="linear",
+    filter_nan=False,
+    **ignored_kwargs
 ):
     """
     This method uses scipy.interpolate.Rbf to interpolate point data
@@ -148,13 +168,13 @@ def rasterize_points_radial(
         Data values associated with the list of geojson shapes
     grid_coords: dict
         Output from `rioxarray.rioxarray.affine_to_coords`
-    fill: float, optional
-        The value to fill in the grid with for nodata. Default is -9999.0.
     method: str, optional
         The function to use for interpolation in `scipy.interpolate.Rbf`.
         {'multiquadric', 'inverse', 'gaussian', 'linear',
         'cubic', 'quintic', 'thin_plate'}
-
+    filter_nan: bool, optional
+        If True, will remove nodata values from the data before rasterization.
+        Default is False.
     **ignored_kwargs:
         These are there to be flexible with additional rasterization methods and
         will be ignored.
@@ -167,7 +187,10 @@ def rasterize_points_radial(
     logger = get_logger()
 
     try:
-        data_values, geometry_array = _remove_missing_data(data_values, geometry_array)
+        if filter_nan:
+            data_values, geometry_array = _remove_missing_data(
+                data_values, geometry_array
+            )
         interp = Rbf(geometry_array.x, geometry_array.y, data_values, function=method)
         return interp(*numpy.meshgrid(grid_coords["x"], grid_coords["y"]))
     except ValueError as ter:

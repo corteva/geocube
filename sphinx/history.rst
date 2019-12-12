@@ -3,7 +3,8 @@ History
 
 0.0.10
 ------
-- Filter out missing data when interpolating from point data (issue #9)
+- Added filter_nan kwarg to filter out missing data when rasterizing (issue #9)
+- Change default fill value to NaN when rasterizing (pull #11)
 
 0.0.9
 -----

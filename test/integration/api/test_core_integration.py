@@ -60,6 +60,7 @@ def test_make_geocube(input_geodata, tmpdir):
         output_crs=TEST_GARS_PROJ,
         geom=json.dumps(mapping(TEST_GARS_POLY)),
         resolution=(-10, 10),
+        fill=-9999.0,
     )
 
     # test writing to netCDF
@@ -92,6 +93,7 @@ def test_make_geocube__categorical(input_geodata, tmpdir):
         geom=json.dumps(mapping(TEST_GARS_POLY)),
         resolution=(-10, 10),
         categorical_enums={"soil_type": ("sand", "silt", "clay")},
+        fill=-9999.0,
     )
     # test writing to netCDF
     out_grid.to_netcdf(
@@ -132,6 +134,7 @@ def test_make_geocube__interpolate_na(input_geodata, tmpdir):
         geom=json.dumps(mapping(TEST_GARS_POLY)),
         resolution=(-10, 10),
         interpolate_na_method="nearest",
+        fill=-9999.0,
     )
 
     # test writing to netCDF
@@ -170,7 +173,10 @@ def test_make_geocube__like(input_geodata, tmpdir):
         os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc"), mask_and_scale=False
     ) as xdc:
         out_grid = make_geocube(
-            vector_data=input_geodata, measurements=soil_attribute_list, like=xdc
+            vector_data=input_geodata,
+            measurements=soil_attribute_list,
+            like=xdc,
+            fill=-9999.0,
         )
 
         # test writing to netCDF
@@ -203,6 +209,7 @@ def test_make_geocube__only_resolution(input_geodata, tmpdir):
         vector_data=input_geodata,
         measurements=soil_attribute_list,
         resolution=(-0.001, 0.001),
+        fill=-9999.0,
     )
 
     # test writing to netCDF
@@ -231,6 +238,7 @@ def test_make_geocube__convert_time(input_geodata, tmpdir):
         measurements=["test_attr", "test_time_attr", "test_str_attr"],
         datetime_measurements=["test_time_attr"],
         resolution=(-0.00001, 0.00001),
+        fill=-9999.0,
     )
 
     # test writing to netCDF
@@ -275,6 +283,7 @@ def test_make_geocube__like_error_invalid_args(load_extra_kwargs):
                 vector_data=os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson"),
                 measurements=soil_attribute_list,
                 like=xdc,
+                fill=-9999.0,
                 **load_extra_kwargs
             )
 
@@ -292,6 +301,7 @@ def test_make_geocube__no_measurements(input_geodata, tmpdir):
         output_crs=TEST_GARS_PROJ,
         geom=json.dumps(mapping(TEST_GARS_POLY)),
         resolution=(-10, 10),
+        fill=-9999.0,
     )
 
     # test writing to netCDF
@@ -311,6 +321,7 @@ def test_make_geocube__no_geom(tmpdir):
         vector_data=os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson"),
         measurements=["sandtotal_r"],
         resolution=(-0.001, 0.001),
+        fill=-9999.0,
     )
 
     # test writing to netCDF
@@ -350,6 +361,7 @@ def test_make_geocube__no_resolution_error():
             measurements=["sandtotal_r"],
             output_crs=TEST_GARS_PROJ,
             geom=json.dumps(mapping(TEST_GARS_POLY)),
+            fill=-9999.0,
         )
 
 
@@ -378,6 +390,7 @@ def test_make_geocube__group_by(input_geodata, tmpdir):
         geom=json.dumps(mapping(TEST_GARS_POLY)),
         group_by="hzdept_r",
         resolution=(-10, 10),
+        fill=-9999.0,
     )
 
     # test writing to netCDF
@@ -417,6 +430,7 @@ def test_make_geocube__group_by__categorical(input_geodata, tmpdir):
         group_by="hzdept_r",
         resolution=(-10, 10),
         categorical_enums={"soil_type": ("sand", "silt", "clay")},
+        fill=-9999.0,
     )
 
     # test writing to netCDF
@@ -461,6 +475,7 @@ def test_make_geocube__group_by_like(input_geodata, tmpdir):
             measurements=soil_attribute_list,
             group_by="hzdept_r",
             like=xdc,
+            fill=-9999.0,
         )
 
         # test writing to netCDF
@@ -488,6 +503,7 @@ def test_make_geocube__group_by_only_resolution(input_geodata, tmpdir):
         measurements=soil_attribute_list,
         group_by="hzdept_r",
         resolution=(-0.001, 0.001),
+        fill=-9999.0,
     )
 
     # test writing to netCDF
@@ -518,6 +534,7 @@ def test_make_geocube__group_by_time(input_geodata, tmpdir):
         datetime_measurements=["test_time_attr"],
         resolution=(-0.00001, 0.00001),
         group_by="test_time_attr",
+        fill=-9999.0,
     )
 
     # test writing to netCDF
@@ -547,6 +564,7 @@ def test_make_geocube__group_by_convert_with_time(input_geodata, tmpdir):
         datetime_measurements=["test_time_attr"],
         resolution=(-0.00001, 0.00001),
         group_by="test_attr",
+        fill=-9999.0,
     )
 
     # test writing to netCDF
@@ -599,6 +617,7 @@ def test_make_geocube__group_by_like_error_invalid_args(load_extra_kwargs):
                 measurements=soil_attribute_list,
                 like=xdc,
                 group_by="hzdept_r",
+                fill=-9999.0,
                 **load_extra_kwargs
             )
 
@@ -617,6 +636,7 @@ def test_make_geocube__group_by_no_measurements(input_geodata, tmpdir):
         geom=json.dumps(mapping(TEST_GARS_POLY)),
         group_by="hzdept_r",
         resolution=(-10, 10),
+        fill=-9999.0,
     )
 
     # test writing to netCDF
@@ -639,6 +659,7 @@ def test_make_geocube__group_by__no_geom(tmpdir):
         measurements=["sandtotal_r"],
         group_by="hzdept_r",
         resolution=(-0.001, 0.001),
+        fill=-9999.0,
     )
 
     # test writing to netCDF
@@ -664,6 +685,7 @@ def test_make_geocube__group_by__no_resolution_error():
             output_crs=TEST_GARS_PROJ,
             geom=json.dumps(mapping(TEST_GARS_POLY)),
             group_by="hzdept_r",
+            fill=-9999.0,
         )
 
 
@@ -672,6 +694,7 @@ def test_make_geocube__new_bounds_crs():
         vector_data=os.path.join(TEST_INPUT_DATA_DIR, "wgs84_geom.geojson"),
         output_crs="epsg:32614",
         resolution=(-1, 1),
+        fill=-9999.0,
     )
     assert_almost_equal(
         utm_cube.id.rio.bounds(), (1665478.0, 7018306.0, 1665945.0, 7018509.0)
@@ -701,6 +724,7 @@ def test_make_geocube__custom_rasterize_function(function, compare_name, tmpdir)
         measurements=["test_attr", "test_time_attr", "test_str_attr"],
         resolution=(-0.00001, 0.00001),
         rasterize_function=function,
+        fill=-9999.0,
     )
 
     # test writing to netCDF
@@ -716,12 +740,22 @@ def test_make_geocube__custom_rasterize_function(function, compare_name, tmpdir)
 @pytest.mark.parametrize(
     "function,compare_name",
     [
-        (rasterize_points_griddata, "rasterize_griddata_nearest_nodata.nc"),
         (
-            partial(rasterize_points_griddata, method="cubic"),
+            partial(rasterize_points_griddata, filter_nan=True),
+            "rasterize_griddata_nearest_nodata.nc",
+        ),
+        (
+            partial(rasterize_points_griddata, method="cubic", filter_nan=True),
             "rasterize_griddata_cubic_nodata.nc",
         ),
-        (rasterize_points_radial, "rasterize_radial_linear_nodata.nc"),
+        (
+            partial(rasterize_points_radial, filter_nan=True),
+            "rasterize_radial_linear_nodata.nc",
+        ),
+        (
+            partial(rasterize_image, merge_alg=MergeAlg.add, filter_nan=True),
+            "rasterize_image_sum_nodata.nc",
+        ),
     ],
 )
 def test_make_geocube__custom_rasterize_function__filter_null(

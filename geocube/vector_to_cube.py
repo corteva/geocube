@@ -62,7 +62,7 @@ class VectorToCube(object):
         geobox_maker: :obj:`geocube.geo_utils.geobox.GeoBoxMaker`
             The geobox for the grid to be generated from the vector data.
         fill: float, optional
-            The value to fill in the grid with for nodata. Default is -9999.0.
+            The value to fill in the grid with for nodata. Default is NaN.
         categorical_enums: dict, optional
             A dictionary of all categories for the table columns containing
             categorical data.
@@ -74,7 +74,7 @@ class VectorToCube(object):
         self.grid_coords = affine_to_coords(
             self.geobox.affine, self.geobox.width, self.geobox.height
         )
-        self.fill = fill if fill is not None else -9999.0
+        self.fill = fill if fill is not None else numpy.nan
         if categorical_enums is not None:
             for column_name, categories in categorical_enums.items():
                 category_type = pandas.api.types.CategoricalDtype(
