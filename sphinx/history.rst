@@ -1,6 +1,10 @@
 History
 =======
 
+0.0.11
+------
+- Drop Python 3.5 Support (issue #12)
+
 0.0.10
 ------
 - Added filter_nan kwarg to filter out missing data when rasterizing (issue #9)
