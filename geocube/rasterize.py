@@ -31,7 +31,7 @@ def rasterize_image(
     geometry_array,
     data_values,
     geobox,
-    fill=numpy.nan,
+    fill,
     merge_alg=MergeAlg.replace,
     filter_nan=False,
     **ignored_kwargs
@@ -47,8 +47,8 @@ def rasterize_image(
         Data values associated with the list of geojson shapes
     geobox: :obj:`datacube.utils.geometry.GeoBox`
         Transform of the resulting image.
-    fill: float, optional
-        The value to fill in the grid with for nodata. Default is NaN.
+    fill: float
+        The value to fill in the grid with for nodata.
     merge_alg: `rasterio.enums.MergeAlg`, optional
         The algorithm for merging values into one cell. Default is `MergeAlg.replace`.
     filter_nan: bool, optional
@@ -91,7 +91,7 @@ def rasterize_points_griddata(
     geometry_array,
     data_values,
     grid_coords,
-    fill=numpy.nan,
+    fill,
     method="nearest",
     rescale=False,
     filter_nan=False,
@@ -109,8 +109,8 @@ def rasterize_points_griddata(
         Data values associated with the list of geojson shapes
     grid_coords: dict
         Output from `rioxarray.rioxarray.affine_to_coords`
-    fill: float, optional
-        The value to fill in the grid with for nodata. Default is NaN.
+    fill: float
+        The value to fill in the grid with for nodata.
     method: {‘linear’, ‘nearest’, ‘cubic’}, optional
         The method to use for interpolation in `scipy.interpolate.griddata`.
     rescale: bool, optional
@@ -168,8 +168,6 @@ def rasterize_points_radial(
         Data values associated with the list of geojson shapes
     grid_coords: dict
         Output from `rioxarray.rioxarray.affine_to_coords`
-    fill: float, optional
-        The value to fill in the grid with for nodata. Default is NaN.
     method: str, optional
         The function to use for interpolation in `scipy.interpolate.Rbf`.
         {'multiquadric', 'inverse', 'gaussian', 'linear',
