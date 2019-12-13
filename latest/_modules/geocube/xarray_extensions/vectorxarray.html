@@ -1,0 +1,287 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>geocube.xarray_extensions.vectorxarray &mdash; geocube 0.0.10 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> geocube
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.10
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">geocube README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/examples.html">Usage Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Contributors ✨</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">geocube</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>geocube.xarray_extensions.vectorxarray</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for geocube.xarray_extensions.vectorxarray</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -- coding: utf-8 --</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module is an extension for xarray to provide support for vector datasets.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">xarray</span>
+<span class="kn">from</span> <span class="nn">shapely.wkb</span> <span class="kn">import</span> <span class="n">dumps</span><span class="p">,</span> <span class="n">loads</span>
+
+
+<div class="viewcode-block" id="from_geodataframe"><a class="viewcode-back" href="../../../geocube.xarray_extensions.html#geocube.xarray_extensions.vectorxarray.from_geodataframe">[docs]</a><span class="k">def</span> <span class="nf">from_geodataframe</span><span class="p">(</span><span class="n">in_geodataframe</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create an xarray object from a geodataframe.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">geodf</span> <span class="o">=</span> <span class="n">in_geodataframe</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;geometry&quot;</span><span class="p">)</span>
+    <span class="n">geox</span> <span class="o">=</span> <span class="n">xarray</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_dataframe</span><span class="p">(</span><span class="n">geodf</span><span class="p">)</span>
+    <span class="n">geox</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;crs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">geox</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;crs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">geodf</span><span class="o">.</span><span class="n">crs</span>
+    <span class="k">return</span> <span class="n">geox</span></div>
+
+
+<div class="viewcode-block" id="open_dataset"><a class="viewcode-back" href="../../../geocube.xarray_extensions.html#geocube.xarray_extensions.vectorxarray.open_dataset">[docs]</a><span class="k">def</span> <span class="nf">open_dataset</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Open the vxarray exported netCDF file as a Dataset.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :obj:`xarray.Dataset`</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">xds</span> <span class="o">=</span> <span class="n">xarray</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">xds</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">loads</span><span class="p">,</span> <span class="n">xds</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">xds</span></div>
+
+
+<div class="viewcode-block" id="BaseVectorX"><a class="viewcode-back" href="../../../geocube.xarray_extensions.html#geocube.xarray_extensions.vectorxarray.BaseVectorX">[docs]</a><span class="k">class</span> <span class="nc">BaseVectorX</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This is the base for the vector GIS extension.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xarray_obj</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span> <span class="o">=</span> <span class="n">xarray_obj</span>
+
+    <span class="k">def</span> <span class="nf">_validate_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span> <span class="o">-</span> <span class="p">{</span><span class="s2">&quot;geometry&quot;</span><span class="p">}:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Extra dimensions found. Please slice/squeeze data&quot;</span>
+                <span class="s2">&quot; so that the only dimension is &#39;geometry&#39;.&quot;</span>
+            <span class="p">)</span>
+
+<div class="viewcode-block" id="BaseVectorX.to_geodataframe"><a class="viewcode-back" href="../../../geocube.xarray_extensions.html#geocube.xarray_extensions.vectorxarray.BaseVectorX.to_geodataframe">[docs]</a>    <span class="k">def</span> <span class="nf">to_geodataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert to a GeoDataFrame.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        :obj:`geopandas.GeoDataFrame`</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_operation</span><span class="p">()</span>
+        <span class="n">out_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;crs&quot;</span><span class="p">)</span>
+        <span class="n">extra_coords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">out_obj</span><span class="o">.</span><span class="n">coords</span><span class="p">))</span> <span class="o">-</span> <span class="p">{</span><span class="s2">&quot;geometry&quot;</span><span class="p">})</span>
+        <span class="k">if</span> <span class="n">extra_coords</span><span class="p">:</span>
+            <span class="n">out_obj</span> <span class="o">=</span> <span class="n">out_obj</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">reset_coords</span><span class="p">(</span><span class="n">extra_coords</span><span class="p">)</span>
+        <span class="n">geodf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">out_obj</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">())</span>
+        <span class="n">geodf</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;crs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span>
+        <span class="k">return</span> <span class="n">geodf</span></div>
+
+<div class="viewcode-block" id="BaseVectorX.to_netcdf"><a class="viewcode-back" href="../../../geocube.xarray_extensions.html#geocube.xarray_extensions.vectorxarray.BaseVectorX.to_netcdf">[docs]</a>    <span class="k">def</span> <span class="nf">to_netcdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write the data to a netCDF file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">out_obj</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">dumps</span><span class="p">,</span> <span class="n">out_obj</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+        <span class="n">out_obj</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="VectorArray"><a class="viewcode-back" href="../../../geocube.xarray_extensions.html#geocube.xarray_extensions.vectorxarray.VectorArray">[docs]</a><span class="nd">@xarray</span><span class="o">.</span><span class="n">register_dataarray_accessor</span><span class="p">(</span><span class="s2">&quot;vector&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">VectorArray</span><span class="p">(</span><span class="n">BaseVectorX</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is the vector GIS extension for :class:`xarray.DataArray`&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="VectorArray.plot"><a class="viewcode-back" href="../../../geocube.xarray_extensions.html#geocube.xarray_extensions.vectorxarray.VectorArray.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">to_geodataframe</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="VectorDataset"><a class="viewcode-back" href="../../../geocube.xarray_extensions.html#geocube.xarray_extensions.vectorxarray.VectorDataset">[docs]</a><span class="nd">@xarray</span><span class="o">.</span><span class="n">register_dataset_accessor</span><span class="p">(</span><span class="s2">&quot;vector&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">VectorDataset</span><span class="p">(</span><span class="n">BaseVectorX</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This is the vector GIS extension for :class:`xarray.Dataset`&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="VectorDataset.plot"><a class="viewcode-back" href="../../../geocube.xarray_extensions.html#geocube.xarray_extensions.vectorxarray.VectorDataset.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">vector</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocube Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

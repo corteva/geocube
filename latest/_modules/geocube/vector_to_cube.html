@@ -1,0 +1,556 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>geocube.vector_to_cube &mdash; geocube 0.0.10 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> geocube
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.10
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">geocube README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/examples.html">Usage Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Contributors ✨</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">geocube</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>geocube.vector_to_cube</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for geocube.vector_to_cube</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -- coding: utf-8 --</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">geocube core conversion functionality</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">xarray</span>
+<span class="kn">from</span> <span class="nn">rioxarray.rioxarray</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DEFAULT_GRID_MAP</span><span class="p">,</span>
+    <span class="n">add_spatial_ref</span><span class="p">,</span>
+    <span class="n">add_xy_grid_meta</span><span class="p">,</span>
+    <span class="n">affine_to_coords</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">geocube.geo_utils.geobox</span> <span class="kn">import</span> <span class="n">load_vector_data</span>
+<span class="kn">from</span> <span class="nn">geocube.logger</span> <span class="kn">import</span> <span class="n">get_logger</span>
+<span class="kn">from</span> <span class="nn">geocube.rasterize</span> <span class="kn">import</span> <span class="n">rasterize_image</span>
+
+
+<span class="k">def</span> <span class="nf">_format_series_data</span><span class="p">(</span><span class="n">data_series</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The purpose of this function is to convert the series data into a rasterizeable</span>
+<span class="sd">    format if possible.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data_series: :obj:`geopandas.GeoSeries`</span>
+<span class="sd">        The series to be converted.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :obj:`geopandas.GeoSeries`: The series that was converted if possible.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;datetime&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_series</span><span class="o">.</span><span class="n">dtype</span><span class="p">):</span>
+        <span class="n">data_series</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">data_series</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;The series &#39;</span><span class="si">{data_series.name}</span><span class="s2">&#39; was converted from a date to a number to &quot;</span>
+            <span class="s2">&quot;rasterize the data. To load the data back in as a date, &quot;</span>
+            <span class="s2">&quot;use &#39;pandas.to_datetime()&#39;.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="n">data_series</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;category&quot;</span><span class="p">:</span>
+        <span class="n">data_series</span> <span class="o">=</span> <span class="n">data_series</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span>
+    <span class="k">return</span> <span class="n">data_series</span>
+
+
+<div class="viewcode-block" id="VectorToCube"><a class="viewcode-back" href="../../geocube.html#geocube.vector_to_cube.VectorToCube">[docs]</a><span class="k">class</span> <span class="nc">VectorToCube</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Tool that facilitates converting vector data to raster data into</span>
+<span class="sd">    an :obj:`xarray.DataFrame`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector_data</span><span class="p">,</span> <span class="n">geobox_maker</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">categorical_enums</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the GeoCube class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        vector_data: str or :obj:`geopandas.GeoDataFrame`</span>
+<span class="sd">            A file path to an OGR supported source or GeoDataFrame containing</span>
+<span class="sd">            the vector data.</span>
+<span class="sd">        geobox_maker: :obj:`geocube.geo_utils.geobox.GeoBoxMaker`</span>
+<span class="sd">            The geobox for the grid to be generated from the vector data.</span>
+<span class="sd">        fill: float, optional</span>
+<span class="sd">            The value to fill in the grid with for nodata. Default is NaN.</span>
+<span class="sd">        categorical_enums: dict, optional</span>
+<span class="sd">            A dictionary of all categories for the table columns containing</span>
+<span class="sd">            categorical data.</span>
+<span class="sd">            E.g. {&#39;column_name&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;other_column&#39;: [&#39;c&#39;, &#39;d&#39;]}</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vector_data</span> <span class="o">=</span> <span class="n">load_vector_data</span><span class="p">(</span><span class="n">vector_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geobox</span> <span class="o">=</span> <span class="n">geobox_maker</span><span class="o">.</span><span class="n">from_vector</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vector_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_coords</span> <span class="o">=</span> <span class="n">affine_to_coords</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">geobox</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">geobox</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">geobox</span><span class="o">.</span><span class="n">height</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fill</span> <span class="o">=</span> <span class="n">fill</span> <span class="k">if</span> <span class="n">fill</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">numpy</span><span class="o">.</span><span class="n">nan</span>
+        <span class="k">if</span> <span class="n">categorical_enums</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">categories</span> <span class="ow">in</span> <span class="n">categorical_enums</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">category_type</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(</span>
+                    <span class="n">categories</span><span class="o">=</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">categories</span><span class="p">))</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;nodata&quot;</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vector_data</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_data</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+                    <span class="n">category_type</span>
+                <span class="p">)</span>
+
+<div class="viewcode-block" id="VectorToCube.make_geocube"><a class="viewcode-back" href="../../geocube.html#geocube.vector_to_cube.VectorToCube.make_geocube">[docs]</a>    <span class="k">def</span> <span class="nf">make_geocube</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>  <span class="c1"># pylint: disable=too-many-arguments</span>
+        <span class="n">measurements</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">datetime_measurements</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">group_by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">interpolate_na_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">rasterize_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>  <span class="c1"># NOSONAR</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rasterize vector data into an ``xarray`` object.  Each measurement will be a</span>
+<span class="sd">        data variable in the :class:`xarray.Dataset`.</span>
+
+<span class="sd">        See the `xarray documentation &lt;http://xarray.pydata.org&gt;`_</span>
+<span class="sd">        for usage of the :class:`xarray.Dataset` and :class:`xarray.DataArray` objects.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        measurements: list(str), optional</span>
+<span class="sd">            Attributes name or list of names to be included. If a list is specified,</span>
+<span class="sd">            the measurements will be returned in the order requested.</span>
+<span class="sd">            By default all available measurements are included.</span>
+<span class="sd">        datetime_measurements: list(str), optional</span>
+<span class="sd">            Attributes that are temporal in nature and should be converted to the</span>
+<span class="sd">            datetime format. These are only included if listed in &#39;measurements&#39;.</span>
+<span class="sd">        group_by: str, optional</span>
+<span class="sd">            When specified, perform basic combining/reducing of the data on this column.</span>
+<span class="sd">        interpolate_na_method:  {‘linear’, ‘nearest’, ‘cubic’}, optional</span>
+<span class="sd">            This is the method for interpolation to use to fill in the nodata with</span>
+<span class="sd">            :meth:`scipy.interpolate.griddata`.</span>
+<span class="sd">        rasterize_function: function, optional</span>
+<span class="sd">            Function to rasterize geometries. Other options are available in</span>
+<span class="sd">            `geocube.rasterize`. Default is `geocube.rasterize.rasterize_image`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        --------</span>
+<span class="sd">        :class:`xarray.Dataset`:</span>
+<span class="sd">            Requested data in a :class:`xarray.Dataset`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rasterize_function</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">rasterize_image</span> <span class="k">if</span> <span class="n">rasterize_function</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">rasterize_function</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">measurements</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">measurements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="n">measurements</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;geometry&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">datetime_measurements</span> <span class="o">=</span> <span class="p">()</span>
+        <span class="k">if</span> <span class="n">datetime_measurements</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">datetime_measurements</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                <span class="nb">set</span><span class="p">(</span><span class="n">datetime_measurements</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">measurements</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="c1"># reproject vector data to the projection of the output raster</span>
+        <span class="n">vector_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_data</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">geobox</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">_crs</span><span class="o">.</span><span class="n">ExportToProj4</span><span class="p">()</span>
+        <span class="p">)</span>  <span class="c1"># pylint: disable=protected-access</span>
+
+        <span class="c1"># convert to datetime</span>
+        <span class="k">for</span> <span class="n">datetime_measurement</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datetime_measurements</span><span class="p">:</span>
+            <span class="n">vector_data</span><span class="p">[</span><span class="n">datetime_measurement</span><span class="p">]</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+                <span class="n">vector_data</span><span class="p">[</span><span class="n">datetime_measurement</span><span class="p">]</span>
+            <span class="p">)</span>
+
+        <span class="c1"># get categorical enumerations if they exist</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_categorical_enums</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">categorical_column</span> <span class="ow">in</span> <span class="n">vector_data</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">([</span><span class="s2">&quot;category&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_categorical_enums</span><span class="p">[</span><span class="n">categorical_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">vector_data</span><span class="p">[</span>
+                <span class="n">categorical_column</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span>
+
+        <span class="c1"># map the shape data to the grid</span>
+        <span class="k">if</span> <span class="n">group_by</span><span class="p">:</span>
+            <span class="n">vector_data</span> <span class="o">=</span> <span class="n">vector_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">measurements</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">group_by</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_dataset</span><span class="p">(</span>
+            <span class="n">vector_data</span><span class="p">,</span> <span class="n">measurements</span><span class="p">,</span> <span class="n">group_by</span><span class="p">,</span> <span class="n">interpolate_na_method</span>
+        <span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_attrs</span><span class="p">(</span><span class="n">measurement_name</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get attributes for data array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        measurement_name: str</span>
+<span class="sd">            The measurement name.</span>
+<span class="sd">        fill_value: int or fload</span>
+<span class="sd">            The fill value.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict: Dict with attributes for data array.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">measurement_name</span><span class="p">,</span>
+            <span class="n">long_name</span><span class="o">=</span><span class="n">measurement_name</span><span class="p">,</span>
+            <span class="n">grid_mapping</span><span class="o">=</span><span class="n">DEFAULT_GRID_MAP</span><span class="p">,</span>
+            <span class="n">_FillValue</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_time_attrs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">image_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update attributes and nodata values for time grid.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        attrs: dict</span>
+<span class="sd">            Dict with attributes for data array.</span>
+<span class="sd">        image_data: :obj:`numpy.ndarray`</span>
+<span class="sd">            Array with image data.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict: Dict with attributes for data array.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;seconds from 1970-01-01T00:00:00&quot;</span>
+        <span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;_FillValue&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">image_data</span><span class="p">[</span><span class="n">image_data</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">def</span> <span class="nf">_get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vector_data</span><span class="p">,</span> <span class="n">measurements</span><span class="p">,</span> <span class="n">group_by</span><span class="p">,</span> <span class="n">interpolate_na_method</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        vector_data: str or :obj:`geopandas.GeoDataFrame`</span>
+<span class="sd">            A file path to an OGR supported source or GeoDataFrame containing</span>
+<span class="sd">            the vector data.</span>
+<span class="sd">        measurements: list(str), optional</span>
+<span class="sd">            Attributes name or list of names to be included. If a list is specified,</span>
+<span class="sd">            the measurements will be returned in the order requested.</span>
+<span class="sd">            By default all available measurements are included.</span>
+<span class="sd">        group_by: str, optional</span>
+<span class="sd">            When specified, perform basic combining/reducing of the data on this column.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        --------</span>
+<span class="sd">        :obj:`xarray.Dataset`:</span>
+<span class="sd">            Requested data in a :obj:`xarray.Dataset`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data_vars</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">measurement</span> <span class="ow">in</span> <span class="n">measurements</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">group_by</span><span class="p">:</span>
+                <span class="n">grid_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_grouped_grid</span><span class="p">(</span>
+                    <span class="n">vector_data</span><span class="p">[[</span><span class="n">measurement</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">]],</span> <span class="n">measurement</span><span class="p">,</span> <span class="n">group_by</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">grid_array</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_grid</span><span class="p">(</span>
+                    <span class="n">vector_data</span><span class="p">[[</span><span class="n">measurement</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">]],</span> <span class="n">measurement</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">grid_array</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">data_vars</span><span class="p">[</span><span class="n">measurement</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid_array</span>
+
+        <span class="k">if</span> <span class="n">group_by</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid_coords</span><span class="p">[</span><span class="n">group_by</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">vector_data</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="n">out_xds</span> <span class="o">=</span> <span class="n">xarray</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">data_vars</span><span class="o">=</span><span class="n">data_vars</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_coords</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">categorical_measurement</span><span class="p">,</span> <span class="n">categoral_enums</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_categorical_enums</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">enum_var_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{categorical_measurement}</span><span class="s2">_categories&quot;</span>
+            <span class="n">cat_attrs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">out_xds</span><span class="p">[</span><span class="n">categorical_measurement</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">)</span>
+            <span class="n">cat_attrs</span><span class="p">[</span><span class="s2">&quot;categorical_mapping&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">enum_var_name</span>
+            <span class="n">out_xds</span><span class="p">[</span><span class="n">categorical_measurement</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">cat_attrs</span>
+            <span class="n">out_xds</span><span class="p">[</span><span class="n">enum_var_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">categoral_enums</span>
+
+        <span class="n">add_xy_grid_meta</span><span class="p">(</span><span class="n">out_xds</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+        <span class="n">add_spatial_ref</span><span class="p">(</span><span class="n">out_xds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">geobox</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">crs_str</span><span class="p">,</span> <span class="n">DEFAULT_GRID_MAP</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">interpolate_na_method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">out_xds</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">interpolate_na</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">interpolate_na_method</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">out_xds</span>
+
+    <span class="k">def</span> <span class="nf">_get_grouped_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grouped_dataframe</span><span class="p">,</span> <span class="n">measurement_name</span><span class="p">,</span> <span class="n">group_by</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the variable data to append to the ssurgo :obj:`xarray.Dataset`.</span>
+<span class="sd">        This method is designed specifically to work on a dataframe that has</span>
+<span class="sd">        been grouped.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        grouped_dataframe: pandas GroupBy object</span>
+<span class="sd">            A pandas dataframe in as a GroupBy object.</span>
+<span class="sd">        measurement_name: str</span>
+<span class="sd">            Attributes name or list of names to be included. If a list is specified,</span>
+<span class="sd">            the measurements will be returned in the order requested.</span>
+<span class="sd">            By default all available measurements are included.</span>
+<span class="sd">        group_by: str</span>
+<span class="sd">            When specified, perform basic combining/reducing of the data on this column.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple: Options needed to create an :obj:`xarray.DataArray`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">()</span>
+
+        <span class="n">image_data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">df_group</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">fill_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">df_group</span> <span class="ow">in</span> <span class="n">grouped_dataframe</span><span class="p">:</span>
+            <span class="n">fill_value</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fill</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">df_group</span><span class="p">[</span><span class="n">measurement_name</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&quot;category&quot;</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="p">)</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rasterize_function</span><span class="p">(</span>
+                <span class="n">geometry_array</span><span class="o">=</span><span class="n">df_group</span><span class="o">.</span><span class="n">geometry</span><span class="p">,</span>
+                <span class="n">data_values</span><span class="o">=</span><span class="n">_format_series_data</span><span class="p">(</span><span class="n">df_group</span><span class="p">[</span><span class="n">measurement_name</span><span class="p">])</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                <span class="n">geobox</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">geobox</span><span class="p">,</span>
+                <span class="n">grid_coords</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_coords</span><span class="p">,</span>
+                <span class="n">fill</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Skipping attribute </span><span class="si">{measurement_name}</span><span class="s2"> due to missing data...&quot;</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="kc">None</span>
+
+            <span class="n">image_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+        <span class="n">attrs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_attrs</span><span class="p">(</span><span class="n">measurement_name</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">)</span>
+        <span class="n">image_data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image_data</span><span class="p">)</span>
+        <span class="c1"># it was converted to numeric date value</span>
+        <span class="k">if</span> <span class="n">df_group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s2">&quot;datetime&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">df_group</span><span class="p">[</span><span class="n">measurement_name</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_time_attrs</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">image_data</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">group_by</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">),</span> <span class="n">image_data</span><span class="p">,</span> <span class="n">attrs</span>
+
+    <span class="k">def</span> <span class="nf">_get_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">,</span> <span class="n">measurement_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the variable data to append to the ssurgo :obj:`xarray.Dataset`</span>
+<span class="sd">        from a regular :obj:`geopandas.GeoDataFrame`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dataframe: :obj:`geopandas.GeoDataFrame`</span>
+<span class="sd">            A geopandas GeoDataFrame object to rasterize.</span>
+<span class="sd">        measurement_name: str</span>
+<span class="sd">            Attributes name or list of names to be included. If a list is specified,</span>
+<span class="sd">            the measurements will be returned in the order requested.</span>
+<span class="sd">            By default all available measurements are included.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple: Options needed to create an :obj:`xarray.DataArray`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">()</span>
+        <span class="n">fill_value</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fill</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">dataframe</span><span class="p">[</span><span class="n">measurement_name</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&quot;category&quot;</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="p">)</span>
+        <span class="n">image_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rasterize_function</span><span class="p">(</span>
+            <span class="n">geometry_array</span><span class="o">=</span><span class="n">dataframe</span><span class="o">.</span><span class="n">geometry</span><span class="p">,</span>
+            <span class="n">data_values</span><span class="o">=</span><span class="n">_format_series_data</span><span class="p">(</span><span class="n">dataframe</span><span class="p">[</span><span class="n">measurement_name</span><span class="p">])</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+            <span class="n">geobox</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">geobox</span><span class="p">,</span>
+            <span class="n">grid_coords</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_coords</span><span class="p">,</span>
+            <span class="n">fill</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">image_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Skipping attribute </span><span class="si">{measurement_name}</span><span class="s2"> due to missing data...&quot;</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">attrs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_attrs</span><span class="p">(</span><span class="n">measurement_name</span><span class="p">,</span> <span class="n">fill_value</span><span class="p">)</span>
+
+        <span class="c1"># it was converted to numeric date value</span>
+        <span class="k">if</span> <span class="s2">&quot;datetime&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">dataframe</span><span class="p">[</span><span class="n">measurement_name</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_time_attrs</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">image_data</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image_data</span><span class="p">),</span> <span class="n">attrs</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocube Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
