@@ -53,6 +53,7 @@ script:
 - set -e
 - |
   if [ "$DOC" ]; then
+    sudo apt-get install -qq pandoc
     make docs
     pip install doctr
     if [[ -z "$TRAVIS_TAG" ]]; then
