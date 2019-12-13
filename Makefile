@@ -74,7 +74,7 @@ docs: ## generate Sphinx HTML documentation, including API docs
 	$(MAKE) -C docs html
 
 docs-browser: docs ## generate Sphinx HTML documentation, including API docs
-	$(BROWSER) docs/html/index.html
+	$(BROWSER) docs/_build/html/index.html
 
 release: dist ## package and upload a release
 	twine upload dist/*
