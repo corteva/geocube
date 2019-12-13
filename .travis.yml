@@ -2,15 +2,20 @@
 # System specifications for Travis CI
 #-------------------------------------------------------------------------------
 language: c
-os:
-  - linux
-  - osx
 env:
-  # - PYTHON_VERSION="3.5"
-  # geopandas has conflicts with python 3.5
-  - PYTHON_VERSION="3.6"
-  # - PYTHON_VERSION="3.7"
-  # datacube has dependency that is not available on python 3.7
+  global:
+    # Doctr deploy key for corteva/geocube
+    - secure: "Bdg1k0ld0Gdw5sOvL6gKRS6vQi4ICbv9OZb0uo6RgvJmbVcpNJl+D8sRCelFWUi4yVNtk3EnAVM5vIF8BtuokZsnXWH98AxWf5uTQjubgb+ycpODVNcJf+ptCA4CItY1xHSuRXzwm7EDuXh4OzXpKKlgYaa1abMUu8mJC+j6D/Uhbnv7iEDpQ7HOLYAPYVmBhflXVFrIpC2YvoZ9S7A+f6M0oiGRU+cKM1jT0O72tiq5/wLpAzpRuDRSa46Ul+soZKmjONrPqYpAuXAFIeSyluXFeJ31ghQ6ydv7n6CNAZ6pR7LIQWjQyRLd9W5TxxUuiMOfIqKeOeCIA6nGldbLUAAM1kYuNOew0SR/7ISlY2dcTU4hHgnCBQt7uCr6XY/4SNmszfyCuMyzqc1ZvM/vlPnUJX9WxeUuUEgxVNXD1y3IZADRIO7kIIo6CmCPaGEEgvf8bEOjroFYL6NR8qfjMEQ+tR1Jz0Qu5cTeTUueadrYaZmDcLOCSLI8dk+X4eSanF+Q838H8jPTdgriLWtdlqytItzVKYjDDhRF5aPk8RLZXlqEczqoO8oNl6dSeR9TU3f1glr4CEkwQoNnWE/ndax0Xqm1itgQEYW7q5lDOFY8Gp7uVCVz6Inktj+xViAdyaVydMhCG2DgF/SBuS/wivqpZarNEanrOI5NcBBmlVE="
+matrix:
+  include:
+    - os: osx
+      env:
+        - PYTHON_VERSION=3.6
+    - os: linux
+      env:
+        - PYTHON_VERSION=3.6
+        - DOC=true
+
 notifications:
   email: false
 
@@ -44,6 +49,20 @@ script:
 - py.test --cov-report term-missing --cov=geocube
 - make check
 - geocube --version
+# Building and uploading docs with doctr
+- set -e
+- |
+  if [ "$DOC" ]; then
+    sudo apt-get install -qq pandoc
+    make docs
+    pip install doctr
+    if [[ -z "$TRAVIS_TAG" ]]; then
+      DEPLOY_DIR=latest;
+    else
+      DEPLOY_DIR="$TRAVIS_TAG";
+    fi
+    doctr deploy --build-tags --built-docs docs/_build/html $DEPLOY_DIR
+  fi
 
 after_success:
   # Coveralls stats for code coverage

@@ -9,9 +9,7 @@ channels:
 dependencies:
 - python=3.6
 - datacube
-- gdal=2.4.*
 - geopandas
-- libgdal=2.4.*
-- rasterio=1.0.*
+- rasterio
 - scipy
 - rioxarray

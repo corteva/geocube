@@ -70,8 +70,10 @@ test: ## run tests quickly with the default Python
 	py.test
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	$(MAKE) -C sphinx clean
-	$(MAKE) -C sphinx html
+	$(MAKE) -C docs clean
+	$(MAKE) -C docs html
+
+docs-browser: docs ## generate Sphinx HTML documentation, including API docs
 	$(BROWSER) docs/html/index.html
 
 release: dist ## package and upload a release
