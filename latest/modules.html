@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="geocube package" href="geocube.html" />
+    <link rel="next" title="Core" href="geocube.html" />
     <link rel="prev" title="Example - Zonal Statistics" href="examples/zonal_statistics.html" /> 
 </head>
 
@@ -91,11 +91,8 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/examples.html">Usage Examples</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="geocube.html">geocube package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geocube.api.html">geocube.api package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geocube.xarray_extensions.html">geocube.xarray_extensions package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geocube.geo_utils.html">geocube.geo_utils package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli/index.html">geocube.cli package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geocube.html">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">geocube.cli package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
@@ -195,39 +192,14 @@
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="geocube.html">geocube package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="geocube.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geocube.html#module-geocube.exceptions">geocube.exceptions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geocube.html#module-geocube.logger">geocube.logger module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geocube.html#module-geocube.rasterize">geocube.rasterize module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geocube.html#module-geocube.vector_to_cube">geocube.vector_to_cube module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geocube.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="geocube.html#make-geocube">make_geocube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geocube.html#module-geocube.exceptions">exceptions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="geocube.api.html">geocube.api package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="geocube.api.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geocube.api.html#module-geocube.api.core">geocube.api.core module</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="geocube.xarray_extensions.html">geocube.xarray_extensions package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="geocube.xarray_extensions.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geocube.xarray_extensions.html#module-geocube.xarray_extensions.vectorxarray">geocube.xarray_extensions.vectorxarray module</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="geocube.geo_utils.html">geocube.geo_utils package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="geocube.geo_utils.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geocube.geo_utils.html#module-geocube.geo_utils.crs">geocube.geo_utils.crs module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geocube.geo_utils.html#module-geocube.geo_utils.geobox">geocube.geo_utils.geobox module</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cli/index.html">geocube.cli package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cli/geocube.html">geocube.cli.geocube module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli/geocube.html#geocube">geocube</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cli/make_geocube.html">geocube.cli.commands.make_geocube module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli/make_geocube.html#geocube-make-geocube">geocube make_geocube</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">geocube.cli package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#geocube">geocube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html#geocube-make-geocube">geocube make_geocube</a></li>
 </ul>
 </li>
 </ul>
@@ -242,7 +214,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="geocube.html" class="btn btn-neutral float-right" title="geocube package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="geocube.html" class="btn btn-neutral float-right" title="Core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="examples/zonal_statistics.html" class="btn btn-neutral float-left" title="Example - Zonal Statistics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

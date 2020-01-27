@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>geocube package &mdash; geocube 0.0.10 documentation</title>
+  <title>Core &mdash; geocube 0.0.10 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="geocube.api package" href="geocube.api.html" />
+    <link rel="next" title="geocube.cli package" href="cli.html" />
     <link rel="prev" title="API Documentation" href="modules.html" /> 
 </head>
 
@@ -91,18 +91,12 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/examples.html">Usage Examples</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Documentation</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">geocube package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-geocube.exceptions">geocube.exceptions module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-geocube.logger">geocube.logger module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-geocube.rasterize">geocube.rasterize module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-geocube.vector_to_cube">geocube.vector_to_cube module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#make-geocube">make_geocube</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-geocube.exceptions">exceptions</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="geocube.api.html">geocube.api package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geocube.xarray_extensions.html">geocube.xarray_extensions package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="geocube.geo_utils.html">geocube.geo_utils package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli/index.html">geocube.cli package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">geocube.cli package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
@@ -155,7 +149,7 @@
         
           <li><a href="modules.html">API Documentation</a> &raquo;</li>
         
-      <li>geocube package</li>
+      <li>Core</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -198,13 +192,69 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="geocube-package">
-<h1>geocube package<a class="headerlink" href="#geocube-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="core">
+<h1>Core<a class="headerlink" href="#core" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="make-geocube">
+<h2>make_geocube<a class="headerlink" href="#make-geocube" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="geocube.api.core.make_geocube">
+<code class="descclassname">core.</code><code class="descname">make_geocube</code><span class="sig-paren">(</span><em>measurements=None</em>, <em>datetime_measurements=None</em>, <em>output_crs=None</em>, <em>resolution=None</em>, <em>align=None</em>, <em>geom=None</em>, <em>like=None</em>, <em>fill=nan</em>, <em>group_by=None</em>, <em>interpolate_na_method=None</em>, <em>categorical_enums=None</em>, <em>rasterize_function=None</em><span class="sig-paren">)</span><a class="headerlink" href="#geocube.api.core.make_geocube" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rasterize vector data into an <code class="docutils literal notranslate"><span class="pre">xarray</span></code> object.  Each attribute will be a data
+variable in the <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>vector_data</strong> (str or <code class="xref py py-obj docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code>) – A file path to an OGR supported source or GeoDataFrame containing
+the vector data.</li>
+<li><strong>measurements</strong> (<em>list</em><em>(</em><em>str</em><em>)</em><em>, </em><em>optional</em>) – Attributes name or list of names to be included. If a list is specified,
+the attributes will be returned in the order requested.
+By default all available attributes are included.</li>
+<li><strong>datetime_measurements</strong> (<em>list</em><em>(</em><em>str</em><em>)</em><em>, </em><em>optional</em>) – Attributes that are temporal in nature and should be converted to the datetime
+format. These are only included if listed in ‘measurements’.</li>
+<li><strong>output_crs</strong> (<em>str</em><em>, </em><em>optional</em>) – The CRS of the returned data.  If no CRS is supplied, the CRS of the
+stored data is used.</li>
+<li><strong>resolution</strong> (<em>(</em><em>float</em><em>,</em><em>float</em><em>)</em><em>, </em><em>optional</em>) – A tuple of the spatial resolution of the returned data.
+This includes the direction (as indicated by a positive or negative number).
+Typically when using most CRSs, the first number would be negative.</li>
+<li><strong>align</strong> (<em>(</em><em>float</em><em>,</em><em>float</em><em>)</em><em>, </em><em>optional</em>) – Load data such that point ‘align’ lies on the pixel boundary.
+Units are in the co-ordinate space of the output CRS.
+Default is (0,0)</li>
+<li><strong>geom</strong> (<em>str</em><em>, </em><em>optional</em>) – A GeoJSON string for the bounding box of the data used to construct the
+grid.</li>
+<li><strong>like</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>, optional) – <p>Uses the output of a previous <code class="docutils literal notranslate"><span class="pre">load()</span></code> to form the basis of a request
+for another product.
+E.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcds</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span><span class="n">vector_data</span><span class="o">=</span><span class="s1">&#39;my_vector.geopackage&#39;</span><span class="p">,</span> <span class="n">like</span><span class="o">=</span><span class="n">other_gcds</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><strong>fill</strong> (<em>float</em><em>, </em><em>optional</em>) – The value to fill in the grid with for nodata. Default is NaN.</li>
+<li><strong>group_by</strong> (<em>str</em><em>, </em><em>optional</em>) – When specified, perform basic combining/reducing of the data on this column.</li>
+<li><strong>interpolate_na_method</strong> (<em>{‘linear’</em><em>, </em><em>‘nearest’</em><em>, </em><em>‘cubic’}</em><em>, </em><em>optional</em>) – This is the method for interpolation to use to fill in the nodata with
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">scipy.interpolate.griddata()</span></code>.</li>
+<li><strong>categorical_enums</strong> (<em>dict</em><em>, </em><em>optional</em>) – A dictionary of all categories for the table columns containing categorical
+data.
+E.g. {‘column_name’: [‘a’, ‘b’], ‘other_column’: [‘c’, ‘d’]}</li>
+<li><strong>rasterize_function</strong> (<em>function</em><em>, </em><em>optional</em>) – Function to rasterize geometries. Other options are available in
+<cite>geocube.rasterize</cite>. Default is <cite>geocube.rasterize.rasterize_image</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Requested data in a <code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="module-geocube.exceptions">
-<span id="geocube-exceptions-module"></span><h2>geocube.exceptions module<a class="headerlink" href="#module-geocube.exceptions" title="Permalink to this headline">¶</a></h2>
+<span id="exceptions"></span><h2>exceptions<a class="headerlink" href="#module-geocube.exceptions" title="Permalink to this headline">¶</a></h2>
 <p>This contains exceptions for GeoCube.</p>
 <dl class="exception">
 <dt id="geocube.exceptions.GeoCubeError">
@@ -221,229 +271,6 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-geocube.logger">
-<span id="geocube-logger-module"></span><h2>geocube.logger module<a class="headerlink" href="#module-geocube.logger" title="Permalink to this headline">¶</a></h2>
-<p>This contains methods for logging for GeoCube</p>
-<p>Credits: Adopted from quest python library</p>
-<dl class="function">
-<dt id="geocube.logger.get_logger">
-<code class="descclassname">geocube.logger.</code><code class="descname">get_logger</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/logger.html#get_logger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.logger.get_logger" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve the logger for GeoCube</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Logger</span></code></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="geocube.logger.log_to_console">
-<code class="descclassname">geocube.logger.</code><code class="descname">log_to_console</code><span class="sig-paren">(</span><em>status=True</em>, <em>level=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/logger.html#log_to_console"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.logger.log_to_console" title="Permalink to this definition">¶</a></dt>
-<dd><p>Log events to the console.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>status</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=True</em>) – Whether logging to console should be turned on(True) or off(False)</li>
-<li><strong>level</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Level of logging; whichever level is chosen all higher levels
-will be logged. See: <a class="reference external" href="https://docs.python.org/2/library/logging.html#levels">https://docs.python.org/2/library/logging.html#levels</a></li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="geocube.logger.log_to_file">
-<code class="descclassname">geocube.logger.</code><code class="descname">log_to_file</code><span class="sig-paren">(</span><em>status=True</em>, <em>filename=None</em>, <em>level=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/logger.html#log_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.logger.log_to_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Log events to a file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>status</strong> (<em>bool</em><em>, </em><em>optional</em><em>, </em><em>default=True</em>) – Whether logging to console should be turned on(True) or off(False)</li>
-<li><strong>filename</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – path of file to log to</li>
-<li><strong>level</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Level of logging; whichever level is chosen all higher levels
-will be logged. See: <a class="reference external" href="https://docs.python.org/2/library/logging.html#levels">https://docs.python.org/2/library/logging.html#levels</a></li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="geocube.logger.set_log_level">
-<code class="descclassname">geocube.logger.</code><code class="descname">set_log_level</code><span class="sig-paren">(</span><em>level=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/logger.html#set_log_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.logger.set_log_level" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the log level of the logger.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>level</strong> (<em>string</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Level of logging; whichever level is chosen all higher levels
-will be logged. See: <a class="reference external" href="https://docs.python.org/2/library/logging.html#levels">https://docs.python.org/2/library/logging.html#levels</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="module-geocube.rasterize">
-<span id="geocube-rasterize-module"></span><h2>geocube.rasterize module<a class="headerlink" href="#module-geocube.rasterize" title="Permalink to this headline">¶</a></h2>
-<p>This module contains tools for rasterizing vector data.</p>
-<dl class="function">
-<dt id="geocube.rasterize.rasterize_image">
-<code class="descclassname">geocube.rasterize.</code><code class="descname">rasterize_image</code><span class="sig-paren">(</span><em>geometry_array</em>, <em>data_values</em>, <em>geobox</em>, <em>fill</em>, <em>merge_alg=&lt;MergeAlg.replace: 'REPLACE'&gt;</em>, <em>filter_nan=False</em>, <em>**ignored_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/rasterize.html#rasterize_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.rasterize.rasterize_image" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rasterize a list of shapes+values for a given GeoBox.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>geometry_array</strong> (<em>geopandas.GeometryArray</em>) – A geometry array of points.</li>
-<li><strong>data_values</strong> (<em>list</em>) – Data values associated with the list of geojson shapes</li>
-<li><strong>geobox</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">datacube.utils.geometry.GeoBox</span></code>) – Transform of the resulting image.</li>
-<li><strong>fill</strong> (<em>float</em>) – The value to fill in the grid with for nodata.</li>
-<li><strong>merge_alg</strong> (<cite>rasterio.enums.MergeAlg</cite>, optional) – The algorithm for merging values into one cell. Default is <cite>MergeAlg.replace</cite>.</li>
-<li><strong>filter_nan</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, will remove nodata values from the data before rasterization.
-Default is False.</li>
-<li><strong>**ignored_kwargs</strong> – These are there to be flexible with additional rasterization methods and
-will be ignored.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The vector data in the rasterized format.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> or None</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="geocube.rasterize.rasterize_points_griddata">
-<code class="descclassname">geocube.rasterize.</code><code class="descname">rasterize_points_griddata</code><span class="sig-paren">(</span><em>geometry_array</em>, <em>data_values</em>, <em>grid_coords</em>, <em>fill</em>, <em>method='nearest'</em>, <em>rescale=False</em>, <em>filter_nan=False</em>, <em>**ignored_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/rasterize.html#rasterize_points_griddata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.rasterize.rasterize_points_griddata" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method uses scipy.interpolate.griddata to interpolate point data
-to a grid.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>geometry_array</strong> (<em>geopandas.GeometryArray</em>) – A geometry array of points.</li>
-<li><strong>data_values</strong> (<em>list</em>) – Data values associated with the list of geojson shapes</li>
-<li><strong>grid_coords</strong> (<em>dict</em>) – Output from <cite>rioxarray.rioxarray.affine_to_coords</cite></li>
-<li><strong>fill</strong> (<em>float</em>) – The value to fill in the grid with for nodata.</li>
-<li><strong>method</strong> (<em>{‘linear’</em><em>, </em><em>‘nearest’</em><em>, </em><em>‘cubic’}</em><em>, </em><em>optional</em>) – The method to use for interpolation in <cite>scipy.interpolate.griddata</cite>.</li>
-<li><strong>rescale</strong> (<em>bool</em><em>, </em><em>optional</em>) – Rescale points to unit cube before performing interpolation. Default is false.</li>
-<li><strong>filter_nan</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, will remove nodata values from the data before rasterization.
-Default is False.</li>
-<li><strong>**ignored_kwargs</strong> – These are there to be flexible with additional rasterization methods and
-will be ignored.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>:class:`numpy.ndarray`</strong></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">An interpolated <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="geocube.rasterize.rasterize_points_radial">
-<code class="descclassname">geocube.rasterize.</code><code class="descname">rasterize_points_radial</code><span class="sig-paren">(</span><em>geometry_array</em>, <em>data_values</em>, <em>grid_coords</em>, <em>method='linear'</em>, <em>filter_nan=False</em>, <em>**ignored_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/rasterize.html#rasterize_points_radial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.rasterize.rasterize_points_radial" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method uses scipy.interpolate.Rbf to interpolate point data
-to a grid.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>geometry_array</strong> (<em>geopandas.GeometryArray</em>) – A geometry array of points.</li>
-<li><strong>data_values</strong> (<em>list</em>) – Data values associated with the list of geojson shapes</li>
-<li><strong>grid_coords</strong> (<em>dict</em>) – Output from <cite>rioxarray.rioxarray.affine_to_coords</cite></li>
-<li><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – The function to use for interpolation in <cite>scipy.interpolate.Rbf</cite>.
-{‘multiquadric’, ‘inverse’, ‘gaussian’, ‘linear’,
-‘cubic’, ‘quintic’, ‘thin_plate’}</li>
-<li><strong>filter_nan</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, will remove nodata values from the data before rasterization.
-Default is False.</li>
-<li><strong>**ignored_kwargs</strong> – These are there to be flexible with additional rasterization methods and
-will be ignored.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>:class:`numpy.ndarray`</strong></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">An interpolated <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="module-geocube.vector_to_cube">
-<span id="geocube-vector-to-cube-module"></span><h2>geocube.vector_to_cube module<a class="headerlink" href="#module-geocube.vector_to_cube" title="Permalink to this headline">¶</a></h2>
-<p>geocube core conversion functionality</p>
-<dl class="class">
-<dt id="geocube.vector_to_cube.VectorToCube">
-<em class="property">class </em><code class="descclassname">geocube.vector_to_cube.</code><code class="descname">VectorToCube</code><span class="sig-paren">(</span><em>vector_data</em>, <em>geobox_maker</em>, <em>fill=None</em>, <em>categorical_enums=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/vector_to_cube.html#VectorToCube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.vector_to_cube.VectorToCube" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Tool that facilitates converting vector data to raster data into
-an <code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.DataFrame</span></code>.</p>
-<dl class="method">
-<dt id="geocube.vector_to_cube.VectorToCube.make_geocube">
-<code class="descname">make_geocube</code><span class="sig-paren">(</span><em>measurements=None</em>, <em>datetime_measurements=None</em>, <em>group_by=None</em>, <em>interpolate_na_method=None</em>, <em>rasterize_function=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/vector_to_cube.html#VectorToCube.make_geocube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.vector_to_cube.VectorToCube.make_geocube" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rasterize vector data into an <code class="docutils literal notranslate"><span class="pre">xarray</span></code> object.  Each measurement will be a
-data variable in the <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>.</p>
-<p>See the <a class="reference external" href="http://xarray.pydata.org">xarray documentation</a>
-for usage of the <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> objects.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>measurements</strong> (<em>list</em><em>(</em><em>str</em><em>)</em><em>, </em><em>optional</em>) – Attributes name or list of names to be included. If a list is specified,
-the measurements will be returned in the order requested.
-By default all available measurements are included.</li>
-<li><strong>datetime_measurements</strong> (<em>list</em><em>(</em><em>str</em><em>)</em><em>, </em><em>optional</em>) – Attributes that are temporal in nature and should be converted to the
-datetime format. These are only included if listed in ‘measurements’.</li>
-<li><strong>group_by</strong> (<em>str</em><em>, </em><em>optional</em>) – When specified, perform basic combining/reducing of the data on this column.</li>
-<li><strong>interpolate_na_method</strong> (<em>{‘linear’</em><em>, </em><em>‘nearest’</em><em>, </em><em>‘cubic’}</em><em>, </em><em>optional</em>) – This is the method for interpolation to use to fill in the nodata with
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">scipy.interpolate.griddata()</span></code>.</li>
-<li><strong>rasterize_function</strong> (<em>function</em><em>, </em><em>optional</em>) – Function to rasterize geometries. Other options are available in
-<cite>geocube.rasterize</cite>. Default is <cite>geocube.rasterize.rasterize_image</cite>.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Requested data in a <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-</div>
 </div>
 
 
@@ -454,7 +281,7 @@ datetime format. These are only included if listed in ‘measurements’.</li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="geocube.api.html" class="btn btn-neutral float-right" title="geocube.api package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cli.html" class="btn btn-neutral float-right" title="geocube.cli package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="modules.html" class="btn btn-neutral float-left" title="API Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
