@@ -54,7 +54,9 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Create the data mask by rasterizing the unique ID of the vector data"
+    "## Create the data mask by rasterizing the unique ID of the vector data\n",
+    "\n",
+    "See docs for [make_geocube](../geocube.rst#make-geocube)"
    ]
   },
   {

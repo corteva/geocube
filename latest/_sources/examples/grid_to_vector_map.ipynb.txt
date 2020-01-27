@@ -192,7 +192,9 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Convert data to grid"
+     "## Convert data to grid\n",
+     "\n",
+     "See docs for [make_geocube](../geocube.rst#make-geocube)"
    ]
   },
   {

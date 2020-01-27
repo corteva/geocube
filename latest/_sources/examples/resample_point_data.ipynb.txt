@@ -170,7 +170,9 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Convert to raster with GeoCube"
+    "## Convert to raster with GeoCube\n",
+    "\n",
+    "See docs for [make_geocube](../geocube.rst#make-geocube)"
    ]
   },
   {
@@ -274,7 +276,9 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "### Load into UTM grid followed by interpolation for missing values"
+    "### Load into UTM grid followed by interpolation for missing values\n",
+    "\n",
+    "See docs for [make_geocube](../geocube.rst#make-geocube)"
    ]
   },
   {
