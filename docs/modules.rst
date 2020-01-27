@@ -8,7 +8,4 @@ This page serves as the index for the lower level per-module documentation tree.
    :caption: Contents:
 
    geocube
-   geocube.api
-   geocube.xarray_extensions
-   geocube.geo_utils
-   cli/index
+   cli
