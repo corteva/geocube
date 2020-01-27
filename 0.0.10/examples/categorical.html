@@ -104,6 +104,10 @@
 <li class="toctree-l2"><a class="reference internal" href="timestamp_missing_data.html">Example - Rasterizing Point Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="grid_to_vector_map.html">Example - Mapping Grid Data to Vector Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="zonal_statistics.html">Example - Zonal Statistics</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://gis.stackexchange.com/a/329764/144357">How to convert vector format (geopackage, shapefile) to raster format (geotiff) using rasterio without template raster</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://gis.stackexchange.com/a/328327/144357">Rasterizing polygon grid in Python (geopandas &amp; rasterio)</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://gis.stackexchange.com/a/348065/144357">Rasterising multiple shapefiles into a single raster</a></li>
+<li class="toctree-l2"><a class="reference external" href="https://gis.stackexchange.com/a/348672/144357">Shapely Polygon to numpy boolean mask</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules.html">API Documentation</a></li>
@@ -181,16 +185,16 @@
 /* CSS for nbsphinx extension */
 
 /* remove conflicting styling from Sphinx themes */
-div.nbinput,
-div.nbinput div.prompt,
-div.nbinput div.input_area,
-div.nbinput div[class*=highlight],
-div.nbinput div[class*=highlight] pre,
-div.nboutput,
-div.nbinput div.prompt,
-div.nbinput div.output_area,
-div.nboutput div[class*=highlight],
-div.nboutput div[class*=highlight] pre {
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
     background: none;
     border: none;
     padding: 0 0;
@@ -199,13 +203,13 @@ div.nboutput div[class*=highlight] pre {
 }
 
 /* avoid gaps between output lines */
-div.nboutput div[class*=highlight] pre {
+div.nboutput.container div[class*=highlight] pre {
     line-height: normal;
 }
 
 /* input/output containers */
-div.nbinput,
-div.nboutput {
+div.nbinput.container,
+div.nboutput.container {
     display: -webkit-flex;
     display: flex;
     align-items: flex-start;
@@ -213,35 +217,35 @@ div.nboutput {
     width: 100%;
 }
 @media (max-width: 540px) {
-    div.nbinput,
-    div.nboutput {
+    div.nbinput.container,
+    div.nboutput.container {
         flex-direction: column;
     }
 }
 
 /* input container */
-div.nbinput {
+div.nbinput.container {
     padding-top: 5px;
 }
 
 /* last container */
-div.nblast {
+div.nblast.container {
     padding-bottom: 5px;
 }
 
 /* input prompt */
-div.nbinput div.prompt pre {
+div.nbinput.container div.prompt pre {
     color: #307FC1;
 }
 
 /* output prompt */
-div.nboutput div.prompt pre {
+div.nboutput.container div.prompt pre {
     color: #BF5B3D;
 }
 
 /* all prompts */
-div.nbinput div.prompt,
-div.nboutput div.prompt {
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
     min-width: 5ex;
     padding-top: 0.4em;
     padding-right: 0.4em;
@@ -249,56 +253,56 @@ div.nboutput div.prompt {
     flex: 0;
 }
 @media (max-width: 540px) {
-    div.nbinput div.prompt,
-    div.nboutput div.prompt {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
         text-align: left;
         padding: 0.4em;
     }
-    div.nboutput div.prompt.empty {
+    div.nboutput.container div.prompt.empty {
         padding: 0;
     }
 }
 
 /* disable scrollbars on prompts */
-div.nbinput div.prompt pre,
-div.nboutput div.prompt pre {
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
     overflow: hidden;
 }
 
 /* input/output area */
-div.nbinput div.input_area,
-div.nboutput div.output_area {
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
     padding: 0.4em;
     -webkit-flex: 1;
     flex: 1;
     overflow: auto;
 }
 @media (max-width: 540px) {
-    div.nbinput div.input_area,
-    div.nboutput div.output_area {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
         width: 100%;
     }
 }
 
 /* input area */
-div.nbinput div.input_area {
+div.nbinput.container div.input_area {
     border: 1px solid #e0e0e0;
     border-radius: 2px;
     background: #f5f5f5;
 }
 
 /* override MathJax center alignment in output cells */
-div.nboutput div[class*=MathJax] {
+div.nboutput.container div[class*=MathJax] {
     text-align: left !important;
 }
 
 /* override sphinx.ext.imgmath center alignment in output cells */
-div.nboutput div.math p {
+div.nboutput.container div.math p {
     text-align: left;
 }
 
 /* standard error */
-div.nboutput div.output_area.stderr {
+div.nboutput.container div.output_area.stderr {
     background: #fdd;
 }
 
@@ -379,13 +383,13 @@ div.rendered_html tbody tr:hover {
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -405,12 +409,12 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">import</span> <span class="nn">pandas</span>
+<span></span>import geopandas as gpd
+import pandas
 
-<span class="kn">from</span> <span class="nn">geocube.api.core</span> <span class="k">import</span> <span class="n">make_geocube</span>
+from geocube.api.core import make_geocube
 
-<span class="o">%</span><span class="k">matplotlib</span> inline
+%matplotlib inline
 </pre></div>
 </div>
 </div>
@@ -421,7 +425,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ssurgo_data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;../../test/test_data/input/soil_data_group.geojson&quot;</span><span class="p">)</span>
+<span></span>ssurgo_data = gpd.read_file(&quot;../../test/test_data/input/soil_data_group.geojson&quot;)
 </pre></div>
 </div>
 </div>
@@ -430,8 +434,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># original data</span>
-<span class="n">ssurgo_data</span><span class="p">[</span><span class="n">ssurgo_data</span><span class="o">.</span><span class="n">hzdept_r</span><span class="o">==</span><span class="mi">15</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;sandtotal_r&#39;</span><span class="p">)</span>
+<span></span># original data
+ssurgo_data[ssurgo_data.hzdept_r==15].plot(column=&#39;sandtotal_r&#39;)
 </pre></div>
 </div>
 </div>
@@ -439,10 +443,10 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f86445f1b70&gt;
-</pre></div>
-</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f86445f1b70&gt;
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
@@ -460,8 +464,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># this is only a subset of all of the classes</span>
-<span class="n">ssurgo_data</span><span class="o">.</span><span class="n">drclassdcd</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span></span># this is only a subset of all of the classes
+ssurgo_data.drclassdcd.drop_duplicates().values.tolist()
 </pre></div>
 </div>
 </div>
@@ -469,30 +473,30 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>[&#39;Somewhat poorly drained&#39;,
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;Somewhat poorly drained&#39;,
  &#39;Poorly drained&#39;,
  &#39;Well drained&#39;,
  &#39;Excessively drained&#39;]
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># complete list of categories</span>
-<span class="n">drclasses_complete</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;Poorly drained&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Somewhat poorly drained&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Excessively drained&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Subaqueous&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Well drained&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Somewhat excessively drained&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Very poorly drained&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;Moderately well drained&#39;</span>
-<span class="p">]</span>
+<span></span># complete list of categories
+drclasses_complete = [
+    &#39;Poorly drained&#39;,
+    &#39;Somewhat poorly drained&#39;,
+    &#39;Excessively drained&#39;,
+    &#39;Subaqueous&#39;,
+    &#39;Well drained&#39;,
+    &#39;Somewhat excessively drained&#39;,
+    &#39;Very poorly drained&#39;,
+    &#39;Moderately well drained&#39;
+]
 </pre></div>
 </div>
 </div>
@@ -501,25 +505,26 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">categorical_enums</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">:</span> <span class="n">drclasses_complete</span><span class="p">}</span>
+<span></span>categorical_enums = {&#39;drclassdcd&#39;: drclasses_complete}
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="Convert-data-to-grid">
 <h2>Convert data to grid<a class="headerlink" href="#Convert-data-to-grid" title="Permalink to this headline">¶</a></h2>
+<p>See docs for <a class="reference internal" href="../geocube.html#make-geocube"><span class="std std-ref">make_geocube</span></a></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">out_grid</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span>
-    <span class="n">vector_data</span><span class="o">=</span><span class="n">ssurgo_data</span><span class="p">,</span>
-    <span class="n">output_crs</span><span class="o">=</span><span class="s2">&quot;+init=epsg:32615&quot;</span><span class="p">,</span>
-    <span class="n">group_by</span><span class="o">=</span><span class="s1">&#39;hzdept_r&#39;</span><span class="p">,</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
-    <span class="n">categorical_enums</span><span class="o">=</span><span class="n">categorical_enums</span>
-<span class="p">)</span>
+<span></span>out_grid = make_geocube(
+    vector_data=ssurgo_data,
+    output_crs=&quot;+init=epsg:32615&quot;,
+    group_by=&#39;hzdept_r&#39;,
+    resolution=(-100, 100),
+    categorical_enums=categorical_enums
+)
 </pre></div>
 </div>
 </div>
@@ -528,7 +533,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">out_grid</span>
+<span></span>out_grid
 </pre></div>
 </div>
 </div>
@@ -536,8 +541,9 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;xarray.Dataset&gt;
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;xarray.Dataset&gt;
 Dimensions:                (drclassdcd_categories: 9, hzdept_r: 11, x: 15, y: 19)
 Coordinates:
   * y                      (y) float64 4.597e+06 4.597e+06 ... 4.595e+06
@@ -553,17 +559,16 @@ Data variables:
     silttotal_r            (hzdept_r, y, x) float64 nan nan nan ... 69.0 69.0
 Attributes:
     grid_mapping:  spatial_ref
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># mask nodata and plot</span>
-<span class="n">clay_slice</span> <span class="o">=</span> <span class="n">out_grid</span><span class="o">.</span><span class="n">claytotal_r</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">hzdept_r</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">clay_slice</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">clay_slice</span><span class="o">!=</span><span class="n">out_grid</span><span class="o">.</span><span class="n">claytotal_r</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span></span># mask nodata and plot
+clay_slice = out_grid.claytotal_r.sel(hzdept_r=15)
+clay_slice.where(clay_slice!=out_grid.claytotal_r.rio.nodata).plot()
 </pre></div>
 </div>
 </div>
@@ -571,10 +576,10 @@ Attributes:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f8640b754a8&gt;
-</pre></div>
-</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.collections.QuadMesh at 0x7f8640b754a8&gt;
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
@@ -592,8 +597,8 @@ Attributes:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">drclassdcd_slice</span> <span class="o">=</span> <span class="n">out_grid</span><span class="o">.</span><span class="n">drclassdcd</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">hzdept_r</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">drclassdcd_slice</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">drclassdcd_slice</span><span class="o">!=</span><span class="n">out_grid</span><span class="o">.</span><span class="n">drclassdcd</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span></span>drclassdcd_slice = out_grid.drclassdcd.sel(hzdept_r=15)
+drclassdcd_slice.where(drclassdcd_slice!=out_grid.drclassdcd.rio.nodata).plot()
 </pre></div>
 </div>
 </div>
@@ -601,10 +606,10 @@ Attributes:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.collections.QuadMesh at 0x7f8640ab7f28&gt;
-</pre></div>
-</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.collections.QuadMesh at 0x7f8640ab7f28&gt;
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
@@ -618,8 +623,8 @@ Attributes:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">drclassdcd_string</span> <span class="o">=</span> <span class="n">out_grid</span><span class="p">[</span><span class="s1">&#39;drclassdcd_categories&#39;</span><span class="p">][</span><span class="n">out_grid</span><span class="p">[</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)]</span>\
-    <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;drclassdcd_categories&#39;</span><span class="p">)</span>
+<span></span>drclassdcd_string = out_grid[&#39;drclassdcd_categories&#39;][out_grid[&#39;drclassdcd&#39;].astype(int)]\
+    .drop(&#39;drclassdcd_categories&#39;)
 </pre></div>
 </div>
 </div>
@@ -628,8 +633,8 @@ Attributes:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">out_grid</span><span class="p">[</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">drclassdcd_string</span>
-<span class="n">out_grid</span>
+<span></span>out_grid[&#39;drclassdcd&#39;] = drclassdcd_string
+out_grid
 </pre></div>
 </div>
 </div>
@@ -637,8 +642,9 @@ Attributes:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;xarray.Dataset&gt;
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;xarray.Dataset&gt;
 Dimensions:                (drclassdcd_categories: 9, hzdept_r: 11, x: 15, y: 19)
 Coordinates:
   * y                      (y) float64 4.597e+06 4.597e+06 ... 4.595e+06
@@ -654,16 +660,15 @@ Data variables:
     silttotal_r            (hzdept_r, y, x) float64 nan nan nan ... 69.0 69.0
 Attributes:
     grid_mapping:  spatial_ref
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pdf</span> <span class="o">=</span> <span class="n">out_grid</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;spatial_ref&#39;</span><span class="p">,</span> <span class="s1">&#39;drclassdcd_categories&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
-<span class="n">pdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span></span>pdf = out_grid.drop([&#39;spatial_ref&#39;, &#39;drclassdcd_categories&#39;]).to_dataframe()
+pdf.head()
 </pre></div>
 </div>
 </div>
@@ -764,8 +769,8 @@ Attributes:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">cat_dtype</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(</span><span class="n">out_grid</span><span class="o">.</span><span class="n">drclassdcd_categories</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-<span class="n">pdf</span><span class="p">[</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pdf</span><span class="p">[</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">cat_dtype</span><span class="p">)</span>
+<span></span>cat_dtype = pandas.api.types.CategoricalDtype(out_grid.drclassdcd_categories.values)
+pdf[&#39;drclassdcd&#39;] = pdf[&#39;drclassdcd&#39;].astype(cat_dtype)
 </pre></div>
 </div>
 </div>
@@ -774,8 +779,8 @@ Attributes:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">training_df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">])</span>
-<span class="n">training_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span></span>training_df = pandas.get_dummies(pdf, columns=[&#39;drclassdcd&#39;])
+training_df.head()
 </pre></div>
 </div>
 </div>
@@ -929,7 +934,7 @@ Attributes:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">training_df</span><span class="o">.</span><span class="n">columns</span>
+<span></span>training_df.columns
 </pre></div>
 </div>
 </div>
@@ -937,16 +942,16 @@ Attributes:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Index([&#39;hzdepb_r&#39;, &#39;claytotal_r&#39;, &#39;sandtotal_r&#39;, &#39;silttotal_r&#39;,
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Index([&#39;hzdepb_r&#39;, &#39;claytotal_r&#39;, &#39;sandtotal_r&#39;, &#39;silttotal_r&#39;,
        &#39;drclassdcd_Excessively drained&#39;, &#39;drclassdcd_Moderately well drained&#39;,
        &#39;drclassdcd_Poorly drained&#39;, &#39;drclassdcd_Somewhat excessively drained&#39;,
        &#39;drclassdcd_Somewhat poorly drained&#39;, &#39;drclassdcd_Subaqueous&#39;,
        &#39;drclassdcd_Very poorly drained&#39;, &#39;drclassdcd_Well drained&#39;,
        &#39;drclassdcd_nodata&#39;],
       dtype=&#39;object&#39;)
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 </div>
 </div>

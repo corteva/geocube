@@ -88,6 +88,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">geocube README</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#credits">Credits</a></li>
 </ul>
 </li>
@@ -166,13 +167,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -188,7 +189,6 @@
 <div class="section" id="geocube-readme">
 <h1>geocube README<a class="headerlink" href="#geocube-readme" title="Permalink to this headline">¶</a></h1>
 <p>Tool to convert geopandas vector data into rasterized xarray data.</p>
-<p>Documentation: <a class="reference external" href="https://corteva.github.io/geocube">https://corteva.github.io/geocube</a></p>
 <a class="reference external image-reference" href="https://gitter.im/corteva--geocube/community?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"><img alt="Join the chat at https://gitter.im/corteva--geocube/community" src="https://badges.gitter.im/corteva--geocube/community.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/corteva/geocube/blob/master/AUTHORS.rst"><img alt="All Contributors" src="https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square" /></a>
 <a class="reference external image-reference" href="https://github.com/corteva/geocube/blob/master/LICENSE"><img alt="https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg" src="https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg" /></a>
@@ -197,6 +197,13 @@
 <a class="reference external image-reference" href="https://travis-ci.com/corteva/geocube"><img alt="https://travis-ci.com/corteva/geocube.svg?branch=master" src="https://travis-ci.com/corteva/geocube.svg?branch=master" /></a>
 <a class="reference external image-reference" href="https://ci.appveyor.com/project/snowman2/geocube"><img alt="https://ci.appveyor.com/api/projects/status/bjxhlbt5tjsonwo8/branch/master?svg=true" src="https://ci.appveyor.com/api/projects/status/bjxhlbt5tjsonwo8/branch/master?svg=true" /></a>
 <a class="reference external image-reference" href="https://coveralls.io/github/corteva/geocube?branch=master"><img alt="https://coveralls.io/repos/github/corteva/geocube/badge.svg?branch=master" src="https://coveralls.io/repos/github/corteva/geocube/badge.svg?branch=master" /></a>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Stable: <a class="reference external" href="https://corteva.github.io/geocube/stable/">https://corteva.github.io/geocube/stable/</a></li>
+<li>Latest: <a class="reference external" href="https://corteva.github.io/geocube/latest/">https://corteva.github.io/geocube/latest/</a></li>
+</ul>
+</div>
 <div class="section" id="credits">
 <h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
 <p>This package was originally templated with with <a class="reference external" href="https://github.com/audreyr/cookiecutter">Cookiecutter</a>.</p>
