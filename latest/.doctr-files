@@ -92,11 +92,16 @@ latest/authors.html
 latest/cli.html
 latest/contributing.html
 latest/examples/categorical.html
+latest/examples/categorical.ipynb
 latest/examples/examples.html
 latest/examples/grid_to_vector_map.html
+latest/examples/grid_to_vector_map.ipynb
 latest/examples/resample_point_data.html
+latest/examples/resample_point_data.ipynb
 latest/examples/timestamp_missing_data.html
+latest/examples/timestamp_missing_data.ipynb
 latest/examples/zonal_statistics.html
+latest/examples/zonal_statistics.ipynb
 latest/genindex.html
 latest/geocube.html
 latest/history.html
