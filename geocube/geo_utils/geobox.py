@@ -7,11 +7,10 @@ import json
 import geopandas as gpd
 import rioxarray  # noqa
 from datacube.utils import geometry
-from rasterio.crs import CRS
+from rioxarray.crs import crs_to_wkt
 from shapely.geometry import box, mapping
 
 from geocube.exceptions import VectorDataError
-from geocube.geo_utils.crs import crs_to_wkt
 from geocube.logger import get_logger
 
 
@@ -149,9 +148,9 @@ class GeoBoxMaker(object):
             raise RuntimeError("Must specify 'resolution' if 'like' not specified.")
 
         if self.output_crs:
-            crs = geometry.CRS(self.output_crs)
+            crs = geometry.CRS(crs_to_wkt(self.output_crs))
         else:
-            crs = geometry.CRS(crs_to_wkt(CRS.from_user_input(vector_data.crs)))
+            crs = geometry.CRS(crs_to_wkt(vector_data.crs))
 
         if self.geom is None and self.output_crs:
             geopoly = geometry.Geometry(

@@ -5,8 +5,6 @@ This module contains tools for rasterizing vector data.
 import numpy
 import pandas
 import rasterio.features
-import rasterio.transform
-import rasterio.warp
 from rasterio.enums import MergeAlg
 from scipy.interpolate import Rbf, griddata
 from shapely.geometry import mapping

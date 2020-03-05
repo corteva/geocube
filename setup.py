@@ -14,10 +14,11 @@ requirements = [
     "appdirs",
     "Click>=6.0",
     "datacube",
-    "geopandas",
+    "geopandas>=0.6",
     "rasterio",
-    "rioxarray",
+    "rioxarray>=0.0.22",
     "xarray",
+    "pyproj>=2",
 ]
 
 test_requirements = ["pytest>=3.6", "pytest-cov", "mock"]

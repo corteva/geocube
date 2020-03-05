@@ -1,6 +1,10 @@
 History
 =======
 
+0.0.12
+------
+- Update to support geopandas with pyproj.CRS
+
 0.0.11
 ------
 - Drop Python 3.5 Support (issue #12)
