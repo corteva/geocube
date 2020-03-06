@@ -38,7 +38,7 @@ before_install:
 - conda config --add channels conda-forge
 - conda config --set channel_priority strict
 # Create conda environment for geocube
-- conda create -n test python=$PYTHON_VERSION $CONDA_COMPILER datacube gdal=2.4.* geopandas  libgdal=2.4.* rasterio=1.0.* scipy xarray
+- conda create -n test python=$PYTHON_VERSION $CONDA_COMPILER datacube gdal=2.4 geopandas  libgdal=2.4 rasterio scipy xarray
 - source activate test
 
 install:
