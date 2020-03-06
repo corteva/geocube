@@ -69,7 +69,7 @@ from geocube.api import core
     "-c",
     "--output-crs",
     help=(
-        "The CRS of the returned data. (e.x. +init=epsg:4326). "
+        "The CRS of the returned data. (e.g. epsg:4326). "
         "If no CRS is supplied, the CRS of the input data is used."
     ),
     required=False,

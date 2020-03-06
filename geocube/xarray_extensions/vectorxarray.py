@@ -4,6 +4,7 @@ This module is an extension for xarray to provide support for vector datasets.
 """
 import geopandas as gpd
 import xarray
+from pyproj import CRS
 from shapely.wkb import dumps, loads
 
 
@@ -14,7 +15,7 @@ def from_geodataframe(in_geodataframe):
     geodf = in_geodataframe.copy().set_index("geometry")
     geox = xarray.Dataset.from_dataframe(geodf)
     geox.coords["crs"] = 0
-    geox.coords["crs"].attrs = geodf.crs
+    geox.coords["crs"].attrs["crs_wkt"] = CRS.from_user_input(geodf.crs).to_wkt()
     return geox
 
 
@@ -60,7 +61,7 @@ class BaseVectorX:
         if extra_coords:
             out_obj = out_obj.copy().reset_coords(extra_coords)
         geodf = gpd.GeoDataFrame(out_obj.to_dataframe().reset_index())
-        geodf.crs = self._obj.coords["crs"].attrs
+        geodf.crs = self._obj.coords["crs"].attrs["crs_wkt"]
         return geodf
 
     def to_netcdf(self, *args, **kwargs):

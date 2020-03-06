@@ -70,7 +70,7 @@ def load_vector_data(vector_data):
 
     # make sure projection is set
     if not vector_data.crs:
-        vector_data.crs = {"init": "epsg:4326"}
+        vector_data.crs = "EPSG:4326"
         logger.warning(
             "Projection not defined in `vector_data`."
             " Setting to geographic (EPSG:4326)."
@@ -167,12 +167,11 @@ class GeoBoxMaker(object):
         else:
             geom_json = json.loads(self.geom)
             geom_crs = geometry.CRS(
-                "+init={}".format(
-                    geom_json["crs"]["properties"]["name"].lower()
-                    if "crs" in geom_json
-                    else "epsg:4326"
-                )
+                geom_json["crs"]["properties"]["name"]
+                if "crs" in geom_json
+                else "epsg:4326"
             )
+
             geopoly = geometry.Geometry(geom_json, crs=geom_crs)
 
         return geometry.GeoBox.from_geopolygon(
