@@ -3,7 +3,9 @@ History
 
 0.0.12
 ------
-- Update to support geopandas with pyproj.CRS
+- ENH: Update to support geopandas with pyproj.CRS (pull #18)
+- BUG: Update timestamp handling to ensure correct format for dtype (pull #18)
+- ENH: Update to allow for passing in pre-grouped data frames (pull #18)
 
 0.0.11
 ------
