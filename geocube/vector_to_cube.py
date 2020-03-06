@@ -136,15 +136,13 @@ class VectorToCube(object):
                 set(datetime_measurements) & set(measurements)
             )
         # reproject vector data to the projection of the output raster
-        vector_data = self.vector_data.to_crs(
-            self.geobox.crs._crs.ExportToProj4()
-        )  # pylint: disable=protected-access
+        vector_data = self.vector_data.to_crs(self.geobox.crs.wkt)
 
         # convert to datetime
         for datetime_measurement in self.datetime_measurements:
             vector_data[datetime_measurement] = pandas.to_datetime(
                 vector_data[datetime_measurement]
-            )
+            ).astype("datetime64[ns]")
 
         # get categorical enumerations if they exist
         self._categorical_enums = {}
@@ -154,8 +152,17 @@ class VectorToCube(object):
             ].cat.categories
 
         # map the shape data to the grid
-        if group_by:
+        if hasattr(vector_data, "grouper"):
+            group_names = vector_data.grouper.names
+            if len(group_names) > 1:
+                raise ValueError(f"Only one group allowed. Found: {group_names}")
+            if group_by and group_by != group_names[0]:
+                raise ValueError(f"Already grouped by different key: {group_names[0]}")
+            group_by = group_names[0]
+        elif group_by:
             vector_data = vector_data.groupby(group_by)
+
+        if group_by:
             try:
                 measurements.remove(group_by)
             except ValueError:
