@@ -152,17 +152,8 @@ class VectorToCube(object):
             ].cat.categories
 
         # map the shape data to the grid
-        if hasattr(vector_data, "grouper"):
-            group_names = vector_data.grouper.names
-            if len(group_names) > 1:
-                raise ValueError(f"Only one group allowed. Found: {group_names}")
-            if group_by and group_by != group_names[0]:
-                raise ValueError(f"Already grouped by different key: {group_names[0]}")
-            group_by = group_names[0]
-        elif group_by:
-            vector_data = vector_data.groupby(group_by)
-
         if group_by:
+            vector_data = vector_data.groupby(group_by)
             try:
                 measurements.remove(group_by)
             except ValueError:
