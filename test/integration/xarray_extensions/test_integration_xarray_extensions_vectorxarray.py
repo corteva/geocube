@@ -22,7 +22,7 @@ def test_from_geodataframe():
     vxd = vectorxarray.from_geodataframe(gdf)
     assert all(gdf.geometry == vxd.geometry.values)
     assert sorted(gdf.columns.tolist() + ["crs"]) == sorted(vxd.variables)
-    assert gdf.crs == vxd.crs.attrs
+    assert gdf.crs == vxd.crs.attrs["crs_wkt"]
     assert "geometry" in vxd.coords
     assert "crs" in vxd.coords
 

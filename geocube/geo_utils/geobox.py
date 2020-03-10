@@ -7,11 +7,10 @@ import json
 import geopandas as gpd
 import rioxarray  # noqa
 from datacube.utils import geometry
-from rasterio.crs import CRS
+from rioxarray.crs import crs_to_wkt
 from shapely.geometry import box, mapping
 
 from geocube.exceptions import VectorDataError
-from geocube.geo_utils.crs import crs_to_wkt
 from geocube.logger import get_logger
 
 
@@ -71,7 +70,7 @@ def load_vector_data(vector_data):
 
     # make sure projection is set
     if not vector_data.crs:
-        vector_data.crs = {"init": "epsg:4326"}
+        vector_data.crs = "EPSG:4326"
         logger.warning(
             "Projection not defined in `vector_data`."
             " Setting to geographic (EPSG:4326)."
@@ -149,9 +148,9 @@ class GeoBoxMaker(object):
             raise RuntimeError("Must specify 'resolution' if 'like' not specified.")
 
         if self.output_crs:
-            crs = geometry.CRS(self.output_crs)
+            crs = geometry.CRS(crs_to_wkt(self.output_crs))
         else:
-            crs = geometry.CRS(crs_to_wkt(CRS.from_user_input(vector_data.crs)))
+            crs = geometry.CRS(crs_to_wkt(vector_data.crs))
 
         if self.geom is None and self.output_crs:
             geopoly = geometry.Geometry(
@@ -168,12 +167,11 @@ class GeoBoxMaker(object):
         else:
             geom_json = json.loads(self.geom)
             geom_crs = geometry.CRS(
-                "+init={}".format(
-                    geom_json["crs"]["properties"]["name"].lower()
-                    if "crs" in geom_json
-                    else "epsg:4326"
-                )
+                geom_json["crs"]["properties"]["name"]
+                if "crs" in geom_json
+                else "epsg:4326"
             )
+
             geopoly = geometry.Geometry(geom_json, crs=geom_crs)
 
         return geometry.GeoBox.from_geopolygon(

@@ -41,11 +41,8 @@ LIKE_PATH = os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc")
             ["-m", "measure1", "--measurements", "measure2"],
             _get_called_dict(measurements=("measure1", "measure2")),
         ),
-        (["-c", "+init=epsg:4326"], _get_called_dict(output_crs="+init=epsg:4326")),
-        (
-            ["--output-crs", "+init=epsg:4326"],
-            _get_called_dict(output_crs="+init=epsg:4326"),
-        ),
+        (["-c", "epsg:4326"], _get_called_dict(output_crs="epsg:4326")),
+        (["--output-crs", "epsg:4326"], _get_called_dict(output_crs="epsg:4326"),),
         (["-r", "-10", "10"], _get_called_dict(resolution=(-10, 10))),
         (["--resolution", "-10", "10"], _get_called_dict(resolution=(-10, 10))),
         (["-a", "-10", "10"], _get_called_dict(align=(-10, 10))),

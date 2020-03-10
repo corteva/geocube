@@ -20,7 +20,7 @@ from geocube.rasterize import (
 )
 from test.conftest import TEST_COMPARE_DATA_DIR, TEST_INPUT_DATA_DIR
 
-TEST_GARS_PROJ = "+init=epsg:32615"
+TEST_GARS_PROJ = "epsg:32615"
 TEST_GARS_POLY = loads(
     "POLYGON (("
     "-90.58343333333333 41.48343333333334, "
@@ -257,10 +257,10 @@ def test_make_geocube__convert_time(input_geodata, tmpdir):
 @pytest.mark.parametrize(
     "load_extra_kwargs",
     [
-        {"output_crs": "+init=epsg:4326"},
+        {"output_crs": "epsg:4326"},
         {"resolution": (-10, 10)},
         {"align": (0, 0)},
-        {"output_crs": "+init=epsg:4326", "resolution": (-10, 10), "align": (0, 0)},
+        {"output_crs": "epsg:4326", "resolution": (-10, 10), "align": (0, 0)},
     ],
 )
 def test_make_geocube__like_error_invalid_args(load_extra_kwargs):
@@ -588,10 +588,10 @@ def test_make_geocube__group_by_convert_with_time(input_geodata, tmpdir):
 @pytest.mark.parametrize(
     "load_extra_kwargs",
     [
-        {"output_crs": "+init=epsg:4326"},
+        {"output_crs": "epsg:4326"},
         {"resolution": (-10, 10)},
         {"align": (0, 0)},
-        {"output_crs": "+init=epsg:4326", "resolution": (-10, 10), "align": (0, 0)},
+        {"output_crs": "epsg:4326", "resolution": (-10, 10), "align": (0, 0)},
     ],
 )
 def test_make_geocube__group_by_like_error_invalid_args(load_extra_kwargs):

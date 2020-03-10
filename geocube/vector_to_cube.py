@@ -136,15 +136,13 @@ class VectorToCube(object):
                 set(datetime_measurements) & set(measurements)
             )
         # reproject vector data to the projection of the output raster
-        vector_data = self.vector_data.to_crs(
-            self.geobox.crs._crs.ExportToProj4()
-        )  # pylint: disable=protected-access
+        vector_data = self.vector_data.to_crs(self.geobox.crs.wkt)
 
         # convert to datetime
         for datetime_measurement in self.datetime_measurements:
             vector_data[datetime_measurement] = pandas.to_datetime(
                 vector_data[datetime_measurement]
-            )
+            ).astype("datetime64[ns]")
 
         # get categorical enumerations if they exist
         self._categorical_enums = {}
