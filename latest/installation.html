@@ -190,7 +190,17 @@
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="stable-release">
 <h2>Stable release<a class="headerlink" href="#stable-release" title="Permalink to this headline">¶</a></h2>
-<p>. Use pip to install from <a class="reference external" href="https://pypi.org/project/geocube/">PyPI</a>:</p>
+<p>Use pip to install from <a class="reference external" href="https://pypi.org/project/geocube/">PyPI</a>:</p>
+<p>Step 1: Install python GDAL version associated with your GDAL version.</p>
+<p>Here is a Linux example with GDAL installed in your system:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CPLUS_INCLUDE_PATH</span><span class="o">=</span>/usr/include/gdal
+<span class="nb">export</span> <span class="nv">C_INCLUDE_PATH</span><span class="o">=</span>/usr/include/gdal
+pip install GDAL~<span class="o">=</span><span class="k">$(</span>gdal-config --version <span class="p">|</span> awk -F<span class="s1">&#39;[.]&#39;</span> <span class="s1">&#39;{print $1&quot;.&quot;$2}&#39;</span><span class="k">)</span>.0
+</pre></div>
+</div>
+</div></blockquote>
+<p>Step 2: Install from pip:</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install geocube
 </pre></div>

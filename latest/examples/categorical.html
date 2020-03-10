@@ -465,7 +465,7 @@ ssurgo_data[ssurgo_data.hzdept_r==15].plot(column=&#39;sandtotal_r&#39;)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f86445f1b70&gt;
+&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f9e210d3be0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -540,7 +540,7 @@ drclasses_complete = [
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span>out_grid = make_geocube(
     vector_data=ssurgo_data,
-    output_crs=&quot;+init=epsg:32615&quot;,
+    output_crs=&quot;epsg:32615&quot;,
     group_by=&#39;hzdept_r&#39;,
     resolution=(-100, 100),
     categorical_enums=categorical_enums
@@ -561,15 +561,14 @@ drclasses_complete = [
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-&lt;xarray.Dataset&gt;
+<div class="output_area rendered_html docutils container">
+<pre>&lt;xarray.Dataset&gt;
 Dimensions:                (drclassdcd_categories: 9, hzdept_r: 11, x: 15, y: 19)
 Coordinates:
   * y                      (y) float64 4.597e+06 4.597e+06 ... 4.595e+06
   * x                      (x) float64 7.004e+05 7.004e+05 ... 7.018e+05
   * hzdept_r               (hzdept_r) float64 0.0 5.0 15.0 ... 105.0 120.0 150.0
-  * drclassdcd_categories  (drclassdcd_categories) object &#39;Excessively drained&#39; ... &#39;nodata&#39;
+  * drclassdcd_categories  (drclassdcd_categories) object &#x27;Excessively drained&#x27; ... &#x27;nodata&#x27;
     spatial_ref            int64 0
 Data variables:
     drclassdcd             (hzdept_r, y, x) float64 -1.0 -1.0 -1.0 ... 7.0 7.0
@@ -578,8 +577,7 @@ Data variables:
     sandtotal_r            (hzdept_r, y, x) float64 nan nan nan ... 10.0 10.0
     silttotal_r            (hzdept_r, y, x) float64 nan nan nan ... 69.0 69.0
 Attributes:
-    grid_mapping:  spatial_ref
-</pre></div></div>
+    grid_mapping:  spatial_ref</pre></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -598,7 +596,7 @@ clay_slice.where(clay_slice!=out_grid.claytotal_r.rio.nodata).plot()
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.QuadMesh at 0x7f8640b754a8&gt;
+&lt;matplotlib.collections.QuadMesh at 0x7f9e1e823748&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -628,7 +626,7 @@ drclassdcd_slice.where(drclassdcd_slice!=out_grid.drclassdcd.rio.nodata).plot()
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.QuadMesh at 0x7f8640ab7f28&gt;
+&lt;matplotlib.collections.QuadMesh at 0x7f9e1e76bc50&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -662,25 +660,23 @@ out_grid
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-&lt;xarray.Dataset&gt;
+<div class="output_area rendered_html docutils container">
+<pre>&lt;xarray.Dataset&gt;
 Dimensions:                (drclassdcd_categories: 9, hzdept_r: 11, x: 15, y: 19)
 Coordinates:
   * y                      (y) float64 4.597e+06 4.597e+06 ... 4.595e+06
   * x                      (x) float64 7.004e+05 7.004e+05 ... 7.018e+05
   * hzdept_r               (hzdept_r) float64 0.0 5.0 15.0 ... 105.0 120.0 150.0
-  * drclassdcd_categories  (drclassdcd_categories) object &#39;Excessively drained&#39; ... &#39;nodata&#39;
+  * drclassdcd_categories  (drclassdcd_categories) object &#x27;Excessively drained&#x27; ... &#x27;nodata&#x27;
     spatial_ref            int64 0
 Data variables:
-    drclassdcd             (hzdept_r, y, x) object &#39;nodata&#39; ... &#39;Well drained&#39;
+    drclassdcd             (hzdept_r, y, x) object &#x27;nodata&#x27; ... &#x27;Well drained&#x27;
     hzdepb_r               (hzdept_r, y, x) float64 nan nan nan ... 180.0 180.0
     claytotal_r            (hzdept_r, y, x) float64 nan nan nan ... 21.0 21.0
     sandtotal_r            (hzdept_r, y, x) float64 nan nan nan ... 10.0 10.0
     silttotal_r            (hzdept_r, y, x) float64 nan nan nan ... 69.0 69.0
 Attributes:
-    grid_mapping:  spatial_ref
-</pre></div></div>
+    grid_mapping:  spatial_ref</pre></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
@@ -736,9 +732,9 @@ pdf.head()
   </thead>
   <tbody>
     <tr>
-      <td rowspan="5" valign="top">0.0</td>
-      <td rowspan="5" valign="top">700350.0</td>
-      <td>4597050.0</td>
+      <th rowspan="5" valign="top">0.0</th>
+      <th rowspan="5" valign="top">700350.0</th>
+      <th>4597050.0</th>
       <td>nodata</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -746,7 +742,7 @@ pdf.head()
       <td>NaN</td>
     </tr>
     <tr>
-      <td>4596950.0</td>
+      <th>4596950.0</th>
       <td>Well drained</td>
       <td>5.0</td>
       <td>26.0</td>
@@ -754,7 +750,7 @@ pdf.head()
       <td>36.0</td>
     </tr>
     <tr>
-      <td>4596850.0</td>
+      <th>4596850.0</th>
       <td>Well drained</td>
       <td>5.0</td>
       <td>26.0</td>
@@ -762,7 +758,7 @@ pdf.head()
       <td>36.0</td>
     </tr>
     <tr>
-      <td>4596750.0</td>
+      <th>4596750.0</th>
       <td>Well drained</td>
       <td>5.0</td>
       <td>26.0</td>
@@ -770,7 +766,7 @@ pdf.head()
       <td>36.0</td>
     </tr>
     <tr>
-      <td>4596650.0</td>
+      <th>4596650.0</th>
       <td>Well drained</td>
       <td>5.0</td>
       <td>26.0</td>
@@ -864,9 +860,9 @@ training_df.head()
   </thead>
   <tbody>
     <tr>
-      <td rowspan="5" valign="top">0.0</td>
-      <td rowspan="5" valign="top">700350.0</td>
-      <td>4597050.0</td>
+      <th rowspan="5" valign="top">0.0</th>
+      <th rowspan="5" valign="top">700350.0</th>
+      <th>4597050.0</th>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -882,7 +878,7 @@ training_df.head()
       <td>1</td>
     </tr>
     <tr>
-      <td>4596950.0</td>
+      <th>4596950.0</th>
       <td>5.0</td>
       <td>26.0</td>
       <td>38.0</td>
@@ -898,7 +894,7 @@ training_df.head()
       <td>0</td>
     </tr>
     <tr>
-      <td>4596850.0</td>
+      <th>4596850.0</th>
       <td>5.0</td>
       <td>26.0</td>
       <td>38.0</td>
@@ -914,7 +910,7 @@ training_df.head()
       <td>0</td>
     </tr>
     <tr>
-      <td>4596750.0</td>
+      <th>4596750.0</th>
       <td>5.0</td>
       <td>26.0</td>
       <td>38.0</td>
@@ -930,7 +926,7 @@ training_df.head()
       <td>0</td>
     </tr>
     <tr>
-      <td>4596650.0</td>
+      <th>4596650.0</th>
       <td>5.0</td>
       <td>26.0</td>
       <td>38.0</td>

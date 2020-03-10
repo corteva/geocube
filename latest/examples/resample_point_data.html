@@ -443,8 +443,10 @@ from geocube.api.core import make_geocube
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>gdf = gpd.read_file(&quot;../../test/test_data/input/time_vector_data.geojson&quot;)
-gdf.crs = {&#39;init&#39;: &#39;epsg:4326&#39;}
+<span></span>gdf = gpd.read_file(
+    &quot;../../test/test_data/input/time_vector_data.geojson&quot;,
+    crs=&quot;epsg:4326&quot;,
+)
 </pre></div>
 </div>
 </div>

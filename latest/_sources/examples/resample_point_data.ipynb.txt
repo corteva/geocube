@@ -33,8 +33,10 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "gdf = gpd.read_file(\"../../test/test_data/input/time_vector_data.geojson\")\n",
-    "gdf.crs = {'init': 'epsg:4326'}"
+    "gdf = gpd.read_file(\n",
+    "    \"../../test/test_data/input/time_vector_data.geojson\",\n",
+    "    crs=\"epsg:4326\",\n",
+    ")"
    ]
   },
   {
@@ -388,7 +390,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.7"
+   "version": "3.6.10"
   }
  },
  "nbformat": 4,
