@@ -1,14 +1,11 @@
 History
 =======
 
-0.0.12
-------
-- ENH: Update to support geopandas with pyproj.CRS (pull #18)
-- BUG: Update timestamp handling to ensure correct format for dtype (pull #18)
-
 0.0.11
 ------
 - Drop Python 3.5 Support (issue #12)
+- ENH: Update to support geopandas with pyproj.CRS (pull #18)
+- BUG: Update timestamp handling to ensure correct format for dtype (pull #18)
 
 0.0.10
 ------
