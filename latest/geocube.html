@@ -93,6 +93,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#make-geocube">make_geocube</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#show-versions">show_versions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-geocube.exceptions">exceptions</a></li>
 </ul>
 </li>
@@ -196,9 +197,9 @@
 <h1>Core<a class="headerlink" href="#core" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="make-geocube">
 <h2>make_geocube<a class="headerlink" href="#make-geocube" title="Permalink to this headline">¶</a></h2>
-<dl class="method">
+<dl class="function">
 <dt id="geocube.api.core.make_geocube">
-<code class="descclassname">core.</code><code class="descname">make_geocube</code><span class="sig-paren">(</span><em>measurements=None</em>, <em>datetime_measurements=None</em>, <em>output_crs=None</em>, <em>resolution=None</em>, <em>align=None</em>, <em>geom=None</em>, <em>like=None</em>, <em>fill=nan</em>, <em>group_by=None</em>, <em>interpolate_na_method=None</em>, <em>categorical_enums=None</em>, <em>rasterize_function=None</em><span class="sig-paren">)</span><a class="headerlink" href="#geocube.api.core.make_geocube" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">geocube.api.core.</code><code class="descname">make_geocube</code><span class="sig-paren">(</span><em>vector_data</em>, <em>measurements=None</em>, <em>datetime_measurements=None</em>, <em>output_crs=None</em>, <em>resolution=None</em>, <em>align=None</em>, <em>geom=None</em>, <em>like=None</em>, <em>fill=nan</em>, <em>group_by=None</em>, <em>interpolate_na_method=None</em>, <em>categorical_enums=None</em>, <em>rasterize_function=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/api/core.html#make_geocube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.api.core.make_geocube" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rasterize vector data into an <code class="docutils literal notranslate"><span class="pre">xarray</span></code> object.  Each attribute will be a data
 variable in the <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -250,6 +251,20 @@ E.g. {‘column_name’: [‘a’, ‘b’], ‘other_column’: [‘c’, ‘d�
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+</div>
+<div class="section" id="show-versions">
+<h2>show_versions<a class="headerlink" href="#show-versions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="geocube.show_versions">
+<code class="descclassname">geocube.</code><code class="descname">show_versions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/_show_versions.html#show_versions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.show_versions" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified">New in version 0.0.12.</span></p>
+</div>
+<p>Print useful debugging information</p>
+<p class="rubric">Example</p>
+<p>&gt; python -c “import geocube; geocube.show_versions()”</p>
 </dd></dl>
 
 </div>
