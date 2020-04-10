@@ -6,7 +6,7 @@ import click
 from click import group
 
 import geocube.cli.commands as cmd_modules
-from geocube import __version__
+from geocube import __version__, show_versions
 
 CONTEXT_SETTINGS = {
     "help_option_names": ["-h", "--help"],
@@ -32,6 +32,22 @@ def check_version(ctx, _, value):
     ctx.exit()
 
 
+def cli_show_version(ctx, _, value):
+    """
+    Print debugging version information.
+
+    :param ctx: Application context object (click.Context)
+    :param value: Passed in by Click
+    :return None
+    """
+    if not value or ctx.resilient_parsing:
+        return
+
+    show_versions()
+
+    ctx.exit()
+
+
 @group(context_settings=CONTEXT_SETTINGS)
 @click.option(
     "-v",
@@ -41,6 +57,14 @@ def check_version(ctx, _, value):
     expose_value=False,
     callback=check_version,
     help="Show the current version",
+)
+@click.option(
+    "--show-versions",
+    is_flag=True,
+    is_eager=True,
+    expose_value=False,
+    callback=cli_show_version,
+    help="Show debugging version information",
 )
 def geocube():
     """ Top-level command and entry point into the GeoCube CLI """

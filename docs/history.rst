@@ -1,6 +1,10 @@
 History
 =======
 
+0.0.12
+------
+- ENH: Added :func:`geocube.show_versions` and cli `geocube --show-versions` (pull #23)
+
 0.0.11
 ------
 - Drop Python 3.5 Support (issue #12)
