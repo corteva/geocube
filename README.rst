@@ -18,6 +18,9 @@ Tool to convert geopandas vector data into rasterized xarray data.
 .. image:: https://img.shields.io/pypi/v/geocube.svg
     :target: https://pypi.python.org/pypi/geocube
 
+.. image:: https://pepy.tech/badge/geocube
+    :target: https://pepy.tech/project/geocube
+
 .. image:: https://img.shields.io/conda/vn/conda-forge/geocube.svg
     :target: https://anaconda.org/conda-forge/geocube
 
@@ -29,6 +32,12 @@ Tool to convert geopandas vector data into rasterized xarray data.
 
 .. image:: https://coveralls.io/repos/github/corteva/geocube/badge.svg?branch=master
     :target: https://coveralls.io/github/corteva/geocube?branch=master
+
+.. image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
+    :target: https://github.com/pre-commit/pre-commit
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/python/black
 
 
 Documentation
