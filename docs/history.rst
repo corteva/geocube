@@ -4,6 +4,7 @@ History
 0.0.12
 ------
 - ENH: Added :func:`geocube.show_versions` and cli `geocube --show-versions` (pull #23)
+- Add compatibility between datacube and geopandas CRS versions (pull #24)
 
 0.0.11
 ------
