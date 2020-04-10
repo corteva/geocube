@@ -4,7 +4,13 @@ Core
 make_geocube
 -------------------------
 
-.. automethod:: geocube.api.core.make_geocube
+.. autofunction:: geocube.api.core.make_geocube
+
+
+show_versions
+-------------------------
+
+.. autofunction:: geocube.show_versions
 
 
 exceptions
