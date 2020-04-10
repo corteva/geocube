@@ -1,10 +1,12 @@
 import json
 import os
+from distutils.version import LooseVersion
 from functools import partial
 
 import geopandas as gpd
 import pandas
 import pytest
+import scipy
 import xarray
 from numpy.testing import assert_almost_equal
 from rasterio.enums import MergeAlg
@@ -717,6 +719,10 @@ def test_make_geocube__new_bounds_crs():
         (partial(rasterize_image, merge_alg=MergeAlg.add), "rasterize_image_sum.nc"),
     ],
 )
+@pytest.mark.xfail(
+    LooseVersion(scipy.__version__) < LooseVersion("1.4.0"),
+    reason="griddata behaves differently across versions",
+)
 def test_make_geocube__custom_rasterize_function(function, compare_name, tmpdir):
     input_geodata = os.path.join(TEST_INPUT_DATA_DIR, "time_vector_data.geojson")
     out_grid = make_geocube(
@@ -757,6 +763,10 @@ def test_make_geocube__custom_rasterize_function(function, compare_name, tmpdir)
             "rasterize_image_sum_nodata.nc",
         ),
     ],
+)
+@pytest.mark.xfail(
+    LooseVersion(scipy.__version__) < LooseVersion("1.4.0"),
+    reason="griddata behaves differently across versions",
 )
 def test_make_geocube__custom_rasterize_function__filter_null(
     function, compare_name, tmpdir
