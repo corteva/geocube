@@ -3,8 +3,9 @@
 This module is for GIS related utility functions.
 """
 import json
+from distutils.version import LooseVersion
 
-import geopandas as gpd
+import geopandas
 import rioxarray  # noqa
 from datacube.utils import geometry
 from rioxarray.crs import crs_to_wkt
@@ -56,9 +57,9 @@ def load_vector_data(vector_data):
     logger = get_logger()
 
     if isinstance(vector_data, str):
-        vector_data = gpd.read_file(vector_data)
-    elif not isinstance(vector_data, gpd.GeoDataFrame):
-        vector_data = gpd.GeoDataFrame(vector_data)
+        vector_data = geopandas.read_file(vector_data)
+    elif not isinstance(vector_data, geopandas.GeoDataFrame):
+        vector_data = geopandas.GeoDataFrame(vector_data)
 
     if vector_data.empty:
         raise VectorDataError("Empty GeoDataFrame.")
@@ -76,6 +77,37 @@ def load_vector_data(vector_data):
             " Setting to geographic (EPSG:4326)."
         )
     return vector_data
+
+
+def _datacube_to_geopandas_crs(dc_crs):
+    """
+    This gets the best representation of the datacube CRS object
+    to be used by geopandas
+
+    Parameters
+    ----------
+    dc_crs: :class:`datacube.utils.geometry.CRS`
+        Input datacube CRS
+
+    Returns
+    -------
+    str:
+        Representation of CRS for geopandas.
+    """
+    if LooseVersion(geopandas.__version__) >= LooseVersion("0.6.0"):
+        # this version of geopandas uses always_xy=True so WKT version is safe
+        try:
+            geo_crs = dc_crs.to_wkt()
+        except AttributeError:
+            geo_crs = dc_crs.wkt
+    else:
+        try:
+            # datacube version < 0.8 uses osgeo.osr SpatialReference
+            geo_crs = dc_crs._crs.ExportToProj4()
+        except AttributeError:
+            # datacube version 0.8+ uses pyproj.CRS
+            geo_crs = dc_crs._crs.to_proj4()
+    return geo_crs
 
 
 class GeoBoxMaker(object):
@@ -155,7 +187,11 @@ class GeoBoxMaker(object):
         if self.geom is None and self.output_crs:
             geopoly = geometry.Geometry(
                 mapping(
-                    box(*vector_data.to_crs(crs._crs.ExportToProj4()).total_bounds)
+                    box(
+                        *vector_data.to_crs(
+                            _datacube_to_geopandas_crs(crs)
+                        ).total_bounds
+                    )
                 ),
                 crs=crs,
             )
