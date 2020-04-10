@@ -1,6 +1,6 @@
 from mock import patch
 
-from geocube.logger import log_to_console, log_to_file, get_logger
+from geocube.logger import get_logger, log_to_console, log_to_file
 
 
 def test_log_to_console(capsys):

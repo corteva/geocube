@@ -11,20 +11,20 @@ Stable release
 Use pip to install from `PyPI <https://pypi.org/project/geocube/>`__:
 
 
-Step 1: Install python GDAL version associated with your GDAL version. 
+Step 1: Install python GDAL version associated with your GDAL version.
 
 Here is a Linux example with GDAL installed in your system:
 
   .. code-block:: bash
 
       export CPLUS_INCLUDE_PATH=/usr/include/gdal
-      export C_INCLUDE_PATH=/usr/include/gdal  
+      export C_INCLUDE_PATH=/usr/include/gdal
       pip install GDAL~=$(gdal-config --version | awk -F'[.]' '{print $1"."$2}').0
 
 Step 2: Install from pip:
 
   .. code-block:: bash
-    
+
       pip install geocube
 
 

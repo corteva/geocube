@@ -33,6 +33,7 @@ extras_require = {
         "flake8",
         "pylint",
         "isort",
+        "pre-commit",
     ]
 }
 extras_require["all"] = list(chain.from_iterable(extras_require.values()))
