@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>geocube.cli package &mdash; geocube 0.0.12 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="prev" title="Core" href="geocube.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> geocube
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.12
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">geocube README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/examples.html">Usage Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="geocube.html">Core</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">geocube.cli package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#geocube">geocube</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geocube-make-geocube">geocube make_geocube</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Contributors ✨</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">geocube</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">API Documentation</a> &raquo;</li>
+        
+      <li>geocube.cli package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/cli.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="geocube-cli-package">
+<h1>geocube.cli package<a class="headerlink" href="#geocube-cli-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="geocube">
+<h2>geocube<a class="headerlink" href="#geocube" title="Permalink to this headline">¶</a></h2>
+<p>Top-level command and entry point into the GeoCube CLI</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>geocube <span class="o">[</span>OPTIONS<span class="o">]</span> COMMAND <span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-geocube-v">
+<code class="descname">-v</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--version</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-geocube-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the current version</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-geocube-show-versions">
+<code class="descname">--show-versions</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-geocube-show-versions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show debugging version information</p>
+</dd></dl>
+
+<p class="rubric">Commands</p>
+<dl class="object">
+<dt>
+<code class="descname">make-geocube</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="geocube-make-geocube">
+<h2>geocube make_geocube<a class="headerlink" href="#geocube-make-geocube" title="Permalink to this headline">¶</a></h2>
+<p>Utility to load vector data into the xarray raster format.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>geocube make_geocube <span class="o">[</span>OPTIONS<span class="o">]</span> VECTOR_DATA OUTPUT_FILE
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--interpolate-na-method</code><code class="descclassname"> &lt;interpolate_na_method&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-i" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the method for interpolation to use to fill in the nodata.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-gb">
+<code class="descname">-gb</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--group-by</code><code class="descclassname"> &lt;group_by&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-gb" title="Permalink to this definition">¶</a></dt>
+<dd><p>When specified, perform basic combining/reducing of the data on this column.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-f">
+<code class="descname">-f</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--fill</code><code class="descclassname"> &lt;fill&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-f" title="Permalink to this definition">¶</a></dt>
+<dd><p>The value to fill in the grid with for nodata. Default is NaN.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-l">
+<code class="descname">-l</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--like</code><code class="descclassname"> &lt;like&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-l" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses the netCDF file output of a previous <code class="docutils literal notranslate"><span class="pre">load()</span></code> to form the basis of a request for another product.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-g">
+<code class="descname">-g</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--geom</code><code class="descclassname"> &lt;geom&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-g" title="Permalink to this definition">¶</a></dt>
+<dd><p>GeoJSON string for the bounding box of the data used to construct the grid.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-a">
+<code class="descname">-a</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--align</code><code class="descclassname"> &lt;align&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load data such that point ‘align’ lies on the pixel boundary. Default is (0, 0).</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-r">
+<code class="descname">-r</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--resolution</code><code class="descclassname"> &lt;resolution&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-r" title="Permalink to this definition">¶</a></dt>
+<dd><p>A tuple of the spatial resolution of the returned data. Ex. -r -10 10.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-c">
+<code class="descname">-c</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output-crs</code><code class="descclassname"> &lt;output_crs&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>The CRS of the returned data. (e.g. epsg:4326). If no CRS is supplied, the CRS of the input data is used.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-m">
+<code class="descname">-m</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--measurements</code><code class="descclassname"> &lt;measurements&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-m" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measurement subset to load in.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-arg-vector-data">
+<code class="descname">VECTOR_DATA</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-geocube-make-geocube-arg-vector-data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-arg-output-file">
+<code class="descname">OUTPUT_FILE</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-geocube-make-geocube-arg-output-file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="geocube.html" class="btn btn-neutral float-left" title="Core" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Geocube Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
