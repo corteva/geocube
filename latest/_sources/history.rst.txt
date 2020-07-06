@@ -1,6 +1,10 @@
 History
 =======
 
+0.0.13
+------
+- Address deprecation warnings from datacube and rioxarray (issue #29)
+
 0.0.12
 ------
 - ENH: Added :func:`geocube.show_versions` and cli `geocube --show-versions` (pull #23)
