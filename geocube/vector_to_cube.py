@@ -5,12 +5,7 @@ geocube core conversion functionality
 import numpy
 import pandas
 import xarray
-from rioxarray.rioxarray import (
-    DEFAULT_GRID_MAP,
-    add_spatial_ref,
-    add_xy_grid_meta,
-    affine_to_coords,
-)
+from rioxarray.rioxarray import DEFAULT_GRID_MAP, affine_to_coords
 
 from geocube.geo_utils.geobox import load_vector_data
 from geocube.logger import get_logger
@@ -250,9 +245,8 @@ class VectorToCube(object):
             out_xds[categorical_measurement].attrs = cat_attrs
             out_xds[enum_var_name] = categoral_enums
 
-        add_xy_grid_meta(out_xds.coords)
-        add_spatial_ref(out_xds, self.geobox.crs.crs_str, DEFAULT_GRID_MAP)
-
+        out_xds.rio.write_crs(str(self.geobox.crs), inplace=True)
+        out_xds.rio.rio.write_coordinate_system(inplace=True)
         if interpolate_na_method is not None:
             return out_xds.rio.interpolate_na(method=interpolate_na_method)
 

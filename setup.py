@@ -16,7 +16,7 @@ requirements = [
     "datacube",
     "geopandas>=0.6",
     "rasterio",
-    "rioxarray>=0.0.22",
+    "rioxarray>=0.0.30",
     "xarray",
     "pyproj>=2",
 ]
