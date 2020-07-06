@@ -16,7 +16,7 @@ requirements = [
     "datacube",
     "geopandas>=0.6",
     "rasterio",
-    "rioxarray>=0.0.22",
+    "rioxarray>=0.0.30",
     "xarray",
     "pyproj>=2",
 ]
@@ -30,7 +30,7 @@ extras_require = {
         "nbsphinx",
         "sphinx_rtd_theme",
         "black",
-        "flake8",
+        "flake8==3.7",
         "pylint",
         "isort",
         "pre-commit",
