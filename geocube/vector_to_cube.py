@@ -246,7 +246,7 @@ class VectorToCube(object):
             out_xds[enum_var_name] = categoral_enums
 
         out_xds.rio.write_crs(str(self.geobox.crs), inplace=True)
-        out_xds.rio.rio.write_coordinate_system(inplace=True)
+        out_xds.rio.write_coordinate_system(inplace=True)
         if interpolate_na_method is not None:
             return out_xds.rio.interpolate_na(method=interpolate_na_method)
 
