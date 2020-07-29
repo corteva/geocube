@@ -11,7 +11,7 @@ This page contains links to a collection of examples of how to use GeoCube.
 
    resample_point_data.ipynb
    categorical.ipynb
-   timestamp_missing_data.ipynb
+   rasterize_point_data.ipynb
    grid_to_vector_map.ipynb
    zonal_statistics.ipynb
 
