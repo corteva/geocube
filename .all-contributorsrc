@@ -45,6 +45,15 @@
       "contributions": [
         "review"
       ]
+    },
+    {
+      "login": "JWCook",
+      "name": "Jordan Cook",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/419936?v=4",
+      "profile": "https://github.com/JWCook",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7
