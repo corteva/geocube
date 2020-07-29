@@ -5,9 +5,9 @@ latest/_images/examples_rasterize_point_data_12_1.png
 latest/_images/examples_rasterize_point_data_15_1.png
 latest/_images/examples_rasterize_point_data_18_1.png
 latest/_images/examples_rasterize_point_data_9_1.png
-latest/_images/examples_resample_point_data_10_1.png
-latest/_images/examples_resample_point_data_14_1.png
-latest/_images/examples_resample_point_data_5_1.png
+latest/_images/examples_timestamp_missing_data_10_1.png
+latest/_images/examples_timestamp_missing_data_14_1.png
+latest/_images/examples_timestamp_missing_data_5_1.png
 latest/_modules/geocube/_show_versions.html
 latest/_modules/geocube/api/core.html
 latest/_modules/geocube/exceptions.html
@@ -19,7 +19,7 @@ latest/_sources/examples/categorical.ipynb.txt
 latest/_sources/examples/examples.rst.txt
 latest/_sources/examples/grid_to_vector_map.ipynb.txt
 latest/_sources/examples/rasterize_point_data.ipynb.txt
-latest/_sources/examples/resample_point_data.ipynb.txt
+latest/_sources/examples/timestamp_missing_data.ipynb.txt
 latest/_sources/examples/zonal_statistics.ipynb.txt
 latest/_sources/geocube.rst.txt
 latest/_sources/history.rst.txt
@@ -129,8 +129,8 @@ latest/examples/grid_to_vector_map.html
 latest/examples/grid_to_vector_map.ipynb
 latest/examples/rasterize_point_data.html
 latest/examples/rasterize_point_data.ipynb
-latest/examples/resample_point_data.html
-latest/examples/resample_point_data.ipynb
+latest/examples/timestamp_missing_data.html
+latest/examples/timestamp_missing_data.ipynb
 latest/examples/zonal_statistics.html
 latest/examples/zonal_statistics.ipynb
 latest/genindex.html
