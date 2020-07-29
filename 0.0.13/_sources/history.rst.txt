@@ -1,6 +1,9 @@
 History
 =======
 
+Latest
+------
+
 0.0.13
 ------
 - Address deprecation warnings from datacube and rioxarray (issue #29)
