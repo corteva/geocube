@@ -60,7 +60,8 @@ class VectorToCube(object):
             The value to fill in the grid with for nodata. Default is NaN.
         categorical_enums: dict, optional
             A dictionary of all categories for the table columns containing
-            categorical data.
+            categorical data. The categories will be made unique and sorted
+            if they are not already.
             E.g. {'column_name': ['a', 'b'], 'other_column': ['c', 'd']}
 
         """

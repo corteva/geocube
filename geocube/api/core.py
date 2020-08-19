@@ -69,7 +69,7 @@ def make_geocube(
         :meth:`scipy.interpolate.griddata`.
     categorical_enums: dict, optional
         A dictionary of all categories for the table columns containing categorical
-        data.
+        data. The categories will be made unique and sorted if they are not already.
         E.g. {'column_name': ['a', 'b'], 'other_column': ['c', 'd']}
     rasterize_function: function, optional
         Function to rasterize geometries. Other options are available in
