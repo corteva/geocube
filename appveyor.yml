@@ -30,7 +30,6 @@ build: false
 
 test_script:
   - pytest --cov-report term-missing --cov=geocube
-  - flake8 --ignore=E731,W503,W504 --exclude --max-complexity 10 --max-line-length 88 geocube/
-  - flake8 --max-line-length 88 tests/unit/ tests/functional/ tests/integration
+  - flake8 geocube/ test/
   - black --check .
   - geocube --version
