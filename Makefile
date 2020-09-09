@@ -51,14 +51,14 @@ clean-test: ## remove test and coverage artifacts
 
 lint: ## check style with flake8
 	flake8 geocube test --max-line-length 88
-	black --target-version py36 --check .
+	black --check .
 
 check:
 	###### FLAKE8 #####
 	# No unused imports, no undefined vars,
 	flake8 --ignore=E731,W503,W504 --exclude --max-complexity 10 --max-line-length 88 geocube/
 	flake8 --max-line-length 88 tests/unit/ tests/functional/ tests/integration
-	black --target-version py36 --check .
+	black --check .
 
 pylint:
 	###### PYLINT ######
@@ -85,5 +85,4 @@ install: clean ## install the package to the active Python's site-packages
 	python setup.py install
 
 install-dev: clean ## install development version to active Python's site-packages
-	pip install -U -r requirements.txt -r requirements_dev.txt
 	pip install -e .[all]

@@ -33,8 +33,8 @@ def _get_gdal_info():
     proj_info: dict
         system GDAL information
     """
-    import rasterio
     import fiona
+    import rasterio
 
     blob = [
         ("fiona", fiona.__version__),
@@ -105,7 +105,7 @@ def show_versions():
     import geocube
 
     print(f"geocube v{geocube.__version__}\n")
-    print(f"GDAL deps:")
+    print("GDAL deps:")
     _print_info_dict(_get_gdal_info())
     print("\nPython deps:")
     _print_info_dict(_get_deps_info())
