@@ -50,15 +50,10 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 lint: ## check style with flake8
-	flake8 geocube test --max-line-length 88
+	flake8 geocube/ test/
 	black --check .
 
-check:
-	###### FLAKE8 #####
-	# No unused imports, no undefined vars,
-	flake8 --ignore=E731,W503,W504 --exclude --max-complexity 10 --max-line-length 88 geocube/
-	flake8 --max-line-length 88 tests/unit/ tests/functional/ tests/integration
-	black --check .
+check: lint
 
 pylint:
 	###### PYLINT ######
