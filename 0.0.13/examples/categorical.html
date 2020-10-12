@@ -91,6 +91,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../readme.html">geocube README</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="examples.html">Usage Examples</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="timestamp_missing_data.html">Example - Filling in missing data &amp; dealing with timestamps</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Example - Categorical Data</a><ul>
@@ -445,12 +446,12 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>import geopandas as gpd
-import pandas
+<span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">pandas</span>
 
-from geocube.api.core import make_geocube
+<span class="kn">from</span> <span class="nn">geocube.api.core</span> <span class="kn">import</span> <span class="n">make_geocube</span>
 
-%matplotlib inline
+<span class="o">%</span><span class="k">matplotlib</span> inline
 </pre></div>
 </div>
 </div>
@@ -461,7 +462,7 @@ from geocube.api.core import make_geocube
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>ssurgo_data = gpd.read_file(&quot;../../test/test_data/input/soil_data_group.geojson&quot;)
+<span></span><span class="n">ssurgo_data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;../../test/test_data/input/soil_data_group.geojson&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -470,8 +471,8 @@ from geocube.api.core import make_geocube
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># original data
-ssurgo_data[ssurgo_data.hzdept_r==15].plot(column=&#39;sandtotal_r&#39;)
+<span></span><span class="c1"># original data</span>
+<span class="n">ssurgo_data</span><span class="p">[</span><span class="n">ssurgo_data</span><span class="o">.</span><span class="n">hzdept_r</span><span class="o">==</span><span class="mi">15</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;sandtotal_r&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -495,13 +496,14 @@ ssurgo_data[ssurgo_data.hzdept_r==15].plot(column=&#39;sandtotal_r&#39;)
 <div class="section" id="Generate-categories-for-categorical-data">
 <h2>Generate categories for categorical data<a class="headerlink" href="#Generate-categories-for-categorical-data" title="Permalink to this headline">¶</a></h2>
 <p>If your data is only a subset of all of the data, the list of categories you get will likely not be complete.</p>
+<p>NOTE: The categories will be made unique and sorted internally if they are not already.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># this is only a subset of all of the classes
-ssurgo_data.drclassdcd.drop_duplicates().values.tolist()
+<span></span><span class="c1"># this is only a subset of all of the classes</span>
+<span class="n">ssurgo_data</span><span class="o">.</span><span class="n">drclassdcd</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -522,17 +524,17 @@ ssurgo_data.drclassdcd.drop_duplicates().values.tolist()
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># complete list of categories
-drclasses_complete = [
-    &#39;Poorly drained&#39;,
-    &#39;Somewhat poorly drained&#39;,
-    &#39;Excessively drained&#39;,
-    &#39;Subaqueous&#39;,
-    &#39;Well drained&#39;,
-    &#39;Somewhat excessively drained&#39;,
-    &#39;Very poorly drained&#39;,
-    &#39;Moderately well drained&#39;
-]
+<span></span><span class="c1"># complete list of categories</span>
+<span class="n">drclasses_complete</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;Poorly drained&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Somewhat poorly drained&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Excessively drained&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Subaqueous&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Well drained&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Somewhat excessively drained&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Very poorly drained&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Moderately well drained&#39;</span>
+<span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -541,7 +543,7 @@ drclasses_complete = [
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>categorical_enums = {&#39;drclassdcd&#39;: drclasses_complete}
+<span></span><span class="n">categorical_enums</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">:</span> <span class="n">drclasses_complete</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -554,13 +556,13 @@ drclasses_complete = [
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>out_grid = make_geocube(
-    vector_data=ssurgo_data,
-    output_crs=&quot;epsg:32615&quot;,
-    group_by=&#39;hzdept_r&#39;,
-    resolution=(-100, 100),
-    categorical_enums=categorical_enums
-)
+<span></span><span class="n">out_grid</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span>
+    <span class="n">vector_data</span><span class="o">=</span><span class="n">ssurgo_data</span><span class="p">,</span>
+    <span class="n">output_crs</span><span class="o">=</span><span class="s2">&quot;epsg:32615&quot;</span><span class="p">,</span>
+    <span class="n">group_by</span><span class="o">=</span><span class="s1">&#39;hzdept_r&#39;</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+    <span class="n">categorical_enums</span><span class="o">=</span><span class="n">categorical_enums</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -569,7 +571,7 @@ drclasses_complete = [
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>out_grid
+<span></span><span class="n">out_grid</span>
 </pre></div>
 </div>
 </div>
@@ -600,9 +602,9 @@ Attributes:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># mask nodata and plot
-clay_slice = out_grid.claytotal_r.sel(hzdept_r=15)
-clay_slice.where(clay_slice!=out_grid.claytotal_r.rio.nodata).plot()
+<span></span><span class="c1"># mask nodata and plot</span>
+<span class="n">clay_slice</span> <span class="o">=</span> <span class="n">out_grid</span><span class="o">.</span><span class="n">claytotal_r</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">hzdept_r</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">clay_slice</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">clay_slice</span><span class="o">!=</span><span class="n">out_grid</span><span class="o">.</span><span class="n">claytotal_r</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -631,8 +633,8 @@ clay_slice.where(clay_slice!=out_grid.claytotal_r.rio.nodata).plot()
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>drclassdcd_slice = out_grid.drclassdcd.sel(hzdept_r=15)
-drclassdcd_slice.where(drclassdcd_slice!=out_grid.drclassdcd.rio.nodata).plot()
+<span></span><span class="n">drclassdcd_slice</span> <span class="o">=</span> <span class="n">out_grid</span><span class="o">.</span><span class="n">drclassdcd</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">hzdept_r</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">drclassdcd_slice</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">drclassdcd_slice</span><span class="o">!=</span><span class="n">out_grid</span><span class="o">.</span><span class="n">drclassdcd</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -657,8 +659,8 @@ drclassdcd_slice.where(drclassdcd_slice!=out_grid.drclassdcd.rio.nodata).plot()
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>drclassdcd_string = out_grid[&#39;drclassdcd_categories&#39;][out_grid[&#39;drclassdcd&#39;].astype(int)]\
-    .drop(&#39;drclassdcd_categories&#39;)
+<span></span><span class="n">drclassdcd_string</span> <span class="o">=</span> <span class="n">out_grid</span><span class="p">[</span><span class="s1">&#39;drclassdcd_categories&#39;</span><span class="p">][</span><span class="n">out_grid</span><span class="p">[</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)]</span>\
+    <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;drclassdcd_categories&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -667,8 +669,8 @@ drclassdcd_slice.where(drclassdcd_slice!=out_grid.drclassdcd.rio.nodata).plot()
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>out_grid[&#39;drclassdcd&#39;] = drclassdcd_string
-out_grid
+<span></span><span class="n">out_grid</span><span class="p">[</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">drclassdcd_string</span>
+<span class="n">out_grid</span>
 </pre></div>
 </div>
 </div>
@@ -699,8 +701,8 @@ Attributes:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>pdf = out_grid.drop([&#39;spatial_ref&#39;, &#39;drclassdcd_categories&#39;]).to_dataframe()
-pdf.head()
+<span></span><span class="n">pdf</span> <span class="o">=</span> <span class="n">out_grid</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;spatial_ref&#39;</span><span class="p">,</span> <span class="s1">&#39;drclassdcd_categories&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
+<span class="n">pdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -801,8 +803,8 @@ pdf.head()
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>cat_dtype = pandas.api.types.CategoricalDtype(out_grid.drclassdcd_categories.values)
-pdf[&#39;drclassdcd&#39;] = pdf[&#39;drclassdcd&#39;].astype(cat_dtype)
+<span></span><span class="n">cat_dtype</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(</span><span class="n">out_grid</span><span class="o">.</span><span class="n">drclassdcd_categories</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">pdf</span><span class="p">[</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pdf</span><span class="p">[</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">cat_dtype</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -811,8 +813,8 @@ pdf[&#39;drclassdcd&#39;] = pdf[&#39;drclassdcd&#39;].astype(cat_dtype)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>training_df = pandas.get_dummies(pdf, columns=[&#39;drclassdcd&#39;])
-training_df.head()
+<span></span><span class="n">training_df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;drclassdcd&#39;</span><span class="p">])</span>
+<span class="n">training_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -966,7 +968,7 @@ training_df.head()
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>training_df.columns
+<span></span><span class="n">training_df</span><span class="o">.</span><span class="n">columns</span>
 </pre></div>
 </div>
 </div>

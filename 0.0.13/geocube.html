@@ -91,6 +91,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="readme.html">geocube README</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/examples.html">Usage Examples</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Core</a><ul>
@@ -239,7 +240,7 @@ E.g.:</p>
 <li><strong>interpolate_na_method</strong> (<em>{‘linear’</em><em>, </em><em>‘nearest’</em><em>, </em><em>‘cubic’}</em><em>, </em><em>optional</em>) – This is the method for interpolation to use to fill in the nodata with
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">scipy.interpolate.griddata()</span></code>.</li>
 <li><strong>categorical_enums</strong> (<em>dict</em><em>, </em><em>optional</em>) – A dictionary of all categories for the table columns containing categorical
-data.
+data. The categories will be made unique and sorted if they are not already.
 E.g. {‘column_name’: [‘a’, ‘b’], ‘other_column’: [‘c’, ‘d’]}</li>
 <li><strong>rasterize_function</strong> (<em>function</em><em>, </em><em>optional</em>) – Function to rasterize geometries. Other options are available in
 <cite>geocube.rasterize</cite>. Default is <cite>geocube.rasterize.rasterize_image</cite>.</li>

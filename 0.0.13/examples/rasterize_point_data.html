@@ -91,6 +91,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../readme.html">geocube README</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="examples.html">Usage Examples</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="timestamp_missing_data.html">Example - Filling in missing data &amp; dealing with timestamps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="categorical.html">Example - Categorical Data</a></li>
@@ -444,16 +445,16 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>import json
-from functools import partial
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 
-import geopandas as gpd
-from shapely.geometry import box, mapping
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">box</span><span class="p">,</span> <span class="n">mapping</span>
 
-from geocube.api.core import make_geocube
-from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
+<span class="kn">from</span> <span class="nn">geocube.api.core</span> <span class="kn">import</span> <span class="n">make_geocube</span>
+<span class="kn">from</span> <span class="nn">geocube.rasterize</span> <span class="kn">import</span> <span class="n">rasterize_points_griddata</span><span class="p">,</span> <span class="n">rasterize_points_radial</span>
 
-%matplotlib inline
+<span class="o">%</span><span class="k">matplotlib</span> inline
 </pre></div>
 </div>
 </div>
@@ -464,10 +465,10 @@ from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>gdf = gpd.read_file(
-    &quot;../../test/test_data/input/time_vector_data.geojson&quot;,
-    crs=&quot;epsg:4326&quot;
-)
+<span></span><span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span>
+    <span class="s2">&quot;../../test/test_data/input/time_vector_data.geojson&quot;</span><span class="p">,</span>
+    <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;epsg:4326&quot;</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -476,7 +477,7 @@ from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>gdf.head()
+<span></span><span class="n">gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -561,12 +562,12 @@ from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>geo_grid = make_geocube(
-    vector_data=gdf,
-    measurements=[&#39;test_attr&#39;],
-    resolution=(-0.1, 0.00001),
-    rasterize_function=rasterize_points_griddata,
-)
+<span></span><span class="n">geo_grid</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span>
+    <span class="n">vector_data</span><span class="o">=</span><span class="n">gdf</span><span class="p">,</span>
+    <span class="n">measurements</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;test_attr&#39;</span><span class="p">],</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.00001</span><span class="p">),</span>
+    <span class="n">rasterize_function</span><span class="o">=</span><span class="n">rasterize_points_griddata</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -575,7 +576,7 @@ from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>geo_grid
+<span></span><span class="n">geo_grid</span>
 </pre></div>
 </div>
 </div>
@@ -600,8 +601,8 @@ Attributes:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># mask nodata and plot
-geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot()
+<span></span><span class="c1"># mask nodata and plot</span>
+<span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">!=</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -629,12 +630,12 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>geo_grid = make_geocube(
-    vector_data=gdf,
-    measurements=[&#39;test_attr&#39;],
-    resolution=(-0.1, 0.00001),
-    rasterize_function=partial(rasterize_points_griddata, method=&quot;cubic&quot;),
-)
+<span></span><span class="n">geo_grid</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span>
+    <span class="n">vector_data</span><span class="o">=</span><span class="n">gdf</span><span class="p">,</span>
+    <span class="n">measurements</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;test_attr&#39;</span><span class="p">],</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.00001</span><span class="p">),</span>
+    <span class="n">rasterize_function</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">rasterize_points_griddata</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;cubic&quot;</span><span class="p">),</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -643,8 +644,8 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># mask nodata and plot
-geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot()
+<span></span><span class="c1"># mask nodata and plot</span>
+<span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">!=</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -672,14 +673,14 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>geo_grid = make_geocube(
-    vector_data=gdf,
-    measurements=[&#39;test_attr&#39;],
-    geom=json.dumps(mapping(box(-48, 44, -47, 45))),
-    output_crs=&quot;epsg:3857&quot;,
-    resolution=(-300, 300),
-    rasterize_function=rasterize_points_radial,
-)
+<span></span><span class="n">geo_grid</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span>
+    <span class="n">vector_data</span><span class="o">=</span><span class="n">gdf</span><span class="p">,</span>
+    <span class="n">measurements</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;test_attr&#39;</span><span class="p">],</span>
+    <span class="n">geom</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">mapping</span><span class="p">(</span><span class="n">box</span><span class="p">(</span><span class="o">-</span><span class="mi">48</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="o">-</span><span class="mi">47</span><span class="p">,</span> <span class="mi">45</span><span class="p">))),</span>
+    <span class="n">output_crs</span><span class="o">=</span><span class="s2">&quot;epsg:3857&quot;</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span>
+    <span class="n">rasterize_function</span><span class="o">=</span><span class="n">rasterize_points_radial</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -688,8 +689,8 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># mask nodata and plot
-geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot()
+<span></span><span class="c1"># mask nodata and plot</span>
+<span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">!=</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -718,14 +719,14 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>geo_grid = make_geocube(
-    vector_data=gdf,
-    measurements=[&#39;test_attr&#39;],
-    geom=json.dumps(mapping(box(-48, 44, -47, 45))),
-    output_crs=&quot;epsg:3857&quot;,
-    resolution=(-300, 300),
-    rasterize_function=partial(rasterize_points_radial, method=&quot;cubic&quot;, filter_nan=True),
-)
+<span></span><span class="n">geo_grid</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span>
+    <span class="n">vector_data</span><span class="o">=</span><span class="n">gdf</span><span class="p">,</span>
+    <span class="n">measurements</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;test_attr&#39;</span><span class="p">],</span>
+    <span class="n">geom</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">mapping</span><span class="p">(</span><span class="n">box</span><span class="p">(</span><span class="o">-</span><span class="mi">48</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="o">-</span><span class="mi">47</span><span class="p">,</span> <span class="mi">45</span><span class="p">))),</span>
+    <span class="n">output_crs</span><span class="o">=</span><span class="s2">&quot;epsg:3857&quot;</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span>
+    <span class="n">rasterize_function</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">rasterize_points_radial</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;cubic&quot;</span><span class="p">,</span> <span class="n">filter_nan</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -743,8 +744,8 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># mask nodata and plot
-geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot()
+<span></span><span class="c1"># mask nodata and plot</span>
+<span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">!=</span><span class="n">geo_grid</span><span class="o">.</span><span class="n">test_attr</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">nodata</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>

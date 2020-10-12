@@ -91,6 +91,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../readme.html">geocube README</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="examples.html">Usage Examples</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="timestamp_missing_data.html">Example - Filling in missing data &amp; dealing with timestamps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="categorical.html">Example - Categorical Data</a></li>
@@ -444,12 +445,12 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>import geopandas as gpd
-import numpy
-import rioxarray
-import xarray
+<span></span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">rioxarray</span>
+<span class="kn">import</span> <span class="nn">xarray</span>
 
-from geocube.api.core import make_geocube
+<span class="kn">from</span> <span class="nn">geocube.api.core</span> <span class="kn">import</span> <span class="n">make_geocube</span>
 </pre></div>
 </div>
 </div>
@@ -460,7 +461,7 @@ from geocube.api.core import make_geocube
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>#!wget https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/13/IMG/USGS_NED_13_n42w091_IMG.zip
+<span></span><span class="ch">#!wget https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/13/IMG/USGS_NED_13_n42w091_IMG.zip</span>
 </pre></div>
 </div>
 </div>
@@ -469,10 +470,10 @@ from geocube.api.core import make_geocube
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>elevation = rioxarray.open_rasterio(
-    &quot;zip://USGS_NED_13_n42w091_IMG.zip/USGS_NED_13_n42w091_IMG.img&quot;
-).squeeze().drop(&quot;band&quot;)
-elevation.name = &quot;elevation&quot;
+<span></span><span class="n">elevation</span> <span class="o">=</span> <span class="n">rioxarray</span><span class="o">.</span><span class="n">open_rasterio</span><span class="p">(</span>
+    <span class="s2">&quot;zip://USGS_NED_13_n42w091_IMG.zip/USGS_NED_13_n42w091_IMG.img&quot;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;band&quot;</span><span class="p">)</span>
+<span class="n">elevation</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;elevation&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -485,13 +486,13 @@ elevation.name = &quot;elevation&quot;
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>ssurgo_data = gpd.read_file(&quot;../../test/test_data/input/soil_data_group.geojson&quot;)
-ssurgo_data = ssurgo_data.loc[ssurgo_data.hzdept_r==0]
-# convert the key to group to the vector data to an integer as that is one of the
-# best data types for this type of mapping. If your data is not integer,
-# then consider using a mapping of your data to an integer with something
-# like a categorical dtype.
-ssurgo_data[&quot;mukey&quot;] = ssurgo_data.mukey.astype(int)
+<span></span><span class="n">ssurgo_data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;../../test/test_data/input/soil_data_group.geojson&quot;</span><span class="p">)</span>
+<span class="n">ssurgo_data</span> <span class="o">=</span> <span class="n">ssurgo_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ssurgo_data</span><span class="o">.</span><span class="n">hzdept_r</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># convert the key to group to the vector data to an integer as that is one of the</span>
+<span class="c1"># best data types for this type of mapping. If your data is not integer,</span>
+<span class="c1"># then consider using a mapping of your data to an integer with something</span>
+<span class="c1"># like a categorical dtype.</span>
+<span class="n">ssurgo_data</span><span class="p">[</span><span class="s2">&quot;mukey&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ssurgo_data</span><span class="o">.</span><span class="n">mukey</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -500,12 +501,12 @@ ssurgo_data[&quot;mukey&quot;] = ssurgo_data.mukey.astype(int)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>out_grid = make_geocube(
-    vector_data=ssurgo_data,
-    measurements=[&quot;mukey&quot;],
-    like=elevation, # ensure the data are on the same grid
-    fill=numpy.nan
-)
+<span></span><span class="n">out_grid</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span>
+    <span class="n">vector_data</span><span class="o">=</span><span class="n">ssurgo_data</span><span class="p">,</span>
+    <span class="n">measurements</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mukey&quot;</span><span class="p">],</span>
+    <span class="n">like</span><span class="o">=</span><span class="n">elevation</span><span class="p">,</span> <span class="c1"># ensure the data are on the same grid</span>
+    <span class="n">fill</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">nan</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -514,9 +515,9 @@ ssurgo_data[&quot;mukey&quot;] = ssurgo_data.mukey.astype(int)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># merge the two together
-out_grid[&quot;elevation&quot;] = elevation
-out_grid
+<span></span><span class="c1"># merge the two together</span>
+<span class="n">out_grid</span><span class="p">[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">elevation</span>
+<span class="n">out_grid</span>
 </pre></div>
 </div>
 </div>
@@ -546,11 +547,11 @@ Attributes:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>grouped_elevation = out_grid.drop(&quot;spatial_ref&quot;).groupby(out_grid.mukey)
-grid_mean = grouped_elevation.mean().rename({&quot;elevation&quot;: &quot;elevation_mean&quot;})
-grid_min = grouped_elevation.min().rename({&quot;elevation&quot;: &quot;elevation_min&quot;})
-grid_max = grouped_elevation.max().rename({&quot;elevation&quot;: &quot;elevation_max&quot;})
-grid_std = grouped_elevation.std().rename({&quot;elevation&quot;: &quot;elevation_std&quot;})
+<span></span><span class="n">grouped_elevation</span> <span class="o">=</span> <span class="n">out_grid</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;spatial_ref&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">out_grid</span><span class="o">.</span><span class="n">mukey</span><span class="p">)</span>
+<span class="n">grid_mean</span> <span class="o">=</span> <span class="n">grouped_elevation</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s2">&quot;elevation&quot;</span><span class="p">:</span> <span class="s2">&quot;elevation_mean&quot;</span><span class="p">})</span>
+<span class="n">grid_min</span> <span class="o">=</span> <span class="n">grouped_elevation</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s2">&quot;elevation&quot;</span><span class="p">:</span> <span class="s2">&quot;elevation_min&quot;</span><span class="p">})</span>
+<span class="n">grid_max</span> <span class="o">=</span> <span class="n">grouped_elevation</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s2">&quot;elevation&quot;</span><span class="p">:</span> <span class="s2">&quot;elevation_max&quot;</span><span class="p">})</span>
+<span class="n">grid_std</span> <span class="o">=</span> <span class="n">grouped_elevation</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s2">&quot;elevation&quot;</span><span class="p">:</span> <span class="s2">&quot;elevation_std&quot;</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -559,8 +560,8 @@ grid_std = grouped_elevation.std().rename({&quot;elevation&quot;: &quot;elevatio
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>zonal_stats = xarray.merge([grid_mean, grid_min, grid_max, grid_std])
-zonal_stats.to_dataframe()
+<span></span><span class="n">zonal_stats</span> <span class="o">=</span> <span class="n">xarray</span><span class="o">.</span><span class="n">merge</span><span class="p">([</span><span class="n">grid_mean</span><span class="p">,</span> <span class="n">grid_min</span><span class="p">,</span> <span class="n">grid_max</span><span class="p">,</span> <span class="n">grid_std</span><span class="p">])</span>
+<span class="n">zonal_stats</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>

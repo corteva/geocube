@@ -9,6 +9,7 @@ GitHub: http://github.com/corteva/geocube
 
    readme
    installation
+   getting_started
    examples/examples
    modules
    contributing

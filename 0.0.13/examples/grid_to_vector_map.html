@@ -91,6 +91,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../readme.html">geocube README</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="examples.html">Usage Examples</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="timestamp_missing_data.html">Example - Filling in missing data &amp; dealing with timestamps</a></li>
 <li class="toctree-l2"><a class="reference internal" href="categorical.html">Example - Categorical Data</a></li>
@@ -443,13 +444,13 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>import json
+<span></span><span class="kn">import</span> <span class="nn">json</span>
 
-import geopandas as gpd
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
 
-from geocube.api.core import make_geocube
+<span class="kn">from</span> <span class="nn">geocube.api.core</span> <span class="kn">import</span> <span class="n">make_geocube</span>
 
-%matplotlib inline
+<span class="o">%</span><span class="k">matplotlib</span> inline
 </pre></div>
 </div>
 </div>
@@ -458,7 +459,7 @@ from geocube.api.core import make_geocube
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>ssurgo_data = gpd.read_file(&quot;../../test/test_data/input/soil_data_group.geojson&quot;)
+<span></span><span class="n">ssurgo_data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;../../test/test_data/input/soil_data_group.geojson&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -467,7 +468,7 @@ from geocube.api.core import make_geocube
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>ssurgo_data.head()
+<span></span><span class="n">ssurgo_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -581,11 +582,11 @@ from geocube.api.core import make_geocube
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># convert the key to group to the vector data to an integer as that is one of the
-# best data types for this type of mapping. If your data is not integer,
-# then consider using a mapping of your data to an integer with something
-# like a categorical dtype.
-ssurgo_data[&quot;mukey&quot;] = ssurgo_data.mukey.astype(int)
+<span></span><span class="c1"># convert the key to group to the vector data to an integer as that is one of the</span>
+<span class="c1"># best data types for this type of mapping. If your data is not integer,</span>
+<span class="c1"># then consider using a mapping of your data to an integer with something</span>
+<span class="c1"># like a categorical dtype.</span>
+<span class="n">ssurgo_data</span><span class="p">[</span><span class="s2">&quot;mukey&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ssurgo_data</span><span class="o">.</span><span class="n">mukey</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -597,12 +598,12 @@ ssurgo_data[&quot;mukey&quot;] = ssurgo_data.mukey.astype(int)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>out_grid = make_geocube(
-    vector_data=ssurgo_data,
-    group_by=&#39;hzdept_r&#39;,
-    resolution=(-0.0001, 0.0001)
-)
-out_grid
+<span></span><span class="n">out_grid</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span>
+    <span class="n">vector_data</span><span class="o">=</span><span class="n">ssurgo_data</span><span class="p">,</span>
+    <span class="n">group_by</span><span class="o">=</span><span class="s1">&#39;hzdept_r&#39;</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">out_grid</span>
 </pre></div>
 </div>
 </div>
@@ -636,8 +637,8 @@ Attributes:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>grid_mean = out_grid.sel(hzdept_r=15).groupby(out_grid.mukey.sel(hzdept_r=15)).mean()
-grid_mean.to_dataframe()
+<span></span><span class="n">grid_mean</span> <span class="o">=</span> <span class="n">out_grid</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">hzdept_r</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">out_grid</span><span class="o">.</span><span class="n">mukey</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">hzdept_r</span><span class="o">=</span><span class="mi">15</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">grid_mean</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -754,8 +755,8 @@ grid_mean.to_dataframe()
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>grid_median = out_grid.sel(hzdept_r=75).groupby(out_grid.mukey.sel(hzdept_r=75)).median()
-grid_median.to_dataframe()
+<span></span><span class="n">grid_median</span> <span class="o">=</span> <span class="n">out_grid</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">hzdept_r</span><span class="o">=</span><span class="mi">75</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">out_grid</span><span class="o">.</span><span class="n">mukey</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">hzdept_r</span><span class="o">=</span><span class="mi">75</span><span class="p">))</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">grid_median</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>

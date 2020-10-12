@@ -91,6 +91,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="readme.html">geocube README</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/examples.html">Usage Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">API Documentation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Contributing</a><ul>
@@ -280,9 +281,8 @@ $ make <span class="nb">test</span>
 </pre></div>
 </div>
 <p>Or, if you cannot run makefile commands:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ flake8 --ignore<span class="o">=</span>E731,W503,W504 --exclude --max-complexity <span class="m">10</span> --max-line-length <span class="m">88</span> geocube/
-$ flake8 --max-line-length <span class="m">88</span> tests/unit/ tests/functional/ tests/integration
-$ black --target-version py36 --check .
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ flake8 geocube/ test/
+$ black --check .
 $ py.test
 </pre></div>
 </div>
