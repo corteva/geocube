@@ -11,41 +11,37 @@ Stable release
 Use pip to install from `PyPI <https://pypi.org/project/geocube/>`__:
 
 
-Step 1: Install python GDAL version associated with your GDAL version.
+Install from pip:
 
-Here is a Linux example with GDAL installed in your system:
+.. code-block:: bash
 
-  .. code-block:: bash
-
-      export CPLUS_INCLUDE_PATH=/usr/include/gdal
-      export C_INCLUDE_PATH=/usr/include/gdal
-      pip install GDAL~=$(gdal-config --version | awk -F'[.]' '{print $1"."$2}').0
-
-Step 2: Install from pip:
-
-  .. code-block:: bash
-
-      pip install geocube
+    pip install geocube
 
 
-2. Use `conda <https://conda.io/en/latest/>`__ with the `conda-forge <https://conda-forge.org/>`__ channel:
+Use `conda <https://conda.io/en/latest/>`__ with the `conda-forge <https://conda-forge.org/>`__ channel:
 
-  .. code-block:: bash
+.. code-block:: bash
 
-      conda install -c conda-forge geocube
+    conda install -c conda-forge geocube
 
 
 From source
 -----------
 
-The source for geocube can be downloaded from the `GitHub repo`_.
+The source for geocube can be installed from the `GitHub repo`_.
 
-.. code-block:: console
+.. code-block:: bash
 
-    $ git clone git@github.com:corteva/geocube.git
+    python -m pip install git+git://github.com/corteva/geocube.git#egg=geocube
 
-    $ cd geocube
-    $ python setup.py install
+
+To install for local development:
+
+.. code-block:: bash
+
+    git clone git@github.com:corteva/geocube.git
+    cd geocube
+    python -m pip install -e .[dev]
 
 
 .. _GitHub repo: https://github.com/corteva/geocube

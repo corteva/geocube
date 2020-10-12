@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>geocube README &mdash; geocube 0.0.14.dev0 documentation</title>
+  <title>Getting Started &mdash; geocube 0.0.14.dev0 documentation</title>
   
 
   
@@ -37,8 +37,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installation" href="installation.html" />
-    <link rel="prev" title="Welcome to geocube’s documentation!" href="index.html" /> 
+    <link rel="next" title="Usage Examples" href="examples/examples.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,13 +89,9 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">geocube README</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#credits">Credits</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">geocube README</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/examples.html">Usage Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">API Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
@@ -147,13 +143,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>geocube README</li>
+      <li>Getting Started</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/readme.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/getting_started.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -190,31 +186,40 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="geocube-readme">
-<h1>geocube README<a class="headerlink" href="#geocube-readme" title="Permalink to this headline">¶</a></h1>
-<p>Tool to convert geopandas vector data into rasterized xarray data.</p>
-<a class="reference external image-reference" href="https://gitter.im/corteva--geocube/community?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"><img alt="Join the chat at https://gitter.im/corteva--geocube/community" src="https://badges.gitter.im/corteva--geocube/community.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/corteva/geocube/blob/master/AUTHORS.rst"><img alt="All Contributors" src="https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square" /></a>
-<a class="reference external image-reference" href="https://github.com/corteva/geocube/blob/master/LICENSE"><img alt="https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg" src="https://img.shields.io/badge/license-BSD%203--Clause-yellow.svg" /></a>
-<a class="reference external image-reference" href="https://pypi.python.org/pypi/geocube"><img alt="https://img.shields.io/pypi/v/geocube.svg" src="https://img.shields.io/pypi/v/geocube.svg" /></a>
-<a class="reference external image-reference" href="https://pepy.tech/project/geocube"><img alt="https://pepy.tech/badge/geocube" src="https://pepy.tech/badge/geocube" /></a>
-<a class="reference external image-reference" href="https://anaconda.org/conda-forge/geocube"><img alt="https://img.shields.io/conda/vn/conda-forge/geocube.svg" src="https://img.shields.io/conda/vn/conda-forge/geocube.svg" /></a>
-<a class="reference external image-reference" href="https://travis-ci.com/corteva/geocube"><img alt="https://travis-ci.com/corteva/geocube.svg?branch=master" src="https://travis-ci.com/corteva/geocube.svg?branch=master" /></a>
-<a class="reference external image-reference" href="https://ci.appveyor.com/project/snowman2/geocube"><img alt="https://ci.appveyor.com/api/projects/status/bjxhlbt5tjsonwo8/branch/master?svg=true" src="https://ci.appveyor.com/api/projects/status/bjxhlbt5tjsonwo8/branch/master?svg=true" /></a>
-<a class="reference external image-reference" href="https://coveralls.io/github/corteva/geocube?branch=master"><img alt="https://coveralls.io/repos/github/corteva/geocube/badge.svg?branch=master" src="https://coveralls.io/repos/github/corteva/geocube/badge.svg?branch=master" /></a>
-<a class="reference external image-reference" href="https://github.com/pre-commit/pre-commit"><img alt="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&amp;logoColor=white" /></a>
-<a class="reference external image-reference" href="https://github.com/python/black"><img alt="https://img.shields.io/badge/code%20style-black-000000.svg" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a>
-<div class="section" id="documentation">
-<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p><cite>geocube</cite> combines the interfaces of:</p>
 <ul class="simple">
-<li><p>Stable: <a class="reference external" href="https://corteva.github.io/geocube/stable/">https://corteva.github.io/geocube/stable/</a></p></li>
-<li><p>Latest: <a class="reference external" href="https://corteva.github.io/geocube/latest/">https://corteva.github.io/geocube/latest/</a></p></li>
+<li><p><a class="reference external" href="https://github.com/geopandas/geopandas">geopandas</a></p></li>
+<li><p><a class="reference external" href="https://github.com/pydata/xarray">xarray</a></p></li>
+<li><p><a class="reference external" href="https://github.com/corteva/rioxarrau">rioxarray</a></p></li>
 </ul>
+<p>and is powered by <a class="reference external" href="https://github.com/osgeo/gdal">GDAL</a> using:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/mapbox/rasterio">rasterio</a></p></li>
+<li><p><a class="reference external" href="https://github.com/toblerity/fiona">fiona</a></p></li>
+</ul>
+<p>When getting started, the API documentation to start reading would be <a class="reference internal" href="geocube.html#geocube.api.core.make_geocube" title="geocube.api.core.make_geocube"><code class="xref py py-func docutils literal notranslate"><span class="pre">geocube.api.core.make_geocube()</span></code></a>.</p>
+<p>The simplest example would be to rasterize a single column:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">geocube.api.core</span> <span class="kn">import</span> <span class="n">make_geocube</span>
+
+<span class="n">out_grid</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span>
+    <span class="n">vector_data</span><span class="o">=</span><span class="s2">&quot;path_to_file.gpkg&quot;</span><span class="p">,</span>
+    <span class="n">measurements</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;column_name&quot;</span><span class="p">]</span><span class="o">.</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">out_grid</span><span class="p">[</span><span class="s2">&quot;column_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">to_raster</span><span class="p">(</span><span class="s2">&quot;my_rasterized_column.tif&quot;</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="credits">
-<h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
-<p>This package was originally templated with with <a class="reference external" href="https://github.com/audreyr/cookiecutter">Cookiecutter</a>.</p>
-</div>
+<p>You can also rasterize a <a class="reference external" href="https://geopandas.readthedocs.io/en/latest/docs/user_guide/data_structures.html#geodataframe">GeoDataFrame</a>
+directly in the <cite>vector_data</cite> argument. This enables you to <a class="reference external" href="https://geopandas.readthedocs.io/en/latest/docs/user_guide/io.html#reading-subsets-of-the-data">load in subsets of data</a>
+or perform various operations before rasterization.</p>
+<p>Once finished, you can write to anything supported by <a class="reference external" href="https://github.com/mapbox/rasterio">rasterio</a>
+using <cite>rioxarray</cite>’s <a class="reference external" href="https://corteva.github.io/rioxarray/stable/examples/convert_to_raster.html">rio.to_raster()</a> method.
+You can also write to a netCDF file using <cite>xarray</cite>’s <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.to_netcdf.html">to_netcdf()</a>.</p>
+<p>However, life is only this simple when your data is perfectly clean, geospatially unique, and numeric.
+The good news is that geocube supports a variety of use cases and custom rasterization functions if your dataset
+does not meet these criteria (see: <a class="reference internal" href="examples/examples.html#usage-examples"><span class="std std-ref">Usage Examples</span></a>).</p>
 </div>
 
 
@@ -225,10 +230,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="examples/examples.html" class="btn btn-neutral float-right" title="Usage Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to geocube’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
