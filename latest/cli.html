@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -26,11 +26,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -204,22 +204,22 @@
 </pre></div>
 </div>
 <p class="rubric">Options</p>
-<dl class="std option">
+<dl class="option">
 <dt id="cmdoption-geocube-v">
-<code class="sig-name descname">-v</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--version</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-geocube-v" title="Permalink to this definition">¶</a></dt>
+<code class="descname">-v</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--version</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-geocube-v" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show the current version</p>
 </dd></dl>
 
-<dl class="std option">
+<dl class="option">
 <dt id="cmdoption-geocube-show-versions">
-<code class="sig-name descname">--show-versions</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-geocube-show-versions" title="Permalink to this definition">¶</a></dt>
+<code class="descname">--show-versions</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-geocube-show-versions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show debugging version information</p>
 </dd></dl>
 
 <p class="rubric">Commands</p>
 <dl class="object">
 <dt>
-<code class="sig-name descname">make-geocube</code></dt>
+<code class="descname">make-geocube</code></dt>
 <dd></dd></dl>
 
 </div>
@@ -230,70 +230,70 @@
 </pre></div>
 </div>
 <p class="rubric">Options</p>
-<dl class="std option">
-<dt id="cmdoption-geocube-make_geocube-i">
-<code class="sig-name descname">-i</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--interpolate-na-method</code><code class="sig-prename descclassname"> &lt;interpolate_na_method&gt;</code><a class="headerlink" href="#cmdoption-geocube-make_geocube-i" title="Permalink to this definition">¶</a></dt>
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-i">
+<code class="descname">-i</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--interpolate-na-method</code><code class="descclassname"> &lt;interpolate_na_method&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-i" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the method for interpolation to use to fill in the nodata.</p>
 </dd></dl>
 
-<dl class="std option">
-<dt id="cmdoption-geocube-make_geocube-gb">
-<code class="sig-name descname">-gb</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--group-by</code><code class="sig-prename descclassname"> &lt;group_by&gt;</code><a class="headerlink" href="#cmdoption-geocube-make_geocube-gb" title="Permalink to this definition">¶</a></dt>
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-gb">
+<code class="descname">-gb</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--group-by</code><code class="descclassname"> &lt;group_by&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-gb" title="Permalink to this definition">¶</a></dt>
 <dd><p>When specified, perform basic combining/reducing of the data on this column.</p>
 </dd></dl>
 
-<dl class="std option">
-<dt id="cmdoption-geocube-make_geocube-f">
-<code class="sig-name descname">-f</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--fill</code><code class="sig-prename descclassname"> &lt;fill&gt;</code><a class="headerlink" href="#cmdoption-geocube-make_geocube-f" title="Permalink to this definition">¶</a></dt>
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-f">
+<code class="descname">-f</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--fill</code><code class="descclassname"> &lt;fill&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-f" title="Permalink to this definition">¶</a></dt>
 <dd><p>The value to fill in the grid with for nodata. Default is NaN.</p>
 </dd></dl>
 
-<dl class="std option">
-<dt id="cmdoption-geocube-make_geocube-l">
-<code class="sig-name descname">-l</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--like</code><code class="sig-prename descclassname"> &lt;like&gt;</code><a class="headerlink" href="#cmdoption-geocube-make_geocube-l" title="Permalink to this definition">¶</a></dt>
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-l">
+<code class="descname">-l</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--like</code><code class="descclassname"> &lt;like&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-l" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uses the netCDF file output of a previous <code class="docutils literal notranslate"><span class="pre">load()</span></code> to form the basis of a request for another product.</p>
 </dd></dl>
 
-<dl class="std option">
-<dt id="cmdoption-geocube-make_geocube-g">
-<code class="sig-name descname">-g</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--geom</code><code class="sig-prename descclassname"> &lt;geom&gt;</code><a class="headerlink" href="#cmdoption-geocube-make_geocube-g" title="Permalink to this definition">¶</a></dt>
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-g">
+<code class="descname">-g</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--geom</code><code class="descclassname"> &lt;geom&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-g" title="Permalink to this definition">¶</a></dt>
 <dd><p>GeoJSON string for the bounding box of the data used to construct the grid.</p>
 </dd></dl>
 
-<dl class="std option">
-<dt id="cmdoption-geocube-make_geocube-a">
-<code class="sig-name descname">-a</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--align</code><code class="sig-prename descclassname"> &lt;align&gt;</code><a class="headerlink" href="#cmdoption-geocube-make_geocube-a" title="Permalink to this definition">¶</a></dt>
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-a">
+<code class="descname">-a</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--align</code><code class="descclassname"> &lt;align&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-a" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load data such that point ‘align’ lies on the pixel boundary. Default is (0, 0).</p>
 </dd></dl>
 
-<dl class="std option">
-<dt id="cmdoption-geocube-make_geocube-r">
-<code class="sig-name descname">-r</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--resolution</code><code class="sig-prename descclassname"> &lt;resolution&gt;</code><a class="headerlink" href="#cmdoption-geocube-make_geocube-r" title="Permalink to this definition">¶</a></dt>
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-r">
+<code class="descname">-r</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--resolution</code><code class="descclassname"> &lt;resolution&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-r" title="Permalink to this definition">¶</a></dt>
 <dd><p>A tuple of the spatial resolution of the returned data. Ex. -r -10 10.</p>
 </dd></dl>
 
-<dl class="std option">
-<dt id="cmdoption-geocube-make_geocube-c">
-<code class="sig-name descname">-c</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--output-crs</code><code class="sig-prename descclassname"> &lt;output_crs&gt;</code><a class="headerlink" href="#cmdoption-geocube-make_geocube-c" title="Permalink to this definition">¶</a></dt>
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-c">
+<code class="descname">-c</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--output-crs</code><code class="descclassname"> &lt;output_crs&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-c" title="Permalink to this definition">¶</a></dt>
 <dd><p>The CRS of the returned data. (e.g. epsg:4326). If no CRS is supplied, the CRS of the input data is used.</p>
 </dd></dl>
 
-<dl class="std option">
-<dt id="cmdoption-geocube-make_geocube-m">
-<code class="sig-name descname">-m</code><code class="sig-prename descclassname"></code><code class="sig-prename descclassname">, </code><code class="sig-name descname">--measurements</code><code class="sig-prename descclassname"> &lt;measurements&gt;</code><a class="headerlink" href="#cmdoption-geocube-make_geocube-m" title="Permalink to this definition">¶</a></dt>
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-m">
+<code class="descname">-m</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--measurements</code><code class="descclassname"> &lt;measurements&gt;</code><a class="headerlink" href="#cmdoption-geocube-make-geocube-m" title="Permalink to this definition">¶</a></dt>
 <dd><p>Measurement subset to load in.</p>
 </dd></dl>
 
 <p class="rubric">Arguments</p>
-<dl class="std option">
-<dt id="cmdoption-geocube-make_geocube-arg-VECTOR_DATA">
-<code class="sig-name descname">VECTOR_DATA</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-geocube-make_geocube-arg-VECTOR_DATA" title="Permalink to this definition">¶</a></dt>
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-arg-vector-data">
+<code class="descname">VECTOR_DATA</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-geocube-make-geocube-arg-vector-data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
-<dl class="std option">
-<dt id="cmdoption-geocube-make_geocube-arg-OUTPUT_FILE">
-<code class="sig-name descname">OUTPUT_FILE</code><code class="sig-prename descclassname"></code><a class="headerlink" href="#cmdoption-geocube-make_geocube-arg-OUTPUT_FILE" title="Permalink to this definition">¶</a></dt>
+<dl class="option">
+<dt id="cmdoption-geocube-make-geocube-arg-output-file">
+<code class="descname">OUTPUT_FILE</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-geocube-make-geocube-arg-output-file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Required argument</p>
 </dd></dl>
 
