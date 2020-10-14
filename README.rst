@@ -46,6 +46,12 @@ Documentation
 - Stable: https://corteva.github.io/geocube/stable/
 - Latest: https://corteva.github.io/geocube/latest/
 
+Bugs/Questions
+--------------
+
+- Report bugs/ask questions: https://github.com/corteva/geocube/issues
+- Ask developer questions: https://gitter.im/corteva--geocube/community
+- Ask the community: https://gis.stackexchange.com/questions/tagged/geocube
 
 Credits
 -------
