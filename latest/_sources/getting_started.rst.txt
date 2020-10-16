@@ -5,7 +5,7 @@ Getting Started
 
 - `geopandas <https://github.com/geopandas/geopandas>`__
 - `xarray <https://github.com/pydata/xarray>`__
-- `rioxarray <https://github.com/corteva/rioxarrau>`__
+- `rioxarray <https://github.com/corteva/rioxarray>`__
 
 and is powered by `GDAL <https://github.com/osgeo/gdal>`__ using:
 
