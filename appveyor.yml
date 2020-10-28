@@ -18,7 +18,7 @@ install:
 #-----------------------------------------------------------------------------
 # Create conda environment for geocube
 #-----------------------------------------------------------------------------
-  - conda create -n test python=%PYTHON_VERSION% datacube gdal=2.4 geopandas  libgdal=2.4 rasterio scipy xarray
+  - conda create -n test python=%PYTHON_VERSION% datacube geopandas rioxarray rasterio scipy xarray
   - activate test
 
 #-------------------------------------------------------------------------------
