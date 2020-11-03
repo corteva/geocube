@@ -54,6 +54,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "LiamRMoore",
+      "name": "LiamRMoore",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/32279503?v=4",
+      "profile": "https://github.com/LiamRMoore",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7
