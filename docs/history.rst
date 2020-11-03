@@ -4,6 +4,7 @@ History
 Latest
 ------
 
+
 0.0.14
 ------
 - Add "all_touched" keyword argument to geocube.rasterize.rasterize_image (pull #40)
