@@ -73,7 +73,7 @@ def make_geocube(
         E.g. {'column_name': ['a', 'b'], 'other_column': ['c', 'd']}
     rasterize_function: function, optional
         Function to rasterize geometries. Other options are available in
-        `geocube.rasterize`. Default is `geocube.rasterize.rasterize_image`.
+        `geocube.rasterize`. Default is :func:`geocube.rasterize.rasterize_image`.
 
     Returns
     --------
