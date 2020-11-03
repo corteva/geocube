@@ -32,6 +32,7 @@ def rasterize_image(
     fill,
     merge_alg=MergeAlg.replace,
     filter_nan=False,
+    all_touched=False,
     **ignored_kwargs,
 ):
     """
@@ -52,6 +53,11 @@ def rasterize_image(
     filter_nan: bool, optional
         If True, will remove nodata values from the data before rasterization.
         Default is False.
+    all_touched: bool, optional
+        Passed to rasterio.features.rasterize. If True, all pixels touched by
+        geometries will be burned in. If false, only pixels whose center is
+        within the polygon or that are selected by Bresenham’s line algorithm
+        will be burned in.
     **ignored_kwargs:
         These are there to be flexible with additional rasterization methods and
         will be ignored.
@@ -74,6 +80,7 @@ def rasterize_image(
             out_shape=(geobox.height, geobox.width),
             transform=geobox.affine,
             fill=fill,
+            all_touched=all_touched,
             merge_alg=merge_alg,
             dtype=numpy.float64,
         )

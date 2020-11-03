@@ -717,6 +717,7 @@ def test_make_geocube__new_bounds_crs():
         ),
         (rasterize_points_radial, "rasterize_radial_linear.nc"),
         (partial(rasterize_image, merge_alg=MergeAlg.add), "rasterize_image_sum.nc"),
+        (partial(rasterize_image, all_touched=True), "rasterize_unchanged.nc"),
     ],
 )
 @pytest.mark.xfail(
