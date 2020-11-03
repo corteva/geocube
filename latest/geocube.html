@@ -96,6 +96,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#make-geocube">make_geocube</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rasterize">rasterize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#show-versions">show_versions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-geocube.exceptions">exceptions</a></li>
 </ul>
@@ -241,7 +242,7 @@ E.g.:</p>
 data. The categories will be made unique and sorted if they are not already.
 E.g. {‘column_name’: [‘a’, ‘b’], ‘other_column’: [‘c’, ‘d’]}</p></li>
 <li><p><strong>rasterize_function</strong> (<em>function</em><em>, </em><em>optional</em>) – Function to rasterize geometries. Other options are available in
-<cite>geocube.rasterize</cite>. Default is <cite>geocube.rasterize.rasterize_image</cite>.</p></li>
+<cite>geocube.rasterize</cite>. Default is <a class="reference internal" href="#geocube.rasterize.rasterize_image" title="geocube.rasterize.rasterize_image"><code class="xref py py-func docutils literal notranslate"><span class="pre">geocube.rasterize.rasterize_image()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -249,6 +250,98 @@ E.g. {‘column_name’: [‘a’, ‘b’], ‘other_column’: [‘c’, ‘d�
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="rasterize">
+<h2>rasterize<a class="headerlink" href="#rasterize" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="geocube.rasterize.rasterize_image">
+<code class="sig-prename descclassname">geocube.rasterize.</code><code class="sig-name descname">rasterize_image</code><span class="sig-paren">(</span><em class="sig-param">geometry_array</em>, <em class="sig-param">data_values</em>, <em class="sig-param">geobox</em>, <em class="sig-param">fill</em>, <em class="sig-param">merge_alg=&lt;MergeAlg.replace: 'REPLACE'&gt;</em>, <em class="sig-param">filter_nan=False</em>, <em class="sig-param">all_touched=False</em>, <em class="sig-param">**ignored_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/rasterize.html#rasterize_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.rasterize.rasterize_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rasterize a list of shapes+values for a given GeoBox.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>geometry_array</strong> (<em>geopandas.GeometryArray</em>) – A geometry array of points.</p></li>
+<li><p><strong>data_values</strong> (<em>list</em>) – Data values associated with the list of geojson shapes</p></li>
+<li><p><strong>geobox</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">datacube.utils.geometry.GeoBox</span></code>) – Transform of the resulting image.</p></li>
+<li><p><strong>fill</strong> (<em>float</em>) – The value to fill in the grid with for nodata.</p></li>
+<li><p><strong>merge_alg</strong> (<cite>rasterio.enums.MergeAlg</cite>, optional) – The algorithm for merging values into one cell. Default is <cite>MergeAlg.replace</cite>.</p></li>
+<li><p><strong>filter_nan</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, will remove nodata values from the data before rasterization.
+Default is False.</p></li>
+<li><p><strong>all_touched</strong> (<em>bool</em><em>, </em><em>optional</em>) – Passed to rasterio.features.rasterize. If True, all pixels touched by
+geometries will be burned in. If false, only pixels whose center is
+within the polygon or that are selected by Bresenham’s line algorithm
+will be burned in.</p></li>
+<li><p><strong>**ignored_kwargs</strong> – These are there to be flexible with additional rasterization methods and
+will be ignored.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The vector data in the rasterized format.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="geocube.rasterize.rasterize_points_griddata">
+<code class="sig-prename descclassname">geocube.rasterize.</code><code class="sig-name descname">rasterize_points_griddata</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">geometry_array</span></em>, <em class="sig-param"><span class="n">data_values</span></em>, <em class="sig-param"><span class="n">grid_coords</span></em>, <em class="sig-param"><span class="n">fill</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'nearest'</span></em>, <em class="sig-param"><span class="n">rescale</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">filter_nan</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">ignored_kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/rasterize.html#rasterize_points_griddata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.rasterize.rasterize_points_griddata" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method uses scipy.interpolate.griddata to interpolate point data
+to a grid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>geometry_array</strong> (<em>geopandas.GeometryArray</em>) – A geometry array of points.</p></li>
+<li><p><strong>data_values</strong> (<em>list</em>) – Data values associated with the list of geojson shapes</p></li>
+<li><p><strong>grid_coords</strong> (<em>dict</em>) – Output from <cite>rioxarray.rioxarray.affine_to_coords</cite></p></li>
+<li><p><strong>fill</strong> (<em>float</em>) – The value to fill in the grid with for nodata.</p></li>
+<li><p><strong>method</strong> (<em>{‘linear’</em><em>, </em><em>‘nearest’</em><em>, </em><em>‘cubic’}</em><em>, </em><em>optional</em>) – The method to use for interpolation in <cite>scipy.interpolate.griddata</cite>.</p></li>
+<li><p><strong>rescale</strong> (<em>bool</em><em>, </em><em>optional</em>) – Rescale points to unit cube before performing interpolation. Default is false.</p></li>
+<li><p><strong>filter_nan</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, will remove nodata values from the data before rasterization.
+Default is False.</p></li>
+<li><p><strong>**ignored_kwargs</strong> – These are there to be flexible with additional rasterization methods and
+will be ignored.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>:class:`numpy.ndarray`</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>An interpolated <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="geocube.rasterize.rasterize_points_radial">
+<code class="sig-prename descclassname">geocube.rasterize.</code><code class="sig-name descname">rasterize_points_radial</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">geometry_array</span></em>, <em class="sig-param"><span class="n">data_values</span></em>, <em class="sig-param"><span class="n">grid_coords</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'linear'</span></em>, <em class="sig-param"><span class="n">filter_nan</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">ignored_kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/rasterize.html#rasterize_points_radial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.rasterize.rasterize_points_radial" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method uses scipy.interpolate.Rbf to interpolate point data
+to a grid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>geometry_array</strong> (<em>geopandas.GeometryArray</em>) – A geometry array of points.</p></li>
+<li><p><strong>data_values</strong> (<em>list</em>) – Data values associated with the list of geojson shapes</p></li>
+<li><p><strong>grid_coords</strong> (<em>dict</em>) – Output from <cite>rioxarray.rioxarray.affine_to_coords</cite></p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – The function to use for interpolation in <cite>scipy.interpolate.Rbf</cite>.
+{‘multiquadric’, ‘inverse’, ‘gaussian’, ‘linear’,
+‘cubic’, ‘quintic’, ‘thin_plate’}</p></li>
+<li><p><strong>filter_nan</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, will remove nodata values from the data before rasterization.
+Default is False.</p></li>
+<li><p><strong>**ignored_kwargs</strong> – These are there to be flexible with additional rasterization methods and
+will be ignored.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>:class:`numpy.ndarray`</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>An interpolated <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>

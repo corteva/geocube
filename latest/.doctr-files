@@ -11,6 +11,7 @@ latest/_images/examples_timestamp_missing_data_5_1.png
 latest/_modules/geocube/_show_versions.html
 latest/_modules/geocube/api/core.html
 latest/_modules/geocube/exceptions.html
+latest/_modules/geocube/rasterize.html
 latest/_modules/index.html
 latest/_sources/authors.rst.txt
 latest/_sources/cli.rst.txt
