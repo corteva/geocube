@@ -1,13 +1,13 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html4" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>History &mdash; geocube 0.0.14 documentation</title>
+  <title>History &mdash; geocube 0.0.15.dev0 documentation</title>
   
 
   
@@ -26,11 +26,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.0.14
+                0.0.15.dev0
               </div>
             
           
@@ -206,68 +206,68 @@
 <div class="section" id="id1">
 <h2>0.0.14<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Add “all_touched” keyword argument to geocube.rasterize.rasterize_image (pull #40)</p></li>
+<li>Add “all_touched” keyword argument to geocube.rasterize.rasterize_image (pull #40)</li>
 </ul>
 </div>
 <div class="section" id="id2">
 <h2>0.0.13<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Address deprecation warnings from datacube and rioxarray (issue #29)</p></li>
+<li>Address deprecation warnings from datacube and rioxarray (issue #29)</li>
 </ul>
 </div>
 <div class="section" id="id3">
 <h2>0.0.12<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>ENH: Added <a class="reference internal" href="geocube.html#geocube.show_versions" title="geocube.show_versions"><code class="xref py py-func docutils literal notranslate"><span class="pre">geocube.show_versions()</span></code></a> and cli <cite>geocube –show-versions</cite> (pull #23)</p></li>
-<li><p>Add compatibility between datacube and geopandas CRS versions (pull #24)</p></li>
+<li>ENH: Added <a class="reference internal" href="geocube.html#geocube.show_versions" title="geocube.show_versions"><code class="xref py py-func docutils literal notranslate"><span class="pre">geocube.show_versions()</span></code></a> and cli <cite>geocube –show-versions</cite> (pull #23)</li>
+<li>Add compatibility between datacube and geopandas CRS versions (pull #24)</li>
 </ul>
 </div>
 <div class="section" id="id4">
 <h2>0.0.11<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Drop Python 3.5 Support (issue #12)</p></li>
-<li><p>ENH: Update to support geopandas with pyproj.CRS (pull #18)</p></li>
-<li><p>BUG: Update timestamp handling to ensure correct format for dtype (pull #18)</p></li>
+<li>Drop Python 3.5 Support (issue #12)</li>
+<li>ENH: Update to support geopandas with pyproj.CRS (pull #18)</li>
+<li>BUG: Update timestamp handling to ensure correct format for dtype (pull #18)</li>
 </ul>
 </div>
 <div class="section" id="id5">
 <h2>0.0.10<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Added filter_nan kwarg to filter out missing data when rasterizing (issue #9)</p></li>
-<li><p>Change default fill value to NaN when rasterizing (pull #11)</p></li>
+<li>Added filter_nan kwarg to filter out missing data when rasterizing (issue #9)</li>
+<li>Change default fill value to NaN when rasterizing (pull #11)</li>
 </ul>
 </div>
 <div class="section" id="id6">
 <h2>0.0.9<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Added <cite>rescale</cite> kwarg to <cite>geocube.rasterize.rasterize_points_griddata</cite>. (pull #8)</p></li>
-<li><p>Removed <cite>fillna(numpy.nan)</cite> in <cite>geocube.geo_utils.geobox.load_vector_data</cite> as not necessary
-and for compatibility with <cite>geopandas==0.6.0</cite>. (pull #8)</p></li>
+<li>Added <cite>rescale</cite> kwarg to <cite>geocube.rasterize.rasterize_points_griddata</cite>. (pull #8)</li>
+<li>Removed <cite>fillna(numpy.nan)</cite> in <cite>geocube.geo_utils.geobox.load_vector_data</cite> as not necessary
+and for compatibility with <cite>geopandas==0.6.0</cite>. (pull #8)</li>
 </ul>
 </div>
 <div class="section" id="id7">
 <h2>0.0.8<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Add merge algorithm option for rasterization (issue #5)</p></li>
-<li><p>Drop Python 2 support (issue #6)</p></li>
+<li>Add merge algorithm option for rasterization (issue #5)</li>
+<li>Drop Python 2 support (issue #6)</li>
 </ul>
 </div>
 <div class="section" id="id8">
 <h2>0.0.7<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Remove geocube pin (pull #4)</p></li>
+<li>Remove geocube pin (pull #4)</li>
 </ul>
 </div>
 <div class="section" id="id9">
 <h2>0.0.6<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Added additional methods for resampling points to a 2D grid (pull #3)</p></li>
+<li>Added additional methods for resampling points to a 2D grid (pull #3)</li>
 </ul>
 </div>
 <div class="section" id="id10">
 <h2>0.0.5<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Fix converting to another projection to ensure bounds are correctly accounted for (pull #2)</p></li>
+<li>Fix converting to another projection to ensure bounds are correctly accounted for (pull #2)</li>
 </ul>
 </div>
 </div>
