@@ -14,7 +14,7 @@ requirements = [
     "appdirs",
     "Click>=6.0",
     "datacube",
-    "geopandas>=0.6",
+    "geopandas>=0.7",
     "rasterio",
     "rioxarray>=0.0.30",
     "xarray",
