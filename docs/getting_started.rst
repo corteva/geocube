@@ -20,7 +20,7 @@ The simplest example would be to rasterize a single column:
 .. code-block:: python
 
     from geocube.api.core import make_geocube
-    
+
     out_grid = make_geocube(
         vector_data="path_to_file.gpkg",
         measurements=["column_name"].
@@ -33,7 +33,7 @@ You can also rasterize a `GeoDataFrame <https://geopandas.readthedocs.io/en/late
 directly in the `vector_data` argument. This enables you to `load in subsets of data <https://geopandas.readthedocs.io/en/latest/docs/user_guide/io.html#reading-subsets-of-the-data>`__
 or perform various operations before rasterization.
 
-Once finished, you can write to anything supported by `rasterio <https://github.com/mapbox/rasterio>`__ 
+Once finished, you can write to anything supported by `rasterio <https://github.com/mapbox/rasterio>`__
 using `rioxarray`'s `rio.to_raster() <https://corteva.github.io/rioxarray/stable/examples/convert_to_raster.html>`__ method.
 You can also write to a netCDF file using `xarray`'s `to_netcdf() <http://xarray.pydata.org/en/stable/generated/xarray.Dataset.to_netcdf.html>`__.
 
