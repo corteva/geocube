@@ -3,9 +3,13 @@
 This module is an extension for xarray to provide support for vector datasets.
 """
 import geopandas as gpd
+import numpy
+import rioxarray  # noqa: F401
 import xarray
-from pyproj import CRS
 from shapely.wkb import dumps, loads
+
+dumps_v = numpy.vectorize(dumps)
+loads_v = numpy.vectorize(loads)
 
 
 def from_geodataframe(in_geodataframe):
@@ -14,8 +18,13 @@ def from_geodataframe(in_geodataframe):
     """
     geodf = in_geodataframe.copy().set_index("geometry")
     geox = xarray.Dataset.from_dataframe(geodf)
-    geox.coords["crs"] = 0
-    geox.coords["crs"].attrs["crs_wkt"] = CRS.from_user_input(geodf.crs).to_wkt()
+    # hack to get around dimension error when
+    # writing CRS
+    geox.rio._x_dim = "x"
+    geox.rio._y_dim = "y"
+    geox.rio.write_crs(geodf.crs, inplace=True)
+    geox.rio._x_dim = None
+    geox.rio._y_dim = None
     return geox
 
 
@@ -29,8 +38,7 @@ def open_dataset(*args, **kwargs):
 
     """
     xds = xarray.open_dataset(*args, **kwargs)
-    xds.coords["geometry"] = list(map(loads, xds.coords["geometry"].values))
-    return xds
+    return xds.assign_coords(geometry=loads_v(xds.coords["geometry"].values))
 
 
 class BaseVectorX:
@@ -56,21 +64,21 @@ class BaseVectorX:
 
         """
         self._validate_operation()
-        out_obj = self._obj.drop("crs")
+        out_obj = self._obj.drop_vars(self._obj.rio.grid_mapping)
         extra_coords = list(set(list(out_obj.coords)) - {"geometry"})
         if extra_coords:
             out_obj = out_obj.copy().reset_coords(extra_coords)
         geodf = gpd.GeoDataFrame(out_obj.to_dataframe().reset_index())
-        geodf.crs = self._obj.coords["crs"].attrs["crs_wkt"]
+        geodf.crs = self._obj.rio.crs
         return geodf
 
     def to_netcdf(self, *args, **kwargs):
         """
         Write the data to a netCDF file.
         """
-        out_obj = self._obj.copy()
-        out_obj.coords["geometry"] = list(map(dumps, out_obj.coords["geometry"].values))
-        out_obj.to_netcdf(*args, **kwargs)
+        self._obj.assign_coords(
+            geometry=dumps_v(self._obj.coords["geometry"].values)
+        ).to_netcdf(*args, **kwargs)
 
 
 @xarray.register_dataarray_accessor("vector")
