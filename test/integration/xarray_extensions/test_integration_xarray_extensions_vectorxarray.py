@@ -21,10 +21,10 @@ def test_from_geodataframe():
     gdf = gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson"))
     vxd = vectorxarray.from_geodataframe(gdf)
     assert all(gdf.geometry == vxd.geometry.values)
-    assert sorted(gdf.columns.tolist() + ["crs"]) == sorted(vxd.variables)
-    assert gdf.crs == vxd.crs.attrs["crs_wkt"]
+    assert sorted(gdf.columns.tolist() + ["spatial_ref"]) == sorted(vxd.variables)
+    assert gdf.crs == vxd.rio.crs
     assert "geometry" in vxd.coords
-    assert "crs" in vxd.coords
+    assert "spatial_ref" in vxd.coords
 
 
 def test_to_geodataframe():
