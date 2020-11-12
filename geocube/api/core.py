@@ -9,7 +9,7 @@ from geocube.vector_to_cube import VectorToCube
 
 
 def make_geocube(
-    vector_data,  # pylint: disable=too-many-arguments
+    vector_data,
     measurements=None,
     datetime_measurements=None,
     output_crs=None,
@@ -22,7 +22,7 @@ def make_geocube(
     interpolate_na_method=None,
     categorical_enums=None,
     rasterize_function=None,
-):  # NOSONAR
+):
     """
     Rasterize vector data into an ``xarray`` object.  Each attribute will be a data
     variable in the :class:`xarray.Dataset`.

@@ -6,7 +6,7 @@ import json
 from distutils.version import LooseVersion
 
 import geopandas
-import rioxarray  # noqa
+import rioxarray  # noqa: F401 pylint: disable=unused-import
 from datacube.utils import geometry
 from rioxarray.crs import crs_to_wkt
 from shapely.geometry import box, mapping
@@ -94,6 +94,7 @@ def _datacube_to_geopandas_crs(dc_crs):
     str:
         Representation of CRS for geopandas.
     """
+    # pylint: disable=protected-access
     if LooseVersion(geopandas.__version__) >= LooseVersion("0.6.0"):
         # this version of geopandas uses always_xy=True so WKT version is safe
         try:
@@ -110,7 +111,7 @@ def _datacube_to_geopandas_crs(dc_crs):
     return geo_crs
 
 
-class GeoBoxMaker(object):
+class GeoBoxMaker:
     """
     This class is meant for delayed GeoBox making. Stores partial information until
     all information needed is obtained.

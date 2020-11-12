@@ -56,6 +56,13 @@ jobs:
           python -c "import geocube; geocube.show_versions();"
           conda info
 
+      - name: Pylint
+        shell: bash
+        run: |
+          source activate test
+          python -m pip install pylint
+          python -m pylint geocube
+
       - name: Test
         shell: bash
         run: |

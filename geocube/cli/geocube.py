@@ -68,7 +68,6 @@ def cli_show_version(ctx, _, value):
 )
 def geocube():
     """ Top-level command and entry point into the GeoCube CLI """
-    pass
 
 
 def _add_subcommands():

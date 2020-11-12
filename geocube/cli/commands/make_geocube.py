@@ -88,14 +88,14 @@ def make_geocube(
     vector_data,
     measurements,
     output_crs,
-    resolution,  # pylint: disable=too-many-arguments
+    resolution,
     align,
     geom,
     like,
     fill,
     group_by,
     interpolate_na_method,
-):  # NOSONAR
+):
     """
     Utility to load vector data into the xarray raster format.
     """
