@@ -4,7 +4,7 @@ This module is an extension for xarray to provide support for vector datasets.
 """
 import geopandas as gpd
 import numpy
-import rioxarray  # noqa: F401
+import rioxarray  # noqa: F401 pylint: disable=unused-import
 import xarray
 from shapely.wkb import dumps, loads
 
@@ -16,6 +16,7 @@ def from_geodataframe(in_geodataframe):
     """
     Create an xarray object from a geodataframe.
     """
+    # pylint: disable=protected-access
     geodf = in_geodataframe.copy().set_index("geometry")
     geox = xarray.Dataset.from_dataframe(geodf)
     # hack to get around dimension error when
@@ -85,13 +86,31 @@ class BaseVectorX:
 class VectorArray(BaseVectorX):
     """This is the vector GIS extension for :class:`xarray.DataArray`"""
 
-    def plot(self):
-        self.to_geodataframe().plot(column=self._obj.name)
+    def plot(self, *args, **kwargs):
+        """
+        Helper method to plot the geometry data via geopandas.
+
+        Parameters
+        ----------
+        *args, **kwargs:
+            Arguments to pass to the plot call.
+        """
+        self.to_geodataframe().plot(column=self._obj.name, *args, **kwargs)
 
 
 @xarray.register_dataset_accessor("vector")
 class VectorDataset(BaseVectorX):
     """This is the vector GIS extension for :class:`xarray.Dataset`"""
 
-    def plot(self, column):
-        self._obj[column].vector.plot()
+    def plot(self, column, *args, **kwargs):
+        """
+        Helper method to plot the geometry data via geopandas.
+
+        Parameters
+        ----------
+        column: str
+            The name of the column (variable) to plot.
+        *args, **kwargs:
+            Arguments to pass to the plot call.
+        """
+        self._obj[column].vector.plot(*args, **kwargs)

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 This contains methods for logging for GeoCube
 

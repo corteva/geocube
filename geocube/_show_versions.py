@@ -4,6 +4,7 @@ Utility methods to print system info for debugging
 adapted from :func:`sklearn.utils._show_versions`
 which was adapted from :func:`pandas.show_versions`
 """
+# pylint: disable=import-outside-toplevel
 import importlib
 import platform
 import sys
@@ -102,7 +103,7 @@ def show_versions():
     > python -c "import geocube; geocube.show_versions()"
 
     """
-    import geocube
+    import geocube  # pylint: disable=cyclic-import
 
     print(f"geocube v{geocube.__version__}\n")
     print("GDAL deps:")

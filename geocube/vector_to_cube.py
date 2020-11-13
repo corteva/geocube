@@ -39,7 +39,7 @@ def _format_series_data(data_series):
     return data_series
 
 
-class VectorToCube(object):
+class VectorToCube:
     """
     Tool that facilitates converting vector data to raster data into
     an :obj:`xarray.DataFrame`.
@@ -65,29 +65,34 @@ class VectorToCube(object):
             E.g. {'column_name': ['a', 'b'], 'other_column': ['c', 'd']}
 
         """
-        self.vector_data = load_vector_data(vector_data)
-        self.geobox = geobox_maker.from_vector(self.vector_data)
-        self.grid_coords = affine_to_coords(
-            self.geobox.affine, self.geobox.width, self.geobox.height
+        self._vector_data = load_vector_data(vector_data)
+        self._geobox = geobox_maker.from_vector(self._vector_data)
+        self._grid_coords = affine_to_coords(
+            self._geobox.affine, self._geobox.width, self._geobox.height
         )
-        self.fill = fill if fill is not None else numpy.nan
+        self._fill = fill if fill is not None else numpy.nan
         if categorical_enums is not None:
             for column_name, categories in categorical_enums.items():
                 category_type = pandas.api.types.CategoricalDtype(
                     categories=sorted(set(categories)) + ["nodata"]
                 )
-                self.vector_data[column_name] = self.vector_data[column_name].astype(
+                self._vector_data[column_name] = self._vector_data[column_name].astype(
                     category_type
                 )
 
+        # define defaults
+        self._rasterize_function = rasterize_image
+        self._datetime_measurements = ()
+        self._categorical_enums = {}
+
     def make_geocube(
-        self,  # pylint: disable=too-many-arguments
+        self,
         measurements=None,
         datetime_measurements=None,
         group_by=None,
         interpolate_na_method=None,
         rasterize_function=None,
-    ):  # NOSONAR
+    ):
         """
         Rasterize vector data into an ``xarray`` object.  Each measurement will be a
         data variable in the :class:`xarray.Dataset`.
@@ -119,23 +124,23 @@ class VectorToCube(object):
             Requested data in a :class:`xarray.Dataset`.
 
         """
-        self.rasterize_function = (
+        self._rasterize_function = (
             rasterize_image if rasterize_function is None else rasterize_function
         )
         if measurements is None:
-            measurements = self.vector_data.columns.tolist()
+            measurements = self._vector_data.columns.tolist()
             measurements.remove("geometry")
 
-        self.datetime_measurements = ()
+        self._datetime_measurements = ()
         if datetime_measurements is not None:
-            self.datetime_measurements = tuple(
+            self._datetime_measurements = tuple(
                 set(datetime_measurements) & set(measurements)
             )
         # reproject vector data to the projection of the output raster
-        vector_data = self.vector_data.to_crs(self.geobox.crs.wkt)
+        vector_data = self._vector_data.to_crs(self._geobox.crs.wkt)
 
         # convert to datetime
-        for datetime_measurement in self.datetime_measurements:
+        for datetime_measurement in self._datetime_measurements:
             vector_data[datetime_measurement] = pandas.to_datetime(
                 vector_data[datetime_measurement]
             ).astype("datetime64[ns]")
@@ -168,7 +173,7 @@ class VectorToCube(object):
         ----------
         measurement_name: str
             The measurement name.
-        fill_value: int or fload
+        fill_value: int or float
             The fill value.
 
         Returns
@@ -199,7 +204,7 @@ class VectorToCube(object):
         """
         attrs["units"] = "seconds from 1970-01-01T00:00:00"
         attrs["_FillValue"] = 0
-        image_data[image_data == self.fill] = 0.0
+        image_data[image_data == self._fill] = 0.0
 
     def _get_dataset(self, vector_data, measurements, group_by, interpolate_na_method):
         """
@@ -214,6 +219,9 @@ class VectorToCube(object):
             By default all available measurements are included.
         group_by: str, optional
             When specified, perform basic combining/reducing of the data on this column.
+        interpolate_na_method:  {‘linear’, ‘nearest’, ‘cubic’}, optional
+            This is the method for interpolation to use to fill in the nodata with
+            :meth:`scipy.interpolate.griddata`.
 
         Returns
         --------
@@ -235,9 +243,9 @@ class VectorToCube(object):
                 data_vars[measurement] = grid_array
 
         if group_by:
-            self.grid_coords[group_by] = list(vector_data.groups.keys())
+            self._grid_coords[group_by] = list(vector_data.groups.keys())
 
-        out_xds = xarray.Dataset(data_vars=data_vars, coords=self.grid_coords)
+        out_xds = xarray.Dataset(data_vars=data_vars, coords=self._grid_coords)
 
         for categorical_measurement, categoral_enums in self._categorical_enums.items():
             enum_var_name = f"{categorical_measurement}_categories"
@@ -246,7 +254,7 @@ class VectorToCube(object):
             out_xds[categorical_measurement].attrs = cat_attrs
             out_xds[enum_var_name] = categoral_enums
 
-        out_xds.rio.write_crs(str(self.geobox.crs), inplace=True)
+        out_xds.rio.write_crs(str(self._geobox.crs), inplace=True)
         out_xds.rio.write_coordinate_system(inplace=True)
         if interpolate_na_method is not None:
             return out_xds.rio.interpolate_na(method=interpolate_na_method)
@@ -278,16 +286,18 @@ class VectorToCube(object):
 
         image_data = []
         df_group = None
-        fill_value = self.fill
+        fill_value = self._fill
         for _, df_group in grouped_dataframe:
             fill_value = (
-                self.fill if str(df_group[measurement_name].dtype) != "category" else -1
+                self._fill
+                if str(df_group[measurement_name].dtype) != "category"
+                else -1
             )
-            image = self.rasterize_function(
+            image = self._rasterize_function(
                 geometry_array=df_group.geometry,
                 data_values=_format_series_data(df_group[measurement_name]).values,
-                geobox=self.geobox,
-                grid_coords=self.grid_coords,
+                geobox=self._geobox,
+                grid_coords=self._grid_coords,
                 fill=fill_value,
             )
             if image is None:
@@ -326,13 +336,13 @@ class VectorToCube(object):
         """
         logger = get_logger()
         fill_value = (
-            self.fill if str(dataframe[measurement_name].dtype) != "category" else -1
+            self._fill if str(dataframe[measurement_name].dtype) != "category" else -1
         )
-        image_data = self.rasterize_function(
+        image_data = self._rasterize_function(
             geometry_array=dataframe.geometry,
             data_values=_format_series_data(dataframe[measurement_name]).values,
-            geobox=self.geobox,
-            grid_coords=self.grid_coords,
+            geobox=self._geobox,
+            grid_coords=self._grid_coords,
             fill=fill_value,
         )
         if image_data is None:
