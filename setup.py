@@ -21,19 +21,19 @@ requirements = [
 ]
 
 test_requirements = ["pytest>=3.6", "pytest-cov", "mock"]
+doc_requirements = ["sphinx-click==1.1.0", "nbsphinx", "sphinx_rtd_theme"]
 
 extras_require = {
+    "doc": doc_requirements,
     "dev": test_requirements
+    + doc_requirements
     + [
-        "sphinx-click==1.1.0",
-        "nbsphinx",
-        "sphinx_rtd_theme",
         "black",
         "flake8",
         "pylint",
         "isort",
         "pre-commit",
-    ]
+    ],
 }
 extras_require["all"] = list(chain.from_iterable(extras_require.values()))
 
