@@ -27,9 +27,6 @@ Tool to convert geopandas vector data into rasterized xarray data.
 .. image:: https://github.com/corteva/geocube/workflows/Tests/badge.svg
     :target: https://github.com/corteva/geocube/actions?query=workflow%3ATests
 
-.. image:: https://travis-ci.com/corteva/geocube.svg?branch=master
-    :target: https://travis-ci.com/corteva/geocube
-
 .. image:: https://ci.appveyor.com/api/projects/status/bjxhlbt5tjsonwo8/branch/master?svg=true
     :target: https://ci.appveyor.com/project/snowman2/geocube
 
