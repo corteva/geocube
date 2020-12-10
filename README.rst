@@ -49,9 +49,10 @@ Documentation
 Bugs/Questions
 --------------
 
-- Report bugs/ask questions: https://github.com/corteva/geocube/issues
+- Report bugs/feature requests: https://github.com/corteva/geocube/issues
+- Ask questions: https://github.com/corteva/geocube/discussions
 - Ask developer questions: https://gitter.im/corteva--geocube/community
-- Ask the community: https://gis.stackexchange.com/questions/tagged/geocube
+- Ask questions from the GIS community: https://gis.stackexchange.com/questions/tagged/geocube
 
 Credits
 -------
