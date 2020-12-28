@@ -1,5 +1,6 @@
+from unittest.mock import MagicMock, patch
+
 import click
-from mock import MagicMock, patch
 
 from geocube.cli.geocube import check_version, cli_show_version
 

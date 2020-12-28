@@ -1,4 +1,4 @@
-from mock import patch
+from unittest.mock import patch
 
 from geocube.logger import get_logger, log_to_console, log_to_file
 
