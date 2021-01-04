@@ -20,7 +20,7 @@ requirements = [
     "pyproj>=2",
 ]
 
-test_requirements = ["pytest>=3.6", "pytest-cov", "mock"]
+test_requirements = ["pytest>=3.6", "pytest-cov"]
 doc_requirements = ["sphinx-click==1.1.0", "nbsphinx", "sphinx_rtd_theme"]
 
 extras_require = {

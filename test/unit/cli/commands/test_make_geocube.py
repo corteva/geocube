@@ -1,10 +1,10 @@
 import os
+from unittest.mock import patch
 
 import numpy
 import pytest
 import xarray
 from click.testing import CliRunner
-from mock import patch
 
 from geocube.cli.geocube import geocube
 from test.conftest import TEST_COMPARE_DATA_DIR, TEST_INPUT_DATA_DIR
