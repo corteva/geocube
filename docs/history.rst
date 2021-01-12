@@ -1,6 +1,9 @@
 History
 =======
 
+Latest
+------
+
 0.0.15
 ------
 - Address xarray & numpy deprecations (#43)
