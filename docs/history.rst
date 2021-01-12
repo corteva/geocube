@@ -3,7 +3,7 @@ History
 
 Latest
 ------
-
+- Address xarray & numpy deprecations (#43)
 
 0.0.14
 ------
