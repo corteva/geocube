@@ -23,7 +23,7 @@ The simplest example would be to rasterize a single column:
 
     out_grid = make_geocube(
         vector_data="path_to_file.gpkg",
-        measurements=["column_name"].
+        measurements=["column_name"],
         resolution=(-0.0001, 0.0001),
     )
     out_grid["column_name"].rio.to_raster("my_rasterized_column.tif")
