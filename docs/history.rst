@@ -1,6 +1,9 @@
 History
 =======
 
+Latest
+------
+
 0.0.16
 ------
 - BUG: Compatibility with rioxarray 0.3 (#57)
