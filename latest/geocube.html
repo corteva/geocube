@@ -207,6 +207,62 @@
 <h1>Core<a class="headerlink" href="#core" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="make-geocube">
 <h2>make_geocube<a class="headerlink" href="#make-geocube" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="geocube.api.core.make_geocube">
+<code class="descclassname">geocube.api.core.</code><code class="descname">make_geocube</code><span class="sig-paren">(</span><em>vector_data</em>, <em>measurements=None</em>, <em>datetime_measurements=None</em>, <em>output_crs=None</em>, <em>resolution=None</em>, <em>align=None</em>, <em>geom=None</em>, <em>like=None</em>, <em>fill=nan</em>, <em>group_by=None</em>, <em>interpolate_na_method=None</em>, <em>categorical_enums=None</em>, <em>rasterize_function=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/api/core.html#make_geocube"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#geocube.api.core.make_geocube" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rasterize vector data into an <code class="docutils literal notranslate"><span class="pre">xarray</span></code> object.  Each attribute will be a data
+variable in the <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>vector_data</strong> (str or <code class="xref py py-obj docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code>) – A file path to an OGR supported source or GeoDataFrame containing
+the vector data.</li>
+<li><strong>measurements</strong> (<em>list</em><em>(</em><em>str</em><em>)</em><em>, </em><em>optional</em>) – Attributes name or list of names to be included. If a list is specified,
+the attributes will be returned in the order requested.
+By default all available attributes are included.</li>
+<li><strong>datetime_measurements</strong> (<em>list</em><em>(</em><em>str</em><em>)</em><em>, </em><em>optional</em>) – Attributes that are temporal in nature and should be converted to the datetime
+format. These are only included if listed in ‘measurements’.</li>
+<li><strong>output_crs</strong> (<em>str</em><em>, </em><em>optional</em>) – The CRS of the returned data.  If no CRS is supplied, the CRS of the
+stored data is used.</li>
+<li><strong>resolution</strong> (<em>(</em><em>float</em><em>,</em><em>float</em><em>)</em><em>, </em><em>optional</em>) – A tuple of the spatial resolution of the returned data.
+This includes the direction (as indicated by a positive or negative number).
+Typically when using most CRSs, the first number would be negative.</li>
+<li><strong>align</strong> (<em>(</em><em>float</em><em>,</em><em>float</em><em>)</em><em>, </em><em>optional</em>) – Load data such that point ‘align’ lies on the pixel boundary.
+Units are in the co-ordinate space of the output CRS.
+Default is (0,0)</li>
+<li><strong>geom</strong> (<em>str</em><em>, </em><em>optional</em>) – A GeoJSON string for the bounding box of the data used to construct the
+grid.</li>
+<li><strong>like</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>, optional) – <p>Uses the output of a previous <code class="docutils literal notranslate"><span class="pre">load()</span></code> to form the basis of a request
+for another product.
+E.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcds</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span><span class="n">vector_data</span><span class="o">=</span><span class="s1">&#39;my_vector.geopackage&#39;</span><span class="p">,</span> <span class="n">like</span><span class="o">=</span><span class="n">other_gcds</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><strong>fill</strong> (<em>float</em><em>, </em><em>optional</em>) – The value to fill in the grid with for nodata. Default is NaN.</li>
+<li><strong>group_by</strong> (<em>str</em><em>, </em><em>optional</em>) – When specified, perform basic combining/reducing of the data on this column.</li>
+<li><strong>interpolate_na_method</strong> (<em>{‘linear’</em><em>, </em><em>‘nearest’</em><em>, </em><em>‘cubic’}</em><em>, </em><em>optional</em>) – This is the method for interpolation to use to fill in the nodata with
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">scipy.interpolate.griddata()</span></code>.</li>
+<li><strong>categorical_enums</strong> (<em>dict</em><em>, </em><em>optional</em>) – A dictionary of all categories for the table columns containing categorical
+data. The categories will be made unique and sorted if they are not already.
+E.g. {‘column_name’: [‘a’, ‘b’], ‘other_column’: [‘c’, ‘d’]}</li>
+<li><strong>rasterize_function</strong> (<em>function</em><em>, </em><em>optional</em>) – Function to rasterize geometries. Other options are available in
+<cite>geocube.rasterize</cite>. Default is <a class="reference internal" href="#geocube.rasterize.rasterize_image" title="geocube.rasterize.rasterize_image"><code class="xref py py-func docutils literal notranslate"><span class="pre">geocube.rasterize.rasterize_image()</span></code></a>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Requested data in a <code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="rasterize">
 <h2>rasterize<a class="headerlink" href="#rasterize" title="Permalink to this headline">¶</a></h2>
