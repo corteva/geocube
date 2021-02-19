@@ -8,11 +8,22 @@ from distutils.version import LooseVersion
 import geopandas
 import rioxarray  # noqa: F401 pylint: disable=unused-import
 from datacube.utils import geometry
-from rioxarray.crs import crs_to_wkt
 from shapely.geometry import box, mapping
 
 from geocube.exceptions import VectorDataError
 from geocube.logger import get_logger
+
+try:
+    from rioxarray.crs import crs_to_wkt
+except ImportError:
+    # rioxarray 0.3+
+    from rioxarray.crs import crs_from_user_input
+
+    def crs_to_wkt(input_crs):
+        """
+        Convert CRS input to WKT format
+        """
+        return crs_from_user_input(input_crs).to_wkt()
 
 
 def geobox_from_rio(xds):
