@@ -52,7 +52,11 @@ def make_geocube(
         Default is (0,0)
     geom: str, optional
         A GeoJSON string for the bounding box of the data used to construct the
-        grid.
+        grid. It defaults to EPSG:4326 if a CRS is not provided.
+        Example of adding CRS::
+
+            {"type": "Polygon", "crs": {"properties": {"name": "EPSG:3857"}}}
+
     like: :obj:`xarray.Dataset`, optional
         Uses the output of a previous ``load()`` to form the basis of a request
         for another product.
