@@ -232,8 +232,13 @@ Typically when using most CRSs, the first number would be negative.</li>
 <li><strong>align</strong> (<em>(</em><em>float</em><em>,</em><em>float</em><em>)</em><em>, </em><em>optional</em>) – Load data such that point ‘align’ lies on the pixel boundary.
 Units are in the co-ordinate space of the output CRS.
 Default is (0,0)</li>
-<li><strong>geom</strong> (<em>str</em><em>, </em><em>optional</em>) – A GeoJSON string for the bounding box of the data used to construct the
-grid.</li>
+<li><strong>geom</strong> (<em>str</em><em>, </em><em>optional</em>) – <p>A GeoJSON string for the bounding box of the data used to construct the
+grid. It defaults to EPSG:4326 if a CRS is not provided.
+Example of adding CRS:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Polygon&quot;</span><span class="p">,</span> <span class="s2">&quot;crs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;EPSG:3857&quot;</span><span class="p">}}}</span>
+</pre></div>
+</div>
+</li>
 <li><strong>like</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>, optional) – <p>Uses the output of a previous <code class="docutils literal notranslate"><span class="pre">load()</span></code> to form the basis of a request
 for another product.
 E.g.:</p>

@@ -218,7 +218,11 @@
 <span class="sd">        Default is (0,0)</span>
 <span class="sd">    geom: str, optional</span>
 <span class="sd">        A GeoJSON string for the bounding box of the data used to construct the</span>
-<span class="sd">        grid.</span>
+<span class="sd">        grid. It defaults to EPSG:4326 if a CRS is not provided.</span>
+<span class="sd">        Example of adding CRS::</span>
+
+<span class="sd">            {&quot;type&quot;: &quot;Polygon&quot;, &quot;crs&quot;: {&quot;properties&quot;: {&quot;name&quot;: &quot;EPSG:3857&quot;}}}</span>
+
 <span class="sd">    like: :obj:`xarray.Dataset`, optional</span>
 <span class="sd">        Uses the output of a previous ``load()`` to form the basis of a request</span>
 <span class="sd">        for another product.</span>
