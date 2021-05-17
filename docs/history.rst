@@ -3,6 +3,7 @@ History
 
 Latest
 ------
+- REF: Write grid_mapping to encoding instead of attrs (#66)
 
 0.0.16
 ------
