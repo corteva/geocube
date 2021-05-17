@@ -40,6 +40,10 @@ Tool to convert geopandas vector data into rasterized xarray data.
     :target: https://github.com/python/black
 
 
+.. image:: https://zenodo.org/badge/179524523.svg
+    :target: https://zenodo.org/badge/latestdoi/179524523
+
+
 Documentation
 -------------
 
