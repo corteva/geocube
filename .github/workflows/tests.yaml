@@ -23,13 +23,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest, macos-latest]
-        python-version: [3.6, 3.7, 3.8] # skip 3.9 for now
-        include:
-          - os: windows-latest
-            python-version: 3.7
-          - os: windows-latest
-            python-version: 3.8
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: [3.7, 3.8] # skip 3.9 for now
 
     steps:
       - uses: actions/checkout@v2
