@@ -183,7 +183,6 @@ class VectorToCube:
         return dict(
             name=measurement_name,
             long_name=measurement_name,
-            grid_mapping=DEFAULT_GRID_MAP,
             _FillValue=fill_value,
         )
 
@@ -314,7 +313,12 @@ class VectorToCube:
         if df_group is not None and "datetime" in str(df_group[measurement_name].dtype):
             self._update_time_attrs(attrs, image_data)
 
-        return (group_by, "y", "x"), image_data, attrs
+        return (
+            (group_by, "y", "x"),
+            image_data,
+            attrs,
+            {"grid_mapping": DEFAULT_GRID_MAP},
+        )
 
     def _get_grid(self, dataframe, measurement_name):
         """Retrieve the variable data to append to the ssurgo :obj:`xarray.Dataset`
@@ -357,4 +361,9 @@ class VectorToCube:
         if "datetime" in str(dataframe[measurement_name].dtype):
             self._update_time_attrs(attrs, image_data)
 
-        return ("y", "x"), numpy.array(image_data), attrs
+        return (
+            ("y", "x"),
+            numpy.array(image_data),
+            attrs,
+            {"grid_mapping": DEFAULT_GRID_MAP},
+        )
