@@ -22,7 +22,9 @@ Use `conda <https://conda.io/en/latest/>`__ with the `conda-forge <https://conda
 
 .. code-block:: bash
 
-    conda install -c conda-forge geocube
+    conda config --prepend channels conda-forge
+    conda config --set channel_priority strict
+    conda install geocube
 
 
 From source
