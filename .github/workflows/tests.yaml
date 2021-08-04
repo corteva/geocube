@@ -38,6 +38,8 @@ jobs:
       - name: Install Env
         shell: bash
         run: |
+          conda config --prepend channels conda-forge
+          conda config --set channel_priority strict
           conda create -n test python=${{ matrix.python-version }} datacube geopandas rasterio scipy rioxarray xarray pandoc
           source activate test
           python -m pip install -e .[all]
