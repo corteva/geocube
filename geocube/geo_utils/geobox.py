@@ -3,11 +3,11 @@
 This module is for GIS related utility functions.
 """
 import json
-from distutils.version import LooseVersion
 
 import geopandas
 import rioxarray  # noqa: F401 pylint: disable=unused-import
 from datacube.utils import geometry
+from packaging import version
 from shapely.geometry import box, mapping
 
 from geocube.exceptions import VectorDataError
@@ -106,7 +106,7 @@ def _datacube_to_geopandas_crs(dc_crs):
         Representation of CRS for geopandas.
     """
     # pylint: disable=protected-access
-    if LooseVersion(geopandas.__version__) >= LooseVersion("0.6.0"):
+    if version.parse(geopandas.__version__) >= version.parse("0.6.0"):
         # this version of geopandas uses always_xy=True so WKT version is safe
         try:
             geo_crs = dc_crs.to_wkt()

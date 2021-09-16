@@ -14,6 +14,7 @@ requirements = [
     "Click>=6.0",
     "datacube",
     "geopandas>=0.7",
+    "packaging",
     "rasterio",
     "rioxarray>=0.4",
     "xarray>=0.17",
