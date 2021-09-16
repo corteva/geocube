@@ -1,6 +1,5 @@
 import json
 import os
-from distutils.version import LooseVersion
 from functools import partial
 
 import geopandas as gpd
@@ -9,6 +8,7 @@ import pytest
 import scipy
 import xarray
 from numpy.testing import assert_almost_equal
+from packaging import version
 from rasterio.enums import MergeAlg
 from shapely.geometry import mapping
 from shapely.wkt import loads
@@ -748,7 +748,7 @@ def test_make_geocube__new_bounds_crs():
     ],
 )
 @pytest.mark.xfail(
-    LooseVersion(scipy.__version__) < LooseVersion("1.4.0"),
+    version.parse(scipy.__version__) < version.parse("1.4.0"),
     reason="griddata behaves differently across versions",
 )
 def test_make_geocube__custom_rasterize_function(function, compare_name, tmpdir):
@@ -795,7 +795,7 @@ def test_make_geocube__custom_rasterize_function(function, compare_name, tmpdir)
     ],
 )
 @pytest.mark.xfail(
-    LooseVersion(scipy.__version__) < LooseVersion("1.4.0"),
+    version.parse(scipy.__version__) < version.parse("1.4.0"),
     reason="griddata behaves differently across versions",
 )
 def test_make_geocube__custom_rasterize_function__filter_null(
