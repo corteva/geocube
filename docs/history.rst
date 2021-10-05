@@ -3,6 +3,7 @@ History
 
 Latest
 ------
+- DEP: Explicitly add scipy as dependency (pull #75)
 
 0.0.17
 ------

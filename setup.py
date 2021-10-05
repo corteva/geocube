@@ -17,6 +17,7 @@ requirements = [
     "packaging",
     "rasterio",
     "rioxarray>=0.4",
+    "scipy",
     "xarray>=0.17",
     "pyproj>=2",
 ]
