@@ -89,7 +89,7 @@ def _get_deps_info():
 def _print_info_dict(info_dict):
     """Print the information dictionary"""
     for key, stat in info_dict.items():
-        print("{key:>14}: {stat}".format(key=key, stat=stat))
+        print(f"{key:>14}: {stat}")
 
 
 def show_versions():
