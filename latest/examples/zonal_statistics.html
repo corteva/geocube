@@ -52,7 +52,6 @@
 <li class="toctree-l2"><a class="reference internal" href="rasterize_point_data.html">Example - Rasterizing Point Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="grid_to_vector_map.html">Example - Mapping Grid Data to Vector Data</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Example - Zonal Statistics</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Download-the-source-raster-data">Download the source raster data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Create-the-data-mask-by-rasterizing-the-unique-ID-of-the-vector-data">Create the data mask by rasterizing the unique ID of the vector data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#Get-the-elevation-statistics-of-each-region-using-the-mask">Get the elevation statistics of each region using the mask</a></li>
 </ul>
@@ -385,27 +384,19 @@ from geocube.api.core import make_geocube
 </pre></div>
 </div>
 </div>
-<div class="section" id="Download-the-source-raster-data">
-<h2>Download the source raster data<a class="headerlink" href="#Download-the-source-raster-data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Create-the-data-mask-by-rasterizing-the-unique-ID-of-the-vector-data">
+<h2>Create the data mask by rasterizing the unique ID of the vector data<a class="headerlink" href="#Create-the-data-mask-by-rasterizing-the-unique-ID-of-the-vector-data" title="Permalink to this headline">¶</a></h2>
+<p>See docs for <a class="reference internal" href="../geocube.html#make-geocube"><span class="std std-ref">make_geocube</span></a></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># !wget https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/13/IMG/USGS_NED_13_n42w091_IMG.zip
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="Create-the-data-mask-by-rasterizing-the-unique-ID-of-the-vector-data">
-<h2>Create the data mask by rasterizing the unique ID of the vector data<a class="headerlink" href="#Create-the-data-mask-by-rasterizing-the-unique-ID-of-the-vector-data" title="Permalink to this headline">¶</a></h2>
-<p>See docs for <a class="reference internal" href="../geocube.html#make-geocube"><span class="std std-ref">make_geocube</span></a></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>ssurgo_data = gpd.read_file(&quot;../../test/test_data/input/soil_data_group.geojson&quot;)
+<span></span># This assumes you are running this example from a clone of
+# https://github.com/corteva/geocube/
+# You could also use the full path:
+# https://raw.githubusercontent.com/corteva/geocube/master/test/test_data/input/soil_data_group.geojson
+ssurgo_data = gpd.read_file(&quot;../../test/test_data/input/soil_data_group.geojson&quot;)
 ssurgo_data = ssurgo_data.loc[ssurgo_data.hzdept_r==0]
 # convert the key to group to the vector data to an integer as that is one of the
 # best data types for this type of mapping. If your data is not integer,
@@ -416,13 +407,13 @@ ssurgo_data[&quot;mukey&quot;] = ssurgo_data.mukey.astype(int)
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span># load in source elevation data subset relevant for the vector data
 elevation = rioxarray.open_rasterio(
-    &quot;zip://USGS_NED_13_n42w091_IMG.zip/USGS_NED_13_n42w091_IMG.img&quot;, masked=True
+    &quot;https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/13/TIFF/n42w091/USGS_13_n42w091.tif&quot;, masked=True
 ).rio.clip(
     ssurgo_data.geometry.values, ssurgo_data.crs, from_disk=True
 ).sel(band=1).drop(&quot;band&quot;)
@@ -431,7 +422,7 @@ elevation.name = &quot;elevation&quot;
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -444,7 +435,7 @@ elevation.name = &quot;elevation&quot;
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -455,7 +446,7 @@ out_grid
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -774,7 +765,8 @@ dl.xr-attrs {
   grid-template-columns: 125px auto;
 }
 
-.xr-attrs dt, dd {
+.xr-attrs dt,
+.xr-attrs dd {
   padding: 0;
   margin: 0;
   float: left;
@@ -810,16 +802,14 @@ dl.xr-attrs {
   fill: currentColor;
 }
 </style><pre class='xr-text-repr-fallback'>&lt;xarray.Dataset&gt;
-Dimensions:      (x: 178, y: 178)
+Dimensions:      (y: 178, x: 178)
 Coordinates:
   * y            (y) float64 41.5 41.5 41.5 41.5 ... 41.48 41.48 41.48 41.48
   * x            (x) float64 -90.6 -90.6 -90.6 -90.6 ... -90.58 -90.58 -90.58
     spatial_ref  int64 0
 Data variables:
     mukey        (y, x) float64 1.988e+05 1.988e+05 ... 1.987e+05 1.987e+05
-    elevation    (y, x) float64 173.7 172.0 171.1 170.6 ... 181.0 181.2 181.4
-Attributes:
-    grid_mapping:  spatial_ref</pre><div class='xr-wrap' hidden><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-9ef4c5ec-6e89-486b-b438-d21fef0193c4' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-9ef4c5ec-6e89-486b-b438-d21fef0193c4' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span class='xr-has-index'>x</span>: 178</li><li><span class='xr-has-index'>y</span>: 178</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-2e2ef3bc-2c0a-4c1e-913d-a88648989dda' class='xr-section-summary-in' type='checkbox'  checked><label for='section-2e2ef3bc-2c0a-4c1e-913d-a88648989dda' class='xr-section-summary' >Coordinates: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>y</span></div><div class='xr-var-dims'>(y)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>41.5 41.5 41.5 ... 41.48 41.48</div><input id='attrs-a3c1239b-d2b6-4002-b1de-044706a7cd79' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-a3c1239b-d2b6-4002-b1de-044706a7cd79' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-3400227d-5f4c-41c8-a1fd-1dd5f187cdc9' class='xr-var-data-in' type='checkbox'><label for='data-3400227d-5f4c-41c8-a1fd-1dd5f187cdc9' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>axis :</span></dt><dd>Y</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class='xr-var-data'><pre>array([41.499861, 41.499769, 41.499676, 41.499583, 41.499491, 41.499398,
+    elevation    (y, x) float64 173.7 172.0 171.1 170.6 ... 181.0 181.2 181.4</pre><div class='xr-wrap' hidden><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-88728980-03ee-469b-896a-e44382fe431a' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-88728980-03ee-469b-896a-e44382fe431a' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span class='xr-has-index'>y</span>: 178</li><li><span class='xr-has-index'>x</span>: 178</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-b9d26597-5207-46a7-a01b-8ab01b6056b4' class='xr-section-summary-in' type='checkbox'  checked><label for='section-b9d26597-5207-46a7-a01b-8ab01b6056b4' class='xr-section-summary' >Coordinates: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>y</span></div><div class='xr-var-dims'>(y)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>41.5 41.5 41.5 ... 41.48 41.48</div><input id='attrs-1d3c7f83-fb72-4a4c-88ce-680f6aacfa7c' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-1d3c7f83-fb72-4a4c-88ce-680f6aacfa7c' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-f10a7f06-20aa-456c-ad2c-5111aa4a0a15' class='xr-var-data-in' type='checkbox'><label for='data-f10a7f06-20aa-456c-ad2c-5111aa4a0a15' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>axis :</span></dt><dd>Y</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class='xr-var-data'><pre>array([41.499861, 41.499769, 41.499676, 41.499583, 41.499491, 41.499398,
        41.499306, 41.499213, 41.49912 , 41.499028, 41.498935, 41.498843,
        41.49875 , 41.498657, 41.498565, 41.498472, 41.49838 , 41.498287,
        41.498194, 41.498102, 41.498009, 41.497917, 41.497824, 41.497731,
@@ -848,7 +838,7 @@ Attributes:
        41.485417, 41.485324, 41.485231, 41.485139, 41.485046, 41.484954,
        41.484861, 41.484769, 41.484676, 41.484583, 41.484491, 41.484398,
        41.484306, 41.484213, 41.48412 , 41.484028, 41.483935, 41.483843,
-       41.48375 , 41.483657, 41.483565, 41.483472])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>x</span></div><div class='xr-var-dims'>(x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>-90.6 -90.6 -90.6 ... -90.58 -90.58</div><input id='attrs-0e02a1cf-9da9-44aa-b5b3-7b63af421ee7' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-0e02a1cf-9da9-44aa-b5b3-7b63af421ee7' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-5bf721b8-1af0-4dea-9f0a-673850ab97a0' class='xr-var-data-in' type='checkbox'><label for='data-5bf721b8-1af0-4dea-9f0a-673850ab97a0' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>axis :</span></dt><dd>X</dd><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class='xr-var-data'><pre>array([-90.599861, -90.599769, -90.599676, -90.599583, -90.599491, -90.599398,
+       41.48375 , 41.483657, 41.483565, 41.483472])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>x</span></div><div class='xr-var-dims'>(x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>-90.6 -90.6 -90.6 ... -90.58 -90.58</div><input id='attrs-4d6fbf76-f665-4baa-83bb-81ce61118368' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-4d6fbf76-f665-4baa-83bb-81ce61118368' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-7f639b99-6444-4ee3-ac8d-9db0f55c1e5c' class='xr-var-data-in' type='checkbox'><label for='data-7f639b99-6444-4ee3-ac8d-9db0f55c1e5c' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>axis :</span></dt><dd>X</dd><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class='xr-var-data'><pre>array([-90.599861, -90.599769, -90.599676, -90.599583, -90.599491, -90.599398,
        -90.599306, -90.599213, -90.59912 , -90.599028, -90.598935, -90.598843,
        -90.59875 , -90.598657, -90.598565, -90.598472, -90.59838 , -90.598287,
        -90.598194, -90.598102, -90.598009, -90.597917, -90.597824, -90.597731,
@@ -877,13 +867,13 @@ Attributes:
        -90.585417, -90.585324, -90.585231, -90.585139, -90.585046, -90.584954,
        -90.584861, -90.584769, -90.584676, -90.584583, -90.584491, -90.584398,
        -90.584306, -90.584213, -90.58412 , -90.584028, -90.583935, -90.583843,
-       -90.58375 , -90.583657, -90.583565, -90.583472])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>spatial_ref</span></div><div class='xr-var-dims'>()</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>0</div><input id='attrs-56d8b6fd-b2c7-4409-af8a-604ce84e5e42' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-56d8b6fd-b2c7-4409-af8a-604ce84e5e42' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-bbd92272-8090-431e-b872-469f19c522f7' class='xr-var-data-in' type='checkbox'><label for='data-bbd92272-8090-431e-b872-469f19c522f7' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>crs_wkt :</span></dt><dd>GEOGCS[&quot;NAD83&quot;,DATUM[&quot;North_American_Datum_1983&quot;,SPHEROID[&quot;GRS 1980&quot;,6378137,298.257222101,AUTHORITY[&quot;EPSG&quot;,&quot;7019&quot;]],TOWGS84[0,0,0,0,0,0,0],AUTHORITY[&quot;EPSG&quot;,&quot;6269&quot;]],PRIMEM[&quot;Greenwich&quot;,0,AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],UNIT[&quot;degree&quot;,0.0174532925199433,AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],AXIS[&quot;Latitude&quot;,NORTH],AXIS[&quot;Longitude&quot;,EAST],AUTHORITY[&quot;EPSG&quot;,&quot;4269&quot;]]</dd><dt><span>semi_major_axis :</span></dt><dd>6378137.0</dd><dt><span>semi_minor_axis :</span></dt><dd>6356752.314140356</dd><dt><span>inverse_flattening :</span></dt><dd>298.257222101</dd><dt><span>reference_ellipsoid_name :</span></dt><dd>GRS 1980</dd><dt><span>longitude_of_prime_meridian :</span></dt><dd>0.0</dd><dt><span>prime_meridian_name :</span></dt><dd>Greenwich</dd><dt><span>geographic_crs_name :</span></dt><dd>NAD83</dd><dt><span>grid_mapping_name :</span></dt><dd>latitude_longitude</dd><dt><span>towgs84 :</span></dt><dd>[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</dd><dt><span>spatial_ref :</span></dt><dd>GEOGCS[&quot;NAD83&quot;,DATUM[&quot;North_American_Datum_1983&quot;,SPHEROID[&quot;GRS 1980&quot;,6378137,298.257222101,AUTHORITY[&quot;EPSG&quot;,&quot;7019&quot;]],TOWGS84[0,0,0,0,0,0,0],AUTHORITY[&quot;EPSG&quot;,&quot;6269&quot;]],PRIMEM[&quot;Greenwich&quot;,0,AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],UNIT[&quot;degree&quot;,0.0174532925199433,AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],AXIS[&quot;Latitude&quot;,NORTH],AXIS[&quot;Longitude&quot;,EAST],AUTHORITY[&quot;EPSG&quot;,&quot;4269&quot;]]</dd></dl></div><div class='xr-var-data'><pre>array(0)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-5e88aa2f-456b-418a-9216-2f0a6de07fcc' class='xr-section-summary-in' type='checkbox'  checked><label for='section-5e88aa2f-456b-418a-9216-2f0a6de07fcc' class='xr-section-summary' >Data variables: <span>(2)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>mukey</span></div><div class='xr-var-dims'>(y, x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>1.988e+05 1.988e+05 ... 1.987e+05</div><input id='attrs-0e386f4d-9011-476f-95aa-8005376ed818' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-0e386f4d-9011-476f-95aa-8005376ed818' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-416776bf-8daa-43da-9cba-51b462174046' class='xr-var-data-in' type='checkbox'><label for='data-416776bf-8daa-43da-9cba-51b462174046' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>name :</span></dt><dd>mukey</dd><dt><span>long_name :</span></dt><dd>mukey</dd><dt><span>grid_mapping :</span></dt><dd>spatial_ref</dd><dt><span>_FillValue :</span></dt><dd>nan</dd></dl></div><div class='xr-var-data'><pre>array([[198754., 198754., 198754., ..., 198750., 198750., 198750.],
+       -90.58375 , -90.583657, -90.583565, -90.583472])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>spatial_ref</span></div><div class='xr-var-dims'>()</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>0</div><input id='attrs-e0591127-94f0-46c3-8c92-aed6287ee749' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-e0591127-94f0-46c3-8c92-aed6287ee749' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-c68ab252-88d2-4ef5-8c77-0657a8b3a3ba' class='xr-var-data-in' type='checkbox'><label for='data-c68ab252-88d2-4ef5-8c77-0657a8b3a3ba' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>crs_wkt :</span></dt><dd>GEOGCS[&quot;NAD83&quot;,DATUM[&quot;North_American_Datum_1983&quot;,SPHEROID[&quot;GRS 1980&quot;,6378137,298.257222101004,AUTHORITY[&quot;EPSG&quot;,&quot;7019&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;6269&quot;]],PRIMEM[&quot;Greenwich&quot;,0],UNIT[&quot;degree&quot;,0.0174532925199433,AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],AXIS[&quot;Latitude&quot;,NORTH],AXIS[&quot;Longitude&quot;,EAST],AUTHORITY[&quot;EPSG&quot;,&quot;4269&quot;]]</dd><dt><span>semi_major_axis :</span></dt><dd>6378137.0</dd><dt><span>semi_minor_axis :</span></dt><dd>6356752.314140356</dd><dt><span>inverse_flattening :</span></dt><dd>298.257222101004</dd><dt><span>reference_ellipsoid_name :</span></dt><dd>GRS 1980</dd><dt><span>longitude_of_prime_meridian :</span></dt><dd>0.0</dd><dt><span>prime_meridian_name :</span></dt><dd>Greenwich</dd><dt><span>geographic_crs_name :</span></dt><dd>NAD83</dd><dt><span>grid_mapping_name :</span></dt><dd>latitude_longitude</dd><dt><span>spatial_ref :</span></dt><dd>GEOGCS[&quot;NAD83&quot;,DATUM[&quot;North_American_Datum_1983&quot;,SPHEROID[&quot;GRS 1980&quot;,6378137,298.257222101004,AUTHORITY[&quot;EPSG&quot;,&quot;7019&quot;]],AUTHORITY[&quot;EPSG&quot;,&quot;6269&quot;]],PRIMEM[&quot;Greenwich&quot;,0],UNIT[&quot;degree&quot;,0.0174532925199433,AUTHORITY[&quot;EPSG&quot;,&quot;9122&quot;]],AXIS[&quot;Latitude&quot;,NORTH],AXIS[&quot;Longitude&quot;,EAST],AUTHORITY[&quot;EPSG&quot;,&quot;4269&quot;]]</dd></dl></div><div class='xr-var-data'><pre>array(0)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-ae72685a-6a1f-45de-95ce-a24009d2e2c7' class='xr-section-summary-in' type='checkbox'  checked><label for='section-ae72685a-6a1f-45de-95ce-a24009d2e2c7' class='xr-section-summary' >Data variables: <span>(2)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>mukey</span></div><div class='xr-var-dims'>(y, x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>1.988e+05 1.988e+05 ... 1.987e+05</div><input id='attrs-815f6a35-9646-42a2-b4ca-4ad6777604fd' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-815f6a35-9646-42a2-b4ca-4ad6777604fd' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-e395f70e-a010-42af-8561-748631d06d90' class='xr-var-data-in' type='checkbox'><label for='data-e395f70e-a010-42af-8561-748631d06d90' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>name :</span></dt><dd>mukey</dd><dt><span>long_name :</span></dt><dd>mukey</dd><dt><span>_FillValue :</span></dt><dd>nan</dd></dl></div><div class='xr-var-data'><pre>array([[198754., 198754., 198754., ..., 198750., 198750., 198750.],
        [198754., 198754., 198754., ..., 198750., 198750., 198750.],
        [198754., 198754., 198754., ..., 198750., 198750., 198750.],
        ...,
        [198754., 198754., 198754., ..., 198724., 198724., 198724.],
        [198754., 198754., 198754., ..., 198724., 198724., 198724.],
-       [198754., 198754., 198754., ..., 198724., 198724., 198724.]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>elevation</span></div><div class='xr-var-dims'>(y, x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>173.7 172.0 171.1 ... 181.2 181.4</div><input id='attrs-050ef16e-80c9-4431-92c5-cd3fb57f9375' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-050ef16e-80c9-4431-92c5-cd3fb57f9375' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-7a46721a-9ae6-4bdb-a67e-b17426fee049' class='xr-var-data-in' type='checkbox'><label for='data-7a46721a-9ae6-4bdb-a67e-b17426fee049' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>LAYER_TYPE :</span></dt><dd>athematic</dd><dt><span>RepresentationType :</span></dt><dd>ATHEMATIC</dd><dt><span>STATISTICS_COVARIANCES :</span></dt><dd>518.857106997209</dd><dt><span>STATISTICS_EXCLUDEDVALUES :</span></dt><dd></dd><dt><span>STATISTICS_MAXIMUM :</span></dt><dd>284.1125793457</dd><dt><span>STATISTICS_MEAN :</span></dt><dd>213.62414075776</dd><dt><span>STATISTICS_MEDIAN :</span></dt><dd>0</dd><dt><span>STATISTICS_MINIMUM :</span></dt><dd>83.762252807617</dd><dt><span>STATISTICS_MODE :</span></dt><dd>0</dd><dt><span>STATISTICS_SKIPFACTORX :</span></dt><dd>1</dd><dt><span>STATISTICS_SKIPFACTORY :</span></dt><dd>1</dd><dt><span>STATISTICS_STDDEV :</span></dt><dd>22.778435130562</dd><dt><span>scale_factor :</span></dt><dd>1.0</dd><dt><span>add_offset :</span></dt><dd>0.0</dd><dt><span>long_name :</span></dt><dd>Layer_1</dd><dt><span>grid_mapping :</span></dt><dd>spatial_ref</dd></dl></div><div class='xr-var-data'><pre>array([[173.67080688, 171.96047974, 171.08390808, ..., 172.10124207,
+       [198754., 198754., 198754., ..., 198724., 198724., 198724.]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>elevation</span></div><div class='xr-var-dims'>(y, x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>173.7 172.0 171.1 ... 181.2 181.4</div><input id='attrs-a4e3583b-ed9b-4462-8bcd-a1265d052033' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-a4e3583b-ed9b-4462-8bcd-a1265d052033' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-b776a1b8-bdee-41b0-b3ff-176f49fbf786' class='xr-var-data-in' type='checkbox'><label for='data-b776a1b8-bdee-41b0-b3ff-176f49fbf786' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>LAYER_TYPE :</span></dt><dd>athematic</dd><dt><span>RepresentationType :</span></dt><dd>ATHEMATIC</dd><dt><span>STATISTICS_MAXIMUM :</span></dt><dd>284.1125793457</dd><dt><span>STATISTICS_MEAN :</span></dt><dd>213.62414075786</dd><dt><span>STATISTICS_MINIMUM :</span></dt><dd>83.762252807617</dd><dt><span>STATISTICS_STDDEV :</span></dt><dd>22.778435029777</dd><dt><span>STATISTICS_VALID_PERCENT :</span></dt><dd>100</dd><dt><span>scale_factor :</span></dt><dd>1.0</dd><dt><span>add_offset :</span></dt><dd>0.0</dd><dt><span>long_name :</span></dt><dd>Layer_1</dd></dl></div><div class='xr-var-data'><pre>array([[173.67080688, 171.96047974, 171.08390808, ..., 172.10124207,
         172.2388916 , 171.97241211],
        [172.68327332, 171.44102478, 170.65075684, ..., 172.20561218,
         172.33590698, 172.00927734],
@@ -895,10 +885,10 @@ Attributes:
        [176.61058044, 176.91845703, 177.03279114, ..., 181.06401062,
         181.11106873, 181.30020142],
        [176.23300171, 176.77012634, 177.17182922, ..., 180.96748352,
-        181.20977783, 181.39945984]])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-5c720f8e-0b43-4557-a58d-1fa5a2e2f93f' class='xr-section-summary-in' type='checkbox'  checked><label for='section-5c720f8e-0b43-4557-a58d-1fa5a2e2f93f' class='xr-section-summary' >Attributes: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>grid_mapping :</span></dt><dd>spatial_ref</dd></dl></div></li></ul></div></div></div>
+        181.20977783, 181.39945984]])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-d8898f74-daba-4810-b358-f10ab9f893d3' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-d8898f74-daba-4810-b358-f10ab9f893d3' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -907,23 +897,23 @@ Attributes:
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.image.AxesImage at 0x7f52e4dab150&gt;
+&lt;matplotlib.image.AxesImage at 0x7f2dd5398550&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_zonal_statistics_9_1.png" src="../_images/examples_zonal_statistics_9_1.png" />
+<img alt="../_images/examples_zonal_statistics_7_1.png" src="../_images/examples_zonal_statistics_7_1.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -932,25 +922,25 @@ Attributes:
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.QuadMesh at 0x7f52e4c44890&gt;
+&lt;matplotlib.collections.QuadMesh at 0x7f2dd5282ed0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_zonal_statistics_10_1.png" src="../_images/examples_zonal_statistics_10_1.png" />
+<img alt="../_images/examples_zonal_statistics_8_1.png" src="../_images/examples_zonal_statistics_8_1.png" />
 </div>
 </div>
 <div class="section" id="Get-the-elevation-statistics-of-each-region-using-the-mask">
 <h3>Get the elevation statistics of each region using the mask<a class="headerlink" href="#Get-the-elevation-statistics-of-each-region-using-the-mask" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -963,7 +953,7 @@ grid_std = grouped_elevation.std().rename({&quot;elevation&quot;: &quot;elevatio
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -973,7 +963,7 @@ zonal_stats
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1018,52 +1008,52 @@ zonal_stats
     </tr>
     <tr>
       <th>198714.0</th>
-      <td>175.061542</td>
+      <td>175.045866</td>
       <td>170.214157</td>
       <td>179.716675</td>
-      <td>2.148920</td>
+      <td>2.150987</td>
     </tr>
     <tr>
       <th>198724.0</th>
-      <td>179.933075</td>
+      <td>179.931131</td>
       <td>178.237244</td>
       <td>181.490387</td>
-      <td>0.628017</td>
+      <td>0.630699</td>
     </tr>
     <tr>
       <th>198750.0</th>
-      <td>176.188453</td>
+      <td>176.187118</td>
       <td>167.951233</td>
       <td>190.138763</td>
-      <td>3.814724</td>
+      <td>3.815206</td>
     </tr>
     <tr>
       <th>198754.0</th>
-      <td>171.632181</td>
+      <td>171.633084</td>
       <td>167.610321</td>
       <td>181.611298</td>
-      <td>2.996241</td>
+      <td>2.997591</td>
     </tr>
     <tr>
       <th>271425.0</th>
-      <td>167.973730</td>
+      <td>167.974433</td>
       <td>167.951233</td>
-      <td>168.476776</td>
-      <td>0.076759</td>
+      <td>168.653015</td>
+      <td>0.079769</td>
     </tr>
     <tr>
       <th>271431.0</th>
-      <td>176.718330</td>
+      <td>176.718101</td>
       <td>170.258133</td>
       <td>180.460220</td>
-      <td>2.732228</td>
+      <td>2.731732</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1072,7 +1062,7 @@ zonal_stats
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1081,6 +1071,31 @@ zonal_stats
 </div>
 </div>
 <div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;AxesSubplot:&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_zonal_statistics_13_1.png" src="../_images/examples_zonal_statistics_13_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>ssurgo_data.plot(column=&quot;elevation_max&quot;, legend=True)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
@@ -1093,32 +1108,7 @@ zonal_stats
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/examples_zonal_statistics_15_1.png" src="../_images/examples_zonal_statistics_15_1.png" />
-</div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>ssurgo_data.plot(column=&quot;elevation_max&quot;, legend=True)
-</pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-&lt;AxesSubplot:&gt;
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/examples_zonal_statistics_16_1.png" src="../_images/examples_zonal_statistics_16_1.png" />
+<img alt="../_images/examples_zonal_statistics_14_1.png" src="../_images/examples_zonal_statistics_14_1.png" />
 </div>
 </div>
 </div>
