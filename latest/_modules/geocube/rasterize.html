@@ -85,7 +85,6 @@
 <span class="kn">import</span> <span class="nn">rasterio.features</span>
 <span class="kn">from</span> <span class="nn">rasterio.enums</span> <span class="kn">import</span> <span class="n">MergeAlg</span>
 <span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">Rbf</span><span class="p">,</span> <span class="n">griddata</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">mapping</span>
 
 <span class="kn">from</span> <span class="nn">geocube.logger</span> <span class="kn">import</span> <span class="n">get_logger</span>
 
@@ -154,7 +153,7 @@
                 <span class="n">data_values</span><span class="p">,</span> <span class="n">geometry_array</span>
             <span class="p">)</span>
         <span class="n">image</span> <span class="o">=</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">features</span><span class="o">.</span><span class="n">rasterize</span><span class="p">(</span>
-            <span class="nb">zip</span><span class="p">(</span><span class="n">geometry_array</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">mapping</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">data_values</span><span class="p">),</span>
+            <span class="nb">zip</span><span class="p">(</span><span class="n">geometry_array</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">data_values</span><span class="p">),</span>
             <span class="n">out_shape</span><span class="o">=</span><span class="p">(</span><span class="n">geobox</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">geobox</span><span class="o">.</span><span class="n">width</span><span class="p">),</span>
             <span class="n">transform</span><span class="o">=</span><span class="n">geobox</span><span class="o">.</span><span class="n">affine</span><span class="p">,</span>
             <span class="n">fill</span><span class="o">=</span><span class="n">fill</span><span class="p">,</span>
