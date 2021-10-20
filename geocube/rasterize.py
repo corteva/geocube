@@ -7,7 +7,6 @@ import pandas
 import rasterio.features
 from rasterio.enums import MergeAlg
 from scipy.interpolate import Rbf, griddata
-from shapely.geometry import mapping
 
 from geocube.logger import get_logger
 
@@ -76,7 +75,7 @@ def rasterize_image(
                 data_values, geometry_array
             )
         image = rasterio.features.rasterize(
-            zip(geometry_array.apply(mapping).values, data_values),
+            zip(geometry_array.values, data_values),
             out_shape=(geobox.height, geobox.width),
             transform=geobox.affine,
             fill=fill,
