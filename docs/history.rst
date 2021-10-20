@@ -3,6 +3,7 @@ History
 
 Latest
 ------
+- REF: remove unnecessary shapely.geometry.mapping in rasterize_image (#80)
 
 0.0.18
 ------
