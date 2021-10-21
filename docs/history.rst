@@ -4,6 +4,7 @@ History
 Latest
 ------
 - REF: remove unnecessary shapely.geometry.mapping in rasterize_image (#80)
+- ENH: `vector_data` to read path-like objects (pull #81)
 
 0.0.18
 ------

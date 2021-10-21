@@ -3,6 +3,7 @@
 This module is for GIS related utility functions.
 """
 import json
+import os
 
 import geopandas
 import rioxarray  # noqa: F401 pylint: disable=unused-import
@@ -56,7 +57,7 @@ def load_vector_data(vector_data):
     """
     Parameters
     ----------
-    vector_data: str or :obj:`geopandas.GeoDataFrame`
+    vector_data: str, path-like object or :obj:`geopandas.GeoDataFrame`
         A file path to an OGR supported source or GeoDataFrame containing
         the vector data.
 
@@ -67,7 +68,7 @@ def load_vector_data(vector_data):
     """
     logger = get_logger()
 
-    if isinstance(vector_data, str):
+    if isinstance(vector_data, (str, os.PathLike)):
         vector_data = geopandas.read_file(vector_data)
     elif not isinstance(vector_data, geopandas.GeoDataFrame):
         vector_data = geopandas.GeoDataFrame(vector_data)
@@ -162,7 +163,7 @@ class GeoBoxMaker:
 
         Parameters
         ----------
-        vector_data: str or :obj:`geopandas.GeoDataFrame`
+        vector_data: str, path-like object or :obj:`geopandas.GeoDataFrame`
             A file path to an OGR supported source or GeoDataFrame
             containing the vector data.
 

@@ -51,7 +51,7 @@ class VectorToCube:
 
         Parameters
         ----------
-        vector_data: str or :obj:`geopandas.GeoDataFrame`
+        vector_data: str, path-like object or :obj:`geopandas.GeoDataFrame`
             A file path to an OGR supported source or GeoDataFrame containing
             the vector data.
         geobox_maker: :obj:`geocube.geo_utils.geobox.GeoBoxMaker`
@@ -209,9 +209,8 @@ class VectorToCube:
         """
         Parameters
         ----------
-        vector_data: str or :obj:`geopandas.GeoDataFrame`
-            A file path to an OGR supported source or GeoDataFrame containing
-            the vector data.
+        vector_data: :obj:`geopandas.GeoDataFrame`
+            A GeoDataFrame containing the vector data.
         measurements: list(str), optional
             Attributes name or list of names to be included. If a list is specified,
             the measurements will be returned in the order requested.
