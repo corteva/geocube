@@ -1,7 +1,7 @@
 History
 =======
 
-Latest
+0.1.0
 ------
 - ENH: Minimize dtype when possible in `geocube.rasterize.rasterize_image` (issue #72)
 - REF: remove unnecessary shapely.geometry.mapping in rasterize_image (#80)
