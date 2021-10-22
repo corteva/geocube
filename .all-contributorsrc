@@ -73,6 +73,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "mwtoews",
+      "name": "Mike Taves",
+      "avatar_url": "https://avatars.githubusercontent.com/u/895458?v=4",
+      "profile": "https://sites.google.com/site/mwtoews/",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7
