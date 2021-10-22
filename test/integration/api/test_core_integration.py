@@ -61,7 +61,6 @@ def test_make_geocube(input_geodata, tmpdir):
         resolution=(-10, 10),
         fill=-9999.0,
     )
-
     # test writing to netCDF
     out_grid.to_netcdf(tmpdir.mkdir("make_geocube_soil") / "soil_grid_flat.nc")
 
@@ -96,6 +95,8 @@ def test_make_geocube__categorical(input_geodata, tmpdir):
         categorical_enums={"soil_type": ("sand", "silt", "clay")},
         fill=-9999.0,
     )
+    assert out_grid.soil_type.dtype.name == "int16"
+
     # test writing to netCDF
     out_grid.to_netcdf(
         tmpdir.mkdir("make_geocube_soil") / "soil_grid_flat_categorical.nc"
@@ -442,6 +443,7 @@ def test_make_geocube__group_by__categorical(input_geodata, tmpdir):
         fill=-9999.0,
     )
 
+    assert out_grid.soil_type.dtype.name == "int16"
     # test writing to netCDF
     out_grid.to_netcdf(
         tmpdir.mkdir("make_geocube_soil") / "soil_grid_group_categorical.nc"
@@ -797,3 +799,31 @@ def test_make_geocube__custom_rasterize_function__filter_null(
         decode_coords="all",
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc, rtol=0.1, atol=0.1)
+
+
+@pytest.mark.parametrize(
+    "dtype,fill,expected_type",
+    [
+        ("uint16", 0, "uint16"),
+        ("uint16", float("NaN"), "float32"),
+        ("int32", 0, "int32"),
+        ("int32", float("NaN"), "float64"),
+        ("int64", 0, "float64"),
+        ("int64", float("NaN"), "float64"),
+    ],
+)
+def test_make_geocube__minimize_dtype(dtype, fill, expected_type, tmpdir):
+    gdf = gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")
+    gdf["mask"] = 1
+    gdf["mask"] = gdf["mask"].astype(dtype)
+    out_grid = make_geocube(
+        vector_data=gdf,
+        measurements=["mask"],
+        output_crs=TEST_GARS_PROJ,
+        geom=json.dumps(mapping(TEST_GARS_POLY)),
+        resolution=(-10, 10),
+        fill=fill,
+    )
+    assert out_grid.mask.dtype.name == expected_type
+    # test writing to netCDF
+    out_grid.to_netcdf(tmpdir.mkdir("make_geocube_soil") / "soil_grid_flat_mask.nc")
