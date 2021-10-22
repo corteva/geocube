@@ -29,7 +29,7 @@ def make_geocube(
 
     Parameters
     ----------
-    vector_data: str or :obj:`geopandas.GeoDataFrame`
+    vector_data: str, path-like object or :obj:`geopandas.GeoDataFrame`
         A file path to an OGR supported source or GeoDataFrame containing
         the vector data.
     measurements: list(str), optional

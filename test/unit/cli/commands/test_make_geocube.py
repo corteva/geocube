@@ -1,4 +1,3 @@
-import os
 from unittest.mock import patch
 
 import numpy
@@ -21,7 +20,7 @@ def _get_called_dict(**kwargs):
         measurements=None,
         output_crs=None,
         resolution=None,
-        vector_data=os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson"),
+        vector_data=str(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
     )
     default.update(**kwargs)
     return default
@@ -31,7 +30,7 @@ INPUT_GEOM = (
     '{"type": "Polygon", "coordinates": '
     "[[[50.5, 50.0], [50.5, 50.5], [50.0, 50.5], [50.0, 50.0], [50.5, 50.0]]]}"
 )
-LIKE_PATH = os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc")
+LIKE_PATH = TEST_COMPARE_DATA_DIR / "soil_grid_flat.nc"
 
 
 @pytest.mark.parametrize(
@@ -69,7 +68,7 @@ def test_make_geocube_params(make_geocube_mock, params, called_with):
             geocube,
             [
                 "make-geocube",
-                os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson"),
+                str(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
                 "outfile.nc",
             ]
             + params,

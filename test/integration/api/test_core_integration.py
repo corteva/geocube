@@ -1,5 +1,4 @@
 import json
-import os
 from functools import partial
 
 import geopandas as gpd
@@ -37,11 +36,9 @@ TEST_GARS_POLY = loads(
 @pytest.mark.parametrize(
     "input_geodata",
     [
-        os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson"),
-        gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson")),
-        pandas.DataFrame(
-            gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson"))
-        ),
+        str(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
+        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
+        pandas.DataFrame(gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")),
     ],
 )
 def test_make_geocube(input_geodata, tmpdir):
@@ -66,11 +63,11 @@ def test_make_geocube(input_geodata, tmpdir):
     )
 
     # test writing to netCDF
-    out_grid.to_netcdf(str(tmpdir.mkdir("make_geocube_soil").join("soil_grid_flat.nc")))
+    out_grid.to_netcdf(tmpdir.mkdir("make_geocube_soil") / "soil_grid_flat.nc")
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc"),
+        TEST_COMPARE_DATA_DIR / "soil_grid_flat.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -79,7 +76,7 @@ def test_make_geocube(input_geodata, tmpdir):
 
 @pytest.mark.parametrize(
     "input_geodata",
-    [gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson"))],
+    [gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")],
 )
 def test_make_geocube__categorical(input_geodata, tmpdir):
     input_geodata["soil_type"] = [
@@ -101,12 +98,12 @@ def test_make_geocube__categorical(input_geodata, tmpdir):
     )
     # test writing to netCDF
     out_grid.to_netcdf(
-        str(tmpdir.mkdir("make_geocube_soil").join("soil_grid_flat_categorical.nc"))
+        tmpdir.mkdir("make_geocube_soil") / "soil_grid_flat_categorical.nc"
     )
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat_categorical.nc"),
+        TEST_COMPARE_DATA_DIR / "soil_grid_flat_categorical.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -116,8 +113,8 @@ def test_make_geocube__categorical(input_geodata, tmpdir):
 @pytest.mark.parametrize(
     "input_geodata",
     [
-        os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson"),
-        gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson")),
+        TEST_INPUT_DATA_DIR / "soil_data_flat.geojson",
+        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
     ],
 )
 def test_make_geocube__interpolate_na(input_geodata, tmpdir):
@@ -144,12 +141,12 @@ def test_make_geocube__interpolate_na(input_geodata, tmpdir):
 
     # test writing to netCDF
     out_grid.to_netcdf(
-        str(tmpdir.mkdir("make_geocube_soil").join("soil_grid_flat_interpolate_na.nc"))
+        tmpdir.mkdir("make_geocube_soil") / "soil_grid_flat_interpolate_na.nc"
     )
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat_interpolate_na.nc"),
+        TEST_COMPARE_DATA_DIR / "soil_grid_flat_interpolate_na.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -159,8 +156,8 @@ def test_make_geocube__interpolate_na(input_geodata, tmpdir):
 @pytest.mark.parametrize(
     "input_geodata",
     [
-        os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson"),
-        gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson")),
+        TEST_INPUT_DATA_DIR / "soil_data_flat.geojson",
+        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
     ],
 )
 def test_make_geocube__like(input_geodata, tmpdir):
@@ -176,7 +173,7 @@ def test_make_geocube__like(input_geodata, tmpdir):
     ]
 
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc"),
+        TEST_COMPARE_DATA_DIR / "soil_grid_flat.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -188,17 +185,15 @@ def test_make_geocube__like(input_geodata, tmpdir):
         )
 
         # test writing to netCDF
-        out_grid.to_netcdf(
-            str(tmpdir.mkdir("make_geocube_soil").join("soil_grid_flat.nc"))
-        )
+        out_grid.to_netcdf(tmpdir.mkdir("make_geocube_soil") / "soil_grid_flat.nc")
         xarray.testing.assert_allclose(out_grid, xdc)
 
 
 @pytest.mark.parametrize(
     "input_geodata",
     [
-        os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson"),
-        gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson")),
+        TEST_INPUT_DATA_DIR / "soil_data_flat.geojson",
+        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
     ],
 )
 def test_make_geocube__only_resolution(input_geodata, tmpdir):
@@ -222,12 +217,12 @@ def test_make_geocube__only_resolution(input_geodata, tmpdir):
 
     # test writing to netCDF
     out_grid.to_netcdf(
-        str(tmpdir.mkdir("make_geocube_soil").join("soil_grid_flat_original_crs.nc"))
+        tmpdir.mkdir("make_geocube_soil") / "soil_grid_flat_original_crs.nc"
     )
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat_original_crs.nc"),
+        TEST_COMPARE_DATA_DIR / "soil_grid_flat_original_crs.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -237,8 +232,8 @@ def test_make_geocube__only_resolution(input_geodata, tmpdir):
 @pytest.mark.parametrize(
     "input_geodata",
     [
-        os.path.join(TEST_INPUT_DATA_DIR, "time_vector_data.geojson"),
-        gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "time_vector_data.geojson")),
+        TEST_INPUT_DATA_DIR / "time_vector_data.geojson",
+        gpd.read_file(TEST_INPUT_DATA_DIR / "time_vector_data.geojson"),
     ],
 )
 def test_make_geocube__convert_time(input_geodata, tmpdir):
@@ -251,11 +246,11 @@ def test_make_geocube__convert_time(input_geodata, tmpdir):
     )
 
     # test writing to netCDF
-    out_grid.to_netcdf(str(tmpdir.mkdir("geocube_time").join("time_vector_data.nc")))
+    out_grid.to_netcdf(tmpdir.mkdir("geocube_time") / "time_vector_data.nc")
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "time_vector_data.nc"),
+        TEST_COMPARE_DATA_DIR / "time_vector_data.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -287,13 +282,13 @@ def test_make_geocube__like_error_invalid_args(load_extra_kwargs):
     ]
 
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc"),
+        TEST_COMPARE_DATA_DIR / "soil_grid_flat.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
         with pytest.raises(AssertionError):
             make_geocube(
-                vector_data=os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson"),
+                vector_data=TEST_INPUT_DATA_DIR / "soil_data_flat.geojson",
                 measurements=soil_attribute_list,
                 like=xdc,
                 fill=-9999.0,
@@ -304,8 +299,8 @@ def test_make_geocube__like_error_invalid_args(load_extra_kwargs):
 @pytest.mark.parametrize(
     "input_geodata",
     [
-        os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson"),
-        gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson")),
+        TEST_INPUT_DATA_DIR / "soil_data_flat.geojson",
+        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
     ],
 )
 def test_make_geocube__no_measurements(input_geodata, tmpdir):
@@ -318,11 +313,11 @@ def test_make_geocube__no_measurements(input_geodata, tmpdir):
     )
 
     # test writing to netCDF
-    out_grid.to_netcdf(str(tmpdir.mkdir("make_geocube_soil").join("soil_grid_flat.nc")))
+    out_grid.to_netcdf(tmpdir.mkdir("make_geocube_soil") / "soil_grid_flat.nc")
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat.nc"),
+        TEST_COMPARE_DATA_DIR / "soil_grid_flat.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -333,20 +328,18 @@ def test_make_geocube__no_measurements(input_geodata, tmpdir):
 
 def test_make_geocube__no_geom(tmpdir):
     out_grid = make_geocube(
-        vector_data=os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson"),
+        vector_data=TEST_INPUT_DATA_DIR / "soil_data_flat.geojson",
         measurements=["sandtotal_r"],
         resolution=(-0.001, 0.001),
         fill=-9999.0,
     )
 
     # test writing to netCDF
-    out_grid.to_netcdf(
-        str(tmpdir.mkdir("make_geocube_soil").join("soil_grid_flat_no_geom.nc"))
-    )
+    out_grid.to_netcdf(tmpdir.mkdir("make_geocube_soil") / "soil_grid_flat_no_geom.nc")
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_flat_no_geom.nc"),
+        TEST_COMPARE_DATA_DIR / "soil_grid_flat_no_geom.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -360,7 +353,7 @@ def test_make_geocube__no_geom(tmpdir):
     [
         gpd.GeoDataFrame(columns=["test_col", "geometry"]),
         gpd.GeoDataFrame(),
-        gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson")).drop(
+        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson").drop(
             columns="geometry"
         ),
     ],
@@ -373,7 +366,7 @@ def test_make_geocube__invalid_gdf(input_geodata):
 def test_make_geocube__no_resolution_error():
     with pytest.raises(RuntimeError):
         make_geocube(
-            vector_data=os.path.join(TEST_INPUT_DATA_DIR, "soil_data_flat.geojson"),
+            vector_data=TEST_INPUT_DATA_DIR / "soil_data_flat.geojson",
             measurements=["sandtotal_r"],
             output_crs=TEST_GARS_PROJ,
             geom=json.dumps(mapping(TEST_GARS_POLY)),
@@ -384,8 +377,8 @@ def test_make_geocube__no_resolution_error():
 @pytest.mark.parametrize(
     "input_geodata",
     [
-        os.path.join(TEST_INPUT_DATA_DIR, "soil_data_group.geojson"),
-        gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "soil_data_group.geojson")),
+        TEST_INPUT_DATA_DIR / "soil_data_group.geojson",
+        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_group.geojson"),
     ],
 )
 def test_make_geocube__group_by(input_geodata, tmpdir):
@@ -410,13 +403,11 @@ def test_make_geocube__group_by(input_geodata, tmpdir):
     )
 
     # test writing to netCDF
-    out_grid.to_netcdf(
-        str(tmpdir.mkdir("make_geocube_soil").join("soil_grid_group.nc"))
-    )
+    out_grid.to_netcdf(tmpdir.mkdir("make_geocube_soil") / "soil_grid_group.nc")
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_group.nc"),
+        TEST_COMPARE_DATA_DIR / "soil_grid_group.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -427,7 +418,7 @@ def test_make_geocube__group_by(input_geodata, tmpdir):
 
 @pytest.mark.parametrize(
     "input_geodata",
-    [gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "soil_data_group.geojson"))],
+    [gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_group.geojson")],
 )
 def test_make_geocube__group_by__categorical(input_geodata, tmpdir):
     input_geodata["soil_type"] = [
@@ -453,12 +444,12 @@ def test_make_geocube__group_by__categorical(input_geodata, tmpdir):
 
     # test writing to netCDF
     out_grid.to_netcdf(
-        str(tmpdir.mkdir("make_geocube_soil").join("soil_grid_group_categorical.nc"))
+        tmpdir.mkdir("make_geocube_soil") / "soil_grid_group_categorical.nc"
     )
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_group_categorical.nc"),
+        TEST_COMPARE_DATA_DIR / "soil_grid_group_categorical.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -470,8 +461,8 @@ def test_make_geocube__group_by__categorical(input_geodata, tmpdir):
 @pytest.mark.parametrize(
     "input_geodata",
     [
-        os.path.join(TEST_INPUT_DATA_DIR, "soil_data_group.geojson"),
-        gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "soil_data_group.geojson")),
+        TEST_INPUT_DATA_DIR / "soil_data_group.geojson",
+        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_group.geojson"),
     ],
 )
 def test_make_geocube__group_by_like(input_geodata, tmpdir):
@@ -487,7 +478,7 @@ def test_make_geocube__group_by_like(input_geodata, tmpdir):
     ]
 
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_group.nc"),
+        TEST_COMPARE_DATA_DIR / "soil_grid_group.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -500,9 +491,7 @@ def test_make_geocube__group_by_like(input_geodata, tmpdir):
         )
 
         # test writing to netCDF
-        out_grid.to_netcdf(
-            str(tmpdir.mkdir("make_geocube_soil").join("soil_grid_group.nc"))
-        )
+        out_grid.to_netcdf(tmpdir.mkdir("make_geocube_soil") / "soil_grid_group.nc")
 
         xarray.testing.assert_allclose(out_grid, xdc)
 
@@ -512,8 +501,8 @@ def test_make_geocube__group_by_like(input_geodata, tmpdir):
 @pytest.mark.parametrize(
     "input_geodata",
     [
-        os.path.join(TEST_INPUT_DATA_DIR, "soil_data_group.geojson"),
-        gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "soil_data_group.geojson")),
+        TEST_INPUT_DATA_DIR / "soil_data_group.geojson",
+        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_group.geojson"),
     ],
 )
 def test_make_geocube__group_by_only_resolution(input_geodata, tmpdir):
@@ -529,12 +518,12 @@ def test_make_geocube__group_by_only_resolution(input_geodata, tmpdir):
 
     # test writing to netCDF
     out_grid.to_netcdf(
-        str(tmpdir.mkdir("make_geocube_soil").join("soil_grid_grouped_original_crs.nc"))
+        tmpdir.mkdir("make_geocube_soil") / "soil_grid_grouped_original_crs.nc"
     )
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_grouped_original_crs.nc"),
+        TEST_COMPARE_DATA_DIR / "soil_grid_grouped_original_crs.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -546,8 +535,8 @@ def test_make_geocube__group_by_only_resolution(input_geodata, tmpdir):
 @pytest.mark.parametrize(
     "input_geodata",
     [
-        os.path.join(TEST_INPUT_DATA_DIR, "time_vector_data.geojson"),
-        gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "time_vector_data.geojson")),
+        TEST_INPUT_DATA_DIR / "time_vector_data.geojson",
+        gpd.read_file(TEST_INPUT_DATA_DIR / "time_vector_data.geojson"),
     ],
 )
 def test_make_geocube__group_by_time(input_geodata, tmpdir):
@@ -560,12 +549,10 @@ def test_make_geocube__group_by_time(input_geodata, tmpdir):
     )
 
     # test writing to netCDF
-    out_grid.to_netcdf(
-        str(tmpdir.mkdir("make_geocube_time").join("vector_time_data_group.nc"))
-    )
+    out_grid.to_netcdf(tmpdir.mkdir("make_geocube_time") / "vector_time_data_group.nc")
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "vector_time_data_group.nc"),
+        TEST_COMPARE_DATA_DIR / "vector_time_data_group.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -577,8 +564,8 @@ def test_make_geocube__group_by_time(input_geodata, tmpdir):
 @pytest.mark.parametrize(
     "input_geodata",
     [
-        os.path.join(TEST_INPUT_DATA_DIR, "time_vector_data.geojson"),
-        gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "time_vector_data.geojson")),
+        TEST_INPUT_DATA_DIR / "time_vector_data.geojson",
+        gpd.read_file(TEST_INPUT_DATA_DIR / "time_vector_data.geojson"),
     ],
 )
 def test_make_geocube__group_by_convert_with_time(input_geodata, tmpdir):
@@ -591,13 +578,11 @@ def test_make_geocube__group_by_convert_with_time(input_geodata, tmpdir):
     )
 
     # test writing to netCDF
-    out_grid.to_netcdf(
-        str(tmpdir.mkdir("make_geocube_time").join("vector_data_group.nc"))
-    )
+    out_grid.to_netcdf(tmpdir.mkdir("make_geocube_time") / "vector_data_group.nc")
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "vector_data_group.nc"),
+        TEST_COMPARE_DATA_DIR / "vector_data_group.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -631,15 +616,13 @@ def test_make_geocube__group_by_like_error_invalid_args(load_extra_kwargs):
     ]
 
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_group.nc"),
+        TEST_COMPARE_DATA_DIR / "soil_grid_group.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
         with pytest.raises(AssertionError):
             make_geocube(
-                vector_data=os.path.join(
-                    TEST_INPUT_DATA_DIR, "soil_data_group.geojson"
-                ),
+                vector_data=TEST_INPUT_DATA_DIR / "soil_data_group.geojson",
                 measurements=soil_attribute_list,
                 like=xdc,
                 group_by="hzdept_r",
@@ -651,8 +634,8 @@ def test_make_geocube__group_by_like_error_invalid_args(load_extra_kwargs):
 @pytest.mark.parametrize(
     "input_geodata",
     [
-        os.path.join(TEST_INPUT_DATA_DIR, "soil_data_group.geojson"),
-        gpd.read_file(os.path.join(TEST_INPUT_DATA_DIR, "soil_data_group.geojson")),
+        TEST_INPUT_DATA_DIR / "soil_data_group.geojson",
+        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_group.geojson"),
     ],
 )
 def test_make_geocube__group_by_no_measurements(input_geodata, tmpdir):
@@ -666,13 +649,11 @@ def test_make_geocube__group_by_no_measurements(input_geodata, tmpdir):
     )
 
     # test writing to netCDF
-    out_grid.to_netcdf(
-        str(tmpdir.mkdir("make_geocube_soil").join("soil_grid_group.nc"))
-    )
+    out_grid.to_netcdf(tmpdir.mkdir("make_geocube_soil") / "soil_grid_group.nc")
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_group.nc"),
+        TEST_COMPARE_DATA_DIR / "soil_grid_group.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -683,7 +664,7 @@ def test_make_geocube__group_by_no_measurements(input_geodata, tmpdir):
 
 def test_make_geocube__group_by__no_geom(tmpdir):
     out_grid = make_geocube(
-        vector_data=os.path.join(TEST_INPUT_DATA_DIR, "soil_data_group.geojson"),
+        vector_data=TEST_INPUT_DATA_DIR / "soil_data_group.geojson",
         measurements=["sandtotal_r"],
         group_by="hzdept_r",
         resolution=(-0.001, 0.001),
@@ -691,13 +672,11 @@ def test_make_geocube__group_by__no_geom(tmpdir):
     )
 
     # test writing to netCDF
-    out_grid.to_netcdf(
-        str(tmpdir.mkdir("make_geocube_soil").join("soil_grid_group_no_geom.nc"))
-    )
+    out_grid.to_netcdf(tmpdir.mkdir("make_geocube_soil") / "soil_grid_group_no_geom.nc")
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, "soil_grid_group_no_geom.nc"),
+        TEST_COMPARE_DATA_DIR / "soil_grid_group_no_geom.nc",
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -709,7 +688,7 @@ def test_make_geocube__group_by__no_geom(tmpdir):
 def test_make_geocube__group_by__no_resolution_error():
     with pytest.raises(RuntimeError):
         make_geocube(
-            vector_data=os.path.join(TEST_INPUT_DATA_DIR, "soil_data_group.geojson"),
+            vector_data=TEST_INPUT_DATA_DIR / "soil_data_group.geojson",
             measurements=["sandtotal_r"],
             output_crs=TEST_GARS_PROJ,
             geom=json.dumps(mapping(TEST_GARS_POLY)),
@@ -720,7 +699,7 @@ def test_make_geocube__group_by__no_resolution_error():
 
 def test_make_geocube__new_bounds_crs():
     utm_cube = make_geocube(
-        vector_data=os.path.join(TEST_INPUT_DATA_DIR, "wgs84_geom.geojson"),
+        vector_data=TEST_INPUT_DATA_DIR / "wgs84_geom.geojson",
         output_crs="epsg:32614",
         resolution=(-1, 1),
         fill=-9999.0,
@@ -752,7 +731,7 @@ def test_make_geocube__new_bounds_crs():
     reason="griddata behaves differently across versions",
 )
 def test_make_geocube__custom_rasterize_function(function, compare_name, tmpdir):
-    input_geodata = os.path.join(TEST_INPUT_DATA_DIR, "time_vector_data.geojson")
+    input_geodata = TEST_INPUT_DATA_DIR / "time_vector_data.geojson"
     out_grid = make_geocube(
         vector_data=input_geodata,
         measurements=["test_attr", "test_time_attr", "test_str_attr"],
@@ -762,11 +741,11 @@ def test_make_geocube__custom_rasterize_function(function, compare_name, tmpdir)
     )
 
     # test writing to netCDF
-    out_grid.to_netcdf(str(tmpdir.mkdir("geocube_custom").join(compare_name)))
+    out_grid.to_netcdf(tmpdir.mkdir("geocube_custom") / compare_name)
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, compare_name),
+        TEST_COMPARE_DATA_DIR / compare_name,
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
@@ -801,7 +780,7 @@ def test_make_geocube__custom_rasterize_function(function, compare_name, tmpdir)
 def test_make_geocube__custom_rasterize_function__filter_null(
     function, compare_name, tmpdir
 ):
-    input_geodata = os.path.join(TEST_INPUT_DATA_DIR, "point_with_null.geojson")
+    input_geodata = TEST_INPUT_DATA_DIR / "point_with_null.geojson"
     out_grid = make_geocube(
         vector_data=input_geodata,
         resolution=(-0.00001, 0.00001),
@@ -809,11 +788,11 @@ def test_make_geocube__custom_rasterize_function__filter_null(
     )
 
     # test writing to netCDF
-    out_grid.to_netcdf(str(tmpdir.mkdir("geocube_custom").join(compare_name)))
+    out_grid.to_netcdf(tmpdir.mkdir("geocube_custom") / compare_name)
 
     # test output data
     with xarray.open_dataset(
-        os.path.join(TEST_COMPARE_DATA_DIR, compare_name),
+        TEST_COMPARE_DATA_DIR / compare_name,
         mask_and_scale=False,
         decode_coords="all",
     ) as xdc:
