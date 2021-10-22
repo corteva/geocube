@@ -3,6 +3,7 @@ History
 
 Latest
 ------
+- ENH: Minimize dtype when possible in `geocube.rasterize.rasterize_image` (issue #72)
 - REF: remove unnecessary shapely.geometry.mapping in rasterize_image (#80)
 - ENH: `vector_data` to read path-like objects (pull #81)
 

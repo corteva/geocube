@@ -24,6 +24,30 @@ def _remove_missing_data(data_values, geometry_array):
     return data_values, geometry_array
 
 
+def _minimize_dtype(dtype, fill):
+    """
+    If int64, convert to float64:
+    https://github.com/OSGeo/gdal/issues/3325
+
+    Attempt to convert to float32 if fill is NaN and dtype is integer.
+    """
+    if numpy.issubdtype(dtype, numpy.integer):
+        if dtype.name == "int8":
+            # GDAL/rasterio doesn't support int8
+            dtype = numpy.dtype("int16")
+        if dtype.name == "int64":
+            # GDAL/rasterio doesn't support int64
+            dtype = numpy.dtype("float64")
+        if numpy.isnan(fill):
+            dtype = (
+                numpy.dtype("float64") if dtype.itemsize > 2 else numpy.dtype("float32")
+            )
+    elif not numpy.issubdtype(dtype, numpy.floating):
+        # default to float64 for non-integer/float types
+        dtype = numpy.dtype("float64")
+    return dtype
+
+
 def rasterize_image(
     geometry_array,
     data_values,
@@ -81,7 +105,7 @@ def rasterize_image(
             fill=fill,
             all_touched=all_touched,
             merge_alg=merge_alg,
-            dtype=numpy.float64,
+            dtype=_minimize_dtype(data_values.dtype, fill),
         )
         return image
     except TypeError as ter:
