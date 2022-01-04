@@ -23,7 +23,7 @@ requirements = [
 ]
 
 test_requirements = ["pytest>=3.6", "pytest-cov"]
-doc_requirements = ["sphinx-click==1.1.0", "nbsphinx", "sphinx_rtd_theme"]
+doc_requirements = ["sphinx-click", "nbsphinx", "sphinx_rtd_theme"]
 
 extras_require = {
     "doc": doc_requirements,
@@ -48,9 +48,9 @@ setup(
         "License :: OSI Approved :: BSD License",
         "Natural Language :: English",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
     ],
     description="Tool to convert geopandas vector data into rasterized xarray data.",
     entry_points={"console_scripts": ["geocube=geocube.cli.geocube:geocube"]},
@@ -67,5 +67,5 @@ setup(
     url="https://github.com/corteva/geocube",
     version=__version__,
     zip_safe=False,
-    python_requires=">=3.7",
+    python_requires=">=3.8",
 )

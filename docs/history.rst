@@ -3,6 +3,7 @@ History
 
 Latest
 -------
+- DEP: Drop Python 3.7 Support (issue #86)
 - BUG: Updated logic to skip rasterizing strings for numpy 1.22+ (issue #88)
 
 0.1.0
