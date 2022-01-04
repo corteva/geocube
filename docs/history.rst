@@ -3,7 +3,7 @@ History
 
 Latest
 -------
-
+- BUG: Updated logic to skip rasterizing strings for numpy 1.22+ (issue #88)
 
 0.1.0
 ------

@@ -8,7 +8,12 @@ import rasterio.features
 from rasterio.enums import MergeAlg
 from scipy.interpolate import Rbf, griddata
 
-from geocube.logger import get_logger
+
+def _is_numeric(data_values):
+    """
+    Check if array data type is numeric.
+    """
+    return numpy.issubdtype(data_values.dtype.type, numpy.number)
 
 
 def _remove_missing_data(data_values, geometry_array):
@@ -91,28 +96,23 @@ def rasterize_image(
         The vector data in the rasterized format.
 
     """
-    logger = get_logger()
+    if not _is_numeric(data_values):
+        # only numbers can be rasterized
+        return None
 
-    try:
-        if filter_nan:
-            data_values, geometry_array = _remove_missing_data(
-                data_values, geometry_array
-            )
-        image = rasterio.features.rasterize(
-            zip(geometry_array.values, data_values),
-            out_shape=(geobox.height, geobox.width),
-            transform=geobox.affine,
-            fill=fill,
-            all_touched=all_touched,
-            merge_alg=merge_alg,
-            dtype=_minimize_dtype(data_values.dtype, fill),
-        )
-        return image
-    except TypeError as ter:
-        if "cannot perform reduce with flexible type" in str(ter):
-            logger.warning(f"{ter}")
-            return None
-        raise
+    if filter_nan:
+        data_values, geometry_array = _remove_missing_data(data_values, geometry_array)
+
+    image = rasterio.features.rasterize(
+        zip(geometry_array.values, data_values),
+        out_shape=(geobox.height, geobox.width),
+        transform=geobox.affine,
+        fill=fill,
+        all_touched=all_touched,
+        merge_alg=merge_alg,
+        dtype=_minimize_dtype(data_values.dtype, fill),
+    )
+    return image
 
 
 def rasterize_points_griddata(
@@ -155,25 +155,21 @@ def rasterize_points_griddata(
     :class:`numpy.ndarray`: An interpolated :class:`numpy.ndarray`.
 
     """
-    if data_values.dtype == object:
+    if not _is_numeric(data_values):
+        # only numbers can be rasterized
         return None
-    try:
-        if filter_nan:
-            data_values, geometry_array = _remove_missing_data(
-                data_values, geometry_array
-            )
-        return griddata(
-            points=(geometry_array.x, geometry_array.y),
-            values=data_values,
-            xi=tuple(numpy.meshgrid(grid_coords["x"], grid_coords["y"])),
-            method=method,
-            fill_value=fill,
-            rescale=rescale,
-        )
-    except ValueError as ver:
-        if "could not convert string to float" in str(ver):
-            return None
-        raise
+
+    if filter_nan:
+        data_values, geometry_array = _remove_missing_data(data_values, geometry_array)
+
+    return griddata(
+        points=(geometry_array.x, geometry_array.y),
+        values=data_values,
+        xi=tuple(numpy.meshgrid(grid_coords["x"], grid_coords["y"])),
+        method=method,
+        fill_value=fill,
+        rescale=rescale,
+    )
 
 
 def rasterize_points_radial(
@@ -212,17 +208,12 @@ def rasterize_points_radial(
     :class:`numpy.ndarray`: An interpolated :class:`numpy.ndarray`.
 
     """
-    logger = get_logger()
+    if not _is_numeric(data_values):
+        # only numbers can be rasterized
+        return None
 
-    try:
-        if filter_nan:
-            data_values, geometry_array = _remove_missing_data(
-                data_values, geometry_array
-            )
-        interp = Rbf(geometry_array.x, geometry_array.y, data_values, function=method)
-        return interp(*numpy.meshgrid(grid_coords["x"], grid_coords["y"]))
-    except ValueError as ter:
-        if "object arrays are not supported" in str(ter):
-            logger.warning(f"{ter}")
-            return None
-        raise
+    if filter_nan:
+        data_values, geometry_array = _remove_missing_data(data_values, geometry_array)
+
+    interp = Rbf(geometry_array.x, geometry_array.y, data_values, function=method)
+    return interp(*numpy.meshgrid(grid_coords["x"], grid_coords["y"]))
