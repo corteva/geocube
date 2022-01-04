@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Example - Rasterizing Point Data &mdash; geocube 0.1.1.dev0 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <title>Example - Rasterizing Point Data &mdash; geocube 0.1.1.dev0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "tex2jax_ignore|mathjax_ignore|document", "processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -41,7 +43,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../readme.html">geocube README</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
@@ -367,8 +369,8 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="Example---Rasterizing-Point-Data">
-<h1>Example - Rasterizing Point Data<a class="headerlink" href="#Example---Rasterizing-Point-Data" title="Permalink to this headline">¶</a></h1>
+<section id="Example---Rasterizing-Point-Data">
+<h1>Example - Rasterizing Point Data<a class="headerlink" href="#Example---Rasterizing-Point-Data" title="Permalink to this headline"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -386,8 +388,8 @@ from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
 </pre></div>
 </div>
 </div>
-<div class="section" id="Load-in-geopackage-data-and-add-CRS">
-<h2>Load in geopackage data and add CRS<a class="headerlink" href="#Load-in-geopackage-data-and-add-CRS" title="Permalink to this headline">¶</a></h2>
+<section id="Load-in-geopackage-data-and-add-CRS">
+<h2>Load in geopackage data and add CRS<a class="headerlink" href="#Load-in-geopackage-data-and-add-CRS" title="Permalink to this headline"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -476,13 +478,13 @@ from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
 </table>
 </div></div>
 </div>
-</div>
-<div class="section" id="Convert-to-raster-with-GeoCube">
-<h2>Convert to raster with GeoCube<a class="headerlink" href="#Convert-to-raster-with-GeoCube" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Convert-to-raster-with-GeoCube">
+<h2>Convert to raster with GeoCube<a class="headerlink" href="#Convert-to-raster-with-GeoCube" title="Permalink to this headline"></a></h2>
 <p>See docs for <a class="reference internal" href="../geocube.html#make-geocube"><span class="std std-ref">make_geocube</span></a></p>
-</div>
-<div class="section" id="Load-into-grid-with-griddata-nearest-resampling">
-<h2>Load into grid with griddata nearest resampling<a class="headerlink" href="#Load-into-grid-with-griddata-nearest-resampling" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Load-into-grid-with-griddata-nearest-resampling">
+<h2>Load into grid with griddata nearest resampling<a class="headerlink" href="#Load-into-grid-with-griddata-nearest-resampling" title="Permalink to this headline"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -545,9 +547,9 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 <img alt="../_images/examples_rasterize_point_data_9_1.png" src="../_images/examples_rasterize_point_data_9_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="Load-into-grid-with-griddata-cubic-resampling">
-<h2>Load into grid with griddata cubic resampling<a class="headerlink" href="#Load-into-grid-with-griddata-cubic-resampling" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Load-into-grid-with-griddata-cubic-resampling">
+<h2>Load into grid with griddata cubic resampling<a class="headerlink" href="#Load-into-grid-with-griddata-cubic-resampling" title="Permalink to this headline"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -586,9 +588,9 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 <img alt="../_images/examples_rasterize_point_data_12_1.png" src="../_images/examples_rasterize_point_data_12_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="Load-into-user-defined-grid-with-radial-linear-resampling">
-<h2>Load into user-defined grid with radial linear resampling<a class="headerlink" href="#Load-into-user-defined-grid-with-radial-linear-resampling" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Load-into-user-defined-grid-with-radial-linear-resampling">
+<h2>Load into user-defined grid with radial linear resampling<a class="headerlink" href="#Load-into-user-defined-grid-with-radial-linear-resampling" title="Permalink to this headline"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
@@ -629,9 +631,9 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 <img alt="../_images/examples_rasterize_point_data_15_1.png" src="../_images/examples_rasterize_point_data_15_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="Load-into-user-defined-grid-with-radial-cubic-resampling">
-<h2>Load into user-defined grid with radial cubic resampling<a class="headerlink" href="#Load-into-user-defined-grid-with-radial-cubic-resampling" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Load-into-user-defined-grid-with-radial-cubic-resampling">
+<h2>Load into user-defined grid with radial cubic resampling<a class="headerlink" href="#Load-into-user-defined-grid-with-radial-cubic-resampling" title="Permalink to this headline"></a></h2>
 <p>Note: This example is simply to demonstrate the option and and would need to be adjusted for better results. As seen in the plot below, the values swelled quite a bit due to the input generating an ill-conditioned matrix.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
@@ -682,8 +684,8 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 <img alt="../_images/examples_rasterize_point_data_18_1.png" src="../_images/examples_rasterize_point_data_18_1.png" />
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

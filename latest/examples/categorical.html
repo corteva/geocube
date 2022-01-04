@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Example - Categorical Data &mdash; geocube 0.1.1.dev0 documentation</title><link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <title>Example - Categorical Data &mdash; geocube 0.1.1.dev0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "tex2jax_ignore|mathjax_ignore|document", "processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -41,7 +43,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../readme.html">geocube README</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
@@ -368,8 +370,8 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="Example---Categorical-Data">
-<h1>Example - Categorical Data<a class="headerlink" href="#Example---Categorical-Data" title="Permalink to this headline">¶</a></h1>
+<section id="Example---Categorical-Data">
+<h1>Example - Categorical Data<a class="headerlink" href="#Example---Categorical-Data" title="Permalink to this headline"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -383,8 +385,8 @@ from geocube.api.core import make_geocube
 </pre></div>
 </div>
 </div>
-<div class="section" id="Load-in-soil-data">
-<h2>Load in soil data<a class="headerlink" href="#Load-in-soil-data" title="Permalink to this headline">¶</a></h2>
+<section id="Load-in-soil-data">
+<h2>Load in soil data<a class="headerlink" href="#Load-in-soil-data" title="Permalink to this headline"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -418,9 +420,9 @@ ssurgo_data[ssurgo_data.hzdept_r==15].plot(column=&#39;sandtotal_r&#39;)
 <img alt="../_images/examples_categorical_4_1.png" src="../_images/examples_categorical_4_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="Generate-categories-for-categorical-data">
-<h2>Generate categories for categorical data<a class="headerlink" href="#Generate-categories-for-categorical-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Generate-categories-for-categorical-data">
+<h2>Generate categories for categorical data<a class="headerlink" href="#Generate-categories-for-categorical-data" title="Permalink to this headline"></a></h2>
 <p>If your data is only a subset of all of the data, the list of categories you get will likely not be complete.</p>
 <p>NOTE: The categories will be made unique and sorted internally if they are not already.</p>
 <div class="nbinput docutils container">
@@ -470,9 +472,9 @@ drclasses_complete = [
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="Convert-data-to-grid">
-<h2>Convert data to grid<a class="headerlink" href="#Convert-data-to-grid" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Convert-data-to-grid">
+<h2>Convert data to grid<a class="headerlink" href="#Convert-data-to-grid" title="Permalink to this headline"></a></h2>
 <p>See docs for <a class="reference internal" href="../geocube.html#make-geocube"><span class="std std-ref">make_geocube</span></a></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
@@ -544,9 +546,9 @@ clay_slice.where(clay_slice!=out_grid.claytotal_r.rio.nodata).plot()
 <img alt="../_images/examples_categorical_13_1.png" src="../_images/examples_categorical_13_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="Dealing-with-categorical-data">
-<h2>Dealing with categorical data<a class="headerlink" href="#Dealing-with-categorical-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Dealing-with-categorical-data">
+<h2>Dealing with categorical data<a class="headerlink" href="#Dealing-with-categorical-data" title="Permalink to this headline"></a></h2>
 <p>Because the data needs to be numerical for conversion from vector to raster, the code displays the categories as numbers. To convert back to strings, you will need to use the categories provided to convert back.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -711,8 +713,8 @@ pdf.head()
 </table>
 </div></div>
 </div>
-<div class="section" id="Make-sure-all-categories-are-represented">
-<h3>Make sure all categories are represented<a class="headerlink" href="#Make-sure-all-categories-are-represented" title="Permalink to this headline">¶</a></h3>
+<section id="Make-sure-all-categories-are-represented">
+<h3>Make sure all categories are represented<a class="headerlink" href="#Make-sure-all-categories-are-represented" title="Permalink to this headline"></a></h3>
 <p>To do this, convert the column type to categorical beforehand and make sure that you include all of the possible categories.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
@@ -900,9 +902,9 @@ Index([&#39;hzdepb_r&#39;, &#39;claytotal_r&#39;, &#39;sandtotal_r&#39;, &#39;si
       dtype=&#39;object&#39;)
 </pre></div></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
