@@ -111,14 +111,33 @@
 <h2>Stable release<a class="headerlink" href="#stable-release" title="Permalink to this headline">¶</a></h2>
 <p>Use pip to install from <a class="reference external" href="https://pypi.org/project/geocube/">PyPI</a>:</p>
 <p>Install from pip:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install geocube
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m pip install geocube
 </pre></div>
 </div>
 <p>Use <a class="reference external" href="https://conda.io/en/latest/">conda</a> with the <a class="reference external" href="https://conda-forge.org/">conda-forge</a> channel:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda config --prepend channels conda-forge
 conda config --set channel_priority strict
-conda install geocube
+conda create -n geocube_env geocube
+conda activate geocube_env
 </pre></div>
+</div>
+<ul class="simple">
+<li><cite>geocube</cite> <a class="reference external" href="http://github.com/conda-forge/geocube-feedstock">conda-forge repository</a></li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">“… we recommend always installing your packages inside a
+new environment instead of the base environment from
+anaconda/miniconda. Using envs make it easier to
+debug problems with packages and ensure the stability
+of your root env.”
+– <a class="reference external" href="https://conda-forge.org/docs/user/tipsandtricks.html">https://conda-forge.org/docs/user/tipsandtricks.html</a></p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Avoid using <cite>pip install</cite> with a conda environment. If you encounter
+a python package that isn’t in conda-forge, consider submitting a
+recipe: <a class="reference external" href="https://github.com/conda-forge/staged-recipes/">https://github.com/conda-forge/staged-recipes/</a></p>
 </div>
 </div>
 <div class="section" id="from-source">

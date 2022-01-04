@@ -308,7 +308,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
+.prompt .copybtn {
     display: none;
 }
 
@@ -374,8 +374,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>import geopandas as gpd
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import geopandas as gpd
 import pandas
 
 from geocube.api.core import make_geocube
@@ -390,8 +389,7 @@ from geocube.api.core import make_geocube
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>ssurgo_data = gpd.read_file(&quot;../../test/test_data/input/soil_data_group.geojson&quot;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ssurgo_data = gpd.read_file(&quot;../../test/test_data/input/soil_data_group.geojson&quot;)
 </pre></div>
 </div>
 </div>
@@ -399,8 +397,7 @@ from geocube.api.core import make_geocube
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># original data
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># original data
 ssurgo_data[ssurgo_data.hzdept_r==15].plot(column=&#39;sandtotal_r&#39;)
 </pre></div>
 </div>
@@ -430,8 +427,7 @@ ssurgo_data[ssurgo_data.hzdept_r==15].plot(column=&#39;sandtotal_r&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># this is only a subset of all of the classes
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># this is only a subset of all of the classes
 ssurgo_data.drclassdcd.drop_duplicates().values.tolist()
 </pre></div>
 </div>
@@ -452,8 +448,7 @@ ssurgo_data.drclassdcd.drop_duplicates().values.tolist()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># complete list of categories
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># complete list of categories
 drclasses_complete = [
     &#39;Poorly drained&#39;,
     &#39;Somewhat poorly drained&#39;,
@@ -471,8 +466,7 @@ drclasses_complete = [
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>categorical_enums = {&#39;drclassdcd&#39;: drclasses_complete}
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>categorical_enums = {&#39;drclassdcd&#39;: drclasses_complete}
 </pre></div>
 </div>
 </div>
@@ -484,8 +478,7 @@ drclasses_complete = [
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>out_grid = make_geocube(
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>out_grid = make_geocube(
     vector_data=ssurgo_data,
     output_crs=&quot;epsg:32615&quot;,
     group_by=&#39;hzdept_r&#39;,
@@ -499,8 +492,7 @@ drclasses_complete = [
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>out_grid
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>out_grid
 </pre></div>
 </div>
 </div>
@@ -530,8 +522,7 @@ Attributes:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># mask nodata and plot
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># mask nodata and plot
 clay_slice = out_grid.claytotal_r.sel(hzdept_r=15)
 clay_slice.where(clay_slice!=out_grid.claytotal_r.rio.nodata).plot()
 </pre></div>
@@ -561,8 +552,7 @@ clay_slice.where(clay_slice!=out_grid.claytotal_r.rio.nodata).plot()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>drclassdcd_slice = out_grid.drclassdcd.sel(hzdept_r=15)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>drclassdcd_slice = out_grid.drclassdcd.sel(hzdept_r=15)
 drclassdcd_slice.where(drclassdcd_slice!=out_grid.drclassdcd.rio.nodata).plot()
 </pre></div>
 </div>
@@ -587,8 +577,7 @@ drclassdcd_slice.where(drclassdcd_slice!=out_grid.drclassdcd.rio.nodata).plot()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>drclassdcd_string = out_grid[&#39;drclassdcd_categories&#39;][out_grid[&#39;drclassdcd&#39;].astype(int)]\
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>drclassdcd_string = out_grid[&#39;drclassdcd_categories&#39;][out_grid[&#39;drclassdcd&#39;].astype(int)]\
     .drop(&#39;drclassdcd_categories&#39;)
 </pre></div>
 </div>
@@ -597,8 +586,7 @@ drclassdcd_slice.where(drclassdcd_slice!=out_grid.drclassdcd.rio.nodata).plot()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>out_grid[&#39;drclassdcd&#39;] = drclassdcd_string
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>out_grid[&#39;drclassdcd&#39;] = drclassdcd_string
 out_grid
 </pre></div>
 </div>
@@ -629,8 +617,7 @@ Attributes:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>pdf = out_grid.drop([&#39;spatial_ref&#39;, &#39;drclassdcd_categories&#39;]).to_dataframe()
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pdf = out_grid.drop([&#39;spatial_ref&#39;, &#39;drclassdcd_categories&#39;]).to_dataframe()
 pdf.head()
 </pre></div>
 </div>
@@ -731,8 +718,7 @@ pdf.head()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>cat_dtype = pandas.api.types.CategoricalDtype(out_grid.drclassdcd_categories.values)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cat_dtype = pandas.api.types.CategoricalDtype(out_grid.drclassdcd_categories.values)
 pdf[&#39;drclassdcd&#39;] = pdf[&#39;drclassdcd&#39;].astype(cat_dtype)
 </pre></div>
 </div>
@@ -741,8 +727,7 @@ pdf[&#39;drclassdcd&#39;] = pdf[&#39;drclassdcd&#39;].astype(cat_dtype)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>training_df = pandas.get_dummies(pdf, columns=[&#39;drclassdcd&#39;])
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>training_df = pandas.get_dummies(pdf, columns=[&#39;drclassdcd&#39;])
 training_df.head()
 </pre></div>
 </div>
@@ -896,8 +881,7 @@ training_df.head()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>training_df.columns
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>training_df.columns
 </pre></div>
 </div>
 </div>

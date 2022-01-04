@@ -307,7 +307,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
+.prompt .copybtn {
     display: none;
 }
 
@@ -373,8 +373,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>import json
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import json
 from functools import partial
 
 import geopandas as gpd
@@ -393,8 +392,7 @@ from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>gdf = gpd.read_file(
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gdf = gpd.read_file(
     &quot;../../test/test_data/input/time_vector_data.geojson&quot;,
     crs=&quot;epsg:4326&quot;
 )
@@ -405,8 +403,7 @@ from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>gdf.head()
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gdf.head()
 </pre></div>
 </div>
 </div>
@@ -490,8 +487,7 @@ from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>geo_grid = make_geocube(
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>geo_grid = make_geocube(
     vector_data=gdf,
     measurements=[&#39;test_attr&#39;],
     resolution=(-0.1, 0.00001),
@@ -504,8 +500,7 @@ from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>geo_grid
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>geo_grid
 </pre></div>
 </div>
 </div>
@@ -529,8 +524,7 @@ Attributes:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># mask nodata and plot
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># mask nodata and plot
 geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot()
 </pre></div>
 </div>
@@ -558,8 +552,7 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>geo_grid = make_geocube(
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>geo_grid = make_geocube(
     vector_data=gdf,
     measurements=[&#39;test_attr&#39;],
     resolution=(-0.1, 0.00001),
@@ -572,8 +565,7 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># mask nodata and plot
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># mask nodata and plot
 geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot()
 </pre></div>
 </div>
@@ -601,8 +593,7 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>geo_grid = make_geocube(
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>geo_grid = make_geocube(
     vector_data=gdf,
     measurements=[&#39;test_attr&#39;],
     geom=json.dumps(mapping(box(-48, 44, -47, 45))),
@@ -617,8 +608,7 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># mask nodata and plot
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># mask nodata and plot
 geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot()
 </pre></div>
 </div>
@@ -647,8 +637,7 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>geo_grid = make_geocube(
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>geo_grid = make_geocube(
     vector_data=gdf,
     measurements=[&#39;test_attr&#39;],
     geom=json.dumps(mapping(box(-48, 44, -47, 45))),
@@ -672,8 +661,7 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span># mask nodata and plot
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># mask nodata and plot
 geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot()
 </pre></div>
 </div>
