@@ -1,8 +1,9 @@
 History
 =======
 
-Latest
+0.1.2
 ------
+- BUG: Fix width and height order to the one used in rioxarray (issue #93)
 
 0.1.1
 -------
