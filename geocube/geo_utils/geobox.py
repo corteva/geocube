@@ -40,7 +40,7 @@ def geobox_from_rio(xds):
     :obj:`datacube.utils.geometry.GeoBox`
 
     """
-    width, height = xds.rio.shape
+    height, width = xds.rio.shape
     try:
         transform = xds.rio.transform()
     except AttributeError:
