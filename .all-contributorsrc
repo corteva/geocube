@@ -83,6 +83,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "BENR0",
+      "name": "BENR0",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12115839?v=4",
+      "profile": "https://github.com/BENR0",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7
