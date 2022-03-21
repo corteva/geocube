@@ -7,24 +7,14 @@ import os
 
 import geopandas
 import rioxarray  # noqa: F401 pylint: disable=unused-import
-from datacube.utils import geometry
-from packaging import version
+from odc.geo import resyx_, wh_
+from odc.geo.crs import CRS
+from odc.geo.geobox import GeoBox
+from odc.geo.geom import Geometry
 from shapely.geometry import box, mapping
 
 from geocube.exceptions import VectorDataError
 from geocube.logger import get_logger
-
-try:
-    from rioxarray.crs import crs_to_wkt
-except ImportError:
-    # rioxarray 0.3+
-    from rioxarray.crs import crs_from_user_input
-
-    def crs_to_wkt(input_crs):
-        """
-        Convert CRS input to WKT format
-        """
-        return crs_from_user_input(input_crs).to_wkt()
 
 
 def geobox_from_rio(xds):
@@ -37,7 +27,7 @@ def geobox_from_rio(xds):
 
     Returns
     -------
-    :obj:`datacube.utils.geometry.GeoBox`
+    :obj:`odc.geo.geobox.GeoBox`
 
     """
     height, width = xds.rio.shape
@@ -45,11 +35,10 @@ def geobox_from_rio(xds):
         transform = xds.rio.transform()
     except AttributeError:
         transform = xds[xds.rio.vars[0]].rio.transform()
-    return geometry.GeoBox(
-        width=width,
-        height=height,
+    return GeoBox(
+        shape=wh_(width, height),
         affine=transform,
-        crs=geometry.CRS(crs_to_wkt(xds.rio.crs)),
+        crs=CRS(xds.rio.crs),
     )
 
 
@@ -91,38 +80,6 @@ def load_vector_data(vector_data):
     return vector_data
 
 
-def _datacube_to_geopandas_crs(dc_crs):
-    """
-    This gets the best representation of the datacube CRS object
-    to be used by geopandas
-
-    Parameters
-    ----------
-    dc_crs: :class:`datacube.utils.geometry.CRS`
-        Input datacube CRS
-
-    Returns
-    -------
-    str:
-        Representation of CRS for geopandas.
-    """
-    # pylint: disable=protected-access
-    if version.parse(geopandas.__version__) >= version.parse("0.6.0"):
-        # this version of geopandas uses always_xy=True so WKT version is safe
-        try:
-            geo_crs = dc_crs.to_wkt()
-        except AttributeError:
-            geo_crs = dc_crs.wkt
-    else:
-        try:
-            # datacube version < 0.8 uses osgeo.osr SpatialReference
-            geo_crs = dc_crs._crs.ExportToProj4()
-        except AttributeError:
-            # datacube version 0.8+ uses pyproj.CRS
-            geo_crs = dc_crs._crs.to_proj4()
-    return geo_crs
-
-
 class GeoBoxMaker:
     """
     This class is meant for delayed GeoBox making. Stores partial information until
@@ -153,7 +110,9 @@ class GeoBoxMaker:
 
         """
         self.output_crs = output_crs
-        self.resolution = resolution
+        self.resolution = (
+            resolution if not isinstance(resolution, tuple) else resyx_(*resolution)
+        )
         self.align = align
         self.geom = geom
         self.like = like
@@ -169,7 +128,7 @@ class GeoBoxMaker:
 
         Returns
         -------
-        :obj:`datacube.utils.geometry.GeoBox`
+        :obj:`odc.geo.geobox.GeoBox`
             The geobox for the grid to be generated from the vector data.
 
         """
@@ -193,36 +152,25 @@ class GeoBoxMaker:
             raise RuntimeError("Must specify 'resolution' if 'like' not specified.")
 
         if self.output_crs:
-            crs = geometry.CRS(crs_to_wkt(self.output_crs))
+            crs = CRS(self.output_crs)
         else:
-            crs = geometry.CRS(crs_to_wkt(vector_data.crs))
+            crs = CRS(vector_data.crs)
 
         if self.geom is None and self.output_crs:
-            geopoly = geometry.Geometry(
-                mapping(
-                    box(
-                        *vector_data.to_crs(
-                            _datacube_to_geopandas_crs(crs)
-                        ).total_bounds
-                    )
-                ),
+            geopoly = Geometry(
+                mapping(box(*vector_data.to_crs(crs).total_bounds)),
                 crs=crs,
             )
         elif self.geom is None:
-            geopoly = geometry.Geometry(
-                mapping(box(*vector_data.total_bounds)), crs=crs
-            )
+            geopoly = Geometry(mapping(box(*vector_data.total_bounds)), crs=crs)
 
         else:
             geom_json = json.loads(self.geom)
-            geom_crs = geometry.CRS(
+            geom_crs = CRS(
                 geom_json["crs"]["properties"]["name"]
                 if "crs" in geom_json
                 else "epsg:4326"
             )
 
-            geopoly = geometry.Geometry(geom_json, crs=geom_crs)
-
-        return geometry.GeoBox.from_geopolygon(
-            geopoly, self.resolution, crs, self.align
-        )
+            geopoly = Geometry(geom_json, crs=geom_crs)
+        return GeoBox.from_geopolygon(geopoly, self.resolution, crs, self.align)

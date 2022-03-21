@@ -40,7 +40,7 @@ jobs:
         run: |
           conda config --prepend channels conda-forge
           conda config --set channel_priority strict
-          conda create -n test python=${{ matrix.python-version }} datacube geopandas rasterio scipy rioxarray xarray pandoc
+          conda create -n test python=${{ matrix.python-version }} odc-geo geopandas rasterio scipy rioxarray xarray netcdf4 pandoc
           source activate test
           python -m pip install -e .[all]
 

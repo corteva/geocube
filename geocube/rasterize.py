@@ -72,7 +72,7 @@ def rasterize_image(
         A geometry array of points.
     data_values: list
         Data values associated with the list of geojson shapes
-    geobox: :obj:`datacube.utils.geometry.GeoBox`
+    geobox: :obj:`odc.geo.geobox.GeoBox`
         Transform of the resulting image.
     fill: float
         The value to fill in the grid with for nodata.
