@@ -57,8 +57,8 @@ def _get_deps_info():
     deps = [
         "appdirs",
         "click",
-        "datacube",
         "geopandas",
+        "odc_geo",
         "rioxarray",
         "pyproj",
         "xarray",

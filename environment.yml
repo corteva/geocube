@@ -8,7 +8,6 @@ channels:
 - defaults
 dependencies:
 - python=3.8
-- datacube
 - geopandas
 - rasterio
 - scipy

@@ -11,7 +11,7 @@ and is powered by `GDAL <https://github.com/osgeo/gdal>`__ using:
 
 - `rasterio <https://github.com/mapbox/rasterio>`__
 - `fiona <https://github.com/toblerity/fiona>`__
-- `datacube <https://github.com/opendatacube/datacube-core>`__
+- `odc-geo <https://github.com/opendatacube/odc-geo>`__
 
 
 When getting started, the API documentation to start reading would be :func:`geocube.api.core.make_geocube`.

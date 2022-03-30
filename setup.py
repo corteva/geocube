@@ -12,9 +12,8 @@ with open("README.rst") as readme_file:
 requirements = [
     "appdirs",
     "Click>=6.0",
-    "datacube",
     "geopandas>=0.7",
-    "packaging",
+    "odc_geo",
     "rasterio",
     "rioxarray>=0.4",
     "scipy",
@@ -22,7 +21,7 @@ requirements = [
     "pyproj>=2",
 ]
 
-test_requirements = ["pytest>=3.6", "pytest-cov"]
+test_requirements = ["pytest>=3.6", "pytest-cov", "packaging", "netcdf4"]
 doc_requirements = ["sphinx-click", "nbsphinx", "sphinx_rtd_theme"]
 
 extras_require = {

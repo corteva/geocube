@@ -25,7 +25,7 @@ def test_get_deps_info():
     assert "geopandas" in deps_info
     assert "pyproj" in deps_info
     assert "xarray" in deps_info
-    assert "datacube" in deps_info
+    assert "odc_geo" in deps_info
     assert "click" in deps_info
     assert "appdirs" in deps_info
 
