@@ -22,6 +22,7 @@ Thanks goes to these wonderful people (`emoji key <https://allcontributors.org/d
       </tr>
       <tr>
         <td align="center"><a href="https://github.com/BENR0"><img src="https://avatars.githubusercontent.com/u/12115839?v=4?s=100" width="100px;" alt=""/><br /><sub><b>BENR0</b></sub></a><br /><a href="https://github.com/corteva/rioxarray/issues?q=author%3ABENR0" title="Bug reports">🐛</a></td>
+        <td align="center"><a href="https://github.com/Kirill888"><img src="https://avatars.githubusercontent.com/u/1428024?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kirill Kouzoubov</b></sub></a><br /><a href="https://github.com/corteva/rioxarray/pulls?q=is%3Apr+reviewed-by%3AKirill888" title="Reviewed Pull Requests">👀</a></td>
       </tr>
     </table>
 

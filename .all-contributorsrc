@@ -92,6 +92,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "Kirill888",
+      "name": "Kirill Kouzoubov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1428024?v=4",
+      "profile": "https://github.com/Kirill888",
+      "contributions": [
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7
