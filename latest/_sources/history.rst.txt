@@ -1,6 +1,9 @@
 History
 =======
 
+Latest
+-------
+
 0.2.0
 -------
 - DEP: Replace datacube with odc-geo (issue #90)
