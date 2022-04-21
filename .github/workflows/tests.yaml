@@ -56,8 +56,13 @@ jobs:
         shell: bash
         run: |
           source activate test
-          python -m pip install pylint
           python -m pylint geocube
+
+      - name: mypy
+        shell: bash
+        run: |
+          source activate test
+          python -m mypy geocube/
 
       - name: Test
         shell: bash

@@ -2,27 +2,36 @@
 """
 GeoCube client core functionality
 """
+import os
+from typing import Any, Callable, Dict, List, Literal, Optional, Tuple, Union
+
+import geopandas
 import numpy
+import shapely
+import xarray
+from odc.geo.geom import Geometry
 
 from geocube.geo_utils.geobox import GeoBoxMaker
 from geocube.vector_to_cube import VectorToCube
 
 
 def make_geocube(
-    vector_data,
-    measurements=None,
-    datetime_measurements=None,
-    output_crs=None,
-    resolution=None,
-    align=None,
-    geom=None,
-    like=None,
-    fill=numpy.nan,
-    group_by=None,
-    interpolate_na_method=None,
-    categorical_enums=None,
-    rasterize_function=None,
-):
+    vector_data: Union[str, os.PathLike, geopandas.GeoDataFrame],
+    measurements: Optional[List[str]] = None,
+    datetime_measurements: Optional[List[str]] = None,
+    output_crs: Any = None,
+    resolution: Optional[Union[float, Tuple[float, float]]] = None,
+    align: Optional[Tuple[float, float]] = None,
+    geom: Optional[
+        Union[str, Dict, shapely.geometry.base.BaseGeometry, Geometry]
+    ] = None,
+    like: Optional[Union[xarray.Dataset, xarray.DataArray]] = None,
+    fill: float = numpy.nan,
+    group_by: Optional[str] = None,
+    interpolate_na_method: Optional[Literal["linear", "nearest", "cubic"]] = None,
+    categorical_enums: Optional[Dict[str, List]] = None,
+    rasterize_function: Optional[Callable[..., Optional[numpy.typing.NDArray]]] = None,
+) -> xarray.Dataset:
     """
     Rasterize vector data into an ``xarray`` object.  Each attribute will be a data
     variable in the :class:`xarray.Dataset`.
@@ -39,18 +48,18 @@ def make_geocube(
     datetime_measurements: list(str), optional
         Attributes that are temporal in nature and should be converted to the datetime
         format. These are only included if listed in 'measurements'.
-    output_crs: str, optional
-        The CRS of the returned data.  If no CRS is supplied, the CRS of the
-        stored data is used.
-    resolution: (float,float), optional
-        A tuple of the spatial resolution of the returned data.
+    output_crs: Any, optional
+        The CRS of the returned data. Can be anything accepted by :obj:`pyproj.CRS`.
+        If no CRS is supplied, the CRS of the stored data is used.
+    resolution: Union[float, Tuple[float, float]], optional
+        A tuple of the spatial resolution of the returned data (Y, X).
         This includes the direction (as indicated by a positive or negative number).
         Typically when using most CRSs, the first number would be negative.
-    align: (float,float), optional
+    align: Tuple[float, float], optional
         Load data such that point 'align' lies on the pixel boundary.
         Units are in the co-ordinate space of the output CRS.
         Default is (0,0)
-    geom: str, optional
+    geom: Union[str, Dict, shapely.geometry.base.BaseGeometry, odc.geo.geom.Geometry], optional
         A GeoJSON string for the bounding box of the data used to construct the
         grid. It defaults to EPSG:4326 if a CRS is not provided.
         Example of adding CRS::
@@ -68,7 +77,7 @@ def make_geocube(
         The value to fill in the grid with for nodata. Default is NaN.
     group_by: str, optional
         When specified, perform basic combining/reducing of the data on this column.
-    interpolate_na_method:  {‘linear’, ‘nearest’, ‘cubic’}, optional
+    interpolate_na_method:  {'linear', 'nearest', 'cubic'}, optional
         This is the method for interpolation to use to fill in the nodata with
         :meth:`scipy.interpolate.griddata`.
     categorical_enums: dict, optional

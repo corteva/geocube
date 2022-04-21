@@ -4,9 +4,12 @@ This module is for GIS related utility functions.
 """
 import json
 import os
+from typing import Any, Dict, Optional, Tuple, Union
 
 import geopandas
 import rioxarray  # noqa: F401 pylint: disable=unused-import
+import shapely.geometry.base
+import xarray
 from odc.geo import resyx_, wh_
 from odc.geo.crs import CRS
 from odc.geo.geobox import GeoBox
@@ -17,7 +20,7 @@ from geocube.exceptions import VectorDataError
 from geocube.logger import get_logger
 
 
-def geobox_from_rio(xds):
+def geobox_from_rio(xds: Union[xarray.Dataset, xarray.DataArray]) -> GeoBox:
     """This function retrieves the geobox using rioxarray extension.
 
     Parameters
@@ -42,7 +45,9 @@ def geobox_from_rio(xds):
     )
 
 
-def load_vector_data(vector_data):
+def load_vector_data(
+    vector_data: Union[str, os.PathLike, geopandas.GeoDataFrame]
+) -> geopandas.GeoDataFrame:
     """
     Parameters
     ----------
@@ -86,25 +91,32 @@ class GeoBoxMaker:
     all information needed is obtained.
     """
 
-    def __init__(self, output_crs, resolution, align, geom, like):
+    def __init__(
+        self,
+        output_crs: Any,
+        resolution: Optional[Union[float, Tuple[float, float]]],
+        align: Optional[Tuple[float, float]],
+        geom: Optional[Union[str, Dict, shapely.geometry.base.BaseGeometry, Geometry]],
+        like: Optional[Union[xarray.Dataset, xarray.DataArray]],
+    ) -> None:
         """Get the geobox to use for the grid.
 
         Parameters
         ----------
-        output_crs: str, optional
+        output_crs: Any, optional
             The CRS of the returned data.  If no CRS is supplied, the CRS of
              the stored data is used.
-        resolution: (float,float), optional
+        resolution: Union[float, Tuple[float, float]], optional
             A tuple of the spatial resolution of the returned data.
             This includes the direction (as indicated by a positive or negative number).
             Typically when using most CRSs, the first number would be negative.
-        align: (float,float), optional
+        align: Tuple[float, float], optional
             Load data such that point 'align' lies on the pixel boundary.
             Units are in the co-ordinate space of the output CRS.
             Default is (0,0)
-        geom: str, optional
+        geom: Union[str, Dict, shapely.geometry.base.BaseGeometry, odc.geo.geom.Geometry], optional
             A GeoJSON string for the bounding box of the data.
-        like: :obj:`xarray.Dataset`, optional
+        like: :obj:`xarray.Dataset` | :obj:`xarray.DataArray`, optional
             Uses the output of a previous ``load()`` to form the basis of a request for
             another product.
 
@@ -113,11 +125,16 @@ class GeoBoxMaker:
         self.resolution = (
             resolution if not isinstance(resolution, tuple) else resyx_(*resolution)
         )
-        self.align = align
+        self.align = None if align is None else resyx_(*align)
+
+        if isinstance(geom, str):
+            geom = json.loads(geom)
         self.geom = geom
         self.like = like
 
-    def from_vector(self, vector_data):
+    def from_vector(
+        self, vector_data: Union[str, os.PathLike, geopandas.GeoDataFrame]
+    ) -> GeoBox:
         """Get the geobox to use for the grid.
 
         Parameters
@@ -165,12 +182,9 @@ class GeoBoxMaker:
             geopoly = Geometry(mapping(box(*vector_data.total_bounds)), crs=crs)
 
         else:
-            geom_json = json.loads(self.geom)
-            geom_crs = CRS(
-                geom_json["crs"]["properties"]["name"]
-                if "crs" in geom_json
-                else "epsg:4326"
-            )
-
-            geopoly = Geometry(geom_json, crs=geom_crs)
+            crs_input = "EPSG:4326"
+            if isinstance(self.geom, dict) and "crs" in self.geom:
+                crs_input = self.geom["crs"]["properties"]["name"]
+            geom_crs = CRS(crs_input)
+            geopoly = Geometry(self.geom, crs=geom_crs)
         return GeoBox.from_geopolygon(geopoly, self.resolution, crs, self.align)

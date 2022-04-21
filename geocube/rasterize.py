@@ -2,21 +2,28 @@
 """
 This module contains tools for rasterizing vector data.
 """
+from typing import Dict, Optional, Tuple
+
+import geopandas
 import numpy
+import odc.geo.geobox
 import pandas
 import rasterio.features
 from rasterio.enums import MergeAlg
 from scipy.interpolate import Rbf, griddata
 
 
-def _is_numeric(data_values):
+def _is_numeric(data_values: numpy.typing.NDArray) -> bool:
     """
     Check if array data type is numeric.
     """
     return numpy.issubdtype(data_values.dtype.type, numpy.number)
 
 
-def _remove_missing_data(data_values, geometry_array):
+def _remove_missing_data(
+    data_values: numpy.typing.NDArray,
+    geometry_array: geopandas.GeoSeries,
+) -> Tuple[numpy.typing.NDArray, geopandas.GeoSeries]:
     """
     Missing data causes issues with interpolation of point data
     https://github.com/corteva/geocube/issues/9
@@ -29,7 +36,7 @@ def _remove_missing_data(data_values, geometry_array):
     return data_values, geometry_array
 
 
-def _minimize_dtype(dtype, fill):
+def _minimize_dtype(dtype: numpy.dtype, fill: float) -> numpy.dtype:
     """
     If int64, convert to float64:
     https://github.com/OSGeo/gdal/issues/3325
@@ -45,7 +52,7 @@ def _minimize_dtype(dtype, fill):
             dtype = numpy.dtype("float64")
         if numpy.isnan(fill):
             dtype = (
-                numpy.dtype("float64") if dtype.itemsize > 2 else numpy.dtype("float32")
+                numpy.dtype("float64") if dtype.itemsize > 2 else numpy.dtype("float32")  # type: ignore
             )
     elif not numpy.issubdtype(dtype, numpy.floating):
         # default to float64 for non-integer/float types
@@ -54,21 +61,21 @@ def _minimize_dtype(dtype, fill):
 
 
 def rasterize_image(
-    geometry_array,
-    data_values,
-    geobox,
-    fill,
-    merge_alg=MergeAlg.replace,
-    filter_nan=False,
-    all_touched=False,
+    geometry_array: geopandas.GeoSeries,
+    data_values: numpy.typing.NDArray,
+    geobox: odc.geo.geobox.GeoBox,
+    fill: float,
+    merge_alg: MergeAlg = MergeAlg.replace,
+    filter_nan: bool = False,
+    all_touched: bool = False,
     **ignored_kwargs,
-):
+) -> Optional[numpy.typing.NDArray]:
     """
     Rasterize a list of shapes+values for a given GeoBox.
 
     Parameters
     -----------
-    geometry_array: geopandas.GeometryArray
+    geometry_array: geopandas.GeoSeries
         A geometry array of points.
     data_values: list
         Data values associated with the list of geojson shapes
@@ -116,22 +123,22 @@ def rasterize_image(
 
 
 def rasterize_points_griddata(
-    geometry_array,
-    data_values,
-    grid_coords,
-    fill,
-    method="nearest",
-    rescale=False,
-    filter_nan=False,
+    geometry_array: geopandas.GeoSeries,
+    data_values: numpy.typing.NDArray,
+    grid_coords: Dict[str, numpy.typing.NDArray],
+    fill: float,
+    method: str = "nearest",
+    rescale: bool = False,
+    filter_nan: bool = False,
     **ignored_kwargs,
-):
+) -> Optional[numpy.typing.NDArray]:
     """
     This method uses scipy.interpolate.griddata to interpolate point data
     to a grid.
 
     Parameters
     ----------
-    geometry_array: geopandas.GeometryArray
+    geometry_array: geopandas.GeoSeries
         A geometry array of points.
     data_values: list
         Data values associated with the list of geojson shapes
@@ -139,7 +146,7 @@ def rasterize_points_griddata(
         Output from `rioxarray.rioxarray.affine_to_coords`
     fill: float
         The value to fill in the grid with for nodata.
-    method: {‘linear’, ‘nearest’, ‘cubic’}, optional
+    method: {'linear', 'nearest', 'cubic'}, optional
         The method to use for interpolation in `scipy.interpolate.griddata`.
     rescale: bool, optional
         Rescale points to unit cube before performing interpolation. Default is false.
@@ -173,20 +180,20 @@ def rasterize_points_griddata(
 
 
 def rasterize_points_radial(
-    geometry_array,
-    data_values,
-    grid_coords,
-    method="linear",
+    geometry_array: geopandas.GeoSeries,
+    data_values: numpy.typing.NDArray,
+    grid_coords: Dict[str, numpy.typing.NDArray],
+    method: str = "linear",
     filter_nan=False,
     **ignored_kwargs,
-):
+) -> Optional[numpy.typing.NDArray]:
     """
     This method uses scipy.interpolate.Rbf to interpolate point data
     to a grid.
 
     Parameters
     ----------
-    geometry_array: geopandas.GeometryArray
+    geometry_array: geopandas.GeoSeries
         A geometry array of points.
     data_values: list
         Data values associated with the list of geojson shapes
