@@ -79,27 +79,36 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">GeoCube client core functionality</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">geopandas</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">shapely</span>
+<span class="kn">import</span> <span class="nn">xarray</span>
+<span class="kn">from</span> <span class="nn">odc.geo.geom</span> <span class="kn">import</span> <span class="n">Geometry</span>
 
 <span class="kn">from</span> <span class="nn">geocube.geo_utils.geobox</span> <span class="kn">import</span> <span class="n">GeoBoxMaker</span>
 <span class="kn">from</span> <span class="nn">geocube.vector_to_cube</span> <span class="kn">import</span> <span class="n">VectorToCube</span>
 
 
 <div class="viewcode-block" id="make_geocube"><a class="viewcode-back" href="../../../geocube.html#geocube.api.core.make_geocube">[docs]</a><span class="k">def</span> <span class="nf">make_geocube</span><span class="p">(</span>
-    <span class="n">vector_data</span><span class="p">,</span>
-    <span class="n">measurements</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">datetime_measurements</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">output_crs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">align</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">geom</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">like</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">fill</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
-    <span class="n">group_by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">interpolate_na_method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">categorical_enums</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">rasterize_function</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="p">):</span>
+    <span class="n">vector_data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">,</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">],</span>
+    <span class="n">measurements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">datetime_measurements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">output_crs</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">align</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">geom</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span>
+        <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">shapely</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">BaseGeometry</span><span class="p">,</span> <span class="n">Geometry</span><span class="p">]</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">like</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">xarray</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">xarray</span><span class="o">.</span><span class="n">DataArray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fill</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+    <span class="n">group_by</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">interpolate_na_method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="s2">&quot;nearest&quot;</span><span class="p">,</span> <span class="s2">&quot;cubic&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">categorical_enums</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">rasterize_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xarray</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Rasterize vector data into an ``xarray`` object.  Each attribute will be a data</span>
 <span class="sd">    variable in the :class:`xarray.Dataset`.</span>
@@ -116,18 +125,18 @@
 <span class="sd">    datetime_measurements: list(str), optional</span>
 <span class="sd">        Attributes that are temporal in nature and should be converted to the datetime</span>
 <span class="sd">        format. These are only included if listed in &#39;measurements&#39;.</span>
-<span class="sd">    output_crs: str, optional</span>
-<span class="sd">        The CRS of the returned data.  If no CRS is supplied, the CRS of the</span>
-<span class="sd">        stored data is used.</span>
-<span class="sd">    resolution: (float,float), optional</span>
-<span class="sd">        A tuple of the spatial resolution of the returned data.</span>
+<span class="sd">    output_crs: Any, optional</span>
+<span class="sd">        The CRS of the returned data. Can be anything accepted by :obj:`pyproj.CRS`.</span>
+<span class="sd">        If no CRS is supplied, the CRS of the stored data is used.</span>
+<span class="sd">    resolution: Union[float, Tuple[float, float]], optional</span>
+<span class="sd">        A tuple of the spatial resolution of the returned data (Y, X).</span>
 <span class="sd">        This includes the direction (as indicated by a positive or negative number).</span>
 <span class="sd">        Typically when using most CRSs, the first number would be negative.</span>
-<span class="sd">    align: (float,float), optional</span>
+<span class="sd">    align: Tuple[float, float], optional</span>
 <span class="sd">        Load data such that point &#39;align&#39; lies on the pixel boundary.</span>
 <span class="sd">        Units are in the co-ordinate space of the output CRS.</span>
 <span class="sd">        Default is (0,0)</span>
-<span class="sd">    geom: str, optional</span>
+<span class="sd">    geom: Union[str, Dict, shapely.geometry.base.BaseGeometry, odc.geo.geom.Geometry], optional</span>
 <span class="sd">        A GeoJSON string for the bounding box of the data used to construct the</span>
 <span class="sd">        grid. It defaults to EPSG:4326 if a CRS is not provided.</span>
 <span class="sd">        Example of adding CRS::</span>
@@ -145,7 +154,7 @@
 <span class="sd">        The value to fill in the grid with for nodata. Default is NaN.</span>
 <span class="sd">    group_by: str, optional</span>
 <span class="sd">        When specified, perform basic combining/reducing of the data on this column.</span>
-<span class="sd">    interpolate_na_method:  {‘linear’, ‘nearest’, ‘cubic’}, optional</span>
+<span class="sd">    interpolate_na_method:  {&#39;linear&#39;, &#39;nearest&#39;, &#39;cubic&#39;}, optional</span>
 <span class="sd">        This is the method for interpolation to use to fill in the nodata with</span>
 <span class="sd">        :meth:`scipy.interpolate.griddata`.</span>
 <span class="sd">    categorical_enums: dict, optional</span>
