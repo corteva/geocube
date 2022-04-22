@@ -2,17 +2,21 @@
 """
 geocube core conversion functionality
 """
+import os
+from typing import Any, Callable, Dict, List, Literal, Optional, Tuple, Union
+
+import geopandas
 import numpy
 import pandas
 import xarray
 from rioxarray.rioxarray import DEFAULT_GRID_MAP, affine_to_coords
 
-from geocube.geo_utils.geobox import load_vector_data
+from geocube.geo_utils.geobox import GeoBoxMaker, load_vector_data
 from geocube.logger import get_logger
 from geocube.rasterize import rasterize_image
 
 
-def _format_series_data(data_series):
+def _format_series_data(data_series: geopandas.GeoSeries) -> geopandas.GeoSeries:
     """
     The purpose of this function is to convert the series data into a rasterizeable
     format if possible.
@@ -45,7 +49,13 @@ class VectorToCube:
     an :obj:`xarray.DataFrame`.
     """
 
-    def __init__(self, vector_data, geobox_maker, fill=None, categorical_enums=None):
+    def __init__(
+        self,
+        vector_data: Union[str, os.PathLike, geopandas.GeoDataFrame],
+        geobox_maker: GeoBoxMaker,
+        fill: float,
+        categorical_enums: Optional[Dict[str, List]],
+    ):
         """
         Initialize the GeoCube class.
 
@@ -81,18 +91,22 @@ class VectorToCube:
                 )
 
         # define defaults
-        self._rasterize_function = rasterize_image
-        self._datetime_measurements = ()
-        self._categorical_enums = {}
+        self._rasterize_function: Callable[
+            ..., Optional[numpy.typing.NDArray]
+        ] = rasterize_image
+        self._datetime_measurements: Tuple[str, ...] = ()
+        self._categorical_enums: Dict[str, List] = {}
 
     def make_geocube(
         self,
-        measurements=None,
-        datetime_measurements=None,
-        group_by=None,
-        interpolate_na_method=None,
-        rasterize_function=None,
-    ):
+        measurements: Optional[List[str]] = None,
+        datetime_measurements: Optional[List[str]] = None,
+        group_by: Optional[str] = None,
+        interpolate_na_method: Optional[Literal["linear", "nearest", "cubic"]] = None,
+        rasterize_function: Optional[
+            Callable[..., Optional[numpy.typing.NDArray]]
+        ] = None,
+    ) -> xarray.Dataset:
         """
         Rasterize vector data into an ``xarray`` object.  Each measurement will be a
         data variable in the :class:`xarray.Dataset`.
@@ -102,16 +116,16 @@ class VectorToCube:
 
         Parameters
         ----------
-        measurements: list(str), optional
+        measurements: List[str], optional
             Attributes name or list of names to be included. If a list is specified,
             the measurements will be returned in the order requested.
             By default all available measurements are included.
-        datetime_measurements: list(str), optional
+        datetime_measurements: List[str], optional
             Attributes that are temporal in nature and should be converted to the
             datetime format. These are only included if listed in 'measurements'.
         group_by: str, optional
             When specified, perform basic combining/reducing of the data on this column.
-        interpolate_na_method:  {‘linear’, ‘nearest’, ‘cubic’}, optional
+        interpolate_na_method:  {'linear', 'nearest', 'cubic'}, optional
             This is the method for interpolation to use to fill in the nodata with
             :meth:`scipy.interpolate.griddata`.
         rasterize_function: function, optional
@@ -125,7 +139,7 @@ class VectorToCube:
 
         """
         self._rasterize_function = (
-            rasterize_image if rasterize_function is None else rasterize_function
+            rasterize_image if rasterize_function is None else rasterize_function  # type: ignore
         )
         if measurements is None:
             measurements = self._vector_data.columns.tolist()
@@ -137,10 +151,11 @@ class VectorToCube:
                 set(datetime_measurements) & set(measurements)
             )
         # reproject vector data to the projection of the output raster
-        vector_data = self._vector_data.to_crs(self._geobox.crs.wkt)
+        if self._geobox.crs is not None:
+            vector_data = self._vector_data.to_crs(self._geobox.crs)
 
         # convert to datetime
-        for datetime_measurement in self._datetime_measurements:
+        for datetime_measurement in self._datetime_measurements:  # type: ignore
             vector_data[datetime_measurement] = pandas.to_datetime(
                 vector_data[datetime_measurement]
             ).astype("datetime64[ns]")
@@ -165,7 +180,9 @@ class VectorToCube:
         )
 
     @staticmethod
-    def _get_attrs(measurement_name, fill_value):
+    def _get_attrs(
+        measurement_name: str, fill_value: float
+    ) -> Dict[str, Union[str, float]]:
         """
         Get attributes for data array.
 
@@ -186,7 +203,9 @@ class VectorToCube:
             _FillValue=fill_value,
         )
 
-    def _update_time_attrs(self, attrs, image_data):
+    def _update_time_attrs(
+        self, attrs: Dict[str, Any], image_data: numpy.typing.NDArray
+    ) -> None:
         """
         Update attributes and nodata values for time grid.
 
@@ -199,25 +218,31 @@ class VectorToCube:
 
         Returns
         -------
-        dict: Dict with attributes for data array.
+        None
         """
         attrs["units"] = "seconds from 1970-01-01T00:00:00"
         attrs["_FillValue"] = 0
         image_data[image_data == self._fill] = 0.0
 
-    def _get_dataset(self, vector_data, measurements, group_by, interpolate_na_method):
+    def _get_dataset(
+        self,
+        vector_data: geopandas.GeoDataFrame,
+        measurements: List[str],
+        group_by: Optional[str],
+        interpolate_na_method: Optional[str],
+    ) -> xarray.Dataset:
         """
         Parameters
         ----------
         vector_data: :obj:`geopandas.GeoDataFrame`
             A GeoDataFrame containing the vector data.
-        measurements: list(str), optional
+        measurements: List[str]
             Attributes name or list of names to be included. If a list is specified,
             the measurements will be returned in the order requested.
             By default all available measurements are included.
         group_by: str, optional
             When specified, perform basic combining/reducing of the data on this column.
-        interpolate_na_method:  {‘linear’, ‘nearest’, ‘cubic’}, optional
+        interpolate_na_method:  {'linear', 'nearest', 'cubic'}, optional
             This is the method for interpolation to use to fill in the nodata with
             :meth:`scipy.interpolate.griddata`.
 
@@ -241,7 +266,7 @@ class VectorToCube:
                 data_vars[measurement] = grid_array
 
         if group_by:
-            self._grid_coords[group_by] = list(vector_data.groups.keys())
+            self._grid_coords[group_by] = list(vector_data.groups.keys())  # type: ignore
 
         out_xds = xarray.Dataset(data_vars=data_vars, coords=self._grid_coords)
 
@@ -259,7 +284,12 @@ class VectorToCube:
 
         return out_xds
 
-    def _get_grouped_grid(self, grouped_dataframe, measurement_name, group_by):
+    def _get_grouped_grid(
+        self,
+        grouped_dataframe: geopandas.GeoDataFrame,
+        measurement_name: str,
+        group_by: str,
+    ) -> Optional[Tuple]:
         """Retrieve the variable data to append to the ssurgo :obj:`xarray.Dataset`.
         This method is designed specifically to work on a dataframe that has
         been grouped.
@@ -273,11 +303,11 @@ class VectorToCube:
             the measurements will be returned in the order requested.
             By default all available measurements are included.
         group_by: str
-            When specified, perform basic combining/reducing of the data on this column.
+            Perform basic combining/reducing of the data on this column.
 
         Returns
         -------
-        tuple: Options needed to create an :obj:`xarray.DataArray`.
+        Optional[Tuple]: Options needed to create an :obj:`xarray.DataArray`.
 
         """
         logger = get_logger()
@@ -319,7 +349,9 @@ class VectorToCube:
             {"grid_mapping": DEFAULT_GRID_MAP},
         )
 
-    def _get_grid(self, dataframe, measurement_name):
+    def _get_grid(
+        self, dataframe: geopandas.GeoDataFrame, measurement_name: str
+    ) -> Optional[Tuple]:
         """Retrieve the variable data to append to the ssurgo :obj:`xarray.Dataset`
         from a regular :obj:`geopandas.GeoDataFrame`.
 
@@ -334,7 +366,7 @@ class VectorToCube:
 
         Returns
         -------
-        tuple: Options needed to create an :obj:`xarray.DataArray`.
+        Optional[Tuple]: Options needed to create an :obj:`xarray.DataArray`.
 
         """
         logger = get_logger()

@@ -6,3 +6,4 @@ ignore =
     E225 # missing whitespace around operator - let black worry about that
     W503 # line break occurred before a binary operator - let black worry about that
     W504 # line break occurred adter a binary operator - let black worry about that
+    E501 # line too long - let black worry about that
