@@ -41,7 +41,7 @@ def geobox_from_rio(xds: Union[xarray.Dataset, xarray.DataArray]) -> GeoBox:
     return GeoBox(
         shape=wh_(width, height),
         affine=transform,
-        crs=CRS(xds.rio.crs),
+        crs=CRS(xds.rio.crs.to_wkt()),
     )
 
 

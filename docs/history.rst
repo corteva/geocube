@@ -3,6 +3,7 @@ History
 
 Latest
 -------
+- BUG: Handle input CRS without EPSG
 
 0.2.0
 -------
