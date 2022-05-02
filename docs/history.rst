@@ -1,9 +1,10 @@
 History
 =======
 
-Latest
+0.3.0
 -------
-- BUG: Handle input CRS without EPSG
+- BUG: Handle input CRS without EPSG (pull #105)
+- TYPE: Added type hints (pull #101)
 
 0.2.0
 -------
