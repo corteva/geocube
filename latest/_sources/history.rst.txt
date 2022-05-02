@@ -1,6 +1,9 @@
 History
 =======
 
+Latest
+------
+
 0.3.0
 -------
 - BUG: Handle input CRS without EPSG (pull #105)
