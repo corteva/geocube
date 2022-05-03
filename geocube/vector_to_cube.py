@@ -9,6 +9,7 @@ import geopandas
 import numpy
 import pandas
 import xarray
+from numpy.typing import NDArray
 from rioxarray.rioxarray import DEFAULT_GRID_MAP, affine_to_coords
 
 from geocube.geo_utils.geobox import GeoBoxMaker, load_vector_data
@@ -91,9 +92,7 @@ class VectorToCube:
                 )
 
         # define defaults
-        self._rasterize_function: Callable[
-            ..., Optional[numpy.typing.NDArray]
-        ] = rasterize_image
+        self._rasterize_function: Callable[..., Optional[NDArray]] = rasterize_image
         self._datetime_measurements: Tuple[str, ...] = ()
         self._categorical_enums: Dict[str, List] = {}
 
@@ -103,9 +102,7 @@ class VectorToCube:
         datetime_measurements: Optional[List[str]] = None,
         group_by: Optional[str] = None,
         interpolate_na_method: Optional[Literal["linear", "nearest", "cubic"]] = None,
-        rasterize_function: Optional[
-            Callable[..., Optional[numpy.typing.NDArray]]
-        ] = None,
+        rasterize_function: Optional[Callable[..., Optional[NDArray]]] = None,
     ) -> xarray.Dataset:
         """
         Rasterize vector data into an ``xarray`` object.  Each measurement will be a
@@ -203,9 +200,7 @@ class VectorToCube:
             _FillValue=fill_value,
         )
 
-    def _update_time_attrs(
-        self, attrs: Dict[str, Any], image_data: numpy.typing.NDArray
-    ) -> None:
+    def _update_time_attrs(self, attrs: Dict[str, Any], image_data: NDArray) -> None:
         """
         Update attributes and nodata values for time grid.
 
