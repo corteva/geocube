@@ -1,6 +1,9 @@
 History
 =======
 
+Latest
+------
+
 0.3.1
 ------
 - TYPE: Modified NDArray import for typing (pull #106)
