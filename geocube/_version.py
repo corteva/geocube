@@ -1,2 +1,2 @@
 """GeoCube Version"""
-__version__ = "0.3.1.dev0"
+__version__ = "0.3.1"
