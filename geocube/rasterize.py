@@ -9,11 +9,12 @@ import numpy
 import odc.geo.geobox
 import pandas
 import rasterio.features
+from numpy.typing import NDArray
 from rasterio.enums import MergeAlg
 from scipy.interpolate import Rbf, griddata
 
 
-def _is_numeric(data_values: numpy.typing.NDArray) -> bool:
+def _is_numeric(data_values: NDArray) -> bool:
     """
     Check if array data type is numeric.
     """
@@ -21,9 +22,9 @@ def _is_numeric(data_values: numpy.typing.NDArray) -> bool:
 
 
 def _remove_missing_data(
-    data_values: numpy.typing.NDArray,
+    data_values: NDArray,
     geometry_array: geopandas.GeoSeries,
-) -> Tuple[numpy.typing.NDArray, geopandas.GeoSeries]:
+) -> Tuple[NDArray, geopandas.GeoSeries]:
     """
     Missing data causes issues with interpolation of point data
     https://github.com/corteva/geocube/issues/9
@@ -62,14 +63,14 @@ def _minimize_dtype(dtype: numpy.dtype, fill: float) -> numpy.dtype:
 
 def rasterize_image(
     geometry_array: geopandas.GeoSeries,
-    data_values: numpy.typing.NDArray,
+    data_values: NDArray,
     geobox: odc.geo.geobox.GeoBox,
     fill: float,
     merge_alg: MergeAlg = MergeAlg.replace,
     filter_nan: bool = False,
     all_touched: bool = False,
     **ignored_kwargs,
-) -> Optional[numpy.typing.NDArray]:
+) -> Optional[NDArray]:
     """
     Rasterize a list of shapes+values for a given GeoBox.
 
@@ -124,14 +125,14 @@ def rasterize_image(
 
 def rasterize_points_griddata(
     geometry_array: geopandas.GeoSeries,
-    data_values: numpy.typing.NDArray,
-    grid_coords: Dict[str, numpy.typing.NDArray],
+    data_values: NDArray,
+    grid_coords: Dict[str, NDArray],
     fill: float,
     method: str = "nearest",
     rescale: bool = False,
     filter_nan: bool = False,
     **ignored_kwargs,
-) -> Optional[numpy.typing.NDArray]:
+) -> Optional[NDArray]:
     """
     This method uses scipy.interpolate.griddata to interpolate point data
     to a grid.
@@ -181,12 +182,12 @@ def rasterize_points_griddata(
 
 def rasterize_points_radial(
     geometry_array: geopandas.GeoSeries,
-    data_values: numpy.typing.NDArray,
-    grid_coords: Dict[str, numpy.typing.NDArray],
+    data_values: NDArray,
+    grid_coords: Dict[str, NDArray],
     method: str = "linear",
     filter_nan=False,
     **ignored_kwargs,
-) -> Optional[numpy.typing.NDArray]:
+) -> Optional[NDArray]:
     """
     This method uses scipy.interpolate.Rbf to interpolate point data
     to a grid.
