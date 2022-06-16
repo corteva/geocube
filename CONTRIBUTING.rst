@@ -91,7 +91,7 @@ Ready to contribute? Here's how to set up `geocube` for local development.
 
     $ flake8 geocube/ test/
     $ black --check .
-    $ py.test
+    $ pytest
 
 7. Commit your changes and push your branch to GitLab::
 
@@ -117,4 +117,4 @@ Tips
 
 To run a subset of tests::
 
-$ py.test test.test_geocube
+$ pytest test/unit/cli/test_geocube.py::test_check_version
