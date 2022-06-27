@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Core &mdash; geocube 0.3.2 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="geocube.cli package" href="cli.html" />
+    <link rel="prev" title="API Documentation" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> geocube
+          </a>
+              <div class="version">
+                0.3.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">geocube README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/examples.html">Usage Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#make-geocube">make_geocube</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rasterize">rasterize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#show-versions">show_versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-geocube.exceptions">exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cli.html">geocube.cli package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Contributors ✨</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">geocube</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">API Documentation</a> &raquo;</li>
+      <li>Core</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/geocube.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="core">
+<h1>Core<a class="headerlink" href="#core" title="Permalink to this heading"></a></h1>
+<section id="make-geocube">
+<h2>make_geocube<a class="headerlink" href="#make-geocube" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="geocube.api.core.make_geocube">
+<span class="sig-prename descclassname"><span class="pre">geocube.api.core.</span></span><span class="sig-name descname"><span class="pre">make_geocube</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">PathLike</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">GeoDataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datetime_measurements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_crs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">align</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geom</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">BaseGeometry</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Geometry</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">like</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Dataset</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataArray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">nan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolate_na_method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'linear'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'nearest'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'cubic'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categorical_enums</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rasterize_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">ScalarType</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dataset</span></span></span><a class="reference internal" href="_modules/geocube/api/core.html#make_geocube"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#geocube.api.core.make_geocube" title="Permalink to this definition"></a></dt>
+<dd><p>Rasterize vector data into an <code class="docutils literal notranslate"><span class="pre">xarray</span></code> object.  Each attribute will be a data
+variable in the <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vector_data</strong> (str, path-like object or <code class="xref py py-obj docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code>) – A file path to an OGR supported source or GeoDataFrame containing
+the vector data.</p></li>
+<li><p><strong>measurements</strong> (<em>list</em><em>(</em><em>str</em><em>)</em><em>, </em><em>optional</em>) – Attributes name or list of names to be included. If a list is specified,
+the attributes will be returned in the order requested.
+By default all available attributes are included.</p></li>
+<li><p><strong>datetime_measurements</strong> (<em>list</em><em>(</em><em>str</em><em>)</em><em>, </em><em>optional</em>) – Attributes that are temporal in nature and should be converted to the datetime
+format. These are only included if listed in ‘measurements’.</p></li>
+<li><p><strong>output_crs</strong> (<em>Any</em><em>, </em><em>optional</em>) – The CRS of the returned data. Can be anything accepted by <code class="xref py py-obj docutils literal notranslate"><span class="pre">pyproj.CRS</span></code>.
+If no CRS is supplied, the CRS of the stored data is used.</p></li>
+<li><p><strong>resolution</strong> (<em>Union</em><em>[</em><em>float</em><em>, </em><em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A tuple of the spatial resolution of the returned data (Y, X).
+This includes the direction (as indicated by a positive or negative number).
+Typically when using most CRSs, the first number would be negative.</p></li>
+<li><p><strong>align</strong> (<em>Tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em><em>, </em><em>optional</em>) – Load data such that point ‘align’ lies on the pixel boundary.
+Units are in the co-ordinate space of the output CRS.
+Default is (0,0)</p></li>
+<li><p><strong>geom</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Dict</em><em>, </em><em>shapely.geometry.base.BaseGeometry</em><em>, </em><em>odc.geo.geom.Geometry</em><em>]</em><em>, </em><em>optional</em>) – <p>A GeoJSON string for the bounding box of the data used to construct the
+grid. It defaults to EPSG:4326 if a CRS is not provided.
+Example of adding CRS:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Polygon&quot;</span><span class="p">,</span> <span class="s2">&quot;crs&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;EPSG:3857&quot;</span><span class="p">}}}</span>
+</pre></div>
+</div>
+</p></li>
+<li><p><strong>like</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>, optional) – <p>Uses the output of a previous <code class="docutils literal notranslate"><span class="pre">load()</span></code> to form the basis of a request
+for another product.
+E.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcds</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span><span class="n">vector_data</span><span class="o">=</span><span class="s1">&#39;my_vector.geopackage&#39;</span><span class="p">,</span> <span class="n">like</span><span class="o">=</span><span class="n">other_gcds</span><span class="p">)</span>
+</pre></div>
+</div>
+</p></li>
+<li><p><strong>fill</strong> (<em>float</em><em>, </em><em>optional</em>) – The value to fill in the grid with for nodata. Default is NaN.</p></li>
+<li><p><strong>group_by</strong> (<em>str</em><em>, </em><em>optional</em>) – When specified, perform basic combining/reducing of the data on this column.</p></li>
+<li><p><strong>interpolate_na_method</strong> (<em>{'linear'</em><em>, </em><em>'nearest'</em><em>, </em><em>'cubic'}</em><em>, </em><em>optional</em>) – This is the method for interpolation to use to fill in the nodata with
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">scipy.interpolate.griddata()</span></code>.</p></li>
+<li><p><strong>categorical_enums</strong> (<em>dict</em><em>, </em><em>optional</em>) – A dictionary of all categories for the table columns containing categorical
+data. The categories will be made unique and sorted if they are not already.
+E.g. {‘column_name’: [‘a’, ‘b’], ‘other_column’: [‘c’, ‘d’]}</p></li>
+<li><p><strong>rasterize_function</strong> (<em>function</em><em>, </em><em>optional</em>) – Function to rasterize geometries. Other options are available in
+<cite>geocube.rasterize</cite>. Default is <a class="reference internal" href="#geocube.rasterize.rasterize_image" title="geocube.rasterize.rasterize_image"><code class="xref py py-func docutils literal notranslate"><span class="pre">geocube.rasterize.rasterize_image()</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Requested data in a <code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="rasterize">
+<h2>rasterize<a class="headerlink" href="#rasterize" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="geocube.rasterize.rasterize_image">
+<span class="sig-prename descclassname"><span class="pre">geocube.rasterize.</span></span><span class="sig-name descname"><span class="pre">rasterize_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geometry_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">GeoSeries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">ScalarType</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geobox</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">GeoBox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge_alg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MergeAlg</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">MergeAlg.replace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_nan</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_touched</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">ignored_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">ScalarType</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/geocube/rasterize.html#rasterize_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#geocube.rasterize.rasterize_image" title="Permalink to this definition"></a></dt>
+<dd><p>Rasterize a list of shapes+values for a given GeoBox.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>geometry_array</strong> (<em>geopandas.GeoSeries</em>) – A geometry array of points.</p></li>
+<li><p><strong>data_values</strong> (<em>list</em>) – Data values associated with the list of geojson shapes</p></li>
+<li><p><strong>geobox</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">odc.geo.geobox.GeoBox</span></code>) – Transform of the resulting image.</p></li>
+<li><p><strong>fill</strong> (<em>float</em>) – The value to fill in the grid with for nodata.</p></li>
+<li><p><strong>merge_alg</strong> (<cite>rasterio.enums.MergeAlg</cite>, optional) – The algorithm for merging values into one cell. Default is <cite>MergeAlg.replace</cite>.</p></li>
+<li><p><strong>filter_nan</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, will remove nodata values from the data before rasterization.
+Default is False.</p></li>
+<li><p><strong>all_touched</strong> (<em>bool</em><em>, </em><em>optional</em>) – Passed to rasterio.features.rasterize. If True, all pixels touched by
+geometries will be burned in. If false, only pixels whose center is
+within the polygon or that are selected by Bresenham’s line algorithm
+will be burned in.</p></li>
+<li><p><strong>**ignored_kwargs</strong> – These are there to be flexible with additional rasterization methods and
+will be ignored.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The vector data in the rasterized format.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="geocube.rasterize.rasterize_points_griddata">
+<span class="sig-prename descclassname"><span class="pre">geocube.rasterize.</span></span><span class="sig-name descname"><span class="pre">rasterize_points_griddata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geometry_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">GeoSeries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">ScalarType</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">ScalarType</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'nearest'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_nan</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">ignored_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">ScalarType</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/geocube/rasterize.html#rasterize_points_griddata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#geocube.rasterize.rasterize_points_griddata" title="Permalink to this definition"></a></dt>
+<dd><p>This method uses scipy.interpolate.griddata to interpolate point data
+to a grid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>geometry_array</strong> (<em>geopandas.GeoSeries</em>) – A geometry array of points.</p></li>
+<li><p><strong>data_values</strong> (<em>list</em>) – Data values associated with the list of geojson shapes</p></li>
+<li><p><strong>grid_coords</strong> (<em>dict</em>) – Output from <cite>rioxarray.rioxarray.affine_to_coords</cite></p></li>
+<li><p><strong>fill</strong> (<em>float</em>) – The value to fill in the grid with for nodata.</p></li>
+<li><p><strong>method</strong> (<em>{'linear'</em><em>, </em><em>'nearest'</em><em>, </em><em>'cubic'}</em><em>, </em><em>optional</em>) – The method to use for interpolation in <cite>scipy.interpolate.griddata</cite>.</p></li>
+<li><p><strong>rescale</strong> (<em>bool</em><em>, </em><em>optional</em>) – Rescale points to unit cube before performing interpolation. Default is false.</p></li>
+<li><p><strong>filter_nan</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, will remove nodata values from the data before rasterization.
+Default is False.</p></li>
+<li><p><strong>**ignored_kwargs</strong> – These are there to be flexible with additional rasterization methods and
+will be ignored.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>:class:`numpy.ndarray`</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>An interpolated <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="geocube.rasterize.rasterize_points_radial">
+<span class="sig-prename descclassname"><span class="pre">geocube.rasterize.</span></span><span class="sig-name descname"><span class="pre">rasterize_points_radial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geometry_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">GeoSeries</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">ScalarType</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">ScalarType</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'linear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_nan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">ignored_kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">ScalarType</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/geocube/rasterize.html#rasterize_points_radial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#geocube.rasterize.rasterize_points_radial" title="Permalink to this definition"></a></dt>
+<dd><p>This method uses scipy.interpolate.Rbf to interpolate point data
+to a grid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>geometry_array</strong> (<em>geopandas.GeoSeries</em>) – A geometry array of points.</p></li>
+<li><p><strong>data_values</strong> (<em>list</em>) – Data values associated with the list of geojson shapes</p></li>
+<li><p><strong>grid_coords</strong> (<em>dict</em>) – Output from <cite>rioxarray.rioxarray.affine_to_coords</cite></p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – The function to use for interpolation in <cite>scipy.interpolate.Rbf</cite>.
+{‘multiquadric’, ‘inverse’, ‘gaussian’, ‘linear’,
+‘cubic’, ‘quintic’, ‘thin_plate’}</p></li>
+<li><p><strong>filter_nan</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, will remove nodata values from the data before rasterization.
+Default is False.</p></li>
+<li><p><strong>**ignored_kwargs</strong> – These are there to be flexible with additional rasterization methods and
+will be ignored.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>:class:`numpy.ndarray`</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>An interpolated <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="show-versions">
+<h2>show_versions<a class="headerlink" href="#show-versions" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="geocube.show_versions">
+<span class="sig-prename descclassname"><span class="pre">geocube.</span></span><span class="sig-name descname"><span class="pre">show_versions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/geocube/_show_versions.html#show_versions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#geocube.show_versions" title="Permalink to this definition"></a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 0.0.12.</span></p>
+</div>
+<p>Print useful debugging information</p>
+<p class="rubric">Example</p>
+<p>&gt; python -c “import geocube; geocube.show_versions()”</p>
+</dd></dl>
+
+</section>
+<section id="module-geocube.exceptions">
+<span id="exceptions"></span><h2>exceptions<a class="headerlink" href="#module-geocube.exceptions" title="Permalink to this heading"></a></h2>
+<p>This contains exceptions for GeoCube.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="geocube.exceptions.GeoCubeError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">geocube.exceptions.</span></span><span class="sig-name descname"><span class="pre">GeoCubeError</span></span><a class="reference internal" href="_modules/geocube/exceptions.html#GeoCubeError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#geocube.exceptions.GeoCubeError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+<p>Base GeoCube exception class.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="geocube.exceptions.VectorDataError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">geocube.exceptions.</span></span><span class="sig-name descname"><span class="pre">VectorDataError</span></span><a class="reference internal" href="_modules/geocube/exceptions.html#VectorDataError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#geocube.exceptions.VectorDataError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#geocube.exceptions.GeoCubeError" title="geocube.exceptions.GeoCubeError"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeoCubeError</span></code></a></p>
+<p>This is for errors in the vector data passed into GeoCube.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="API Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cli.html" class="btn btn-neutral float-right" title="geocube.cli package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Geocube Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
