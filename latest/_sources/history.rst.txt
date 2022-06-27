@@ -4,6 +4,11 @@ History
 Latest
 ------
 
+0.3.2
+------
+- MNT: corrections to setup.cfg; use "pytest"; add "make dist" target (pull #111)
+- BUG: Write transform on output dataset (pull #112)
+
 0.3.1
 ------
 - TYPE: Modified NDArray import for typing (pull #106)
