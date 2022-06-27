@@ -161,7 +161,7 @@ class GeoBoxMaker:
             assert self.align is None, "'like' and 'align' are not supported together"
             try:
                 geobox = self.like.geobox
-            except AttributeError:
+            except (AttributeError, ValueError):
                 geobox = geobox_from_rio(self.like)
             return geobox
 

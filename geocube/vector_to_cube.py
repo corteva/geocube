@@ -272,6 +272,7 @@ class VectorToCube:
             out_xds[categorical_measurement].attrs = cat_attrs
             out_xds[enum_var_name] = categoral_enums
 
+        out_xds.rio.write_transform(self._geobox.affine, inplace=True)
         out_xds.rio.write_crs(str(self._geobox.crs), inplace=True)
         out_xds.rio.write_coordinate_system(inplace=True)
         if interpolate_na_method is not None:
