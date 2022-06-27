@@ -9,7 +9,7 @@ import xarray
 from numpy.testing import assert_almost_equal
 from packaging import version
 from rasterio.enums import MergeAlg
-from shapely.geometry import mapping
+from shapely.geometry import Polygon, mapping
 from shapely.wkt import loads
 
 from geocube.api.core import make_geocube
@@ -827,3 +827,24 @@ def test_make_geocube__minimize_dtype(dtype, fill, expected_type, tmpdir):
     assert out_grid.mask.dtype.name == expected_type
     # test writing to netCDF
     out_grid.to_netcdf(tmpdir.mkdir("make_geocube_soil") / "soil_grid_flat_mask.nc")
+
+
+def test_rasterize__like_1d():
+    like = xarray.open_dataset(
+        TEST_INPUT_DATA_DIR / "one_dimensional.nc", decode_coords="all"
+    )
+    geom = Polygon(
+        [
+            (-93.90054499995499, 41.687572053080224),
+            (-93.900635000045, 41.687572053080224),
+            (-93.900635000045, 41.68770794691978),
+            (-93.90054499995499, 41.68770794691978),
+        ]
+    )
+
+    geom_array = make_geocube(
+        gpd.GeoDataFrame({"in_geom": [1]}, geometry=[geom], crs="epsg:4326"),
+        like=like,
+    )
+    assert geom_array.rio.transform() == like.rio.transform()
+    assert geom_array.in_geom.shape == (2, 1)
