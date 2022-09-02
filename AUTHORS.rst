@@ -24,6 +24,7 @@ Thanks goes to these wonderful people (`emoji key <https://allcontributors.org/d
         <td align="center"><a href="https://github.com/BENR0"><img src="https://avatars.githubusercontent.com/u/12115839?v=4?s=100" width="100px;" alt=""/><br /><sub><b>BENR0</b></sub></a><br /><a href="https://github.com/corteva/rioxarray/issues?q=author%3ABENR0" title="Bug reports">🐛</a></td>
         <td align="center"><a href="https://github.com/Kirill888"><img src="https://avatars.githubusercontent.com/u/1428024?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kirill Kouzoubov</b></sub></a><br /><a href="https://github.com/corteva/rioxarray/pulls?q=is%3Apr+reviewed-by%3AKirill888" title="Reviewed Pull Requests">👀</a></td>
         <td align="center"><a href="https://github.com/Zionett"><img src="https://avatars.githubusercontent.com/u/9539198?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sangzi Liang</b></sub></a><br /><a href="https://github.com/corteva/rioxarray/pulls?q=is%3Apr+reviewed-by%3AZionett" title="Reviewed Pull Requests">👀</a></td>
+        <td align="center"><a href="https://sites.google.com/view/raybellwaves/home"><img src="https://avatars.githubusercontent.com/u/17162724?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ray Bell</b></sub></a><br /><a href="https://github.com/corteva/rioxarray/commits?author=raybellwaves" title="Documentation">📖</a></td>
       </tr>
     </table>
 
