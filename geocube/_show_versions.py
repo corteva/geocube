@@ -5,7 +5,7 @@ adapted from :func:`sklearn.utils._show_versions`
 which was adapted from :func:`pandas.show_versions`
 """
 # pylint: disable=import-outside-toplevel
-import importlib
+import importlib.metadata
 import platform
 import sys
 
@@ -38,9 +38,9 @@ def _get_gdal_info():
     import rasterio
 
     blob = [
-        ("fiona", fiona.__version__),
+        ("fiona", importlib.metadata.version("fiona")),
         ("GDAL[fiona]", fiona.__gdal_version__),
-        ("rasterio", rasterio.__version__),
+        ("rasterio", importlib.metadata.version("rasterio")),
         ("GDAL[rasterio]", rasterio.__gdal_version__),
     ]
 
@@ -66,24 +66,11 @@ def _get_deps_info():
 
     def get_version(module):
         try:
-            return module.__version__
-        except AttributeError:
-            return module.version
+            return importlib.metadata.version(module)
+        except importlib.metadata.PackageNotFoundError:
+            return None
 
-    deps_info = {}
-
-    for modname in deps:
-        try:
-            if modname in sys.modules:
-                mod = sys.modules[modname]
-            else:
-                mod = importlib.import_module(modname)
-            ver = get_version(mod)
-            deps_info[modname] = ver
-        except ImportError:
-            deps_info[modname] = None
-
-    return deps_info
+    return {dep: get_version(dep) for dep in deps}
 
 
 def _print_info_dict(info_dict):
@@ -103,9 +90,7 @@ def show_versions():
     > python -c "import geocube; geocube.show_versions()"
 
     """
-    import geocube  # pylint: disable=cyclic-import
-
-    print(f"geocube v{geocube.__version__}\n")
+    print(f"geocube v{importlib.metadata.version('geocube')}\n")
     print("GDAL deps:")
     _print_info_dict(_get_gdal_info())
     print("\nPython deps:")

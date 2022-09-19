@@ -1,10 +1,10 @@
+import importlib.metadata
 import json
 from functools import partial
 
 import geopandas as gpd
 import pandas
 import pytest
-import scipy
 import xarray
 from numpy.testing import assert_almost_equal
 from packaging import version
@@ -20,6 +20,10 @@ from geocube.rasterize import (
     rasterize_points_radial,
 )
 from test.conftest import TEST_COMPARE_DATA_DIR, TEST_INPUT_DATA_DIR
+
+SCIPY_LT_14 = version.parse(importlib.metadata.version("scipy")) < version.parse(
+    "1.4.0"
+)
 
 TEST_GARS_PROJ = "epsg:32615"
 TEST_GARS_POLY = loads(
@@ -729,7 +733,7 @@ def test_make_geocube__new_bounds_crs():
     ],
 )
 @pytest.mark.xfail(
-    version.parse(scipy.__version__) < version.parse("1.4.0"),
+    SCIPY_LT_14,
     reason="griddata behaves differently across versions",
 )
 def test_make_geocube__custom_rasterize_function(function, compare_name, tmpdir):
@@ -776,7 +780,7 @@ def test_make_geocube__custom_rasterize_function(function, compare_name, tmpdir)
     ],
 )
 @pytest.mark.xfail(
-    version.parse(scipy.__version__) < version.parse("1.4.0"),
+    SCIPY_LT_14,
     reason="griddata behaves differently across versions",
 )
 def test_make_geocube__custom_rasterize_function__filter_null(

@@ -2,11 +2,13 @@
 """
 Main CLI endpoint for GeoCube
 """
+import importlib.metadata
+
 import click
 from click import group
 
 import geocube.cli.commands as cmd_modules
-from geocube import __version__, show_versions
+from geocube import show_versions
 
 CONTEXT_SETTINGS = {
     "help_option_names": ["-h", "--help"],
@@ -27,7 +29,7 @@ def check_version(ctx, _, value):
     if not value or ctx.resilient_parsing:
         return
 
-    click.echo(f"geocube v{__version__}")
+    click.echo(f"geocube v{importlib.metadata.version('geocube')}")
 
     ctx.exit()
 
