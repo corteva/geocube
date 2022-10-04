@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>geocube.api.core &mdash; geocube 0.3.3 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> geocube
+          </a>
+              <div class="version">
+                0.3.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">geocube README</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/examples.html">Usage Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Contributors ✨</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">geocube</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>geocube.api.core</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for geocube.api.core</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -- coding: utf-8 --</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">GeoCube client core functionality</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">geopandas</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">shapely</span>
+<span class="kn">import</span> <span class="nn">xarray</span>
+<span class="kn">from</span> <span class="nn">odc.geo.geom</span> <span class="kn">import</span> <span class="n">Geometry</span>
+
+<span class="kn">from</span> <span class="nn">geocube.geo_utils.geobox</span> <span class="kn">import</span> <span class="n">GeoBoxMaker</span>
+<span class="kn">from</span> <span class="nn">geocube.vector_to_cube</span> <span class="kn">import</span> <span class="n">VectorToCube</span>
+
+
+<div class="viewcode-block" id="make_geocube"><a class="viewcode-back" href="../../../geocube.html#geocube.api.core.make_geocube">[docs]</a><span class="k">def</span> <span class="nf">make_geocube</span><span class="p">(</span>
+    <span class="n">vector_data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">,</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">],</span>
+    <span class="n">measurements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">datetime_measurements</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">output_crs</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">resolution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">float</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">align</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">geom</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span>
+        <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">shapely</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">BaseGeometry</span><span class="p">,</span> <span class="n">Geometry</span><span class="p">]</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">like</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">xarray</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">xarray</span><span class="o">.</span><span class="n">DataArray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fill</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+    <span class="n">group_by</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">interpolate_na_method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="s2">&quot;nearest&quot;</span><span class="p">,</span> <span class="s2">&quot;cubic&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">categorical_enums</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">rasterize_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xarray</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rasterize vector data into an ``xarray`` object.  Each attribute will be a data</span>
+<span class="sd">    variable in the :class:`xarray.Dataset`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vector_data: str, path-like object or :obj:`geopandas.GeoDataFrame`</span>
+<span class="sd">        A file path to an OGR supported source or GeoDataFrame containing</span>
+<span class="sd">        the vector data.</span>
+<span class="sd">    measurements: list(str), optional</span>
+<span class="sd">        Attributes name or list of names to be included. If a list is specified,</span>
+<span class="sd">        the attributes will be returned in the order requested.</span>
+<span class="sd">        By default all available attributes are included.</span>
+<span class="sd">    datetime_measurements: list(str), optional</span>
+<span class="sd">        Attributes that are temporal in nature and should be converted to the datetime</span>
+<span class="sd">        format. These are only included if listed in &#39;measurements&#39;.</span>
+<span class="sd">    output_crs: Any, optional</span>
+<span class="sd">        The CRS of the returned data. Can be anything accepted by :obj:`pyproj.CRS`.</span>
+<span class="sd">        If no CRS is supplied, the CRS of the stored data is used.</span>
+<span class="sd">    resolution: Union[float, Iterable[float]], optional</span>
+<span class="sd">        A tuple of the spatial resolution of the returned data (Y, X).</span>
+<span class="sd">        This includes the direction (as indicated by a positive or negative number).</span>
+<span class="sd">        Typically when using most CRSs, the first number would be negative.</span>
+<span class="sd">    align: Tuple[float, float], optional</span>
+<span class="sd">        Load data such that point &#39;align&#39; lies on the pixel boundary.</span>
+<span class="sd">        Units are in the co-ordinate space of the output CRS.</span>
+<span class="sd">        Default is (0,0)</span>
+<span class="sd">    geom: Union[str, Dict, shapely.geometry.base.BaseGeometry, odc.geo.geom.Geometry], optional</span>
+<span class="sd">        A GeoJSON string for the bounding box of the data used to construct the</span>
+<span class="sd">        grid. It defaults to EPSG:4326 if a CRS is not provided.</span>
+<span class="sd">        Example of adding CRS::</span>
+
+<span class="sd">            {&quot;type&quot;: &quot;Polygon&quot;, &quot;crs&quot;: {&quot;properties&quot;: {&quot;name&quot;: &quot;EPSG:3857&quot;}}}</span>
+
+<span class="sd">    like: :obj:`xarray.Dataset`, optional</span>
+<span class="sd">        Uses the output of a previous ``load()`` to form the basis of a request</span>
+<span class="sd">        for another product.</span>
+<span class="sd">        E.g.::</span>
+
+<span class="sd">            gcds = make_geocube(vector_data=&#39;my_vector.geopackage&#39;, like=other_gcds)</span>
+
+<span class="sd">    fill: float, optional</span>
+<span class="sd">        The value to fill in the grid with for nodata. Default is NaN.</span>
+<span class="sd">    group_by: str, optional</span>
+<span class="sd">        When specified, perform basic combining/reducing of the data on this column.</span>
+<span class="sd">    interpolate_na_method:  {&#39;linear&#39;, &#39;nearest&#39;, &#39;cubic&#39;}, optional</span>
+<span class="sd">        This is the method for interpolation to use to fill in the nodata with</span>
+<span class="sd">        :meth:`scipy.interpolate.griddata`.</span>
+<span class="sd">    categorical_enums: dict, optional</span>
+<span class="sd">        A dictionary of all categories for the table columns containing categorical</span>
+<span class="sd">        data. The categories will be made unique and sorted if they are not already.</span>
+<span class="sd">        E.g. {&#39;column_name&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;other_column&#39;: [&#39;c&#39;, &#39;d&#39;]}</span>
+<span class="sd">    rasterize_function: function, optional</span>
+<span class="sd">        Function to rasterize geometries. Other options are available in</span>
+<span class="sd">        `geocube.rasterize`. Default is :func:`geocube.rasterize.rasterize_image`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    --------</span>
+<span class="sd">    :obj:`xarray.Dataset`:</span>
+<span class="sd">        Requested data in a :obj:`xarray.Dataset`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">geobox_maker</span> <span class="o">=</span> <span class="n">GeoBoxMaker</span><span class="p">(</span><span class="n">output_crs</span><span class="p">,</span> <span class="n">resolution</span><span class="p">,</span> <span class="n">align</span><span class="p">,</span> <span class="n">geom</span><span class="p">,</span> <span class="n">like</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">VectorToCube</span><span class="p">(</span>
+        <span class="n">vector_data</span><span class="o">=</span><span class="n">vector_data</span><span class="p">,</span>
+        <span class="n">geobox_maker</span><span class="o">=</span><span class="n">geobox_maker</span><span class="p">,</span>
+        <span class="n">fill</span><span class="o">=</span><span class="n">fill</span><span class="p">,</span>
+        <span class="n">categorical_enums</span><span class="o">=</span><span class="n">categorical_enums</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">make_geocube</span><span class="p">(</span>
+        <span class="n">measurements</span><span class="o">=</span><span class="n">measurements</span><span class="p">,</span>
+        <span class="n">datetime_measurements</span><span class="o">=</span><span class="n">datetime_measurements</span><span class="p">,</span>
+        <span class="n">group_by</span><span class="o">=</span><span class="n">group_by</span><span class="p">,</span>
+        <span class="n">interpolate_na_method</span><span class="o">=</span><span class="n">interpolate_na_method</span><span class="p">,</span>
+        <span class="n">rasterize_function</span><span class="o">=</span><span class="n">rasterize_function</span><span class="p">,</span>
+    <span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Geocube Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
