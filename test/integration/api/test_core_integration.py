@@ -62,7 +62,7 @@ def test_make_geocube(input_geodata, tmpdir):
         measurements=soil_attribute_list,
         output_crs=TEST_GARS_PROJ,
         geom=json.dumps(mapping(TEST_GARS_POLY)),
-        resolution=(-10, 10),
+        resolution=[-10, 10],
         fill=-9999.0,
     )
     # test writing to netCDF

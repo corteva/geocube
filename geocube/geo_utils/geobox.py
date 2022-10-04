@@ -4,7 +4,7 @@ This module is for GIS related utility functions.
 """
 import json
 import os
-from typing import Any, Dict, Optional, Tuple, Union
+from typing import Any, Dict, Iterable, Optional, Tuple, Union
 
 import geopandas
 import rioxarray  # noqa: F401 pylint: disable=unused-import
@@ -94,7 +94,7 @@ class GeoBoxMaker:
     def __init__(
         self,
         output_crs: Any,
-        resolution: Optional[Union[float, Tuple[float, float]]],
+        resolution: Optional[Union[float, Iterable[float]]],
         align: Optional[Tuple[float, float]],
         geom: Optional[Union[str, Dict, shapely.geometry.base.BaseGeometry, Geometry]],
         like: Optional[Union[xarray.Dataset, xarray.DataArray]],
@@ -106,7 +106,7 @@ class GeoBoxMaker:
         output_crs: Any, optional
             The CRS of the returned data.  If no CRS is supplied, the CRS of
              the stored data is used.
-        resolution: Union[float, Tuple[float, float]], optional
+        resolution: Union[float, Iterable[float]], optional
             A tuple of the spatial resolution of the returned data.
             This includes the direction (as indicated by a positive or negative number).
             Typically when using most CRSs, the first number would be negative.
@@ -123,7 +123,7 @@ class GeoBoxMaker:
         """
         self.output_crs = output_crs
         self.resolution = (
-            resolution if not isinstance(resolution, tuple) else resyx_(*resolution)
+            resolution if not isinstance(resolution, Iterable) else resyx_(*resolution)
         )
         self.align = None if align is None else resyx_(*align)
 

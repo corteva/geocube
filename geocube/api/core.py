@@ -3,7 +3,7 @@
 GeoCube client core functionality
 """
 import os
-from typing import Any, Callable, Dict, List, Literal, Optional, Tuple, Union
+from typing import Any, Callable, Dict, Iterable, List, Literal, Optional, Tuple, Union
 
 import geopandas
 import numpy
@@ -20,7 +20,7 @@ def make_geocube(
     measurements: Optional[List[str]] = None,
     datetime_measurements: Optional[List[str]] = None,
     output_crs: Any = None,
-    resolution: Optional[Union[float, Tuple[float, float]]] = None,
+    resolution: Optional[Union[float, Iterable[float]]] = None,
     align: Optional[Tuple[float, float]] = None,
     geom: Optional[
         Union[str, Dict, shapely.geometry.base.BaseGeometry, Geometry]
@@ -51,7 +51,7 @@ def make_geocube(
     output_crs: Any, optional
         The CRS of the returned data. Can be anything accepted by :obj:`pyproj.CRS`.
         If no CRS is supplied, the CRS of the stored data is used.
-    resolution: Union[float, Tuple[float, float]], optional
+    resolution: Union[float, Iterable[float]], optional
         A tuple of the spatial resolution of the returned data (Y, X).
         This includes the direction (as indicated by a positive or negative number).
         Typically when using most CRSs, the first number would be negative.
