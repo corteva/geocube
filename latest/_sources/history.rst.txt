@@ -1,6 +1,9 @@
 History
 =======
 
+Latest
+-------
+
 0.3.3
 ------
 - BUG: Allow resolution in list format (Pull #122)
