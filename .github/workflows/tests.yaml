@@ -16,9 +16,9 @@ jobs:
   linting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-      - uses: pre-commit/action@v2.0.0
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+      - uses: pre-commit/action@v3.0.0
 
   test:
     needs: linting
@@ -31,7 +31,7 @@ jobs:
         python-version: ['3.8', '3.9', '3.10']
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup Conda
         uses: s-weigand/setup-conda@v1
@@ -81,4 +81,4 @@ jobs:
           source activate test
           sphinx-build -b html docs/ docs/_build/
 
-      - uses: codecov/codecov-action@v1
+      - uses: codecov/codecov-action@v3
