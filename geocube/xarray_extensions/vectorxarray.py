@@ -23,7 +23,7 @@ def from_geodataframe(in_geodataframe):
     # writing CRS
     geox.rio._x_dim = "x"
     geox.rio._y_dim = "y"
-    geox.rio.write_crs(geodf.crs, inplace=True)
+    geox.rio.write_crs(in_geodataframe.crs, inplace=True)
     geox.rio._x_dim = None
     geox.rio._y_dim = None
     return geox
