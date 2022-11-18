@@ -90,9 +90,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="examples.html">Usage Examples</a> &raquo;</li>
-      <li>Example - Filling in missing data &amp; dealing with timestamps</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="examples.html">Usage Examples</a></li>
+      <li class="breadcrumb-item active">Example - Filling in missing data &amp; dealing with timestamps</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/examples/timestamp_missing_data.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -212,10 +212,11 @@ div.nboutput.container div.prompt > div {
     }
 }
 
-/* disable scrollbars on prompts */
+/* disable scrollbars and line breaks on prompts */
 div.nbinput.container div.prompt pre,
 div.nboutput.container div.prompt pre {
     overflow: hidden;
+    white-space: pre;
 }
 
 /* input/output area */

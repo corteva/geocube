@@ -88,9 +88,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="examples.html">Usage Examples</a> &raquo;</li>
-      <li>Example - Mapping Grid Data to Vector Data</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="examples.html">Usage Examples</a></li>
+      <li class="breadcrumb-item active">Example - Mapping Grid Data to Vector Data</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/examples/grid_to_vector_map.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -210,10 +210,11 @@ div.nboutput.container div.prompt > div {
     }
 }
 
-/* disable scrollbars on prompts */
+/* disable scrollbars and line breaks on prompts */
 div.nbinput.container div.prompt pre,
 div.nboutput.container div.prompt pre {
     overflow: hidden;
+    white-space: pre;
 }
 
 /* input/output area */
