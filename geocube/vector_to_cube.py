@@ -194,11 +194,11 @@ class VectorToCube:
         -------
         dict: Dict with attributes for data array.
         """
-        return dict(
-            name=measurement_name,
-            long_name=measurement_name,
-            _FillValue=fill_value,
-        )
+        return {
+            "name": measurement_name,
+            "long_name": measurement_name,
+            "_FillValue": fill_value,
+        }
 
     def _update_time_attrs(self, attrs: Dict[str, Any], image_data: NDArray) -> None:
         """
