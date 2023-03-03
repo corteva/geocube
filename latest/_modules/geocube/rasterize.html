@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>geocube.rasterize &mdash; geocube 0.3.4.dev0 documentation</title>
+  <title>geocube.rasterize &mdash; geocube 0.4.0 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -32,7 +32,7 @@
             geocube
           </a>
               <div class="version">
-                0.3.4.dev0
+                0.4.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -79,11 +79,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for geocube.rasterize</h1><div class="highlight"><pre>
-<span></span><span class="c1"># -- coding: utf-8 --</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This module contains tools for rasterizing vector data.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">import</span> <span class="nn">geopandas</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
@@ -105,7 +104,7 @@
 <span class="k">def</span> <span class="nf">_remove_missing_data</span><span class="p">(</span>
     <span class="n">data_values</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">,</span>
     <span class="n">geometry_array</span><span class="p">:</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">NDArray</span><span class="p">,</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">NDArray</span><span class="p">,</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Missing data causes issues with interpolation of point data</span>
 <span class="sd">    https://github.com/corteva/geocube/issues/9</span>
@@ -207,7 +206,7 @@
 <div class="viewcode-block" id="rasterize_points_griddata"><a class="viewcode-back" href="../../geocube.html#geocube.rasterize.rasterize_points_griddata">[docs]</a><span class="k">def</span> <span class="nf">rasterize_points_griddata</span><span class="p">(</span>
     <span class="n">geometry_array</span><span class="p">:</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">,</span>
     <span class="n">data_values</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">,</span>
-    <span class="n">grid_coords</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">NDArray</span><span class="p">],</span>
+    <span class="n">grid_coords</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">NDArray</span><span class="p">],</span>
     <span class="n">fill</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;nearest&quot;</span><span class="p">,</span>
     <span class="n">rescale</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -264,7 +263,7 @@
 <div class="viewcode-block" id="rasterize_points_radial"><a class="viewcode-back" href="../../geocube.html#geocube.rasterize.rasterize_points_radial">[docs]</a><span class="k">def</span> <span class="nf">rasterize_points_radial</span><span class="p">(</span>
     <span class="n">geometry_array</span><span class="p">:</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">,</span>
     <span class="n">data_values</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">,</span>
-    <span class="n">grid_coords</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">NDArray</span><span class="p">],</span>
+    <span class="n">grid_coords</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">NDArray</span><span class="p">],</span>
     <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span><span class="p">,</span>
     <span class="n">filter_nan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">ignored_kwargs</span><span class="p">,</span>
