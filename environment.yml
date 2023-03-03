@@ -7,7 +7,7 @@ channels:
 - conda-forge
 - defaults
 dependencies:
-- python=3.8
+- python=3.9
 - geopandas
 - rasterio
 - scipy
