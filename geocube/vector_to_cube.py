@@ -1,9 +1,8 @@
-# -- coding: utf-8 --
 """
 geocube core conversion functionality
 """
 import os
-from typing import Any, Callable, Dict, List, Literal, Optional, Tuple, Union
+from typing import Any, Callable, Literal, Optional, Union
 
 import geopandas
 import numpy
@@ -55,7 +54,7 @@ class VectorToCube:
         vector_data: Union[str, os.PathLike, geopandas.GeoDataFrame],
         geobox_maker: GeoBoxMaker,
         fill: float,
-        categorical_enums: Optional[Dict[str, List]],
+        categorical_enums: Optional[dict[str, list]],
     ):
         """
         Initialize the GeoCube class.
@@ -93,13 +92,13 @@ class VectorToCube:
 
         # define defaults
         self._rasterize_function: Callable[..., Optional[NDArray]] = rasterize_image
-        self._datetime_measurements: Tuple[str, ...] = ()
-        self._categorical_enums: Dict[str, List] = {}
+        self._datetime_measurements: tuple[str, ...] = ()
+        self._categorical_enums: dict[str, list] = {}
 
     def make_geocube(
         self,
-        measurements: Optional[List[str]] = None,
-        datetime_measurements: Optional[List[str]] = None,
+        measurements: Optional[list[str]] = None,
+        datetime_measurements: Optional[list[str]] = None,
         group_by: Optional[str] = None,
         interpolate_na_method: Optional[Literal["linear", "nearest", "cubic"]] = None,
         rasterize_function: Optional[Callable[..., Optional[NDArray]]] = None,
@@ -113,11 +112,11 @@ class VectorToCube:
 
         Parameters
         ----------
-        measurements: List[str], optional
+        measurements: list[str], optional
             Attributes name or list of names to be included. If a list is specified,
             the measurements will be returned in the order requested.
             By default all available measurements are included.
-        datetime_measurements: List[str], optional
+        datetime_measurements: list[str], optional
             Attributes that are temporal in nature and should be converted to the
             datetime format. These are only included if listed in 'measurements'.
         group_by: str, optional
@@ -179,7 +178,7 @@ class VectorToCube:
     @staticmethod
     def _get_attrs(
         measurement_name: str, fill_value: float
-    ) -> Dict[str, Union[str, float]]:
+    ) -> dict[str, Union[str, float]]:
         """
         Get attributes for data array.
 
@@ -200,7 +199,7 @@ class VectorToCube:
             "_FillValue": fill_value,
         }
 
-    def _update_time_attrs(self, attrs: Dict[str, Any], image_data: NDArray) -> None:
+    def _update_time_attrs(self, attrs: dict[str, Any], image_data: NDArray) -> None:
         """
         Update attributes and nodata values for time grid.
 
@@ -222,7 +221,7 @@ class VectorToCube:
     def _get_dataset(
         self,
         vector_data: geopandas.GeoDataFrame,
-        measurements: List[str],
+        measurements: list[str],
         group_by: Optional[str],
         interpolate_na_method: Optional[str],
     ) -> xarray.Dataset:
@@ -231,7 +230,7 @@ class VectorToCube:
         ----------
         vector_data: :obj:`geopandas.GeoDataFrame`
             A GeoDataFrame containing the vector data.
-        measurements: List[str]
+        measurements: list[str]
             Attributes name or list of names to be included. If a list is specified,
             the measurements will be returned in the order requested.
             By default all available measurements are included.
@@ -285,7 +284,7 @@ class VectorToCube:
         grouped_dataframe: geopandas.GeoDataFrame,
         measurement_name: str,
         group_by: str,
-    ) -> Optional[Tuple]:
+    ) -> Optional[tuple]:
         """Retrieve the variable data to append to the ssurgo :obj:`xarray.Dataset`.
         This method is designed specifically to work on a dataframe that has
         been grouped.
@@ -303,7 +302,7 @@ class VectorToCube:
 
         Returns
         -------
-        Optional[Tuple]: Options needed to create an :obj:`xarray.DataArray`.
+        Optional[tuple]: Options needed to create an :obj:`xarray.DataArray`.
 
         """
         logger = get_logger()
@@ -347,7 +346,7 @@ class VectorToCube:
 
     def _get_grid(
         self, dataframe: geopandas.GeoDataFrame, measurement_name: str
-    ) -> Optional[Tuple]:
+    ) -> Optional[tuple]:
         """Retrieve the variable data to append to the ssurgo :obj:`xarray.Dataset`
         from a regular :obj:`geopandas.GeoDataFrame`.
 
@@ -362,7 +361,7 @@ class VectorToCube:
 
         Returns
         -------
-        Optional[Tuple]: Options needed to create an :obj:`xarray.DataArray`.
+        Optional[tuple]: Options needed to create an :obj:`xarray.DataArray`.
 
         """
         logger = get_logger()

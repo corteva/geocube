@@ -1,4 +1,3 @@
-# -- coding: utf-8 --
 """
 This module is an extension for xarray to provide support for vector datasets.
 """

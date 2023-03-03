@@ -1,4 +1,3 @@
-# -- coding: utf-8 --
 """
 The CLI interface to the load module for GeoCube
 """

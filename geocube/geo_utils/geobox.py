@@ -1,10 +1,10 @@
-# -- coding: utf-8 --
 """
 This module is for GIS related utility functions.
 """
 import json
 import os
-from typing import Any, Dict, Iterable, Optional, Tuple, Union
+from collections.abc import Iterable
+from typing import Any, Optional, Union
 
 import geopandas
 import rioxarray  # noqa: F401 pylint: disable=unused-import
@@ -95,8 +95,8 @@ class GeoBoxMaker:
         self,
         output_crs: Any,
         resolution: Optional[Union[float, Iterable[float]]],
-        align: Optional[Tuple[float, float]],
-        geom: Optional[Union[str, Dict, shapely.geometry.base.BaseGeometry, Geometry]],
+        align: Optional[tuple[float, float]],
+        geom: Optional[Union[str, dict, shapely.geometry.base.BaseGeometry, Geometry]],
         like: Optional[Union[xarray.Dataset, xarray.DataArray]],
     ) -> None:
         """Get the geobox to use for the grid.
@@ -110,11 +110,11 @@ class GeoBoxMaker:
             A tuple of the spatial resolution of the returned data.
             This includes the direction (as indicated by a positive or negative number).
             Typically when using most CRSs, the first number would be negative.
-        align: Tuple[float, float], optional
+        align: tuple[float, float], optional
             Load data such that point 'align' lies on the pixel boundary.
             Units are in the co-ordinate space of the output CRS.
             Default is (0,0)
-        geom: Union[str, Dict, shapely.geometry.base.BaseGeometry, odc.geo.geom.Geometry], optional
+        geom: Union[str, dict, shapely.geometry.base.BaseGeometry, odc.geo.geom.Geometry], optional
             A GeoJSON string for the bounding box of the data.
         like: :obj:`xarray.Dataset` | :obj:`xarray.DataArray`, optional
             Uses the output of a previous ``load()`` to form the basis of a request for

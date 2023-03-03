@@ -1,4 +1,3 @@
-# -- coding: utf-8 --
 """
 Main command group for various GeoCube API CLI
 endpoints
