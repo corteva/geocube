@@ -17,6 +17,12 @@ rasterize
 .. autofunction:: geocube.rasterize.rasterize_points_radial
 
 
+vectorize
+-------------------------
+
+.. autofunction:: geocube.vector.vectorize
+
+
 show_versions
 -------------------------
 

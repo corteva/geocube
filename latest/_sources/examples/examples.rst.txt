@@ -15,6 +15,7 @@ This page contains links to a collection of examples of how to use GeoCube.
    grid_to_vector_map.ipynb
    zonal_statistics.ipynb
    rasterize_function.ipynb
+   vectorize.ipynb
 
 
 .. toctree::

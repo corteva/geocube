@@ -63,6 +63,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#geocube.rasterize.rasterize_points_radial"><code class="docutils literal notranslate"><span class="pre">rasterize_points_radial()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#vectorize">vectorize</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#geocube.vector.vectorize"><code class="docutils literal notranslate"><span class="pre">vectorize()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#show-versions">show_versions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#geocube.show_versions"><code class="docutils literal notranslate"><span class="pre">show_versions()</span></code></a></li>
 </ul>
@@ -280,6 +284,35 @@ will be ignored.</p></li>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>An interpolated <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="vectorize">
+<h2>vectorize<a class="headerlink" href="#vectorize" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="geocube.vector.vectorize">
+<span class="sig-prename descclassname"><span class="pre">geocube.vector.</span></span><span class="sig-name descname"><span class="pre">vectorize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.2.1.dev0)"><span class="pre">DataArray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.12.2)"><span class="pre">GeoDataFrame</span></a></span></span><a class="reference internal" href="_modules/geocube/vector.html#vectorize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#geocube.vector.vectorize" title="Permalink to this definition"></a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 0.4.0.</span></p>
+</div>
+<p>Powered by: <a class="reference external" href="https://rasterio.readthedocs.io/en/stable/api/rasterio.features.html#rasterio.features.shapes" title="(in rasterio v1.3.6)"><code class="xref py py-func docutils literal notranslate"><span class="pre">rasterio.features.shapes()</span></code></a></p>
+<p>Convert 2D <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.2.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> into
+a <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.12.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">nodata</span></code>,  <code class="docutils literal notranslate"><span class="pre">CRS</span></code>, and <code class="docutils literal notranslate"><span class="pre">transform</span></code> of the <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.2.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
+are determined using <code class="docutils literal notranslate"><span class="pre">rioxarray</span></code>.</p>
+<p>Helpful references:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://corteva.github.io/rioxarray/stable/getting_started/crs_management.html">https://corteva.github.io/rioxarray/stable/getting_started/crs_management.html</a></p></li>
+<li><p><a class="reference external" href="https://corteva.github.io/rioxarray/stable/getting_started/nodata_management.html">https://corteva.github.io/rioxarray/stable/getting_started/nodata_management.html</a></p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data_array</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.2.1.dev0)"><em>xarray.DataArray</em></a>) – Input 2D DataArray raster.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.12.2)">geopandas.GeoDataFrame</a></p>
 </dd>
 </dl>
 </dd></dl>
