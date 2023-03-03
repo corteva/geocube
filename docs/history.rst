@@ -3,10 +3,11 @@ History
 
 Latest
 -------
+- ENH: Add :func:`geocube.vector.vectorize` (issue #65)
 
 0.3.3
 ------
-- BUG: Allow resolution in list format (Pull #122)
+- BUG: Allow resolution in list format (pull #122)
 
 0.3.2
 ------
