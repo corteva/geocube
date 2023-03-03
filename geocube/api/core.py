@@ -1,9 +1,9 @@
-# -- coding: utf-8 --
 """
 GeoCube client core functionality
 """
 import os
-from typing import Any, Callable, Dict, Iterable, List, Literal, Optional, Tuple, Union
+from collections.abc import Iterable
+from typing import Any, Callable, Literal, Optional, Union
 
 import geopandas
 import numpy
@@ -17,19 +17,19 @@ from geocube.vector_to_cube import VectorToCube
 
 def make_geocube(
     vector_data: Union[str, os.PathLike, geopandas.GeoDataFrame],
-    measurements: Optional[List[str]] = None,
-    datetime_measurements: Optional[List[str]] = None,
+    measurements: Optional[list[str]] = None,
+    datetime_measurements: Optional[list[str]] = None,
     output_crs: Any = None,
     resolution: Optional[Union[float, Iterable[float]]] = None,
-    align: Optional[Tuple[float, float]] = None,
+    align: Optional[tuple[float, float]] = None,
     geom: Optional[
-        Union[str, Dict, shapely.geometry.base.BaseGeometry, Geometry]
+        Union[str, dict, shapely.geometry.base.BaseGeometry, Geometry]
     ] = None,
     like: Optional[Union[xarray.Dataset, xarray.DataArray]] = None,
     fill: float = numpy.nan,
     group_by: Optional[str] = None,
     interpolate_na_method: Optional[Literal["linear", "nearest", "cubic"]] = None,
-    categorical_enums: Optional[Dict[str, List]] = None,
+    categorical_enums: Optional[dict[str, list]] = None,
     rasterize_function: Optional[Callable[..., Optional[numpy.typing.NDArray]]] = None,
 ) -> xarray.Dataset:
     """
@@ -55,11 +55,11 @@ def make_geocube(
         A tuple of the spatial resolution of the returned data (Y, X).
         This includes the direction (as indicated by a positive or negative number).
         Typically when using most CRSs, the first number would be negative.
-    align: Tuple[float, float], optional
+    align: tuple[float, float], optional
         Load data such that point 'align' lies on the pixel boundary.
         Units are in the co-ordinate space of the output CRS.
         Default is (0,0)
-    geom: Union[str, Dict, shapely.geometry.base.BaseGeometry, odc.geo.geom.Geometry], optional
+    geom: Union[str, dict, shapely.geometry.base.BaseGeometry, odc.geo.geom.Geometry], optional
         A GeoJSON string for the bounding box of the data used to construct the
         grid. It defaults to EPSG:4326 if a CRS is not provided.
         Example of adding CRS::

@@ -1,8 +1,7 @@
-# -- coding: utf-8 --
 """
 This module contains tools for rasterizing vector data.
 """
-from typing import Dict, Optional, Tuple
+from typing import Optional
 
 import geopandas
 import numpy
@@ -24,7 +23,7 @@ def _is_numeric(data_values: NDArray) -> bool:
 def _remove_missing_data(
     data_values: NDArray,
     geometry_array: geopandas.GeoSeries,
-) -> Tuple[NDArray, geopandas.GeoSeries]:
+) -> tuple[NDArray, geopandas.GeoSeries]:
     """
     Missing data causes issues with interpolation of point data
     https://github.com/corteva/geocube/issues/9
@@ -126,7 +125,7 @@ def rasterize_image(
 def rasterize_points_griddata(
     geometry_array: geopandas.GeoSeries,
     data_values: NDArray,
-    grid_coords: Dict[str, NDArray],
+    grid_coords: dict[str, NDArray],
     fill: float,
     method: str = "nearest",
     rescale: bool = False,
@@ -183,7 +182,7 @@ def rasterize_points_griddata(
 def rasterize_points_radial(
     geometry_array: geopandas.GeoSeries,
     data_values: NDArray,
-    grid_coords: Dict[str, NDArray],
+    grid_coords: dict[str, NDArray],
     method: str = "linear",
     filter_nan=False,
     **ignored_kwargs,
