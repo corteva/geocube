@@ -124,10 +124,10 @@ class VectorToCube:
             When specified, perform basic combining/reducing of the data on this column.
         interpolate_na_method:  {'linear', 'nearest', 'cubic'}, optional
             This is the method for interpolation to use to fill in the nodata with
-            :meth:`scipy.interpolate.griddata`.
+            :func:`scipy.interpolate.griddata`.
         rasterize_function: function, optional
             Function to rasterize geometries. Other options are available in
-            `geocube.rasterize`. Default is `geocube.rasterize.rasterize_image`.
+            :mod:`geocube.rasterize`. Default is :func:`geocube.rasterize.rasterize_image`.
 
         Returns
         --------
@@ -239,7 +239,7 @@ class VectorToCube:
             When specified, perform basic combining/reducing of the data on this column.
         interpolate_na_method:  {'linear', 'nearest', 'cubic'}, optional
             This is the method for interpolation to use to fill in the nodata with
-            :meth:`scipy.interpolate.griddata`.
+            :func:`scipy.interpolate.griddata`.
 
         Returns
         --------
