@@ -3,6 +3,7 @@ History
 
 Latest
 -------
+- DEP: Drop Python 3.8 Support (issue #136)
 - ENH: Add :func:`geocube.vector.vectorize` (issue #65)
 
 0.3.3
