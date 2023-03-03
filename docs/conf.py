@@ -34,11 +34,23 @@ sys.path.insert(0, os.path.abspath(".."))
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
     "sphinx.ext.autodoc",
+    "sphinx.ext.intersphinx",
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
     "sphinx_click.ext",
     "nbsphinx",
 ]
+
+intersphinx_mapping = {
+    "geopandas": ("https://geopandas.org/en/stable/", None),
+    "numpy": ("https://numpy.org/doc/stable/", None),
+    "odc_geo": ("https://odc-geo.readthedocs.io/en/stable/", None),
+    "pyproj": ("https://pyproj4.github.io/pyproj/stable/", None),
+    "python": ("https://docs.python.org/3", None),
+    "rasterio": ("https://rasterio.readthedocs.io/en/stable/", None),
+    "scipy": ("https://docs.scipy.org/doc/scipy/", None),
+    "xarray": ("http://xarray.pydata.org/en/stable/", None),
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
