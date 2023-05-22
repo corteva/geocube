@@ -152,9 +152,12 @@ class VectorToCube:
 
         # convert to datetime
         for datetime_measurement in self._datetime_measurements:  # type: ignore
-            vector_data[datetime_measurement] = pandas.to_datetime(
-                vector_data[datetime_measurement]
-            ).astype("datetime64[ns]")
+            vector_data[datetime_measurement] = (
+                pandas.to_datetime(vector_data[datetime_measurement])
+                .dt.tz_convert("UTC")
+                .dt.tz_localize(None)
+                .astype("datetime64[ns]")
+            )
 
         # get categorical enumerations if they exist
         self._categorical_enums = {}
