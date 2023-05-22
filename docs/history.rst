@@ -3,6 +3,7 @@ History
 
 Latest
 -------
+- BUG: Fix conversion to datetime64[ns] (pull #143)
 
 0.4.0
 -------
