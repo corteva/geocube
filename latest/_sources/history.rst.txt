@@ -4,6 +4,7 @@ History
 Latest
 -------
 - BUG: Fix conversion to datetime64[ns] (pull #143)
+- BUG: Fix :func:`geocube.vector.vectorize` when nodata is None (pull #142)
 
 0.4.0
 -------
