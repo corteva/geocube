@@ -237,6 +237,8 @@ def test_make_geocube__only_resolution(input_geodata, tmpdir):
 @pytest.mark.parametrize(
     "input_geodata",
     [
+        TEST_INPUT_DATA_DIR / "naive_time_vector_data.geojson",
+        gpd.read_file(TEST_INPUT_DATA_DIR / "naive_time_vector_data.geojson"),
         TEST_INPUT_DATA_DIR / "time_vector_data.geojson",
         gpd.read_file(TEST_INPUT_DATA_DIR / "time_vector_data.geojson"),
     ],

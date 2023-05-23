@@ -3,6 +3,7 @@ History
 
 Latest
 -------
+- BUG: Fix conversion to datetime64[ns] for naive datetimes (pull #145)
 
 0.4.1
 -------
