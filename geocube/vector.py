@@ -38,10 +38,11 @@ def vectorize(data_array: xarray.DataArray) -> geopandas.GeoDataFrame:
     """
     # nodata mask
     mask = None
-    if numpy.isnan(data_array.rio.nodata):
-        mask = ~data_array.isnull()
-    elif data_array.rio.nodata is not None:
-        mask = data_array != data_array.rio.nodata
+    if data_array.rio.nodata is not None:
+        if numpy.isnan(data_array.rio.nodata):
+            mask = ~data_array.isnull()
+        else:
+            mask = data_array != data_array.rio.nodata
 
     # vectorize generator
     vectorized_data = (
