@@ -152,11 +152,13 @@ class VectorToCube:
 
         # convert to datetime
         for datetime_measurement in self._datetime_measurements:  # type: ignore
-            vector_data[datetime_measurement] = (
-                pandas.to_datetime(vector_data[datetime_measurement])
-                .dt.tz_convert("UTC")
-                .dt.tz_localize(None)
-                .astype("datetime64[ns]")
+            date_data = pandas.to_datetime(vector_data[datetime_measurement])
+            try:
+                date_data = date_data.dt.tz_convert("UTC")
+            except TypeError:
+                pass
+            vector_data[datetime_measurement] = date_data.dt.tz_localize(None).astype(
+                "datetime64[ns]"
             )
 
         # get categorical enumerations if they exist
