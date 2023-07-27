@@ -116,7 +116,7 @@
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import json
 from functools import partial
 
-import geopandas as gpd
+import geopandas
 from shapely.geometry import box, mapping
 
 from geocube.api.core import make_geocube
@@ -132,7 +132,7 @@ from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gdf = gpd.read_file(
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gdf = geopandas.read_file(
     &quot;../../test/test_data/input/time_vector_data.geojson&quot;,
     crs=&quot;epsg:4326&quot;
 )

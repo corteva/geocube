@@ -112,7 +112,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import geopandas as gpd
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import geopandas
 import numpy
 import rioxarray
 import xarray
@@ -134,7 +134,7 @@ from geocube.api.core import make_geocube
 # https://github.com/corteva/geocube/
 # You could also use the full path:
 # https://raw.githubusercontent.com/corteva/geocube/master/test/test_data/input/soil_data_group.geojson
-ssurgo_data = gpd.read_file(&quot;../../test/test_data/input/soil_data_group.geojson&quot;)
+ssurgo_data = geopandas.read_file(&quot;../../test/test_data/input/soil_data_group.geojson&quot;)
 ssurgo_data = ssurgo_data.loc[ssurgo_data.hzdept_r==0]
 # convert the key to group to the vector data to an integer as that is one of the
 # best data types for this type of mapping. If your data is not integer,
