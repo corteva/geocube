@@ -2,7 +2,7 @@ import importlib.metadata
 import json
 from functools import partial
 
-import geopandas as gpd
+import geopandas
 import pandas
 import pytest
 import xarray
@@ -41,8 +41,10 @@ TEST_GARS_POLY = loads(
     "input_geodata",
     [
         str(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
-        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
-        pandas.DataFrame(gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")),
+        geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
+        pandas.DataFrame(
+            geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")
+        ),
     ],
 )
 def test_make_geocube(input_geodata, tmpdir):
@@ -79,7 +81,7 @@ def test_make_geocube(input_geodata, tmpdir):
 
 @pytest.mark.parametrize(
     "input_geodata",
-    [gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")],
+    [geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")],
 )
 def test_make_geocube__categorical(input_geodata, tmpdir):
     input_geodata["soil_type"] = [
@@ -119,7 +121,7 @@ def test_make_geocube__categorical(input_geodata, tmpdir):
     "input_geodata",
     [
         TEST_INPUT_DATA_DIR / "soil_data_flat.geojson",
-        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
+        geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
     ],
 )
 def test_make_geocube__interpolate_na(input_geodata, tmpdir):
@@ -162,7 +164,7 @@ def test_make_geocube__interpolate_na(input_geodata, tmpdir):
     "input_geodata",
     [
         TEST_INPUT_DATA_DIR / "soil_data_flat.geojson",
-        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
+        geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
     ],
 )
 def test_make_geocube__like(input_geodata, tmpdir):
@@ -198,7 +200,7 @@ def test_make_geocube__like(input_geodata, tmpdir):
     "input_geodata",
     [
         TEST_INPUT_DATA_DIR / "soil_data_flat.geojson",
-        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
+        geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
     ],
 )
 def test_make_geocube__only_resolution(input_geodata, tmpdir):
@@ -238,9 +240,9 @@ def test_make_geocube__only_resolution(input_geodata, tmpdir):
     "input_geodata",
     [
         TEST_INPUT_DATA_DIR / "naive_time_vector_data.geojson",
-        gpd.read_file(TEST_INPUT_DATA_DIR / "naive_time_vector_data.geojson"),
+        geopandas.read_file(TEST_INPUT_DATA_DIR / "naive_time_vector_data.geojson"),
         TEST_INPUT_DATA_DIR / "time_vector_data.geojson",
-        gpd.read_file(TEST_INPUT_DATA_DIR / "time_vector_data.geojson"),
+        geopandas.read_file(TEST_INPUT_DATA_DIR / "time_vector_data.geojson"),
     ],
 )
 def test_make_geocube__convert_time(input_geodata, tmpdir):
@@ -307,7 +309,7 @@ def test_make_geocube__like_error_invalid_args(load_extra_kwargs):
     "input_geodata",
     [
         TEST_INPUT_DATA_DIR / "soil_data_flat.geojson",
-        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
+        geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson"),
     ],
 )
 def test_make_geocube__no_measurements(input_geodata, tmpdir):
@@ -358,9 +360,9 @@ def test_make_geocube__no_geom(tmpdir):
 @pytest.mark.parametrize(
     "input_geodata",
     [
-        gpd.GeoDataFrame(columns=["test_col", "geometry"]),
-        gpd.GeoDataFrame(),
-        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson").drop(
+        geopandas.GeoDataFrame(columns=["test_col", "geometry"]),
+        geopandas.GeoDataFrame(),
+        geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson").drop(
             columns="geometry"
         ),
     ],
@@ -385,7 +387,7 @@ def test_make_geocube__no_resolution_error():
     "input_geodata",
     [
         TEST_INPUT_DATA_DIR / "soil_data_group.geojson",
-        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_group.geojson"),
+        geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_group.geojson"),
     ],
 )
 def test_make_geocube__group_by(input_geodata, tmpdir):
@@ -425,7 +427,7 @@ def test_make_geocube__group_by(input_geodata, tmpdir):
 
 @pytest.mark.parametrize(
     "input_geodata",
-    [gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_group.geojson")],
+    [geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_group.geojson")],
 )
 def test_make_geocube__group_by__categorical(input_geodata, tmpdir):
     input_geodata["soil_type"] = [
@@ -470,7 +472,7 @@ def test_make_geocube__group_by__categorical(input_geodata, tmpdir):
     "input_geodata",
     [
         TEST_INPUT_DATA_DIR / "soil_data_group.geojson",
-        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_group.geojson"),
+        geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_group.geojson"),
     ],
 )
 def test_make_geocube__group_by_like(input_geodata, tmpdir):
@@ -510,7 +512,7 @@ def test_make_geocube__group_by_like(input_geodata, tmpdir):
     "input_geodata",
     [
         TEST_INPUT_DATA_DIR / "soil_data_group.geojson",
-        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_group.geojson"),
+        geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_group.geojson"),
     ],
 )
 def test_make_geocube__group_by_only_resolution(input_geodata, tmpdir):
@@ -544,7 +546,7 @@ def test_make_geocube__group_by_only_resolution(input_geodata, tmpdir):
     "input_geodata",
     [
         TEST_INPUT_DATA_DIR / "time_vector_data.geojson",
-        gpd.read_file(TEST_INPUT_DATA_DIR / "time_vector_data.geojson"),
+        geopandas.read_file(TEST_INPUT_DATA_DIR / "time_vector_data.geojson"),
     ],
 )
 def test_make_geocube__group_by_time(input_geodata, tmpdir):
@@ -573,7 +575,7 @@ def test_make_geocube__group_by_time(input_geodata, tmpdir):
     "input_geodata",
     [
         TEST_INPUT_DATA_DIR / "time_vector_data.geojson",
-        gpd.read_file(TEST_INPUT_DATA_DIR / "time_vector_data.geojson"),
+        geopandas.read_file(TEST_INPUT_DATA_DIR / "time_vector_data.geojson"),
     ],
 )
 def test_make_geocube__group_by_convert_with_time(input_geodata, tmpdir):
@@ -643,7 +645,7 @@ def test_make_geocube__group_by_like_error_invalid_args(load_extra_kwargs):
     "input_geodata",
     [
         TEST_INPUT_DATA_DIR / "soil_data_group.geojson",
-        gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_group.geojson"),
+        geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_group.geojson"),
     ],
 )
 def test_make_geocube__group_by_no_measurements(input_geodata, tmpdir):
@@ -819,7 +821,7 @@ def test_make_geocube__custom_rasterize_function__filter_null(
     ],
 )
 def test_make_geocube__minimize_dtype(dtype, fill, expected_type, tmpdir):
-    gdf = gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")
+    gdf = geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")
     gdf["mask"] = 1
     gdf["mask"] = gdf["mask"].astype(dtype)
     out_grid = make_geocube(
@@ -849,7 +851,7 @@ def test_rasterize__like_1d():
     )
 
     geom_array = make_geocube(
-        gpd.GeoDataFrame({"in_geom": [1]}, geometry=[geom], crs="epsg:4326"),
+        geopandas.GeoDataFrame({"in_geom": [1]}, geometry=[geom], crs="epsg:4326"),
         like=like,
     )
     assert geom_array.rio.transform() == like.rio.transform()

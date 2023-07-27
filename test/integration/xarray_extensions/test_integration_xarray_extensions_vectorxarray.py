@@ -1,4 +1,4 @@
-import geopandas as gpd
+import geopandas
 import pytest
 import xarray
 from dateutil.parser import parse
@@ -16,7 +16,7 @@ def assert_test_dataframes_equal(gdf, gdf2):
 
 
 def test_from_geodataframe():
-    gdf = gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")
+    gdf = geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")
     vxd = vectorxarray.from_geodataframe(gdf)
     assert all(gdf.geometry == vxd.geometry.values)
     assert sorted(gdf.columns.tolist() + ["spatial_ref"]) == sorted(vxd.variables)
@@ -26,13 +26,13 @@ def test_from_geodataframe():
 
 
 def test_to_geodataframe():
-    gdf = gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")
+    gdf = geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")
     gdf2 = vectorxarray.from_geodataframe(gdf).vector.to_geodataframe()
     assert_test_dataframes_equal(gdf, gdf2)
 
 
 def test_to_netcdf(tmpdir):
-    gdf = gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")
+    gdf = geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")
     vxd = vectorxarray.from_geodataframe(gdf)
     output_file = tmpdir / "test_vector.nc"
     vxd.vector.to_netcdf(output_file)
@@ -41,7 +41,7 @@ def test_to_netcdf(tmpdir):
 
 
 def test_multidimensional_error():
-    gdf = gpd.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")
+    gdf = geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")
     vxd = vectorxarray.from_geodataframe(gdf)
     vxd2 = vxd.copy()
     vxd.coords["time"] = parse("20170516T000000")
