@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Example - Categorical Data &mdash; geocube 0.4.3.dev0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=b866112d"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -109,7 +111,7 @@
            <div itemprop="articleBody">
              
   <section id="Example---Categorical-Data">
-<h1>Example - Categorical Data<a class="headerlink" href="#Example---Categorical-Data" title="Permalink to this heading"></a></h1>
+<h1>Example - Categorical Data<a class="headerlink" href="#Example---Categorical-Data" title="Link to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -124,7 +126,7 @@ from geocube.api.core import make_geocube
 </div>
 </div>
 <section id="Load-in-soil-data">
-<h2>Load in soil data<a class="headerlink" href="#Load-in-soil-data" title="Permalink to this heading"></a></h2>
+<h2>Load in soil data<a class="headerlink" href="#Load-in-soil-data" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -160,7 +162,7 @@ ssurgo_data[ssurgo_data.hzdept_r==15].plot(column=&#39;sandtotal_r&#39;)
 </div>
 </section>
 <section id="Generate-categories-for-categorical-data">
-<h2>Generate categories for categorical data<a class="headerlink" href="#Generate-categories-for-categorical-data" title="Permalink to this heading"></a></h2>
+<h2>Generate categories for categorical data<a class="headerlink" href="#Generate-categories-for-categorical-data" title="Link to this heading"></a></h2>
 <p>If your data is only a subset of all of the data, the list of categories you get will likely not be complete.</p>
 <p>NOTE: The categories will be made unique and sorted internally if they are not already.</p>
 <div class="nbinput docutils container">
@@ -212,7 +214,7 @@ drclasses_complete = [
 </div>
 </section>
 <section id="Convert-data-to-grid">
-<h2>Convert data to grid<a class="headerlink" href="#Convert-data-to-grid" title="Permalink to this heading"></a></h2>
+<h2>Convert data to grid<a class="headerlink" href="#Convert-data-to-grid" title="Link to this heading"></a></h2>
 <p>See docs for <a class="reference internal" href="../geocube.html#make-geocube"><span class="std std-ref">make_geocube</span></a></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
@@ -286,7 +288,7 @@ clay_slice.where(clay_slice!=out_grid.claytotal_r.rio.nodata).plot()
 </div>
 </section>
 <section id="Dealing-with-categorical-data">
-<h2>Dealing with categorical data<a class="headerlink" href="#Dealing-with-categorical-data" title="Permalink to this heading"></a></h2>
+<h2>Dealing with categorical data<a class="headerlink" href="#Dealing-with-categorical-data" title="Link to this heading"></a></h2>
 <p>Because the data needs to be numerical for conversion from vector to raster, the code displays the categories as numbers. To convert back to strings, you will need to use the categories provided to convert back.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -452,7 +454,7 @@ pdf.head()
 </div></div>
 </div>
 <section id="Make-sure-all-categories-are-represented">
-<h3>Make sure all categories are represented<a class="headerlink" href="#Make-sure-all-categories-are-represented" title="Permalink to this heading"></a></h3>
+<h3>Make sure all categories are represented<a class="headerlink" href="#Make-sure-all-categories-are-represented" title="Link to this heading"></a></h3>
 <p>To do this, convert the column type to categorical beforehand and make sure that you include all of the possible categories.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:

@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Example - Filling in missing data &amp; dealing with timestamps &mdash; geocube 0.4.3.dev0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=b866112d"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -108,7 +110,7 @@
            <div itemprop="articleBody">
              
   <section id="Example---Filling-in-missing-data-&amp;-dealing-with-timestamps">
-<h1>Example - Filling in missing data &amp; dealing with timestamps<a class="headerlink" href="#Example---Filling-in-missing-data-&-dealing-with-timestamps" title="Permalink to this heading"></a></h1>
+<h1>Example - Filling in missing data &amp; dealing with timestamps<a class="headerlink" href="#Example---Filling-in-missing-data-&-dealing-with-timestamps" title="Link to this heading"></a></h1>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -122,7 +124,7 @@ from geocube.api.core import make_geocube
 </div>
 </div>
 <section id="Load-in-geopackage-data-and-add-CRS">
-<h2>Load in geopackage data and add CRS<a class="headerlink" href="#Load-in-geopackage-data-and-add-CRS" title="Permalink to this heading"></a></h2>
+<h2>Load in geopackage data and add CRS<a class="headerlink" href="#Load-in-geopackage-data-and-add-CRS" title="Link to this heading"></a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -237,10 +239,10 @@ from geocube.api.core import make_geocube
 </div>
 </section>
 <section id="Convert-to-raster-with-GeoCube">
-<h2>Convert to raster with GeoCube<a class="headerlink" href="#Convert-to-raster-with-GeoCube" title="Permalink to this heading"></a></h2>
+<h2>Convert to raster with GeoCube<a class="headerlink" href="#Convert-to-raster-with-GeoCube" title="Link to this heading"></a></h2>
 <p>See docs for <a class="reference internal" href="../geocube.html#make-geocube"><span class="std std-ref">make_geocube</span></a></p>
 <section id="Load-into-grid-basic">
-<h3>Load into grid basic<a class="headerlink" href="#Load-into-grid-basic" title="Permalink to this heading"></a></h3>
+<h3>Load into grid basic<a class="headerlink" href="#Load-into-grid-basic" title="Link to this heading"></a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -321,7 +323,7 @@ grid_time_1.test_attr.where(grid_time_1.test_attr!=grid_time_1.test_attr.rio.nod
 </div>
 </section>
 <section id="Load-into-UTM-grid-followed-by-interpolation-for-missing-values">
-<h3>Load into UTM grid followed by interpolation for missing values<a class="headerlink" href="#Load-into-UTM-grid-followed-by-interpolation-for-missing-values" title="Permalink to this heading"></a></h3>
+<h3>Load into UTM grid followed by interpolation for missing values<a class="headerlink" href="#Load-into-UTM-grid-followed-by-interpolation-for-missing-values" title="Link to this heading"></a></h3>
 <p>See docs for <a class="reference internal" href="../geocube.html#make-geocube"><span class="std std-ref">make_geocube</span></a></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
