@@ -3,6 +3,7 @@ History
 
 Latest
 -------
+- BUG: Update minimize dtype for int64 & int8 support (issue #139)
 
 0.4.2
 -------
