@@ -3,6 +3,7 @@ History
 
 Latest
 -------
+- DEP: Support Python 3.10+ (pull #156)
 - BUG: Update minimize dtype for int64 & int8 support (issue #139)
 - BUG: Support pandas IntegerArray (pull #158)
 
