@@ -1,7 +1,7 @@
 History
 =======
 
-Latest
+0.4.3
 -------
 - DEP: Support Python 3.10+ (pull #156)
 - BUG: Update minimize dtype for int64 & int8 support (issue #139)
