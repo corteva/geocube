@@ -1,7 +1,7 @@
 """
 This module contains tools for rasterizing vector data.
 """
-from typing import Optional
+from typing import Optional, Union
 
 import geopandas
 import numpy
@@ -65,7 +65,7 @@ def _minimize_dtype(dtype: numpy.dtype, fill: float) -> numpy.dtype:
 
 def rasterize_image(
     geometry_array: geopandas.GeoSeries,
-    data_values: NDArray,
+    data_values: Union[NDArray, pandas.arrays.IntegerArray],
     geobox: odc.geo.geobox.GeoBox,
     fill: float,
     merge_alg: MergeAlg = MergeAlg.replace,
@@ -80,7 +80,7 @@ def rasterize_image(
     -----------
     geometry_array: geopandas.GeoSeries
         A geometry array of points.
-    data_values: list
+    data_values: Union[NDArray, pandas.arrays.IntegerArray]
         Data values associated with the list of geojson shapes
     geobox: :obj:`odc.geo.geobox.GeoBox`
         Transform of the resulting image.
@@ -109,6 +109,12 @@ def rasterize_image(
     if not _is_numeric(data_values):
         # only numbers can be rasterized
         return None
+
+    if isinstance(data_values, pandas.arrays.IntegerArray):
+        data_values = data_values.to_numpy(
+            dtype=_minimize_dtype(data_values.dtype.numpy_dtype, fill),
+            na_value=fill,
+        )
 
     if filter_nan:
         data_values, geometry_array = _remove_missing_data(data_values, geometry_array)

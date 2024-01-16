@@ -4,6 +4,7 @@ History
 Latest
 -------
 - BUG: Update minimize dtype for int64 & int8 support (issue #139)
+- BUG: Support pandas IntegerArray (pull #158)
 
 0.4.2
 -------

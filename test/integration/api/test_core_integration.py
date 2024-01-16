@@ -3,6 +3,7 @@ import json
 from functools import partial
 
 import geopandas
+import numpy
 import pandas
 import pytest
 import xarray
@@ -857,3 +858,29 @@ def test_rasterize__like_1d():
     )
     assert geom_array.rio.transform() == like.rio.transform()
     assert geom_array.in_geom.shape == (2, 1)
+
+
+@pytest.mark.parametrize(
+    "dtype, expected_dtype",
+    [
+        ("Int32", "int32"),
+        ("Int64", "int64"),
+    ],
+)
+def test_make_geocube__pandas_integer_array(dtype, expected_dtype, tmpdir):
+    soil_data = geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")[
+        ["geometry", "sandtotal_r", "om_r"]
+    ]
+    soil_data["sandtotal_r"] = numpy.round(soil_data["sandtotal_r"] * 100).astype(dtype)
+    soil_data["sandtotal_r"].values[0] = pandas.NA
+
+    out_grid = make_geocube(
+        vector_data=soil_data,
+        output_crs=TEST_GARS_PROJ,
+        geom=json.dumps(mapping(TEST_GARS_POLY)),
+        resolution=[-10, 10],
+        fill=-1,
+    )
+    # test writing to netCDF
+    out_grid.to_netcdf(tmpdir.mkdir("make_geocube_soil") / "soil_grid_flat.nc")
+    assert out_grid.sandtotal_r.dtype.name == expected_dtype
