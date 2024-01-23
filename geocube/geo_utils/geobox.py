@@ -6,6 +6,7 @@ import os
 from collections.abc import Iterable
 from typing import Any, Optional, Union
 
+import fiona.errors
 import geopandas
 import rioxarray  # noqa: F401 pylint: disable=unused-import
 import shapely.geometry.base
@@ -46,7 +47,8 @@ def geobox_from_rio(xds: Union[xarray.Dataset, xarray.DataArray]) -> GeoBox:
 
 
 def load_vector_data(
-    vector_data: Union[str, os.PathLike, geopandas.GeoDataFrame]
+    vector_data: Union[str, os.PathLike, geopandas.GeoDataFrame],
+    measurements: Optional[list[str]] = None,
 ) -> geopandas.GeoDataFrame:
     """
     Parameters
@@ -54,6 +56,10 @@ def load_vector_data(
     vector_data: str, path-like object or :obj:`geopandas.GeoDataFrame`
         A file path to an OGR supported source or GeoDataFrame containing
         the vector data.
+    measurements: list[str], optional
+        Attributes name or list of names to be included. If a list is specified,
+        the measurements will be returned in the order requested.
+        By default all available measurements are included.
 
     Returns
     -------
@@ -63,17 +69,29 @@ def load_vector_data(
     logger = get_logger()
 
     if isinstance(vector_data, (str, os.PathLike)):
-        vector_data = geopandas.read_file(vector_data)
+        try:
+            vector_data = geopandas.read_file(vector_data, include_fields=measurements)
+        except fiona.errors.DriverError as error:
+            if "ignore_fields" not in str(error):
+                raise
+            vector_data = geopandas.read_file(vector_data)
+
     elif not isinstance(vector_data, geopandas.GeoDataFrame):
         vector_data = geopandas.GeoDataFrame(vector_data)
 
     if vector_data.empty:
         raise VectorDataError("Empty GeoDataFrame.")
-    if "geometry" not in vector_data.columns:
+
+    if measurements is not None:
+        vector_data = vector_data[measurements + [vector_data.geometry.name]]
+
+    try:
+        vector_data.geometry
+    except AttributeError as error:
         raise VectorDataError(
             "'geometry' column missing. Columns in file: "
             f"{vector_data.columns.values.tolist()}"
-        )
+        ) from error
 
     # make sure projection is set
     if not vector_data.crs:

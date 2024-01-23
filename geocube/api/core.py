@@ -101,10 +101,10 @@ def make_geocube(
         geobox_maker=geobox_maker,
         fill=fill,
         categorical_enums=categorical_enums,
-    ).make_geocube(
         measurements=measurements,
-        datetime_measurements=datetime_measurements,
         group_by=group_by,
+        datetime_measurements=datetime_measurements,
+    ).make_geocube(
         interpolate_na_method=interpolate_na_method,
         rasterize_function=rasterize_function,
     )
