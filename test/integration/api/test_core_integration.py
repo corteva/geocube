@@ -81,11 +81,45 @@ def test_make_geocube(input_geodata, tmpdir):
         xarray.testing.assert_allclose(out_grid, xdc)
 
 
-@pytest.mark.parametrize(
-    "input_geodata",
-    [geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")],
-)
-def test_make_geocube__categorical(input_geodata, tmpdir):
+def test_make_geocube__categorical(tmpdir):
+    input_geodata = geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")
+    input_geodata["soil_type"] = [
+        "sand",
+        "silt",
+        "clay",
+        "frank",
+        "silt",
+        "clay",
+        "sand",
+    ]
+    category_type = pandas.api.types.CategoricalDtype(
+        categories=["clay", "sand", "silt", "nodata"]
+    )
+    input_geodata["soil_type"] = input_geodata["soil_type"].astype(category_type)
+    out_grid = make_geocube(
+        vector_data=input_geodata,
+        output_crs=TEST_GARS_PROJ,
+        geom=json.dumps(mapping(TEST_GARS_POLY)),
+        resolution=(-10, 10),
+        fill=-9999.0,
+    )
+    assert out_grid.soil_type.dtype.name == "int8" if _INT8_SUPPORTED else "int16"
+    # test writing to netCDF
+    out_grid.to_netcdf(
+        tmpdir.mkdir("make_geocube_soil") / "soil_grid_flat_categorical.nc"
+    )
+
+    # test output data
+    with xarray.open_dataset(
+        TEST_COMPARE_DATA_DIR / "soil_grid_flat_categorical.nc",
+        mask_and_scale=False,
+        decode_coords="all",
+    ) as xdc:
+        xarray.testing.assert_allclose(out_grid, xdc)
+
+
+def test_make_geocube__categorical__enums(tmpdir):
+    input_geodata = geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")
     input_geodata["soil_type"] = [
         "sand",
         "silt",
@@ -117,6 +151,49 @@ def test_make_geocube__categorical(input_geodata, tmpdir):
         decode_coords="all",
     ) as xdc:
         xarray.testing.assert_allclose(out_grid, xdc)
+
+
+def test_make_geocube__categorical__ignore_missing_measurement(tmpdir):
+    input_geodata = geopandas.read_file(TEST_INPUT_DATA_DIR / "soil_data_flat.geojson")
+    input_geodata["soil_type"] = [
+        "sand",
+        "silt",
+        "clay",
+        "frank",
+        "silt",
+        "clay",
+        "sand",
+    ]
+    input_geodata["ignore_soil_type"] = input_geodata["soil_type"].copy()
+    category_type = pandas.api.types.CategoricalDtype(
+        categories=["sand", "silt", "clay", "nodata"]
+    )
+    input_geodata["ignore_soil_type"] = input_geodata["ignore_soil_type"].astype(
+        category_type
+    )
+    out_grid = make_geocube(
+        vector_data=input_geodata,
+        measurements=["soil_type"],
+        output_crs=TEST_GARS_PROJ,
+        geom=json.dumps(mapping(TEST_GARS_POLY)),
+        resolution=(-10, 10),
+        categorical_enums={"soil_type": ("sand", "silt", "clay")},
+        fill=-9999.0,
+    )
+    assert out_grid.soil_type.dtype.name == "int8" if _INT8_SUPPORTED else "int16"
+    assert list(out_grid.data_vars) == ["soil_type"]
+    # test writing to netCDF
+    out_grid.to_netcdf(
+        tmpdir.mkdir("make_geocube_soil") / "soil_grid_flat_categorical.nc"
+    )
+
+    # test output data
+    with xarray.open_dataset(
+        TEST_COMPARE_DATA_DIR / "soil_grid_flat_categorical.nc",
+        mask_and_scale=False,
+        decode_coords="all",
+    ) as xdc:
+        xarray.testing.assert_allclose(out_grid["soil_type"], xdc["soil_type"])
 
 
 @pytest.mark.parametrize(
