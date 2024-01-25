@@ -1,10 +1,10 @@
 History
 =======
 
-Latest
+0.5.0
 ------
 - BUG: Ignore categorical columns not in measurements (pull #161)
-
+- ENH: Read subset of measurements for efficiency (pull #161)
 
 0.4.3
 -------
