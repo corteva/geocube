@@ -1,6 +1,9 @@
 History
 =======
 
+Latest
+------
+
 0.5.0
 ------
 - BUG: Ignore categorical columns not in measurements (pull #161)
