@@ -43,3 +43,18 @@ def test_vectorize__missing_nodata():
     assert not gdf.geometry.isnull().any()
     assert not gdf.om_r.isnull().any()
     assert len(gdf.index) == 8
+
+
+def test_vectorize__no_name():
+    xds = xarray.open_dataset(
+        TEST_COMPARE_DATA_DIR / "soil_grid_flat.nc",
+        decode_coords="all",
+        mask_and_scale=False,
+        )
+
+    test_array = xarray.DataArray(xds.om_r.data)
+
+    with pytest.warns(UserWarning):
+        gdf = vectorize(test_array)
+
+    assert '_data' in gdf.columns

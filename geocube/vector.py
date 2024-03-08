@@ -8,6 +8,8 @@ import rioxarray  # noqa: F401 pylint: disable=unused-import
 import shapely.geometry
 import xarray
 
+import warnings
+
 
 def vectorize(data_array: xarray.DataArray) -> geopandas.GeoDataFrame:
     """
@@ -53,8 +55,15 @@ def vectorize(data_array: xarray.DataArray) -> geopandas.GeoDataFrame:
             mask=mask,
         )
     )
+
+    if data_array.name:
+        name = data_array.name
+    else:
+        warnings.warn(f"The array has no name. Column name defaults to _data")
+        name = "_data"
+
     return geopandas.GeoDataFrame(
         vectorized_data,
-        columns=[data_array.name, "geometry"],
+        columns=[name, "geometry"],
         crs=data_array.rio.crs,
     )
