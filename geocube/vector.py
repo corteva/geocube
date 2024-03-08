@@ -59,7 +59,7 @@ def vectorize(data_array: xarray.DataArray) -> geopandas.GeoDataFrame:
     if data_array.name:
         name = data_array.name
     else:
-        warnings.warn(f"The array has no name. Column name defaults to _data")
+        warnings.warn("The array has no name. Column name defaults to _data")
         name = "_data"
 
     return geopandas.GeoDataFrame(
