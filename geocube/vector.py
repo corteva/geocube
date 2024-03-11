@@ -1,14 +1,14 @@
 """
 Module for vector methods
 """
+import warnings
+
 import geopandas
 import numpy
 import rasterio.features
 import rioxarray  # noqa: F401 pylint: disable=unused-import
 import shapely.geometry
 import xarray
-
-import warnings
 
 
 def vectorize(data_array: xarray.DataArray) -> geopandas.GeoDataFrame:
