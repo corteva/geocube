@@ -50,11 +50,11 @@ def test_vectorize__no_name():
         TEST_COMPARE_DATA_DIR / "soil_grid_flat.nc",
         decode_coords="all",
         mask_and_scale=False,
-        )
+    )
 
     test_array = xarray.DataArray(xds.om_r.data)
 
     with pytest.warns(UserWarning):
         gdf = vectorize(test_array)
 
-    assert '_data' in gdf.columns
+    assert "_data" in gdf.columns
