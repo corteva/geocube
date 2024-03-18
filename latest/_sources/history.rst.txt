@@ -4,6 +4,11 @@ History
 Latest
 ------
 
+
+0.5.1
+------
+- Add default value in vectorize when dataarray has no name, and a warning (pull #166)
+
 0.5.0
 ------
 - BUG: Ignore categorical columns not in measurements (pull #161)
