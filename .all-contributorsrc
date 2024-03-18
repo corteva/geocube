@@ -129,6 +129,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "Imanflow",
+      "name": "Imanol",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17592238?v=4",
+      "profile": "https://github.com/Imanflow",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7
