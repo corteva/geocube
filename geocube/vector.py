@@ -1,6 +1,8 @@
 """
 Module for vector methods
 """
+import warnings
+
 import geopandas
 import numpy
 import rasterio.features
@@ -53,8 +55,15 @@ def vectorize(data_array: xarray.DataArray) -> geopandas.GeoDataFrame:
             mask=mask,
         )
     )
+
+    if data_array.name:
+        name = data_array.name
+    else:
+        warnings.warn("The array has no name. Column name defaults to _data")
+        name = "_data"
+
     return geopandas.GeoDataFrame(
         vectorized_data,
-        columns=[data_array.name, "geometry"],
+        columns=[name, "geometry"],
         crs=data_array.rio.crs,
     )
