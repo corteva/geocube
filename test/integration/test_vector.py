@@ -1,20 +1,27 @@
 import geopandas
 import pytest
 import xarray
+from numpy.testing import assert_almost_equal
 
 from geocube.vector import vectorize
 from test.conftest import TEST_COMPARE_DATA_DIR
 
 
+@pytest.mark.parametrize("invert_y", [True, False])
 @pytest.mark.parametrize("mask_and_scale", [True, False])
-def test_vectorize(mask_and_scale):
+def test_vectorize(mask_and_scale, invert_y):
     xds = xarray.open_dataset(
         TEST_COMPARE_DATA_DIR / "soil_grid_flat.nc",
         decode_coords="all",
         mask_and_scale=mask_and_scale,
     )
+    if invert_y:
+        # https://github.com/corteva/geocube/issues/165
+        xds.rio.write_transform(xds.rio.transform(), inplace=True)
+        xds = xds.sortby("y")
     gdf = vectorize(xds.om_r)
     assert isinstance(gdf, geopandas.GeoDataFrame)
+    assert_almost_equal(gdf.total_bounds, [700330, 4595210, 701750, 4597070])
     assert gdf.dtypes.astype(str).to_dict() == {
         "geometry": "geometry",
         "om_r": "float64",

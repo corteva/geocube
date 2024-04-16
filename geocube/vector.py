@@ -51,7 +51,7 @@ def vectorize(data_array: xarray.DataArray) -> geopandas.GeoDataFrame:
         (value, shapely.geometry.shape(polygon))
         for polygon, value in rasterio.features.shapes(
             data_array,
-            transform=data_array.rio.transform(),
+            transform=data_array.rio.transform(recalc=True),
             mask=mask,
         )
     )
