@@ -1,7 +1,7 @@
 History
 =======
 
-Latest
+0.5.2
 ------
 - BUG: Recalc transform when vectorizing (issue #165)
 
