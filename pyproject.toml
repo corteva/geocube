@@ -2,5 +2,65 @@
 # Minimum requirements for the build system to execute.
 requires = ["setuptools", "wheel"]
 
+[project]
+name = "geocube"
+version = "0.5.3.dev0"
+description = "Tool to convert geopandas vector data into rasterized xarray data."
+maintainers = [
+    {name = "geocube Contributors"},
+]
+keywords = [
+    "GDAL",
+    "rasterize",
+    "vector",
+]
+readme = "README.rst"
+license = {text = "BSD-3-Clause"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "appdirs",
+    "click>=6.0",
+    "geopandas>=0.7",
+    "odc_geo",
+    "rasterio>=1.3",
+    "rioxarray>=0.4",
+    "scipy",
+    "xarray>=0.17",
+    "pyproj>=2",
+    "numpy>=1.20",
+]
+
+[project.urls]
+homepage = "https://corteva.github.io/geocube/"
+documentation = "https://corteva.github.io/geocube/"
+repository = "https://github.com/corteva/geocube"
+changelog = "https://corteva.github.io/geocube/stable/history.html"
+
+[project.scripts]
+geocube = "geocube.cli.geocube:geocube"
+
+[tool.setuptools.packages.find]
+include = ["geocube", "geocube.*"]
+
+[options.package_data]
+geocube = [
+  "py.typed",
+]
+
 [tool.black]
-target_version = ['py310']
+target_version = ["py310"]
