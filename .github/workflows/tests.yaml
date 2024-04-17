@@ -46,7 +46,8 @@ jobs:
           conda config --set channel_priority strict
           conda create -n test python=${{ matrix.python-version }} odc-geo geopandas rasterio scipy rioxarray xarray netcdf4 pandoc
           source activate test
-          python -m pip install -e .[all]
+          python -m pip install -r requirements/dev.txt
+          python -m pip install -e .
 
       - name: Check and Log Environment
         shell: bash
