@@ -34,52 +34,53 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Setup Conda
-        uses: s-weigand/setup-conda@v1
+        uses: mamba-org/setup-micromamba@v1
         with:
-          python-version: ${{ matrix.python-version }}
-          conda-channels: conda-forge
+          init-shell: bash
+          environment-name: test
+          create-args: >-
+            python=${{ matrix.python-version }}
+            geopandas
+            netcdf4
+            odc-geo
+            pandoc
+            rasterio
+            rioxarray
+            scipy
+            xarray
 
       - name: Install Env
         shell: bash
         run: |
-          conda config --prepend channels conda-forge
-          conda config --set channel_priority strict
-          conda create -n test python=${{ matrix.python-version }} odc-geo geopandas rasterio scipy rioxarray xarray netcdf4 pandoc
-          source activate test
-          python -m pip install -r requirements/dev.txt
-          python -m pip install -e .
+          micromamba run -n test python -m pip install -r requirements/dev.txt
+          micromamba run -n test python -m pip install -e .
 
       - name: Check and Log Environment
         shell: bash
         run: |
-          source activate test
-          python -V
-          python -c "import geocube; geocube.show_versions();"
-          conda info
+          micromamba run -n test python -V
+          micromamba run -n test python -c "import geocube; geocube.show_versions();"
+          micromamba info
 
       - name: Pylint
         shell: bash
         run: |
-          source activate test
-          python -m pylint geocube
+          micromamba run -n test python -m pylint geocube
 
       - name: mypy
         shell: bash
         run: |
-          source activate test
-          python -m mypy geocube/
+          micromamba run -n test python -m mypy geocube/
 
       - name: Test
         shell: bash
         run: |
-          source activate test
-          pytest --cov-report term-missing --cov=geocube --cov-report xml
+          micromamba run -n test pytest --cov-report term-missing --cov=geocube --cov-report xml
 
       - name: Test Build docs
         shell: bash
         if: contains(matrix.os, 'ubuntu')
         run: |
-          source activate test
-          sphinx-build -b html docs/ docs/_build/
+          micromamba run -n test sphinx-build -b html docs/ docs/_build/
 
       - uses: codecov/codecov-action@v4
