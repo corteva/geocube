@@ -1,6 +1,10 @@
 History
 =======
 
+Latest
+------
+
+
 0.5.3
 ------
 - DEP: Pin geopandas<1 & numpy<2 (pull #175)
