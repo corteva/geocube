@@ -40,7 +40,8 @@ jobs:
           environment-name: test
           create-args: >-
             python=${{ matrix.python-version }}
-            geopandas
+            geopandas<1
+            numpy<2
             netcdf4
             odc-geo
             pandoc
