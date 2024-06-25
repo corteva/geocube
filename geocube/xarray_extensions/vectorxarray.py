@@ -68,9 +68,9 @@ class BaseVectorX:
         extra_coords = list(set(list(out_obj.coords)) - {"geometry"})
         if extra_coords:
             out_obj = out_obj.copy().reset_coords(extra_coords)
-        geodf = geopandas.GeoDataFrame(out_obj.to_dataframe().reset_index())
-        geodf.crs = self._obj.rio.crs
-        return geodf
+        return geopandas.GeoDataFrame(
+            out_obj.to_dataframe().reset_index(), crs=self._obj.rio.crs
+        )
 
     def to_netcdf(self, *args, **kwargs):
         """

@@ -34,12 +34,12 @@ def _get_gdal_info():
     proj_info: dict
         system GDAL information
     """
-    import fiona
+    import pyogrio
     import rasterio
 
     blob = [
-        ("fiona", importlib.metadata.version("fiona")),
-        ("GDAL[fiona]", fiona.__gdal_version__),
+        ("pyogrio", importlib.metadata.version("pyogrio")),
+        ("GDAL[pyogrio]", pyogrio.__gdal_version__),
         ("rasterio", importlib.metadata.version("rasterio")),
         ("GDAL[rasterio]", rasterio.__gdal_version__),
     ]

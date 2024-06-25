@@ -6,8 +6,8 @@ def test_get_gdal_info():
     gdal_info = _get_gdal_info()
     assert "rasterio" in gdal_info
     assert "GDAL[rasterio]" in gdal_info
-    assert "fiona" in gdal_info
-    assert "GDAL[fiona]" in gdal_info
+    assert "pyogrio" in gdal_info
+    assert "GDAL[pyogrio]" in gdal_info
 
 
 def test_get_sys_info():
