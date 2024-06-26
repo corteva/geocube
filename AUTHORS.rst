@@ -27,6 +27,7 @@ Thanks goes to these wonderful people (`emoji key <https://allcontributors.org/d
         <td align="center"><a href="https://sites.google.com/view/raybellwaves/home"><img src="https://avatars.githubusercontent.com/u/17162724?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ray Bell</b></sub></a><br /><a href="https://github.com/corteva/rioxarray/commits?author=raybellwaves" title="Documentation">📖</a></td>
         <td align="center"><a href="https://github.com/baloola"><img src="https://avatars.githubusercontent.com/u/28819736?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mussab Abdalla</b></sub></a><br /><a href="https://github.com/corteva/rioxarray/commits?author=baloola" title="Documentation">📖</a></td>
         <td align="center"><a href="https://github.com/Imanflow"><img src="https://avatars.githubusercontent.com/u/17592238?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Imanol</b></sub></a><br /><a href="https://github.com/corteva/rioxarray/commits?author=Imanflow" title="Code">💻</a> <a href="https://github.com/corteva/rioxarray/commits?author=Imanflow" title="Tests">⚠️</a></td>
+        <td align="center"><a href="https://github.com/RichardScottOZ"><img src="https://avatars.githubusercontent.com/u/72196131?v=4?s=100" width="100px;" alt=""/><br /><sub><b>RichardScottOZ</b></sub></a><br /><a href="https://github.com/corteva/rioxarray/commits?author=RichardScottOZ" title="Documentation">📖</a></td>
       </tr>
     </table>
 
