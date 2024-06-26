@@ -14,7 +14,7 @@ labels: installation-issues
  - rioxarray version you are attempting to install
  - rasterio version (`rio --version`)
  - rasterio GDAL version (`rio --gdal-version`)
- - pyogrio version (`fio --version`)
- - pyogrio GDAL version (`fio --gdal-version`)
+ - pyogrio version (`python -c "import pyogrio; print(pyogrio.__version__)"`)
+ - pyogrio GDAL version (`python -c "import pyogrio; print(pyogrio.__gdal_version__)"`)
  - Python version (`python -c "import sys; print(sys.version.replace('\n', ' '))"`)
  - Operation System Information (`python -c "import platform; print(platform.platform())"`)
