@@ -1,9 +1,9 @@
 History
 =======
 
-Latest
+0.6.0
 ------
-
+- DEP: Update to geopandas 1 (pull #176)
 
 0.5.3
 ------
