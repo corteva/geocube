@@ -8,7 +8,7 @@
     "\n",
     "This is useful in the case where you want to get statistics for a specific raster\n",
     "over a certain region. In this example, the vector data is a random region with\n",
-    "using SSURGO data."
+    "soil information using SSURGO data."
    ]
   },
   {
