@@ -8,13 +8,13 @@ labels: installation-issues
 
 #### Installation method/steps
  - Installation method (conda, pip, from source, etc...)
- - Please provide all commands/steps you used to install geocube and GDAL/rasterio/fiona.
+ - Please provide all commands/steps you used to install geocube and GDAL/rasterio/pyogrio.
 
 #### Environment Information
  - rioxarray version you are attempting to install
  - rasterio version (`rio --version`)
  - rasterio GDAL version (`rio --gdal-version`)
- - fiona version (`fio --version`)
- - fiona GDAL version (`fio --gdal-version`)
+ - pyogrio version (`fio --version`)
+ - pyogrio GDAL version (`fio --gdal-version`)
  - Python version (`python -c "import sys; print(sys.version.replace('\n', ' '))"`)
  - Operation System Information (`python -c "import platform; print(platform.platform())"`)

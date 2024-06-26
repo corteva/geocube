@@ -6,7 +6,6 @@ import os
 from collections.abc import Iterable
 from typing import Any, Optional, Union
 
-import fiona.errors
 import geopandas
 import rioxarray  # noqa: F401 pylint: disable=unused-import
 import shapely.geometry.base
@@ -69,12 +68,7 @@ def load_vector_data(
     logger = get_logger()
 
     if isinstance(vector_data, (str, os.PathLike)):
-        try:
-            vector_data = geopandas.read_file(vector_data, include_fields=measurements)
-        except fiona.errors.DriverError as error:
-            if "ignore_fields" not in str(error):
-                raise
-            vector_data = geopandas.read_file(vector_data)
+        vector_data = geopandas.read_file(vector_data, columns=measurements)
 
     elif not isinstance(vector_data, geopandas.GeoDataFrame):
         vector_data = geopandas.GeoDataFrame(vector_data)
@@ -95,7 +89,7 @@ def load_vector_data(
 
     # make sure projection is set
     if not vector_data.crs:
-        vector_data.crs = "EPSG:4326"
+        vector_data.set_crs("EPSG:4326")
         logger.warning(
             "Projection not defined in `vector_data`."
             " Setting to geographic (EPSG:4326)."

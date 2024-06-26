@@ -34,8 +34,8 @@ http://matthewrocklin.com/blog/work/2018/02/28/minimal-bug-reports
  - geocube version (`geocube --version`)
  - rasterio version (`rio --version`)
  - rasterio GDAL version (`rio --gdal-version`)
- - fiona version (`fio --version`)
- - fiona GDAL version (`fio --gdal-version`)
+ - pyogrio version (`python -c "import pyogrio; print(pyogrio.__version__)"`)
+ - pyogrio GDAL version (`python -c "import pyogrio; print(pyogrio.__gdal_version__)"`)
  - Python version (`python -c "import sys; print(sys.version.replace('\n', ' '))"`)
  - Operation System Information (`python -c "import platform; print(platform.platform())"`)
 
@@ -50,7 +50,7 @@ Environment (<code>conda list</code>):
 <details>
 
 ```
-$ conda list | grep -E "rasterio|xarray|gdal|fiona|scipy"
+$ conda list | grep -E "rasterio|xarray|gdal|pyogrio|scipy"
 
 ```
 </details>
