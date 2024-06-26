@@ -10,7 +10,7 @@ Getting Started
 and is powered by `GDAL <https://github.com/osgeo/gdal>`__ using:
 
 - `rasterio <https://github.com/mapbox/rasterio>`__
-- `fiona <https://github.com/toblerity/fiona>`__
+- `pyogrio <https://github.com/geopandas/pyogrio>`__
 - `odc-geo <https://github.com/opendatacube/odc-geo>`__
 
 
