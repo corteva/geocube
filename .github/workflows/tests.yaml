@@ -41,7 +41,7 @@ jobs:
           create-args: >-
             python=${{ matrix.python-version }}
             geopandas
-            numpy<2
+            numpy
             netcdf4
             odc-geo
             pandoc
