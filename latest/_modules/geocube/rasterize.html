@@ -121,7 +121,7 @@
     <span class="k">return</span> <span class="n">data_values</span><span class="p">,</span> <span class="n">geometry_array</span>
 
 
-<span class="k">def</span> <span class="nf">_minimize_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">fill</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_minimize_dtype</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">fill</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    If int64, convert to float64:</span>
 <span class="sd">    https://github.com/OSGeo/gdal/issues/3325</span>
@@ -145,6 +145,7 @@
 <div class="viewcode-block" id="rasterize_image">
 <a class="viewcode-back" href="../../geocube.html#geocube.rasterize.rasterize_image">[docs]</a>
 <span class="k">def</span> <span class="nf">rasterize_image</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span>
     <span class="n">geometry_array</span><span class="p">:</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">,</span>
     <span class="n">data_values</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">NDArray</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">arrays</span><span class="o">.</span><span class="n">IntegerArray</span><span class="p">],</span>
     <span class="n">geobox</span><span class="p">:</span> <span class="n">odc</span><span class="o">.</span><span class="n">geo</span><span class="o">.</span><span class="n">geobox</span><span class="o">.</span><span class="n">GeoBox</span><span class="p">,</span>
@@ -193,7 +194,7 @@
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data_values</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">arrays</span><span class="o">.</span><span class="n">IntegerArray</span><span class="p">):</span>
         <span class="n">data_values</span> <span class="o">=</span> <span class="n">data_values</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span>
-            <span class="n">dtype</span><span class="o">=</span><span class="n">_minimize_dtype</span><span class="p">(</span><span class="n">data_values</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">numpy_dtype</span><span class="p">,</span> <span class="n">fill</span><span class="p">),</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">_minimize_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">data_values</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">numpy_dtype</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">fill</span><span class="p">),</span>
             <span class="n">na_value</span><span class="o">=</span><span class="n">fill</span><span class="p">,</span>
         <span class="p">)</span>
 
@@ -207,7 +208,7 @@
         <span class="n">fill</span><span class="o">=</span><span class="n">fill</span><span class="p">,</span>
         <span class="n">all_touched</span><span class="o">=</span><span class="n">all_touched</span><span class="p">,</span>
         <span class="n">merge_alg</span><span class="o">=</span><span class="n">merge_alg</span><span class="p">,</span>
-        <span class="n">dtype</span><span class="o">=</span><span class="n">_minimize_dtype</span><span class="p">(</span><span class="n">data_values</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">fill</span><span class="p">),</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">_minimize_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">data_values</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">fill</span><span class="p">),</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">image</span></div>
 
@@ -216,6 +217,7 @@
 <div class="viewcode-block" id="rasterize_points_griddata">
 <a class="viewcode-back" href="../../geocube.html#geocube.rasterize.rasterize_points_griddata">[docs]</a>
 <span class="k">def</span> <span class="nf">rasterize_points_griddata</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span>
     <span class="n">geometry_array</span><span class="p">:</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">,</span>
     <span class="n">data_values</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">,</span>
     <span class="n">grid_coords</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">NDArray</span><span class="p">],</span>
@@ -276,6 +278,7 @@
 <div class="viewcode-block" id="rasterize_points_radial">
 <a class="viewcode-back" href="../../geocube.html#geocube.rasterize.rasterize_points_radial">[docs]</a>
 <span class="k">def</span> <span class="nf">rasterize_points_radial</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span>
     <span class="n">geometry_array</span><span class="p">:</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">,</span>
     <span class="n">data_values</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">,</span>
     <span class="n">grid_coords</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">NDArray</span><span class="p">],</span>
