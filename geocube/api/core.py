@@ -17,6 +17,7 @@ from geocube.vector_to_cube import VectorToCube
 
 def make_geocube(
     vector_data: Union[str, os.PathLike, geopandas.GeoDataFrame],
+    *,
     measurements: Optional[list[str]] = None,
     datetime_measurements: Optional[list[str]] = None,
     output_crs: Any = None,
@@ -94,7 +95,9 @@ def make_geocube(
         Requested data in a :obj:`xarray.Dataset`.
 
     """
-    geobox_maker = GeoBoxMaker(output_crs, resolution, align, geom, like)
+    geobox_maker = GeoBoxMaker(
+        output_crs=output_crs, resolution=resolution, align=align, geom=geom, like=like
+    )
 
     return VectorToCube(
         vector_data=vector_data,
