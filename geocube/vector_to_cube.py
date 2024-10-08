@@ -52,6 +52,7 @@ class VectorToCube:
 
     def __init__(
         self,
+        *,
         vector_data: Union[str, os.PathLike, geopandas.GeoDataFrame],
         geobox_maker: GeoBoxMaker,
         fill: float,
@@ -103,7 +104,9 @@ class VectorToCube:
         )
         self._geobox = geobox_maker.from_vector(self._vector_data)
         self._grid_coords = affine_to_coords(
-            self._geobox.affine, self._geobox.width, self._geobox.height
+            affine=self._geobox.affine,
+            width=self._geobox.width,
+            height=self._geobox.height,
         )
         if self._geobox.crs is not None:
             self._vector_data = self._vector_data.to_crs(self._geobox.crs)
@@ -159,6 +162,7 @@ class VectorToCube:
 
     def make_geocube(
         self,
+        *,
         interpolate_na_method: Optional[Literal["linear", "nearest", "cubic"]] = None,
         rasterize_function: Optional[Callable[..., Optional[NDArray]]] = None,
     ) -> xarray.Dataset:
@@ -193,7 +197,7 @@ class VectorToCube:
 
     @staticmethod
     def _get_attrs(
-        measurement_name: str, fill_value: float
+        *, measurement_name: str, fill_value: float
     ) -> dict[str, Union[str, float]]:
         """
         Get attributes for data array.
@@ -215,7 +219,7 @@ class VectorToCube:
             "_FillValue": fill_value,
         }
 
-    def _update_time_attrs(self, attrs: dict[str, Any], image_data: NDArray) -> None:
+    def _update_time_attrs(self, *, attrs: dict[str, Any], image_data: NDArray) -> None:
         """
         Update attributes and nodata values for time grid.
 
@@ -262,7 +266,7 @@ class VectorToCube:
                 )
             else:
                 grid_array = self._get_grid(
-                    self._vector_data[[measurement, "geometry"]],
+                    dataframe=self._vector_data[[measurement, "geometry"]],
                     measurement_name=measurement,
                 )
             if grid_array is not None:
@@ -291,6 +295,7 @@ class VectorToCube:
     def _get_grouped_grid(
         self,
         grouped_dataframe: geopandas.GeoDataFrame,
+        *,
         measurement_name: str,
     ) -> Optional[tuple]:
         """Retrieve the variable data to append to the ssurgo :obj:`xarray.Dataset`.
@@ -337,11 +342,13 @@ class VectorToCube:
 
             image_data.append(image)
 
-        attrs = self._get_attrs(measurement_name, fill_value)
+        attrs = self._get_attrs(
+            measurement_name=measurement_name, fill_value=fill_value
+        )
         image_data = numpy.array(image_data)
         # it was converted to numeric date value
         if df_group is not None and "datetime" in str(df_group[measurement_name].dtype):
-            self._update_time_attrs(attrs, image_data)
+            self._update_time_attrs(attrs=attrs, image_data=image_data)
 
         return (
             (self._group_by, "y", "x"),
@@ -351,7 +358,7 @@ class VectorToCube:
         )
 
     def _get_grid(
-        self, dataframe: geopandas.GeoDataFrame, measurement_name: str
+        self, dataframe: geopandas.GeoDataFrame, *, measurement_name: str
     ) -> Optional[tuple]:
         """Retrieve the variable data to append to the ssurgo :obj:`xarray.Dataset`
         from a regular :obj:`geopandas.GeoDataFrame`.
@@ -387,11 +394,13 @@ class VectorToCube:
             )
             return None
 
-        attrs = self._get_attrs(measurement_name, fill_value)
+        attrs = self._get_attrs(
+            measurement_name=measurement_name, fill_value=fill_value
+        )
 
         # it was converted to numeric date value
         if "datetime" in str(dataframe[measurement_name].dtype):
-            self._update_time_attrs(attrs, image_data)
+            self._update_time_attrs(attrs=attrs, image_data=image_data)
 
         return (
             ("y", "x"),

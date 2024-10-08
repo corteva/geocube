@@ -47,6 +47,7 @@ def geobox_from_rio(xds: Union[xarray.Dataset, xarray.DataArray]) -> GeoBox:
 
 def load_vector_data(
     vector_data: Union[str, os.PathLike, geopandas.GeoDataFrame],
+    *,
     measurements: Optional[list[str]] = None,
 ) -> geopandas.GeoDataFrame:
     """
@@ -105,6 +106,7 @@ class GeoBoxMaker:
 
     def __init__(
         self,
+        *,
         output_crs: Any,
         resolution: Optional[Union[float, Iterable[float]]],
         align: Optional[tuple[float, float]],

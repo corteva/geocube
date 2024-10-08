@@ -42,7 +42,7 @@ def _remove_missing_data(
     return data_values, geometry_array
 
 
-def _minimize_dtype(dtype: numpy.dtype, fill: float) -> numpy.dtype:
+def _minimize_dtype(*, dtype: numpy.dtype, fill: float) -> numpy.dtype:
     """
     If int64, convert to float64:
     https://github.com/OSGeo/gdal/issues/3325
@@ -64,6 +64,7 @@ def _minimize_dtype(dtype: numpy.dtype, fill: float) -> numpy.dtype:
 
 
 def rasterize_image(
+    *,
     geometry_array: geopandas.GeoSeries,
     data_values: Union[NDArray, pandas.arrays.IntegerArray],
     geobox: odc.geo.geobox.GeoBox,
@@ -112,7 +113,7 @@ def rasterize_image(
 
     if isinstance(data_values, pandas.arrays.IntegerArray):
         data_values = data_values.to_numpy(
-            dtype=_minimize_dtype(data_values.dtype.numpy_dtype, fill),
+            dtype=_minimize_dtype(dtype=data_values.dtype.numpy_dtype, fill=fill),
             na_value=fill,
         )
 
@@ -126,12 +127,13 @@ def rasterize_image(
         fill=fill,
         all_touched=all_touched,
         merge_alg=merge_alg,
-        dtype=_minimize_dtype(data_values.dtype, fill),
+        dtype=_minimize_dtype(dtype=data_values.dtype, fill=fill),
     )
     return image
 
 
 def rasterize_points_griddata(
+    *,
     geometry_array: geopandas.GeoSeries,
     data_values: NDArray,
     grid_coords: dict[str, NDArray],
@@ -189,6 +191,7 @@ def rasterize_points_griddata(
 
 
 def rasterize_points_radial(
+    *,
     geometry_array: geopandas.GeoSeries,
     data_values: NDArray,
     grid_coords: dict[str, NDArray],

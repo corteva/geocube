@@ -83,6 +83,7 @@ from geocube.api import core
 @click.argument("vector_data", type=click.Path(exists=True), required=True)
 @click.argument("output_file", required=True)
 def make_geocube(
+    *,
     output_file,
     vector_data,
     measurements,
