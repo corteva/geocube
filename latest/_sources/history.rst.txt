@@ -1,9 +1,10 @@
 History
 =======
 
-Latest
+0.7.0
 ------
-
+- DEP: remove numpy<2 pin (pull #179)
+- REF: Make kwargs required (pull #180)
 
 0.6.0
 ------
