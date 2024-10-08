@@ -29,6 +29,9 @@ Thanks goes to these wonderful people (`emoji key <https://allcontributors.org/d
         <td align="center"><a href="https://github.com/Imanflow"><img src="https://avatars.githubusercontent.com/u/17592238?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Imanol</b></sub></a><br /><a href="https://github.com/corteva/rioxarray/commits?author=Imanflow" title="Code">💻</a> <a href="https://github.com/corteva/rioxarray/commits?author=Imanflow" title="Tests">⚠️</a></td>
         <td align="center"><a href="https://github.com/RichardScottOZ"><img src="https://avatars.githubusercontent.com/u/72196131?v=4?s=100" width="100px;" alt=""/><br /><sub><b>RichardScottOZ</b></sub></a><br /><a href="https://github.com/corteva/rioxarray/commits?author=RichardScottOZ" title="Documentation">📖</a></td>
       </tr>
+      <tr>
+        <td align="center"><a href="https://weiji14.xyz/"><img src="https://avatars.githubusercontent.com/u/23487320?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Wei Ji</b></sub></a><br /><a href="#maintenance-weiji14" title="Maintenance">🚧</a></td>
+      </tr>
     </table>
 
     <!-- markdownlint-restore -->

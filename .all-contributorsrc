@@ -148,6 +148,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "weiji14",
+      "name": "Wei Ji",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23487320?v=4",
+      "profile": "https://weiji14.xyz/",
+      "contributions": [
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7
