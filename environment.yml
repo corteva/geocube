@@ -5,10 +5,13 @@
 name: geocube
 channels:
 - conda-forge
-- defaults
 dependencies:
 - python=3.10
 - geopandas
+- libgdal-netcdf
+- libgdal-hdf4
+- libgdal-hdf5
+- odc-geo
 - rasterio
 - scipy
 - rioxarray
