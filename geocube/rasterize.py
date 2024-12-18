@@ -23,7 +23,7 @@ def _is_numeric(data_values: NDArray) -> bool:
     """
     Check if array data type is numeric.
     """
-    return numpy.issubdtype(data_values.dtype.type, numpy.number)
+    return numpy.issubdtype(data_values.dtype.type, numpy.number)  # type: ignore[return-value]
 
 
 def _remove_missing_data(
