@@ -4,7 +4,7 @@ requires = ["setuptools", "wheel"]
 
 [project]
 name = "geocube"
-version = "0.7.1"
+version = "0.7.2.dev0"
 description = "Tool to convert geopandas vector data into rasterized xarray data."
 maintainers = [
     {name = "geocube Contributors"},
