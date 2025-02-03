@@ -1,7 +1,7 @@
 History
 =======
 
-Latest
+0.7.1
 ------
 - BUG: Add datacube 1.9+ geobox compatibility (#185)
 
