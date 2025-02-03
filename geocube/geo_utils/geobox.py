@@ -174,7 +174,12 @@ class GeoBoxMaker:
             ), "'like' and 'resolution' are not supported together"
             assert self.align is None, "'like' and 'align' are not supported together"
             try:
-                geobox = self.like.geobox
+                try:
+                    # datacube 1.9+
+                    geobox = self.like.odc.geobox
+                except AttributeError:
+                    # datacube <= 1.8
+                    geobox = self.like.geobox
             except (AttributeError, ValueError):
                 geobox = geobox_from_rio(self.like)
             return geobox
