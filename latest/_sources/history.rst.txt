@@ -3,6 +3,7 @@ History
 
 Latest
 ------
+- BUG: Add datacube 1.9+ geobox compatibility (#185)
 
 0.7.0
 ------
