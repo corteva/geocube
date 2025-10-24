@@ -1,6 +1,7 @@
 """
 GeoCube client core functionality
 """
+
 import os
 from collections.abc import Iterable
 from typing import Any, Callable, Literal, Optional, Union

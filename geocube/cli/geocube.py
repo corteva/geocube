@@ -1,6 +1,7 @@
 """
 Main CLI endpoint for GeoCube
 """
+
 import importlib.metadata
 
 import click

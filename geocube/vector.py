@@ -1,6 +1,7 @@
 """
 Module for vector methods
 """
+
 import warnings
 
 import geopandas
