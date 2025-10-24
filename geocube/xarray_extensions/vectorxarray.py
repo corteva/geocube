@@ -1,6 +1,7 @@
 """
 This module is an extension for xarray to provide support for vector datasets.
 """
+
 import geopandas
 import numpy
 import rioxarray  # noqa: F401 pylint: disable=unused-import

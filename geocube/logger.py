@@ -3,6 +3,7 @@ This contains methods for logging for GeoCube
 
 Credits: Adopted from quest python library
 """
+
 import logging
 import os
 
