@@ -1,6 +1,7 @@
 """
 This module contains tools for rasterizing vector data.
 """
+
 from typing import Optional, Union
 
 import geopandas

@@ -24,14 +24,14 @@ classifiers = [
     "Operating System :: OS Independent",
     "Topic :: Scientific/Engineering :: GIS",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python :: 3",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Typing :: Typed",
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 dependencies = [
     "appdirs",
     "click>=6.0",
@@ -40,9 +40,9 @@ dependencies = [
     "rasterio>=1.3",
     "rioxarray>=0.4",
     "scipy",
-    "xarray>=0.17",
+    "xarray>=2023.12.0",
     "pyproj>=2",
-    "numpy>=1.20",
+    "numpy>=2",
 ]
 
 [dependency-groups]
@@ -89,4 +89,4 @@ geocube = [
 ]
 
 [tool.black]
-target_version = ["py310"]
+target_version = ["py312"]
