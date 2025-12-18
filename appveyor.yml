@@ -23,8 +23,7 @@ install:
 #-------------------------------------------------------------------------------
 # Install geocube
 #-------------------------------------------------------------------------------
-  - python -m pip install -r requirements/test.txt
-  - python -m pip install .
+  - python -m pip install . --group test
 
 build: false
 
