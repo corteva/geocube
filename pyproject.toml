@@ -45,6 +45,32 @@ dependencies = [
     "numpy>=1.20",
 ]
 
+[dependency-groups]
+doc = [
+    "sphinx-click",
+    "nbsphinx",
+    "sphinx_rtd_theme",
+]
+test = [
+    "pytest>=3.6",
+    "pytest-cov",
+    "packaging",
+    "netcdf4",
+]
+type = [
+    "mypy",
+]
+lint = [
+    "pylint"
+]
+dev = [
+    "pre-commit",
+    {include-group = "doc"},
+    {include-group = "test"},
+    {include-group = "type"},
+    {include-group = "lint"}
+]
+
 [project.urls]
 homepage = "https://corteva.github.io/geocube/"
 documentation = "https://corteva.github.io/geocube/"

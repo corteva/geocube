@@ -57,8 +57,7 @@ jobs:
       - name: Install Env
         shell: bash
         run: |
-          micromamba run -n test python -m pip install -r requirements/dev.txt
-          micromamba run -n test python -m pip install -e .
+          micromamba run -n test python -m pip install -e . --group dev
 
       - name: Check and Log Environment
         shell: bash
@@ -127,8 +126,7 @@ jobs:
             git+https://github.com/pydata/xarray.git@main \
             git+https://github.com/opendatacube/odc-geo.git@develop \
             git+https://github.com/corteva/rioxarray.git@master;
-          micromamba run -n test python -m pip install -e .[all]
-          micromamba run -n test python -m pip install -r requirements/test.txt
+          micromamba run -n test python -m pip install -e . --group test
 
       - name: Check and Log Environment
         shell: bash
