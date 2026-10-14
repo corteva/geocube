@@ -125,8 +125,8 @@ from geocube.api.core import make_geocube
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gdf = geopandas.read_file(
-    &quot;../../test/test_data/input/time_vector_data.geojson&quot;,
-    crs=&quot;epsg:4326&quot;,
+    "../../test/test_data/input/time_vector_data.geojson",
+    crs="epsg:4326",
 )
 </pre></div>
 </div>
@@ -212,7 +212,7 @@ from geocube.api.core import make_geocube
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gdf.head().plot(column=&#39;test_attr&#39;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gdf.head().plot(column='test_attr')
 </pre></div>
 </div>
 </div>
@@ -244,10 +244,10 @@ from geocube.api.core import make_geocube
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>geo_grid = make_geocube(
     vector_data=gdf,
-    measurements=[&#39;test_attr&#39;, &quot;test_time_attr&quot;],
-    datetime_measurements=[&quot;test_time_attr&quot;],
+    measurements=['test_attr', "test_time_attr"],
+    datetime_measurements=["test_time_attr"],
     resolution=(-0.1, 0.00001),
-    group_by=&quot;test_time_attr&quot;,
+    group_by="test_time_attr",
 )
 </pre></div>
 </div>
@@ -326,11 +326,11 @@ grid_time_1.test_attr.where(grid_time_1.test_attr!=grid_time_1.test_attr.rio.nod
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>geo_grid_interp = make_geocube(
     vector_data=gdf,
-    measurements=[&#39;test_attr&#39;, &quot;test_time_attr&quot;],
-    datetime_measurements=[&quot;test_time_attr&quot;],
+    measurements=['test_attr', "test_time_attr"],
+    datetime_measurements=["test_time_attr"],
     resolution=(-0.1, 0.00001),
-    group_by=&quot;test_time_attr&quot;,
-    interpolate_na_method=&#39;nearest&#39;
+    group_by="test_time_attr",
+    interpolate_na_method='nearest'
 )
 </pre></div>
 </div>
@@ -413,7 +413,7 @@ Attributes:
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2019-2023, Corteva Agriscience™.</p>
+    <p>&#169; Copyright 2019-2026, Vylor™.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

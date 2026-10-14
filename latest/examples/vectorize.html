@@ -121,13 +121,13 @@ from geocube.vector import vectorize
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gdf = geopandas.read_file(geopandas.datasets.get_path(&#39;naturalearth_lowres&#39;))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gdf = geopandas.read_file(geopandas.datasets.get_path('naturalearth_lowres'))
 geo_grid = make_geocube(
     vector_data=gdf,
-    measurements=[&#39;pop_est&#39;],
+    measurements=['pop_est'],
     resolution=(-3.0, 3.0),
 )
-geo_grid[&quot;pop_est&quot;].plot()
+geo_grid["pop_est"].plot()
 </pre></div>
 </div>
 </div>
@@ -154,8 +154,8 @@ geo_grid[&quot;pop_est&quot;].plot()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>grid_gdf = vectorize(geo_grid.pop_est.astype(&quot;float32&quot;))
-grid_gdf.plot(column=&quot;pop_est&quot;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>grid_gdf = vectorize(geo_grid.pop_est.astype("float32"))
+grid_gdf.plot(column="pop_est")
 </pre></div>
 </div>
 </div>
@@ -189,7 +189,7 @@ grid_gdf.plot(column=&quot;pop_est&quot;)
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2019-2023, Corteva Agriscience™.</p>
+    <p>&#169; Copyright 2019-2026, Vylor™.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

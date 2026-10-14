@@ -5,7 +5,7 @@ Getting Started
 
 - `geopandas <https://github.com/geopandas/geopandas>`__
 - `xarray <https://github.com/pydata/xarray>`__
-- `rioxarray <https://github.com/corteva/rioxarray>`__
+- `rioxarray <https://github.com/vylor/rioxarray>`__
 
 and is powered by `GDAL <https://github.com/osgeo/gdal>`__ using:
 
@@ -35,7 +35,7 @@ directly in the `vector_data` argument. This enables you to `load in subsets of 
 or perform various operations before rasterization.
 
 Once finished, you can write to anything supported by `rasterio <https://github.com/mapbox/rasterio>`__
-using `rioxarray`'s `rio.to_raster() <https://corteva.github.io/rioxarray/stable/examples/convert_to_raster.html>`__ method.
+using `rioxarray`'s `rio.to_raster() <https://vylor.github.io/rioxarray/stable/examples/convert_to_raster.html>`__ method.
 You can also write to a netCDF file using `xarray`'s `to_netcdf() <http://xarray.pydata.org/en/stable/generated/xarray.Dataset.to_netcdf.html>`__.
 
 However, life is only this simple when your data is perfectly clean, geospatially unique, and numeric.

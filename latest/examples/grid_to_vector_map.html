@@ -123,7 +123,7 @@ from geocube.api.core import make_geocube
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ssurgo_data = geopandas.read_file(&quot;../../test/test_data/input/soil_data_group.geojson&quot;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ssurgo_data = geopandas.read_file("../../test/test_data/input/soil_data_group.geojson")
 </pre></div>
 </div>
 </div>
@@ -248,7 +248,7 @@ from geocube.api.core import make_geocube
 # best data types for this type of mapping. If your data is not integer,
 # then consider using a mapping of your data to an integer with something
 # like a categorical dtype.
-ssurgo_data[&quot;mukey&quot;] = ssurgo_data.mukey.astype(int)
+ssurgo_data["mukey"] = ssurgo_data.mukey.astype(int)
 </pre></div>
 </div>
 </div>
@@ -261,7 +261,7 @@ ssurgo_data[&quot;mukey&quot;] = ssurgo_data.mukey.astype(int)
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>out_grid = make_geocube(
     vector_data=ssurgo_data,
-    group_by=&#39;hzdept_r&#39;,
+    group_by='hzdept_r',
     resolution=(-0.0001, 0.0001)
 )
 out_grid
@@ -542,7 +542,7 @@ grid_median.to_dataframe()
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2019-2023, Corteva Agriscience™.</p>
+    <p>&#169; Copyright 2019-2026, Vylor™.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

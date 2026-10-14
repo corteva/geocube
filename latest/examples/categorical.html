@@ -126,7 +126,7 @@ from geocube.api.core import make_geocube
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ssurgo_data = geopandas.read_file(&quot;../../test/test_data/input/soil_data_group.geojson&quot;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ssurgo_data = geopandas.read_file("../../test/test_data/input/soil_data_group.geojson")
 </pre></div>
 </div>
 </div>
@@ -135,7 +135,7 @@ from geocube.api.core import make_geocube
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># original data
-ssurgo_data[ssurgo_data.hzdept_r==15].plot(column=&#39;sandtotal_r&#39;)
+ssurgo_data[ssurgo_data.hzdept_r==15].plot(column='sandtotal_r')
 </pre></div>
 </div>
 </div>
@@ -187,14 +187,14 @@ ssurgo_data.drclassdcd.drop_duplicates().values.tolist()
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># complete list of categories
 drclasses_complete = [
-    &#39;Poorly drained&#39;,
-    &#39;Somewhat poorly drained&#39;,
-    &#39;Excessively drained&#39;,
-    &#39;Subaqueous&#39;,
-    &#39;Well drained&#39;,
-    &#39;Somewhat excessively drained&#39;,
-    &#39;Very poorly drained&#39;,
-    &#39;Moderately well drained&#39;
+    'Poorly drained',
+    'Somewhat poorly drained',
+    'Excessively drained',
+    'Subaqueous',
+    'Well drained',
+    'Somewhat excessively drained',
+    'Very poorly drained',
+    'Moderately well drained'
 ]
 </pre></div>
 </div>
@@ -203,7 +203,7 @@ drclasses_complete = [
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>categorical_enums = {&#39;drclassdcd&#39;: drclasses_complete}
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>categorical_enums = {'drclassdcd': drclasses_complete}
 </pre></div>
 </div>
 </div>
@@ -217,8 +217,8 @@ drclasses_complete = [
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>out_grid = make_geocube(
     vector_data=ssurgo_data,
-    output_crs=&quot;epsg:32615&quot;,
-    group_by=&#39;hzdept_r&#39;,
+    output_crs="epsg:32615",
+    group_by='hzdept_r',
     resolution=(-100, 100),
     categorical_enums=categorical_enums
 )
@@ -314,8 +314,8 @@ drclassdcd_slice.where(drclassdcd_slice!=out_grid.drclassdcd.rio.nodata).plot()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>drclassdcd_string = out_grid[&#39;drclassdcd_categories&#39;][out_grid[&#39;drclassdcd&#39;].astype(int)]\
-    .drop(&#39;drclassdcd_categories&#39;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>drclassdcd_string = out_grid['drclassdcd_categories'][out_grid['drclassdcd'].astype(int)]\
+    .drop('drclassdcd_categories')
 </pre></div>
 </div>
 </div>
@@ -323,7 +323,7 @@ drclassdcd_slice.where(drclassdcd_slice!=out_grid.drclassdcd.rio.nodata).plot()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>out_grid[&#39;drclassdcd&#39;] = drclassdcd_string
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>out_grid['drclassdcd'] = drclassdcd_string
 out_grid
 </pre></div>
 </div>
@@ -354,7 +354,7 @@ Attributes:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pdf = out_grid.drop([&#39;spatial_ref&#39;, &#39;drclassdcd_categories&#39;]).to_dataframe()
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pdf = out_grid.drop(['spatial_ref', 'drclassdcd_categories']).to_dataframe()
 pdf.head()
 </pre></div>
 </div>
@@ -456,7 +456,7 @@ pdf.head()
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cat_dtype = pandas.api.types.CategoricalDtype(out_grid.drclassdcd_categories.values)
-pdf[&#39;drclassdcd&#39;] = pdf[&#39;drclassdcd&#39;].astype(cat_dtype)
+pdf['drclassdcd'] = pdf['drclassdcd'].astype(cat_dtype)
 </pre></div>
 </div>
 </div>
@@ -464,7 +464,7 @@ pdf[&#39;drclassdcd&#39;] = pdf[&#39;drclassdcd&#39;].astype(cat_dtype)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>training_df = pandas.get_dummies(pdf, columns=[&#39;drclassdcd&#39;])
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>training_df = pandas.get_dummies(pdf, columns=['drclassdcd'])
 training_df.head()
 </pre></div>
 </div>
@@ -652,7 +652,7 @@ Index([&#39;hzdepb_r&#39;, &#39;claytotal_r&#39;, &#39;sandtotal_r&#39;, &#39;si
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2019-2023, Corteva Agriscience™.</p>
+    <p>&#169; Copyright 2019-2026, Vylor™.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -85,7 +85,7 @@
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/geopandas/geopandas">geopandas</a></p></li>
 <li><p><a class="reference external" href="https://github.com/pydata/xarray">xarray</a></p></li>
-<li><p><a class="reference external" href="https://github.com/corteva/rioxarray">rioxarray</a></p></li>
+<li><p><a class="reference external" href="https://github.com/vylor/rioxarray">rioxarray</a></p></li>
 </ul>
 <p>and is powered by <a class="reference external" href="https://github.com/osgeo/gdal">GDAL</a> using:</p>
 <ul class="simple">
@@ -98,18 +98,18 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">geocube.api.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_geocube</span>
 
 <span class="n">out_grid</span> <span class="o">=</span> <span class="n">make_geocube</span><span class="p">(</span>
-    <span class="n">vector_data</span><span class="o">=</span><span class="s2">&quot;path_to_file.gpkg&quot;</span><span class="p">,</span>
-    <span class="n">measurements</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;column_name&quot;</span><span class="p">],</span>
+    <span class="n">vector_data</span><span class="o">=</span><span class="s2">"path_to_file.gpkg"</span><span class="p">,</span>
+    <span class="n">measurements</span><span class="o">=</span><span class="p">[</span><span class="s2">"column_name"</span><span class="p">],</span>
     <span class="n">resolution</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">),</span>
 <span class="p">)</span>
-<span class="n">out_grid</span><span class="p">[</span><span class="s2">&quot;column_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">to_raster</span><span class="p">(</span><span class="s2">&quot;my_rasterized_column.tif&quot;</span><span class="p">)</span>
+<span class="n">out_grid</span><span class="p">[</span><span class="s2">"column_name"</span><span class="p">]</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">to_raster</span><span class="p">(</span><span class="s2">"my_rasterized_column.tif"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You can also rasterize a <a class="reference external" href="https://geopandas.readthedocs.io/en/latest/docs/user_guide/data_structures.html#geodataframe">GeoDataFrame</a>
 directly in the <cite>vector_data</cite> argument. This enables you to <a class="reference external" href="https://geopandas.readthedocs.io/en/latest/docs/user_guide/io.html#reading-subsets-of-the-data">load in subsets of data</a>
 or perform various operations before rasterization.</p>
 <p>Once finished, you can write to anything supported by <a class="reference external" href="https://github.com/mapbox/rasterio">rasterio</a>
-using <cite>rioxarray</cite>’s <a class="reference external" href="https://corteva.github.io/rioxarray/stable/examples/convert_to_raster.html">rio.to_raster()</a> method.
+using <cite>rioxarray</cite>’s <a class="reference external" href="https://vylor.github.io/rioxarray/stable/examples/convert_to_raster.html">rio.to_raster()</a> method.
 You can also write to a netCDF file using <cite>xarray</cite>’s <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.to_netcdf.html">to_netcdf()</a>.</p>
 <p>However, life is only this simple when your data is perfectly clean, geospatially unique, and numeric.
 The good news is that geocube supports a variety of use cases and custom rasterization functions if your dataset
@@ -127,7 +127,7 @@ does not meet these criteria (see: <a class="reference internal" href="examples/
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2019-2023, Corteva Agriscience™.</p>
+    <p>&#169; Copyright 2019-2026, Vylor™.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

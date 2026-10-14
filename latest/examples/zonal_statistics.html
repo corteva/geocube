@@ -124,20 +124,20 @@ from geocube.api.core import make_geocube
 <h2>Create the data mask by rasterizing the unique ID of the vector data<a class="headerlink" href="#Create-the-data-mask-by-rasterizing-the-unique-ID-of-the-vector-data" title="Link to this heading"></a></h2>
 <p>See docs for <a class="reference internal" href="../geocube.html#make-geocube"><span class="std std-ref">make_geocube</span></a></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># This assumes you are running this example from a clone of
-# https://github.com/corteva/geocube/
+# https://github.com/vylor/geocube/
 # You could also use the full path:
-# https://raw.githubusercontent.com/corteva/geocube/master/test/test_data/input/soil_data_group.geojson
-ssurgo_data = geopandas.read_file(&quot;../../test/test_data/input/soil_data_group.geojson&quot;)
+# https://raw.githubusercontent.com/vylor/geocube/master/test/test_data/input/soil_data_group.geojson
+ssurgo_data = geopandas.read_file("../../test/test_data/input/soil_data_group.geojson")
 ssurgo_data = ssurgo_data.loc[ssurgo_data.hzdept_r==0]
 # convert the key to group to the vector data to an integer as that is one of the
 # best data types for this type of mapping. If your data is not integer,
 # then consider using a mapping of your data to an integer with something
 # like a categorical dtype.
-ssurgo_data[&quot;mukey&quot;] = ssurgo_data.mukey.astype(int)
+ssurgo_data["mukey"] = ssurgo_data.mukey.astype(int)
 </pre></div>
 </div>
 </div>
@@ -147,11 +147,11 @@ ssurgo_data[&quot;mukey&quot;] = ssurgo_data.mukey.astype(int)
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># load in source elevation data subset relevant for the vector data
 elevation = rioxarray.open_rasterio(
-    &quot;https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/13/TIFF/current/n42w091/USGS_13_n42w091.tif&quot;, masked=True
+    "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/13/TIFF/current/n42w091/USGS_13_n42w091.tif", masked=True
 ).rio.clip(
     ssurgo_data.geometry.values, ssurgo_data.crs, from_disk=True
-).sel(band=1).drop(&quot;band&quot;)
-elevation.name = &quot;elevation&quot;
+).sel(band=1).drop("band")
+elevation.name = "elevation"
 </pre></div>
 </div>
 </div>
@@ -161,7 +161,7 @@ elevation.name = &quot;elevation&quot;
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>out_grid = make_geocube(
     vector_data=ssurgo_data,
-    measurements=[&quot;mukey&quot;],
+    measurements=["mukey"],
     like=elevation, # ensure the data are on the same grid
 )
 </pre></div>
@@ -172,7 +172,7 @@ elevation.name = &quot;elevation&quot;
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># merge the two together
-out_grid[&quot;elevation&quot;] = (elevation.dims, elevation.values, elevation.attrs, elevation.encoding)
+out_grid["elevation"] = (elevation.dims, elevation.values, elevation.attrs, elevation.encoding)
 out_grid
 </pre></div>
 </div>
@@ -673,11 +673,11 @@ Data variables:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>grouped_elevation = out_grid.drop(&quot;spatial_ref&quot;).groupby(out_grid.mukey)
-grid_mean = grouped_elevation.mean().rename({&quot;elevation&quot;: &quot;elevation_mean&quot;})
-grid_min = grouped_elevation.min().rename({&quot;elevation&quot;: &quot;elevation_min&quot;})
-grid_max = grouped_elevation.max().rename({&quot;elevation&quot;: &quot;elevation_max&quot;})
-grid_std = grouped_elevation.std().rename({&quot;elevation&quot;: &quot;elevation_std&quot;})
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>grouped_elevation = out_grid.drop("spatial_ref").groupby(out_grid.mukey)
+grid_mean = grouped_elevation.mean().rename({"elevation": "elevation_mean"})
+grid_min = grouped_elevation.min().rename({"elevation": "elevation_min"})
+grid_max = grouped_elevation.max().rename({"elevation": "elevation_max"})
+grid_std = grouped_elevation.std().rename({"elevation": "elevation_std"})
 </pre></div>
 </div>
 </div>
@@ -784,7 +784,7 @@ zonal_stats
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ssurgo_data = ssurgo_data.merge(zonal_stats, on=&quot;mukey&quot;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ssurgo_data = ssurgo_data.merge(zonal_stats, on="mukey")
 </pre></div>
 </div>
 </div>
@@ -792,7 +792,7 @@ zonal_stats
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ssurgo_data.plot(column=&quot;elevation_mean&quot;, legend=True)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ssurgo_data.plot(column="elevation_mean", legend=True)
 </pre></div>
 </div>
 </div>
@@ -816,7 +816,7 @@ zonal_stats
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ssurgo_data.plot(column=&quot;elevation_max&quot;, legend=True)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ssurgo_data.plot(column="elevation_max", legend=True)
 </pre></div>
 </div>
 </div>
@@ -851,7 +851,7 @@ zonal_stats
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2019-2023, Corteva Agriscience™.</p>
+    <p>&#169; Copyright 2019-2026, Vylor™.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

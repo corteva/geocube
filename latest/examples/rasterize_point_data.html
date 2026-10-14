@@ -130,8 +130,8 @@ from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gdf = geopandas.read_file(
-    &quot;../../test/test_data/input/time_vector_data.geojson&quot;,
-    crs=&quot;epsg:4326&quot;
+    "../../test/test_data/input/time_vector_data.geojson",
+    crs="epsg:4326"
 )
 </pre></div>
 </div>
@@ -226,7 +226,7 @@ from geocube.rasterize import rasterize_points_griddata, rasterize_points_radial
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>geo_grid = make_geocube(
     vector_data=gdf,
-    measurements=[&#39;test_attr&#39;],
+    measurements=['test_attr'],
     resolution=(-0.1, 0.00001),
     rasterize_function=rasterize_points_griddata,
 )
@@ -291,9 +291,9 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>geo_grid = make_geocube(
     vector_data=gdf,
-    measurements=[&#39;test_attr&#39;],
+    measurements=['test_attr'],
     resolution=(-0.1, 0.00001),
-    rasterize_function=partial(rasterize_points_griddata, method=&quot;cubic&quot;),
+    rasterize_function=partial(rasterize_points_griddata, method="cubic"),
 )
 </pre></div>
 </div>
@@ -332,9 +332,9 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>geo_grid = make_geocube(
     vector_data=gdf,
-    measurements=[&#39;test_attr&#39;],
+    measurements=['test_attr'],
     geom=json.dumps(mapping(box(-48, 44, -47, 45))),
-    output_crs=&quot;epsg:3857&quot;,
+    output_crs="epsg:3857",
     resolution=(-300, 300),
     rasterize_function=rasterize_points_radial,
 )
@@ -376,11 +376,11 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>geo_grid = make_geocube(
     vector_data=gdf,
-    measurements=[&#39;test_attr&#39;],
+    measurements=['test_attr'],
     geom=json.dumps(mapping(box(-48, 44, -47, 45))),
-    output_crs=&quot;epsg:3857&quot;,
+    output_crs="epsg:3857",
     resolution=(-300, 300),
-    rasterize_function=partial(rasterize_points_radial, method=&quot;cubic&quot;, filter_nan=True),
+    rasterize_function=partial(rasterize_points_radial, method="cubic", filter_nan=True),
 )
 </pre></div>
 </div>
@@ -433,7 +433,7 @@ geo_grid.test_attr.where(geo_grid.test_attr!=geo_grid.test_attr.rio.nodata).plot
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2019-2023, Corteva Agriscience™.</p>
+    <p>&#169; Copyright 2019-2026, Vylor™.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

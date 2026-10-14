@@ -77,9 +77,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for geocube.api.core</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">GeoCube client core functionality</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span>
@@ -111,11 +111,11 @@
     <span class="n">like</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">xarray</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">xarray</span><span class="o">.</span><span class="n">DataArray</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">fill</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
     <span class="n">group_by</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">interpolate_na_method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="s2">&quot;nearest&quot;</span><span class="p">,</span> <span class="s2">&quot;cubic&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">interpolate_na_method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">"linear"</span><span class="p">,</span> <span class="s2">"nearest"</span><span class="p">,</span> <span class="s2">"cubic"</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">categorical_enums</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">rasterize_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xarray</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Rasterize vector data into an ``xarray`` object.  Each attribute will be a data</span>
 <span class="sd">    variable in the :class:`xarray.Dataset`.</span>
 
@@ -130,7 +130,7 @@
 <span class="sd">        By default all available attributes are included.</span>
 <span class="sd">    datetime_measurements: list(str), optional</span>
 <span class="sd">        Attributes that are temporal in nature and should be converted to the datetime</span>
-<span class="sd">        format. These are only included if listed in &#39;measurements&#39;.</span>
+<span class="sd">        format. These are only included if listed in 'measurements'.</span>
 <span class="sd">    output_crs: Any, optional</span>
 <span class="sd">        The CRS of the returned data. Can be anything accepted by :obj:`pyproj.CRS`.</span>
 <span class="sd">        If no CRS is supplied, the CRS of the stored data is used.</span>
@@ -139,7 +139,7 @@
 <span class="sd">        This includes the direction (as indicated by a positive or negative number).</span>
 <span class="sd">        Typically when using most CRSs, the first number would be negative.</span>
 <span class="sd">    align: tuple[float, float], optional</span>
-<span class="sd">        Load data such that point &#39;align&#39; lies on the pixel boundary.</span>
+<span class="sd">        Load data such that point 'align' lies on the pixel boundary.</span>
 <span class="sd">        Units are in the co-ordinate space of the output CRS.</span>
 <span class="sd">        Default is (0,0)</span>
 <span class="sd">    geom: Union[str, dict, shapely.geometry.base.BaseGeometry, odc.geo.geom.Geometry], optional</span>
@@ -147,26 +147,26 @@
 <span class="sd">        grid. It defaults to EPSG:4326 if a CRS is not provided.</span>
 <span class="sd">        Example of adding CRS::</span>
 
-<span class="sd">            {&quot;type&quot;: &quot;Polygon&quot;, &quot;crs&quot;: {&quot;properties&quot;: {&quot;name&quot;: &quot;EPSG:3857&quot;}}}</span>
+<span class="sd">            {"type": "Polygon", "crs": {"properties": {"name": "EPSG:3857"}}}</span>
 
 <span class="sd">    like: :obj:`xarray.Dataset`, optional</span>
 <span class="sd">        Uses the output of a previous ``load()`` to form the basis of a request</span>
 <span class="sd">        for another product.</span>
 <span class="sd">        E.g.::</span>
 
-<span class="sd">            gcds = make_geocube(vector_data=&#39;my_vector.geopackage&#39;, like=other_gcds)</span>
+<span class="sd">            gcds = make_geocube(vector_data='my_vector.geopackage', like=other_gcds)</span>
 
 <span class="sd">    fill: float, optional</span>
 <span class="sd">        The value to fill in the grid with for nodata. Default is NaN.</span>
 <span class="sd">    group_by: str, optional</span>
 <span class="sd">        When specified, perform basic combining/reducing of the data on this column.</span>
-<span class="sd">    interpolate_na_method:  {&#39;linear&#39;, &#39;nearest&#39;, &#39;cubic&#39;}, optional</span>
+<span class="sd">    interpolate_na_method:  {'linear', 'nearest', 'cubic'}, optional</span>
 <span class="sd">        This is the method for interpolation to use to fill in the nodata with</span>
 <span class="sd">        :meth:`scipy.interpolate.griddata`.</span>
 <span class="sd">    categorical_enums: dict, optional</span>
 <span class="sd">        A dictionary of all categories for the table columns containing categorical</span>
 <span class="sd">        data. The categories will be made unique and sorted if they are not already.</span>
-<span class="sd">        E.g. {&#39;column_name&#39;: [&#39;a&#39;, &#39;b&#39;], &#39;other_column&#39;: [&#39;c&#39;, &#39;d&#39;]}</span>
+<span class="sd">        E.g. {'column_name': ['a', 'b'], 'other_column': ['c', 'd']}</span>
 <span class="sd">    rasterize_function: function, optional</span>
 <span class="sd">        Function to rasterize geometries. Other options are available in</span>
 <span class="sd">        `geocube.rasterize`. Default is :func:`geocube.rasterize.rasterize_image`.</span>
@@ -176,7 +176,7 @@
 <span class="sd">    :obj:`xarray.Dataset`:</span>
 <span class="sd">        Requested data in a :obj:`xarray.Dataset`.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">geobox_maker</span> <span class="o">=</span> <span class="n">GeoBoxMaker</span><span class="p">(</span>
         <span class="n">output_crs</span><span class="o">=</span><span class="n">output_crs</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="n">align</span><span class="p">,</span> <span class="n">geom</span><span class="o">=</span><span class="n">geom</span><span class="p">,</span> <span class="n">like</span><span class="o">=</span><span class="n">like</span>
     <span class="p">)</span>
@@ -203,7 +203,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2019-2023, Corteva Agriscience™.</p>
+    <p>&#169; Copyright 2019-2026, Vylor™.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
