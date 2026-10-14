@@ -16,7 +16,7 @@ def test_vectorize(mask_and_scale, invert_y):
         mask_and_scale=mask_and_scale,
     )
     if invert_y:
-        # https://github.com/corteva/geocube/issues/165
+        # https://github.com/vylor/geocube/issues/165
         xds.rio.write_transform(xds.rio.transform(), inplace=True)
         xds = xds.sortby("y")
     gdf = vectorize(xds.om_r)

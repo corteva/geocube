@@ -26,8 +26,8 @@ def vectorize(data_array: xarray.DataArray) -> geopandas.GeoDataFrame:
 
     Helpful references:
 
-    - https://corteva.github.io/rioxarray/stable/getting_started/crs_management.html
-    - https://corteva.github.io/rioxarray/stable/getting_started/nodata_management.html
+    - https://vylor.github.io/rioxarray/stable/getting_started/crs_management.html
+    - https://vylor.github.io/rioxarray/stable/getting_started/nodata_management.html
 
 
     Parameters

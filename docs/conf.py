@@ -66,7 +66,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "geocube"
-copyright = "2019-2023, Corteva Agriscience™"
+copyright = "2019-2026, Vylor™"
 author = "Geocube Contributors"
 
 # The version info for the project you're documenting, acts as replacement

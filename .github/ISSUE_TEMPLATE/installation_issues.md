@@ -1,6 +1,6 @@
 ---
 name: Installation issues
-about: Issues installing geocube (https://corteva.github.io/geocube/stable/installation.html)
+about: Issues installing geocube (https://vylor.github.io/geocube/stable/installation.html)
 labels: installation-issues
 ---
 

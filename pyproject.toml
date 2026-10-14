@@ -70,10 +70,10 @@ dev = [
 ]
 
 [project.urls]
-homepage = "https://corteva.github.io/geocube/"
-documentation = "https://corteva.github.io/geocube/"
-repository = "https://github.com/corteva/geocube"
-changelog = "https://corteva.github.io/geocube/stable/history.html"
+homepage = "https://vylor.github.io/geocube/"
+documentation = "https://vylor.github.io/geocube/"
+repository = "https://github.com/vylor/geocube"
+changelog = "https://vylor.github.io/geocube/stable/history.html"
 
 [project.scripts]
 geocube = "geocube.cli.geocube:geocube"

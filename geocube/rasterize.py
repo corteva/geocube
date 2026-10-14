@@ -33,7 +33,7 @@ def _remove_missing_data(
 ) -> tuple[NDArray, geopandas.GeoSeries]:
     """
     Missing data causes issues with interpolation of point data
-    https://github.com/corteva/geocube/issues/9
+    https://github.com/vylor/geocube/issues/9
 
     This filters the data so those issues don't cause problems.
     """

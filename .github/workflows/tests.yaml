@@ -125,7 +125,7 @@ jobs:
             git+https://github.com/geopandas/geopandas.git@main \
             git+https://github.com/pydata/xarray.git@main \
             git+https://github.com/opendatacube/odc-geo.git@develop \
-            git+https://github.com/corteva/rioxarray.git@master;
+            git+https://github.com/vylor/rioxarray.git@master;
           micromamba run -n test python -m pip install -e . --group test
 
       - name: Check and Log Environment
