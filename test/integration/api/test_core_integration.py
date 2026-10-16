@@ -16,7 +16,6 @@ from shapely.wkt import loads
 from geocube.api.core import make_geocube
 from geocube.exceptions import VectorDataError
 from geocube.rasterize import (
-    _INT8_SUPPORTED,
     rasterize_image,
     rasterize_points_griddata,
     rasterize_points_radial,
@@ -103,7 +102,7 @@ def test_make_geocube__categorical(tmpdir):
         resolution=(-10, 10),
         fill=-9999.0,
     )
-    assert out_grid.soil_type.dtype.name == "int8" if _INT8_SUPPORTED else "int16"
+    assert out_grid.soil_type.dtype.name == "int8"
     # test writing to netCDF
     out_grid.to_netcdf(
         tmpdir.mkdir("make_geocube_soil") / "soil_grid_flat_categorical.nc"
@@ -137,7 +136,7 @@ def test_make_geocube__categorical__enums(tmpdir):
         categorical_enums={"soil_type": ("sand", "silt", "clay")},
         fill=-9999.0,
     )
-    assert out_grid.soil_type.dtype.name == "int8" if _INT8_SUPPORTED else "int16"
+    assert out_grid.soil_type.dtype.name == "int8"
 
     # test writing to netCDF
     out_grid.to_netcdf(
@@ -180,7 +179,7 @@ def test_make_geocube__categorical__ignore_missing_measurement(tmpdir):
         categorical_enums={"soil_type": ("sand", "silt", "clay")},
         fill=-9999.0,
     )
-    assert out_grid.soil_type.dtype.name == "int8" if _INT8_SUPPORTED else "int16"
+    assert out_grid.soil_type.dtype.name == "int8"
     assert list(out_grid.data_vars) == ["soil_type"]
     # test writing to netCDF
     out_grid.to_netcdf(
@@ -530,7 +529,7 @@ def test_make_geocube__group_by__categorical(input_geodata, tmpdir):
         fill=-9999.0,
     )
 
-    assert out_grid.soil_type.dtype.name == "int8" if _INT8_SUPPORTED else "int16"
+    assert out_grid.soil_type.dtype.name == "int8"
     # test writing to netCDF
     out_grid.to_netcdf(
         tmpdir.mkdir("make_geocube_soil") / "soil_grid_group_categorical.nc"

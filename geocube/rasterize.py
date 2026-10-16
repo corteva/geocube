@@ -11,13 +11,8 @@ import pandas
 import rasterio
 import rasterio.features
 from numpy.typing import NDArray
-from packaging import version
 from rasterio.enums import MergeAlg
 from scipy.interpolate import Rbf, griddata
-
-_INT8_SUPPORTED = version.parse(rasterio.__gdal_version__) >= version.parse(
-    "3.7.0"
-) and version.parse(rasterio.__version__) >= version.parse("1.3.7")
 
 
 def _is_numeric(data_values: NDArray) -> bool:
@@ -51,9 +46,6 @@ def _minimize_dtype(*, dtype: numpy.dtype, fill: float) -> numpy.dtype:
     Attempt to convert to float32 if fill is NaN and dtype is integer.
     """
     if numpy.issubdtype(dtype, numpy.integer):
-        if not _INT8_SUPPORTED and dtype.name == "int8":
-            # GDAL<3.7/rasterio<1.3.7 doesn't support int8
-            dtype = numpy.dtype("int16")
         if numpy.isnan(fill):
             dtype = (
                 numpy.dtype("float64") if dtype.itemsize > 2 else numpy.dtype("float32")  # type: ignore
