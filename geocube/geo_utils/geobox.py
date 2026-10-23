@@ -58,7 +58,7 @@ def load_vector_data(
         A file path to an OGR supported source or GeoDataFrame containing
         the vector data.
     measurements: list[str], optional
-        Attributes name or list of names to be included. If a list is specified,
+        Attribute name or list of names to be included. If a list is specified,
         the measurements will be returned in the order requested.
         By default all available measurements are included.
 
