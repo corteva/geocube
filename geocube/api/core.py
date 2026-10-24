@@ -44,7 +44,7 @@ def make_geocube(
         A file path to an OGR supported source or GeoDataFrame containing
         the vector data.
     measurements: list(str), optional
-        Attributes name or list of names to be included. If a list is specified,
+        Attribute name or list of names to be included. If a list is specified,
         the attributes will be returned in the order requested.
         By default all available attributes are included.
     datetime_measurements: list(str), optional

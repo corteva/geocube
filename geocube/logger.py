@@ -76,7 +76,7 @@ def log_to_file(status=True, filename=None, level=None):
     Parameters
     ----------
     status: bool, optional, default=True
-        Whether logging to console should be turned on(True) or off(False)
+        Whether logging to file should be turned on(True) or off(False)
     filename: string, optional, default=None
         path of file to log to
     level: string, optional, default=None
